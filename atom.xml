@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://senitco.github.io/"/>
   <updated>2017-03-02T08:19:37.778Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://senitco.github.io/</id>
   
   <author>
     <name>Senit_Co</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2017/03/02/hello-world/"/>
-    <id>http://yoursite.com/2017/03/02/hello-world/</id>
+    <link href="https://senitco.github.io/2017/03/02/hello-world/"/>
+    <id>https://senitco.github.io/2017/03/02/hello-world/</id>
     <published>2017-03-02T08:19:37.778Z</published>
     <updated>2017-03-02T08:19:37.778Z</updated>
     
