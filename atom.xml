@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Senit_Co</title>
-  
+  <subtitle>What the fuck!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-03-02T08:19:37.778Z</updated>
+  <updated>2017-03-03T07:11:30.795Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -16,11 +16,33 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
+    <title>Image Analysis and Understand</title>
+    <link href="https://senitco.github.io/2017/03/03/image_analysis_understand/"/>
+    <id>https://senitco.github.io/2017/03/03/image_analysis_understand/</id>
+    <published>2017-03-03T06:45:21.196Z</published>
+    <updated>2017-03-03T07:11:30.795Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Participants"><a href="#Participants" class="headerlink" title="Participants"></a>Participants</h2><h3 id="沈钊-王硕-孙保杰-周乘"><a href="#沈钊-王硕-孙保杰-周乘" class="headerlink" title="沈钊 王硕 孙保杰 周乘"></a>沈钊 王硕 孙保杰 周乘</h3><h2 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h2><h3 id="Chinese-Text-Detection-and-Recognition"><a href="#Chinese-Text-Detection-and-Recognition" class="headerlink" title="Chinese Text Detection and Recognition"></a>Chinese Text Detection and Recognition</h3><h2 id="Deadline"><a href="#Deadline" class="headerlink" title="Deadline"></a>Deadline</h2><h3 id="April-11-Tuesday-2017"><a href="#April-11-Tuesday-2017" class="headerlink" title="April 11, Tuesday, 2017"></a>April 11, Tuesday, 2017</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Participants&quot;&gt;&lt;a href=&quot;#Participants&quot; class=&quot;headerlink&quot; title=&quot;Participants&quot;&gt;&lt;/a&gt;Participants&lt;/h2&gt;&lt;h3 id=&quot;沈钊-王硕-孙保杰-周乘&quot;&gt;&lt;a href=&quot;#沈
+    
+    </summary>
+    
+      <category term="Projects" scheme="https://senitco.github.io/categories/Projects/"/>
+    
+    
+      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World FUCK!!!</title>
     <link href="https://senitco.github.io/2017/03/02/hello-world/"/>
     <id>https://senitco.github.io/2017/03/02/hello-world/</id>
     <published>2017-03-02T08:19:37.778Z</published>
-    <updated>2017-03-02T08:19:37.778Z</updated>
+    <updated>2017-03-03T07:37:07.493Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
