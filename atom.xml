@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Senit_Co</title>
   
-  <link href="/project/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="https://senitco.github.io/project/"/>
+  <link href="https://senitco.github.io/"/>
   <updated>2017-03-03T07:11:30.795Z</updated>
-  <id>https://senitco.github.io/project/</id>
+  <id>https://senitco.github.io/</id>
   
   <author>
     <name>Senit_Co</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Image Analysis and Understand</title>
-    <link href="https://senitco.github.io/project/2017/03/03/project/image-analysis-understand/"/>
-    <id>https://senitco.github.io/project/2017/03/03/project/image-analysis-understand/</id>
+    <link href="https://senitco.github.io/2017/03/03/project/image-analysis-understand/"/>
+    <id>https://senitco.github.io/2017/03/03/project/image-analysis-understand/</id>
     <published>2017-03-03T06:45:21.196Z</published>
     <updated>2017-03-03T07:11:30.795Z</updated>
     
@@ -30,17 +30,17 @@
     
     </summary>
     
-      <category term="Projects" scheme="https://senitco.github.io/project/categories/Projects/"/>
+      <category term="Projects" scheme="https://senitco.github.io/categories/Projects/"/>
     
     
-      <category term="Image" scheme="https://senitco.github.io/project/tags/Image/"/>
+      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://senitco.github.io/project/2017/03/02/hello-world/"/>
-    <id>https://senitco.github.io/project/2017/03/02/hello-world/</id>
+    <link href="https://senitco.github.io/2017/03/02/hello-world/"/>
+    <id>https://senitco.github.io/2017/03/02/hello-world/</id>
     <published>2017-03-02T08:19:37.778Z</published>
     <updated>2017-03-03T12:09:50.569Z</updated>
     
