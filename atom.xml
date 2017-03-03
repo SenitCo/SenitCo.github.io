@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Senit_Co</title>
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="/project/atom.xml" rel="self"/>
   
-  <link href="https://senitco.github.io/"/>
+  <link href="https://senitco.github.io/project/"/>
   <updated>2017-03-03T07:11:30.795Z</updated>
-  <id>https://senitco.github.io/</id>
+  <id>https://senitco.github.io/project/</id>
   
   <author>
     <name>Senit_Co</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Image Analysis and Understand</title>
-    <link href="https://senitco.github.io/2017/03/03/project/image-analysis-understand/"/>
-    <id>https://senitco.github.io/2017/03/03/project/image-analysis-understand/</id>
+    <link href="https://senitco.github.io/project/2017/03/03/project/image-analysis-understand/"/>
+    <id>https://senitco.github.io/project/2017/03/03/project/image-analysis-understand/</id>
     <published>2017-03-03T06:45:21.196Z</published>
     <updated>2017-03-03T07:11:30.795Z</updated>
     
@@ -30,19 +30,19 @@
     
     </summary>
     
-      <category term="Projects" scheme="https://senitco.github.io/categories/Projects/"/>
+      <category term="Projects" scheme="https://senitco.github.io/project/categories/Projects/"/>
     
     
-      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
+      <category term="Image" scheme="https://senitco.github.io/project/tags/Image/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://senitco.github.io/2017/03/02/hello-world/"/>
-    <id>https://senitco.github.io/2017/03/02/hello-world/</id>
+    <link href="https://senitco.github.io/project/2017/03/02/hello-world/"/>
+    <id>https://senitco.github.io/project/2017/03/02/hello-world/</id>
     <published>2017-03-02T08:19:37.778Z</published>
-    <updated>2017-03-03T07:39:08.924Z</updated>
+    <updated>2017-03-03T12:09:50.569Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
