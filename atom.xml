@@ -40,13 +40,14 @@
     <link href="https://senitco.github.io/2017/05/10/data-dimensionality-reduction/"/>
     <id>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</id>
     <published>2017-05-10T13:17:14.930Z</published>
-    <updated>2017-05-10T13:27:13.852Z</updated>
+    <updated>2017-05-10T14:20:24.590Z</updated>
     
     <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 <p>&emsp;&emsp;数据降维是通过某种数学变换将原始高维属性空间，转变为一个低维子空间，对数据进行降维，可以有效地去除样本中冗余的属性，减少数据容量，缓解维数灾难，加快学习速度。数据降维的常用方法有主成分分析(PCA)、多维缩放(MDS)、线性判别分析(LDA)、等度量映射(Isomap)、局部线性嵌入(LLE)、t分布随机邻域嵌入(t-SNE)、Laplacian Eigenmaps等。</p>
 <h3 id="1-主成分分析-PCA"><a href="#1-主成分分析-PCA" class="headerlink" title="1. 主成分分析(PCA)"></a>1. 主成分分析(PCA)</h3><p>&emsp;&emsp;主成分分析是一种线性降维方法，将高维空间映射到低维空间，并使得所有样本在低维空间的投影点尽可能分开，也就是低维子空间对样本具有最大可分性，为了实现这种最大可分性，应该使投影后样本的方差最大化。<br></p>
+<p>对于一个维数为D的高维空间，样本点x_i=(x_1,x_2,…,x_D)通过与矩阵W相乘映射到低维空间（维数为d，d&lt;D）中的某个点z_i=W^T x_i=(z_1,z_2,…,z_d)，矩阵W的大小是D*d。令数据样本集的大小为N，PCA的目标是要让低维子空间中z_i尽可能地分开，因此投影后样本的方差要尽可能的大。假定数据样本进行了中心化，数据每一维的均值为0，即∑_i▒x_i =0，乘上矩阵W^T得到的降维后的数据每一维均值也为0，考虑高维空间中原始样本数据集的协方差矩阵C=1/N XX^T，协方差矩阵中对角线上的值为某一维的方差，非对角线上的值为两维之间的协方差。降维后低维子空间中相应的协方差矩阵为B=1/N ZZ^T，如果希望降维后的点具有最大的可分性，那么协方差矩阵B对角线上的值也就是每一维的方差应该尽可能的大，同时为了让不同的属性能够更多地表示原始信息，而不包含冗余的信息，可以使不同属性之间正交，这种情况下矩阵B非对角线上的值即不同维之间的协方差为0。因此降维后的每一维既有足够的区分性，又能代表不同的信息。对于矩阵B，可进一步推导出B=1/N ZZ^T=1/N W^T X〖(W^T X)〗^T=W^T (1/N XX^T )W=W^T CW，这个式子表明，线性变换矩阵W实现数据降维的过程是将高维空间中的协方差矩阵C对角化，因此可通过求协方差矩阵C的特征值以及对应的特征向量来确定投影变换矩阵W。PCA的算法流程如下所述：</p>
 <p>$$\sum_{i=1}^n a_i=0$$</p>
 <p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
 <p>$$\sum^{j-1}<em>{k=0}{\widehat{\gamma}</em>{kj} z_k}$$</p>
