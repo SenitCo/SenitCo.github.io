@@ -36,6 +36,39 @@
   </entry>
   
   <entry>
+    <title>机器学习算法之数据降维</title>
+    <link href="https://senitco.github.io/2017/05/10/data-dimensionality-reduction/"/>
+    <id>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</id>
+    <published>2017-05-10T13:17:14.930Z</published>
+    <updated>2017-05-10T13:27:13.852Z</updated>
+    
+    <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<p>&emsp;&emsp;数据降维是通过某种数学变换将原始高维属性空间，转变为一个低维子空间，对数据进行降维，可以有效地去除样本中冗余的属性，减少数据容量，缓解维数灾难，加快学习速度。数据降维的常用方法有主成分分析(PCA)、多维缩放(MDS)、线性判别分析(LDA)、等度量映射(Isomap)、局部线性嵌入(LLE)、t分布随机邻域嵌入(t-SNE)、Laplacian Eigenmaps等。</p>
+<h3 id="1-主成分分析-PCA"><a href="#1-主成分分析-PCA" class="headerlink" title="1. 主成分分析(PCA)"></a>1. 主成分分析(PCA)</h3><p>&emsp;&emsp;主成分分析是一种线性降维方法，将高维空间映射到低维空间，并使得所有样本在低维空间的投影点尽可能分开，也就是低维子空间对样本具有最大可分性，为了实现这种最大可分性，应该使投影后样本的方差最大化。<br></p>
+<p>$$\sum_{i=1}^n a_i=0$$</p>
+<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<p>$$\sum^{j-1}<em>{k=0}{\widehat{\gamma}</em>{kj} z_k}$$</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot;&gt;
+&lt;/script&gt;
+
+&lt;p&gt;&amp;emsp;&amp;ems
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="ML" scheme="https://senitco.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Image Analysis and Understand</title>
     <link href="https://senitco.github.io/2017/03/03/image-analysis-understand/"/>
     <id>https://senitco.github.io/2017/03/03/image-analysis-understand/</id>
