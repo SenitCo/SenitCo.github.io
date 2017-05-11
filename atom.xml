@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-05-11T11:40:07.557Z</updated>
+  <updated>2017-05-11T11:42:53.492Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/05/10/data-dimensionality-reduction/"/>
     <id>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</id>
     <published>2017-05-10T13:17:14.930Z</published>
-    <updated>2017-05-11T11:40:07.557Z</updated>
+    <updated>2017-05-11T11:42:53.492Z</updated>
     
     <content type="html"><![CDATA[<!-- mathjax config similar to math.stackexchange -->
 <script type="text/x-mathjax-config">
@@ -93,7 +93,7 @@ MathJax.Hub.Config({
 <li>取$d$个最小的非零特征值对应的特征向量；  </li>
 <li><strong>输出</strong>：样本集在低维空间的投影$Z=(z_1,z_2,…,z_m)$。</li>
 </ul>
-<h3 id="t分布随机邻域嵌入-t-SNE"><a href="#t分布随机邻域嵌入-t-SNE" class="headerlink" title="t分布随机邻域嵌入(t-SNE)"></a>t分布随机邻域嵌入(t-SNE)</h3><p>&emsp;&emsp;t-SNE是一种非线性降维方法，非常适用于高维数据降到二维或者三维空间，进行可视化。其基本原理是在高维空间中构建一个样本之间的概率分布，使得相似的样本有更高的概率被选择，而不相似的样本被选择的概率较低；然后在低维空间中构建这些样本点的概率分布，使得这两个概率分布尽可能的相似，并利用KL散度(Kullback–Leibler divergence)来度量两个分布之间的相似性。<br>&emsp;&emsp;给定一个高维空间的数据样本集${x_1,x_2,…,x_N },x_i∈R^D$，$N$为样本集的大小。假设高维空间中的任意两个样本点，$x_j$的取值服从以$x_i$为中心、$σ_i$为方差的高斯分布，同样$x_i$也服从以$x_j$为中心、$σ_j$为方差的高斯分布，这样样本点$x_j$与$x_i$相似的条件概率为<br>$$p_{j|i}=\dfrac{-exp(\left|x_i-x_j\right|^2 / 2\sigma^2)}{\Sigma_{k\neq i} exp(\left|x_i-x_k\right|^2 / 2\sigma^2)}$$<br>即$x_j$在$x_i$高斯分布下的概率占全部样本在$x_i$高斯分布下概率的多少。定义两个点相似度在全部样本两两相似度的联合概率<br>$$p_{ij}=(p_{j|i}+p_{i|j})/2N$$<br>t-SNE的目标是学习一个高维到低维的映射${y_1,y_2,…,y_N },y_i∈R^d$，在低维空间中，两个点相似度也利用联合概率来表示，假设低维空间中两点间的欧氏距离服从学生分布，两个点$y_i$和$y_j$的相似度可定义为<br>$$q_{ij}=\dfrac{(1+\left|y_i-y_j\right|^2)^{-1}}{\Sigma_{k\neq i} (1+\left|y_k-y_l\right|^2)^{-1}}$$<br>如果在高维空间中样本点之间的相似度$p<em>{ij}$和在低维空间中样本点之间的相似度$q\</em>{ij}$相同，就说明低维空间的点能正确反映高维空间中的相对位置关系。t-SNE的目标就是要找到一组降维表示能够最小化$p_{ij}$和$q_{ij}$的差值，因此采用KL散度来构建目标函数<br>$$C=\Sigma_i KL(P_i||Q_i)=\Sigma_i \Sigma_j p_{j|i}log{\dfrac{p_{j|i}}{q_{j|i}}}$$<br>KL散度能够衡量两个概率分布的差别，通过梯度下降法来求输入数据对应的低维表达$y_i$。即用目标函数对$y_i$求导，梯度值为<br>$$\dfrac{dC}{dy_i}=4\Sigma_j(p_{ij}-q_{ij})(y_i-y_j)(1+\left|y_i-y_j\right|^2)^{-1}$$<br>然后更新迭代$y_i$，算法流程大致如下：  </p>
+<h3 id="t分布随机邻域嵌入-t-SNE"><a href="#t分布随机邻域嵌入-t-SNE" class="headerlink" title="t分布随机邻域嵌入(t-SNE)"></a>t分布随机邻域嵌入(t-SNE)</h3><p>&emsp;&emsp;t-SNE是一种非线性降维方法，非常适用于高维数据降到二维或者三维空间，进行可视化。其基本原理是在高维空间中构建一个样本之间的概率分布，使得相似的样本有更高的概率被选择，而不相似的样本被选择的概率较低；然后在低维空间中构建这些样本点的概率分布，使得这两个概率分布尽可能的相似，并利用KL散度(Kullback–Leibler divergence)来度量两个分布之间的相似性。<br>&emsp;&emsp;给定一个高维空间的数据样本集${x_1,x_2,…,x_N },x_i∈R^D$，$N$为样本集的大小。假设高维空间中的任意两个样本点，$x_j$的取值服从以$x_i$为中心、$σ_i$为方差的高斯分布，同样$x_i$也服从以$x_j$为中心、$σ_j$为方差的高斯分布，这样样本点$x_j$与$x_i$相似的条件概率为<br>$$p_{j|i}=\dfrac{-exp(\left|x_i-x_j\right|^2 / 2\sigma^2)}{\Sigma_{k\neq i} exp(\left|x_i-x_k\right|^2 / 2\sigma^2)}$$<br>即$x_j$在$x_i$高斯分布下的概率占全部样本在$x_i$高斯分布下概率的多少。定义两个点相似度在全部样本两两相似度的联合概率<br>$$p_{ij}=(p_{j|i}+p_{i|j})/2N$$<br>t-SNE的目标是学习一个高维到低维的映射${y_1,y_2,…,y_N },y_i∈R^d$，在低维空间中，两个点相似度也利用联合概率来表示，假设低维空间中两点间的欧氏距离服从学生分布，两个点$y_i$和$y_j$的相似度可定义为<br>$$q_{ij}=\dfrac{(1+\left|y_i-y_j\right|^2)^{-1}}{\Sigma_{k\neq i} (1+\left|y_k-y_l\right|^2)^{-1}}$$<br>如果在高维空间中样本点之间的相似度$p_{ij}$和在低维空间中样本点之间的相似度$q_{ij}$相同，就说明低维空间的点能正确反映高维空间中的相对位置关系。t-SNE的目标就是要找到一组降维表示能够最小化$p_{ij}$和$q_{ij}$的差值，因此采用KL散度来构建目标函数<br>$$C=\Sigma_i KL(P_i||Q_i)=\Sigma_i \Sigma_j p_{j|i}log{\dfrac{p_{j|i}}{q_{j|i}}}$$<br>KL散度能够衡量两个概率分布的差别，通过梯度下降法来求输入数据对应的低维表达$y_i$。即用目标函数对$y_i$求导，梯度值为<br>$$\dfrac{dC}{dy_i}=4\Sigma_j(p_{ij}-q_{ij})(y_i-y_j)(1+\left|y_i-y_j\right|^2)^{-1}$$<br>然后更新迭代$y_i$，算法流程大致如下：  </p>
 <ul>
 <li><strong>输入</strong>：数据样本集${x_1,x_2,…,x_N},x_i∈R^D$，代价函数的参数$Perp$，迭代次数$T$，学习率$η$，$momentum$项系数$α(t)$</li>
 <li><strong>过程</strong>：  </li>
