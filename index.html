@@ -342,16 +342,7 @@ MathJax.Hub.Config({
 <li>取最大的$d$个特征值对应的特征向量$w_1,w_2,…,w_d$；  </li>
 <li><strong>输出</strong>：投影矩阵$W=(w_1,w_2,…,w_d)$，$w_i$为$D$维列向量。  </li>
 </ul>
-<h3 id="多维缩放-MDS"><a href="#多维缩放-MDS" class="headerlink" title="多维缩放(MDS)"></a>多维缩放(MDS)</h3><p>&emsp;&emsp;多维缩放要求原始高维空间中数据样本之间的距离在低维空间中保持不变，即在降维的过程中保留原始数据的差异性。<br>&emsp;&emsp;假定$N$个样本在$D$维原始空间的距离矩阵为$A\in R^{N×N}$，其第$i$行第$j$列的元素$a_{ij}$为样本$x_i$到$x_j$的距离。多维缩放的目标是获得数据样本在$d$维空间的表示$Z\in R^{d×N}$,$d≤D$，且任意两个样本在低维空间的欧氏距离等于原始空间中的距离，即$\left|z_i-z<em>j \right|=a</em>{ij}$。令$B=Z^T Z\in R^{N×N}$,其中$B$为降维后样本的內积矩阵，$b_{ij}=z_i^T z<em>j$，根据样本在原始空间和低维空间的距离相等有<br>$$a</em>{ij}^2=‖z_i-z_j ‖^2=‖z_i ‖^2+‖z_j ‖^2-2z_i^T z<em>j=b</em>{ii}+b<em>{jj}-2b</em>{ij}$$<br>&emsp;&emsp;令降维后的数据样本$Z$中心化，数据每一维的均值为$0$，即$\Sigma_i z<em>i = 0$。显然，內积矩阵$B$的行与列之和均为$0$，即$\Sigma</em>{i=1}^N b<em>{ij} = \Sigma</em>{j=1}^N b<em>{ij} = 0$，则有以下式子成立：<br>$$\Sigma</em>{i=1}^N a<em>{ij}^2 =tr(B)+Nb</em>{jj}$$<br>$$\Sigma<em>{j=1}^N a</em>{ij}^2 =tr(B)+Nb<em>{ii}$$<br>$$\Sigma</em>{i=1}^N \Sigma<em>{j=1}a</em>{ij}^2 =2Ntr(B)$$<br>其中 $tr(B)=\Sigma_{i=1}^N ‖z<em>i‖^2$ 为矩阵$B$的迹，令<br>$$a</em>{i\cdot}^2=\dfrac{1}{N} \Sigma<em>{j=1}^N a</em>{ij}^2$$<br>$$a<em>{\cdot j}^2=\dfrac{1}{N} \Sigma</em>{i=1}^N a<em>{ij}^2$$<br>$$a</em>{\cdot \cdot}^2=\dfrac{1}{N^2} \Sigma<em>{i=1}^N \Sigma</em>{j=1}^N a<em>{ij}^2$$<br>由以上各式可得<br>$$b</em>{ij}=-\dfrac{1}{2} (a<em>{ij}^2-a</em>{i \cdot}^2-a<em>{\cdot j}^2+a</em>{\cdot \cdot}^2)$$<br>由此即可通过降维前后保持不变的距离矩阵$A$求取內积矩阵$B$。对矩阵$B$做特征值分解，$B=VΛV^T$，其中$Λ=diag(λ_1,λ_2,…,λ_d)$为特征值构成的对角矩阵，$λ_1≥λ_2≥\ldots≥λ_d$，$V$为特征向量矩阵，则$Z$可表达为<br>$$Z=Λ^{1/2} V^T∈R^{d×N}$$<br>为了实现有效降维，往往仅需降维后的距离与原始空间中距离尽可能接近，而不必严格相等，因此可取$d(d&lt;&lt;D)$个最大特征值构成对角矩阵。MDS的算法流程如下所述：  </p>
-<ul>
-<li><strong>输入</strong>：距离矩阵$A∈R^{N×N}$，其元素$a_{ij}$为样本$x_i$到$x_j$的距离，原始空间维数为$D$，低维空间维数为$d$；</li>
-<li><strong>过程</strong>：</li>
-<li>计算內积矩阵$B$；</li>
-<li>对矩阵$B$做特征值分解；</li>
-<li>取$d$个最大的特征值构成的对角矩阵$Λ$和对应的特征向量矩阵$V$；</li>
-<li><strong>输出</strong>：矩阵$Z=Λ^{1/2} V^T∈R^{d×N}$，每列为一个样本的低维坐标。  </li>
-</ul>
-<h3 id="线性判别分析-LDA"><a href="#线性判别分析-LDA" class="headerlink" title="线性判别分析(LDA)"></a>线性判别分析(LDA)</h3>
+
           
         
       
