@@ -245,6 +245,140 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/14/VS2013-compile-openssl/" itemprop="url">
+                  VS2013编译配置openssl
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-14T11:21:35+08:00" content="2017-05-14">
+              2017-05-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Compile-Installation/" itemprop="url" rel="index">
+                    <span itemprop="name">Compile & Installation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/14/VS2013-compile-openssl/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/14/VS2013-compile-openssl/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org/，并解压到指定目录，例如" target="_blank" rel="external">http://www.openssl.org/，并解压到指定目录，例如</a> D:\openssl</p>
+<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePer" target="_blank" rel="external">http://www.activestate.com/ActivePer</a></p>
+<p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
+<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>&emsp;&emsp;Visual Studio 2013, 32-bit: Open CMD.EXE and run<br>    root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat<br>&emsp;&emsp;Visual Studio 2013, 64-bit: Open CMD.EXE and run<br>    root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</p>
+<ol>
+<li><p>进入openssl源代码目录路径<br> cd D:\openssl</p>
+</li>
+<li><p>依次执行以下命令<br> ‘’’<br> perl Configure VC-WIN32 <no-asm> –perfix=D:\openssl\openssl_lib //<no-asm>为可选参数，忽略汇编处理<br> nmake<br> nmake test<br> nmake install<br> ‘’’</no-asm></no-asm></p>
+</li>
+<li><p>编译成功后，会在openssl_lib目录下生成3个文件目录</p>
+<p>  bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
+<p>  lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
+<p>  include\openssl: 加密解密函数的相关头文件</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/10/data-dimensionality-reduction/" itemprop="url">
                   机器学习算法之数据降维
                 </a>
@@ -727,7 +861,7 @@ MathJax.Hub.Config({
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -735,7 +869,7 @@ MathJax.Hub.Config({
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -744,7 +878,7 @@ MathJax.Hub.Config({
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
