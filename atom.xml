@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-05-14T03:43:15.221Z</updated>
+  <updated>2017-05-14T03:46:18.802Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/"/>
     <id>https://senitco.github.io/2017/05/14/VS2013-compile-openssl/</id>
     <published>2017-05-14T03:21:35.970Z</published>
-    <updated>2017-05-14T03:43:15.221Z</updated>
+    <updated>2017-05-14T03:46:18.802Z</updated>
     
     <content type="html"><![CDATA[<h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
 <p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
@@ -39,9 +39,8 @@
 <p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
 <p>头文件：链接附加包含目录至 include 目录</p>
 <p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
-<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
-<p>reference</p>
-<ul>
+<p>*注：openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
 <li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
 </ul>
