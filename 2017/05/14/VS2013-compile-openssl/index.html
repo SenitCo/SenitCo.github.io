@@ -86,25 +86,25 @@
 
 
 
-<meta name="description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org/，并解压到指定目录，例如 D:\openssl
-2.下载并安装Perl  http://www.activestate.com/ActivePer
+<meta name="description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org ，并解压到指定目录，例如 D:\openssl
+2.下载并安装Perl  http://www.activestate.com/ActivePerl
 3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib
-4.打开VS2013控制台命令提示(root">
+4.打开VS2013控制台命令提示(roo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VS2013编译配置openssl">
 <meta property="og:url" content="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org/，并解压到指定目录，例如 D:\openssl
-2.下载并安装Perl  http://www.activestate.com/ActivePer
+<meta property="og:description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org ，并解压到指定目录，例如 D:\openssl
+2.下载并安装Perl  http://www.activestate.com/ActivePerl
 3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib
-4.打开VS2013控制台命令提示(root">
-<meta property="og:updated_time" content="2017-05-14T03:36:07.134Z">
+4.打开VS2013控制台命令提示(roo">
+<meta property="og:updated_time" content="2017-05-14T03:43:15.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VS2013编译配置openssl">
-<meta name="twitter:description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org/，并解压到指定目录，例如 D:\openssl
-2.下载并安装Perl  http://www.activestate.com/ActivePer
+<meta name="twitter:description" content="VS2013编译openssl1.1.0e1.下载OpenSSL http://www.openssl.org ，并解压到指定目录，例如 D:\openssl
+2.下载并安装Perl  http://www.activestate.com/ActivePerl
 3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib
-4.打开VS2013控制台命令提示(root">
+4.打开VS2013控制台命令提示(roo">
 
 
 
@@ -323,25 +323,29 @@
       
 
       
-        <h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org/，并解压到指定目录，例如" target="_blank" rel="external">http://www.openssl.org/，并解压到指定目录，例如</a> D:\openssl</p>
-<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePer" target="_blank" rel="external">http://www.activestate.com/ActivePer</a></p>
+        <h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
+<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
 <p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>&emsp;&emsp;Visual Studio 2013, 32-bit: Open CMD.EXE and run<br>‘’’<br>root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat<br>‘’’<br>&emsp;&emsp;Visual Studio 2013, 64-bit: Open CMD.EXE and run<br>‘’’<br>root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat<br>‘’’</p>
-<ol>
-<li><p>进入openssl源代码目录路径<br>‘’’<br>cd D:\openssl<br>‘’’</p>
-</li>
-<li><p>依次执行以下命令<br>‘’’<br>perl Configure VC-WIN32 <no-asm> –perfix=D:\openssl\openssl_lib //<no-asm>为可选参数，忽略汇编处理</no-asm></no-asm></p>
-</li>
-</ol>
-<p>nmake</p>
-<p>nmake test</p>
-<p>nmake install<br>‘’’</p>
-<ol>
-<li>编译成功后，会在openssl_lib目录下生成3个文件目录</li>
-</ol>
-<p>&emsp;&emsp;bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>&emsp;&emsp;lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>&emsp;&emsp;include\openssl: 加密解密函数的相关头文件</p>
+<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>Visual Studio 2013, 32-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat</div></pre></td></tr></table></figure></p>
+<p>Visual Studio 2013, 64-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</div></pre></td></tr></table></figure></p>
+<p>5.进入openssl源代码目录路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd D:\openssl</div></pre></td></tr></table></figure></p>
+<p>6.依次执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">perl Configure VC-WIN32 &lt;no-asm&gt; --perfix=D:\openssl\openssl_lib //&lt;no-asm&gt;为可选参数，忽略汇编处理</div><div class="line"></div><div class="line">nmake</div><div class="line"></div><div class="line">nmake test</div><div class="line"></div><div class="line">nmake install</div></pre></td></tr></table></figure></p>
+<p>7.编译成功后，会在openssl_lib目录下生成3个文件目录</p>
+<p>bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
+<p>lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
+<p>include\openssl: 相关头文件</p>
+<h3 id="VS2013中使用openssl"><a href="#VS2013中使用openssl" class="headerlink" title="VS2013中使用openssl"></a>VS2013中使用openssl</h3><p>1.新建VS工程，将openssl库文件(.lib、.dll)和头文件拷至工程的相应目录中</p>
+<p>2.配置路径</p>
+<p>静态库: 链接附加库目录至libssl.lib、libcrypto.lib库目录，并在附加依赖项下添加.lib文件</p>
+<p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
+<p>头文件：链接附加包含目录至 include 目录</p>
+<p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>/<br>openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
+<p>reference</p>
+<ul>
+<li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
+<li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
+</ul>
 
       
     </div>
@@ -535,7 +539,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013中使用openssl"><span class="nav-number">2.</span> <span class="nav-text">VS2013中使用openssl</span></a></li></ol></div>
             
           </div>
         </section>
