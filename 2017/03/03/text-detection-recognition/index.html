@@ -99,13 +99,8 @@ Description&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917b8d52ee44.jpg">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917b9c3ab2a9.jpg">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917ba8f3a3ed.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc63897c8.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc6386978.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc638a778.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc63857a0.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc638e4f5.jpg">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917bc6387f6b.jpg">
-<meta property="og:updated_time" content="2017-05-14T03:07:55.124Z">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917cbb71e93b.png">
+<meta property="og:updated_time" content="2017-05-14T03:14:54.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chinese Text Detection and Recognition">
 <meta name="twitter:description" content="Course&amp;emsp;&amp;emsp;Image Analysis and Understanding
@@ -341,9 +336,7 @@ Description&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize
 <p><img src="https://ooo.0o0.ooo/2017/05/14/5917b9c3ab2a9.jpg" alt="RPN.jpg" title="RPN网络结构" width="50%" height="50%" align="center"></p>
 <p>&emsp;&emsp;训练RPN时，一个Mini-batch是由一幅图像中任意选取的256个proposal组成的，其中正负样本的比例为1 : 1。如果正样本数不足，则多补充一些负样本以满足有256个proposal可以用于训练。在RPN训练开始时，共享的VGG卷积层参数可以直接拷贝ImageNet中训练好的模型参数，剩余层参数用标准差为0.01的高斯分布初始化。RPN在提取到proposal后，通过训练Fast R-CNN进行检测和识别，而RPN和Fast R-CNN共用了VGG的卷积层，因此采用交替训练的方式实现卷积层特征共享。Faster R-CNN一个较为突出的贡献就是引入RPN，将proposal部分嵌入到了内部网络，因此整个网络模型即可完成端到端的检测任务，而不需要先执行proposal的搜索定位算法。<br>&emsp;&emsp;Faster R-CNN在目标检测方面能取得良好的效果，但文本检测和一般的目标检测不同，文本是一系列字符、笔画或单词的序列集合，而不是一般目标检测中独立的目标，同一文本序列上的不同字符可能差异较大、距离长短不一，检测出一个完整的文本行可能比检测单个目标的难度要大。因此针对文本检测这种特殊的情况，论文中提出了一种Recurrent Connectionist Text Proposal Network (CTPN)的检测方法，算法思想和Faster R-CNN类似，通过搜索定位多个候选文本框(Text Proposal)，对每个proposal做分类判决，包括proposal为文本、非文本的概率以及proposal的坐标位置。不同的是，CTPN中定义的Anchor是fine-scale的，在水平方向固定宽度为16个像素，而在垂直方向考虑k(=10)种尺寸，这和RPN中同一个滑动窗口考虑9个Anchor，分别为3种不同的scale和aspect ratio有所不同，正是考虑了文本和一般目标检测的差异，作者认为预测文本的垂直位置比水平位置要更容易，在proposal生成网络中，最后的输出分别为proposal的分类概率以及proposal的高度、中心锚点的y坐标以及在水平方向的偏移量，因为宽度是固定的，不予考虑。CTPN与Faster R-CNN还有一个较大的不同之处就是将RPN换成了双向的长短时记忆网络(BLSTM)，VGG-16的conv5卷积层(W x H x C)，不是直接连接到全连接层，而是将每一行的所有滑动窗口对应的3 x 3 x C特征输入到BLSTM中，用于编码Text Proposal的上下文信息，更加准确地检测文本区域。单向LSTM的维数为128，因此得到W x 256的输出，然后将BLSTM连接到512维的全连接层，全连接层后接3个子连接层，分别用于预测proposal的类别信息、在垂直方向的高度和y坐标以及在水平方向的偏移量。CTPN的整体网络结构和提取的Text Proposal示意图如图3所示，在得到多个细长的Text Proposal后，文中利用一种文本行构造算法，将多个Text Proposal合并成一个完整的文本区域，其主要思想是根据一定的约束条件，将相邻的Text Proposal两两合并，直到没有公共元素为止。</p>
 <p><img src="https://ooo.0o0.ooo/2017/05/14/5917ba8f3a3ed.jpg" alt="CTPN.jpg" title="CTPN网络结构和Text Proposal" align="center"></p>
-<h3 id="Detection-Results"><a href="#Detection-Results" class="headerlink" title="Detection Results"></a>Detection Results</h3><figure class="third"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63897c8.jpg" alt="1.jpg" width="30%" height="30%"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6386978.jpg" alt="2.jpg" width="30%" height="30%"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638a778.jpg" alt="3.jpg" width="30%" height="30%"><br></figure><br><figure class="third"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63857a0.jpg" alt="4.jpg" width="30%" height="30%" align="left"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638e4f5.jpg" alt="5.jpg" width="30%" height="30%" align="center"><br>    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6387f6b.jpg" alt="6.jpg" width="30%" height="30%" align="right"><br></figure>
-
-<!-- <figure class="third">
+<h3 id="Detection-Results"><a href="#Detection-Results" class="headerlink" title="Detection Results"></a>Detection Results</h3><!-- <figure class="third">
     <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63897c8.jpg" alt="1.jpg" width=30% height=30%>
     <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6386978.jpg" alt="2.jpg" width=30% height=30%>
     <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638a778.jpg" alt="3.jpg" width=30% height=30%>
@@ -353,6 +346,7 @@ Description&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize
     <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638e4f5.jpg" alt="5.jpg" width=30% height=30%>
     <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6387f6b.jpg" alt="6.jpg" width=30% height=30%>
 </figure> -->
+<p><img src="https://ooo.0o0.ooo/2017/05/14/5917cbb71e93b.png" alt="7.png" title="Detection Results" align="center"></p>
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>&emsp;&emsp;在文本检测中用到的这种基于Faster R-CNN的算法模型，针对自然场景的多语言文本能取得良好的检测结果，比较适用于水平方向的文本检测，对于非水平方向的文本，该模型虽然也能有效检测，但不能获取文本的整体偏转信息，不利于后续的文本识别，因此在检测到文本区域后，对文本的整体偏转角度做了进一步的检测和校正。在识别任务中，主要用到了Tesseract的开源库，该OCR引擎对于中文的识别效果不是太理想。</p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6945320" target="_blank" rel="external">Text Detection and Recognition in Imagery: A Survey</a><br><a href="http://lbmedia.ece.ucsb.edu/member/uweb/Teaching/website/index.htm" target="_blank" rel="external">Course Website: Image Analysis and Understanding</a><br><a href="http://www.cnblogs.com/venus024/p/5717766.html" target="_blank" rel="external">R-CNN,SPP-NET, Fast-R-CNN,Faster-R-CNN系列检测方法解读</a><br><a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="external">Detecting Text in Natural Image with Connectionist Text Proposal Network</a><br><a href="http://www.cnblogs.com/lillylin/p/6277061.html" target="_blank" rel="external">Paper Reading: CTPN</a><br><a href="https://github.com/tianzhi0549/CTPN" target="_blank" rel="external">Source Code: CTPN</a><br><a href="https://github.com/chongyangtao/Awesome-Scene-Text-Recognition" target="_blank" rel="external">Text Detection and Recognition Resource –1</a><br><a href="https://handong1587.github.io/deep_learning/2015/10/09/ocr.html" target="_blank" rel="external">Text Detection and Recognition Resource –2</a><br><a href="http://blog.csdn.net/peaceinmind/article/details/51387367" target="_blank" rel="external">Text Detection and Recognition Resource –2</a>  </p>
 <p>关于Tesseract OCR引擎的安装和配置：<br><a href="http://www.leptonica.org/source/README.html" target="_blank" rel="external">依赖库Leptonica的编译</a><br><a href="https://github.com/tesseract-ocr/tesseract/wiki/Compiling" target="_blank" rel="external">Tesseract-OCR的编译和配置</a><br><a href="https://github.com/openpaperwork/pyocr" target="_blank" rel="external">OCR引擎的Python接口</a></p>
