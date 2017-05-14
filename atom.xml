@@ -131,31 +131,6 @@ MathJax.Hub.Config({
   </entry>
   
   <entry>
-    <title>Chinese Text Detection and Recognition</title>
-    <link href="https://senitco.github.io/2017/03/03/text-detection-recognition/"/>
-    <id>https://senitco.github.io/2017/03/03/text-detection-recognition/</id>
-    <published>2017-03-03T06:45:21.196Z</published>
-    <updated>2017-05-14T01:24:12.947Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h3><p>&emsp;&emsp;Chinese Text Detection and Recognition</p>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>&emsp;&emsp;The task of Chinese text detection is to localize the regions in a 2D image which<br>contain Chinese characters. The task of Chinese text recognition is, given the localized<br>regions including text, to convert each region into machine-encoded text. It is an<br>important technique for understanding text information in 2D images, and many<br>other applications such as text-to-speech, machine translation, text mining, etc.</p>
-<h3 id="Deadline"><a href="#Deadline" class="headerlink" title="Deadline"></a>Deadline</h3><p>&emsp;&emsp;April 11, Tuesday, 2017</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Project&quot;&gt;&lt;a href=&quot;#Project&quot; class=&quot;headerlink&quot; title=&quot;Project&quot;&gt;&lt;/a&gt;Project&lt;/h3&gt;&lt;p&gt;&amp;emsp;&amp;emsp;Chinese Text Detection and Recognition
-    
-    </summary>
-    
-      <category term="Projects" scheme="https://senitco.github.io/categories/Projects/"/>
-    
-    
-      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
     <link href="https://senitco.github.io/2017/03/02/hello-world/"/>
     <id>https://senitco.github.io/2017/03/02/hello-world/</id>
