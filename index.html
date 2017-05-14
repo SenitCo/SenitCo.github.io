@@ -318,18 +318,22 @@
             <h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org/，并解压到指定目录，例如" target="_blank" rel="external">http://www.openssl.org/，并解压到指定目录，例如</a> D:\openssl</p>
 <p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePer" target="_blank" rel="external">http://www.activestate.com/ActivePer</a></p>
 <p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>&emsp;&emsp;Visual Studio 2013, 32-bit: Open CMD.EXE and run<br>    root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat<br>&emsp;&emsp;Visual Studio 2013, 64-bit: Open CMD.EXE and run<br>    root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</p>
+<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>&emsp;&emsp;Visual Studio 2013, 32-bit: Open CMD.EXE and run<br>‘’’<br>root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat<br>‘’’<br>&emsp;&emsp;Visual Studio 2013, 64-bit: Open CMD.EXE and run<br>‘’’<br>root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat<br>‘’’</p>
 <ol>
-<li><p>进入openssl源代码目录路径<br> cd D:\openssl</p>
+<li><p>进入openssl源代码目录路径<br>‘’’<br>cd D:\openssl<br>‘’’</p>
 </li>
-<li><p>依次执行以下命令<br> ‘’’<br> perl Configure VC-WIN32 <no-asm> –perfix=D:\openssl\openssl_lib //<no-asm>为可选参数，忽略汇编处理<br> nmake<br> nmake test<br> nmake install<br> ‘’’</no-asm></no-asm></p>
-</li>
-<li><p>编译成功后，会在openssl_lib目录下生成3个文件目录</p>
-<p>  bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>  lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>  include\openssl: 加密解密函数的相关头文件</p>
+<li><p>依次执行以下命令<br>‘’’<br>perl Configure VC-WIN32 <no-asm> –perfix=D:\openssl\openssl_lib //<no-asm>为可选参数，忽略汇编处理</no-asm></no-asm></p>
 </li>
 </ol>
+<p>nmake</p>
+<p>nmake test</p>
+<p>nmake install<br>‘’’</p>
+<ol>
+<li>编译成功后，会在openssl_lib目录下生成3个文件目录</li>
+</ol>
+<p>&emsp;&emsp;bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
+<p>&emsp;&emsp;lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
+<p>&emsp;&emsp;include\openssl: 加密解密函数的相关头文件</p>
 
           
         
