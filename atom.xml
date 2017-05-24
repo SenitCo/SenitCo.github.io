@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-05-24T02:29:45.348Z</updated>
+  <updated>2017-05-24T02:50:35.107Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/05/24/measurement-method/"/>
     <id>https://senitco.github.io/2017/05/24/measurement-method/</id>
     <published>2017-05-24T02:20:09.854Z</published>
-    <updated>2017-05-24T02:29:45.348Z</updated>
+    <updated>2017-05-24T02:50:35.107Z</updated>
     
     <content type="html"><![CDATA[<!-- mathjax config similar to math.stackexchange -->
 <script type="text/x-mathjax-config">
@@ -39,7 +39,12 @@ MathJax.Hub.Config({
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 <p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。  </p>
-<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;n维空间中两个样本点x和y之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
+<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;$n$维空间中两个样本点$x$和$y$之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
+<h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p>&emsp;&emsp;曼哈顿距离也称为街区距离，计算公式如下：<br>$$d(x,y)=\Sigma_{k=1}^n \left|x_k-y_k\right|$$</p>
+<h3 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h3><p>$$d(x,y) = \lim_{n\rightarrow \infty} (\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r} = max_k (\left|x_k-y_k\right|)$$<br>上面两个公式是等价的。</p>
+<h3 id="闵可夫斯基距离"><a href="#闵可夫斯基距离" class="headerlink" title="闵可夫斯基距离"></a>闵可夫斯基距离</h3><p>$$d(x,y)=(\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r}$$<br>式中，r是一个可变参数，根据参数r取值的不同，闵可夫斯基距离可以表示一类距离<br>&emsp;&emsp;r = 1时，为曼哈顿距离<br>&emsp;&emsp;r = 2时，为欧式距离<br>&emsp;&emsp;r →∞时，为切比雪夫距离<br>闵可夫斯基距离包括欧式距离、曼哈顿距离、切比雪夫距离都假设数据各维属性的量纲和分布（期望、方差）相同，因此适用于度量独立同分布的数据对象。</p>
+<h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p>&emsp;&emsp;两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数，也就是将一个字符串变换为另一个字符串所需要替换的最小字符个数，例如<br>$$Hamming Distance(1001001, 0101101) = 3$$<br>汉明距离常用于信息编码中。</p>
+<h3 id="余弦距离"><a href="#余弦距离" class="headerlink" title="余弦距离"></a>余弦距离</h3><p>&emsp;&emsp;余弦相似度公式定义如下：<br>$$cos⁡(x,y)=\dfrac{x∙y}{\left|x\right|\left|y\right|} = \dfrac{\Sigma_{k=1}^n x_k y_k}{\sqrt{\Sigma_{k=1}^n x_k^2} \sqrt{\Simga_{k=1}^n y_k^2}}$$<br>余弦相似度实际上是向量x和y夹角的余弦度量，可用来衡量两个向量方向的差异。如果余弦相似度为1，则x和y之间夹角为0°，两向量除模外可认为是相同的；如果预先相似度为0，则x和y之间夹角为90°，则认为两向量完全不同。在计算余弦距离时，将向量均规范化成具有长度1，因此不用考虑两个数据对象的量值。</p>
 ]]></content>
     
     <summary type="html">
