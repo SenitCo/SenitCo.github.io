@@ -86,34 +86,16 @@
 
 
 
-<meta name="description" content="MathJax.Hub.Config({
-    jax: [&quot;input/TeX&quot;, &quot;output/HTML-CSS&quot;],
-    tex2jax: {
-        inlineMath: [ [&apos;$&apos;, &apos;$&apos;] ],
-        displayMath: [ [&apos;$$&apos;, &apos;$$&apos;]],
-        processEscapes: true,
-        skipTag">
+<meta name="description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据挖掘中的度量方法">
 <meta property="og:url" content="https://senitco.github.io/2017/05/24/measurement-method/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="MathJax.Hub.Config({
-    jax: [&quot;input/TeX&quot;, &quot;output/HTML-CSS&quot;],
-    tex2jax: {
-        inlineMath: [ [&apos;$&apos;, &apos;$&apos;] ],
-        displayMath: [ [&apos;$$&apos;, &apos;$$&apos;]],
-        processEscapes: true,
-        skipTag">
-<meta property="og:updated_time" content="2017-05-24T04:06:16.843Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
+<meta property="og:updated_time" content="2017-05-24T06:43:54.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据挖掘中的度量方法">
-<meta name="twitter:description" content="MathJax.Hub.Config({
-    jax: [&quot;input/TeX&quot;, &quot;output/HTML-CSS&quot;],
-    tex2jax: {
-        inlineMath: [ [&apos;$&apos;, &apos;$&apos;] ],
-        displayMath: [ [&apos;$$&apos;, &apos;$$&apos;]],
-        processEscapes: true,
-        skipTag">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
 
 
 
@@ -332,7 +314,8 @@
       
 
       
-        <!-- mathjax config similar to math.stackexchange -->
+        <p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。<br><a id="more"></a></p>
+<!-- mathjax config similar to math.stackexchange -->
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     jax: ["input/TeX", "output/HTML-CSS"],
@@ -346,9 +329,8 @@ MathJax.Hub.Config({
     "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
 });
 </script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 
-<p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。  </p>
 <h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;$n$维空间中两个样本点$x$和$y$之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
 <h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p>&emsp;&emsp;曼哈顿距离也称为街区距离，计算公式如下：<br>$$d(x,y)=\Sigma_{k=1}^n \left|x_k-y_k\right|$$</p>
 <h3 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h3><p>$$d(x,y) = \lim_{n\rightarrow \infty} (\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r} = max_k (\left|x_k-y_k\right|)$$<br>上面两个公式是等价的。</p>
