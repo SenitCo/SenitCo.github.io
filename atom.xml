@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-05-14T03:46:18.802Z</updated>
+  <updated>2017-05-24T02:29:45.348Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据挖掘中的度量方法</title>
+    <link href="https://senitco.github.io/2017/05/24/measurement-method/"/>
+    <id>https://senitco.github.io/2017/05/24/measurement-method/</id>
+    <published>2017-05-24T02:20:09.854Z</published>
+    <updated>2017-05-24T02:29:45.348Z</updated>
+    
+    <content type="html"><![CDATA[<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。  </p>
+<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;n维空间中两个样本点x和y之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;!-- mathjax config similar to math.stackexchange --&gt;
+&lt;script type=&quot;text/x-mathjax-config&quot;&gt;
+MathJax.Hub.Config({
+    jax: [&quot;input/TeX&quot;, &quot;out
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="ML" scheme="https://senitco.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>VS2013编译配置openssl</title>

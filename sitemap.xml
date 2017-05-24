@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/2017/05/24/measurement-method/</loc>
+    
+    <lastmod>2017-05-24T02:29:45.348Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/05/14/VS2013-compile-openssl/</loc>
     
     <lastmod>2017-05-14T03:46:18.802Z</lastmod>

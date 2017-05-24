@@ -245,6 +245,143 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/24/measurement-method/" itemprop="url">
+                  数据挖掘中的度量方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-24T10:20:09+08:00" content="2017-05-24">
+              2017-05-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/24/measurement-method/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/24/measurement-method/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。  </p>
+<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;n维空间中两个样本点x和y之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/14/VS2013-compile-openssl/" itemprop="url">
                   VS2013编译配置openssl
                 </a>
@@ -868,7 +1005,7 @@ MathJax.Hub.Config({
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
