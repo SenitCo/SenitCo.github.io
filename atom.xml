@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-05-24T07:06:10.325Z</updated>
+  <updated>2017-06-08T01:03:59.298Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="https://senitco.github.io/2017/06/08/test/"/>
+    <id>https://senitco.github.io/2017/06/08/test/</id>
+    <published>2017-06-08T01:03:15.198Z</published>
+    <updated>2017-06-08T01:03:59.298Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;数据降维是通过某种数学变换将原始高维属性空间，转变为一个低维子空间，对数据进行降维，可以有效地去除样本中冗余的属性，减少数据容量，缓解维数灾难，加快学习速度。数据降维的常用方法有主成分分析(PCA)、多维缩放(MDS)、线性判别分析(LDA)、等度量映射(Isomap)、局部线性嵌入(LLE)、t分布随机邻域嵌入(t-SNE)、Laplacian Eigenmaps等。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;数据降维是通过某种数学变换将原始高维属性空间，转变为一个低维子空间，对数据进行降维，可以有效地去除样本中冗余的属性，减少数据容量，缓解维数灾难，加快学习速度。数据降维的常用方法有主成分分析(PCA)、多维缩放(MDS)、线性判别分析(LDA)、等度量
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="ML" scheme="https://senitco.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>简述云平台和相关软件工具</title>
