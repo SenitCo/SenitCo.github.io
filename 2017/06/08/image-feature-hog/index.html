@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sofeware," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="description" content="方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VS2013编译配置openssl">
-<meta property="og:url" content="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/index.html">
+<meta property="og:title" content="图像特征提取之HOG特征">
+<meta property="og:url" content="https://senitco.github.io/2017/06/08/image-feature-hog/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
-<meta property="og:updated_time" content="2017-05-24T06:46:42.834Z">
+<meta property="og:description" content="方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
+<meta property="og:updated_time" content="2017-06-09T15:09:23.355Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VS2013编译配置openssl">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="twitter:title" content="图像特征提取之HOG特征">
+<meta name="twitter:description" content="方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
 
 
 
@@ -113,7 +113,7 @@
   };
 </script>
 
-  <title> VS2013编译配置openssl | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征提取之HOG特征 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +243,7 @@
             
             
               
-                VS2013编译配置openssl
+                图像特征提取之HOG特征
               
             
           </h1>
@@ -255,8 +255,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-14T11:21:35+08:00" content="2017-05-14">
-              2017-05-14
+            <time itemprop="dateCreated" datetime="2017-06-08T18:10:40+08:00" content="2017-06-08">
+              2017-06-08
             </time>
           </span>
 
@@ -269,8 +269,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compile-Installation/" itemprop="url" rel="index">
-                    <span itemprop="name">Compile & Installation</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -285,8 +285,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/05/14/VS2013-compile-openssl/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/14/VS2013-compile-openssl/" itemprop="commentsCount"></span>
+                <a href="/2017/06/08/image-feature-hog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/08/image-feature-hog/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,29 +314,27 @@
       
 
       
-        <p>&emsp;&emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中<br><a id="more"></a></p>
-<h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
-<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
-<p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>Visual Studio 2013, 32-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat</div></pre></td></tr></table></figure></p>
-<p>Visual Studio 2013, 64-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</div></pre></td></tr></table></figure></p>
-<p>5.进入openssl源代码目录路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd D:\openssl</div></pre></td></tr></table></figure></p>
-<p>6.依次执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">perl Configure VC-WIN32 &lt;no-asm&gt; --perfix=D:\openssl\openssl_lib //&lt;no-asm&gt;为可选参数，忽略汇编处理</div><div class="line"></div><div class="line">nmake</div><div class="line"></div><div class="line">nmake test</div><div class="line"></div><div class="line">nmake install</div></pre></td></tr></table></figure></p>
-<p>7.编译成功后，会在openssl_lib目录下生成3个文件目录</p>
-<p>bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>include\openssl: 相关头文件</p>
-<h3 id="VS2013中使用openssl"><a href="#VS2013中使用openssl" class="headerlink" title="VS2013中使用openssl"></a>VS2013中使用openssl</h3><p>1.新建VS工程，将openssl库文件(.lib、.dll)和头文件拷至工程的相应目录中</p>
-<p>2.配置路径</p>
-<p>静态库: 链接附加库目录至libssl.lib、libcrypto.lib库目录，并在附加依赖项下添加.lib文件</p>
-<p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
-<p>头文件：链接附加包含目录至 include 目录</p>
-<p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
-<p>*注：openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
-<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
-<li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
-<li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
+        <p>方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。<br><a id="more"></a></p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>&emsp;&emsp;HOG特征的核心思想是在一幅图像中，局部目标的表象和形状(appearance and shape)能够被梯度和边缘的方向密度（梯度的统计信息，而梯度主要存在于边缘地方）很好地描述。通过将整幅图像分为多个小的连通区域(cells)，并计算每个cell的梯度或边缘方向直方图，这些直方图的组合可用于构成特征描述子，为了提高准确率，可以将局部直方图在图像更大范围内(称为block)进行对比度归一化(constrast-normalized)。所采用的方法是：先计算各直方图在对应的block中的密度，然后根据这个密度对block中的所有cell做归一化(normalize)。归一化操作对光照变化和阴影具有更好的鲁棒性。</p>
+<h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><ul>
+<li>HOG特征是在图像的局部操作，对图像几何和光学的变化有较好的稳健性，这两种变化只会出现在更大的空域上。</li>
+<li>在粗粒度的空域抽样、细粒度的方向抽样，以及较强的局部光学归一化条件下，只要行人大体保持直立的姿势，可以容许行人有一些细微的肢体动作，而不影响检测效果。</li>
 </ul>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>HOG特征提取的流程如下：  </p>
+<h4 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h4><ul>
+<li>灰度化：HOG提取的是纹理特征，颜色信息不起作用，所以将彩色图转化为灰度图。</li>
+<li>Gamma校正(归一化)：对图像进行Gamma校正，完成对整个图像的标准化(归一化)，可以调节图像的对比度，降低局部光照不均匀或者阴影的影响，同时也可以在一定程度上降低噪声的干扰，提高特征描述器对光照等干扰因素的鲁棒性。校正公式如下：<br>$$I(x, y) = I(x, y)^{\gamma}, \gamma = \dfrac{1}{2}$$</li>
+</ul>
+<h4 id="计算图像梯度"><a href="#计算图像梯度" class="headerlink" title="计算图像梯度"></a>计算图像梯度</h4><p>&emsp;&emsp;分别求取图像水平方向和垂直方向的梯度，然后计算每个像素点的梯度幅值和方向，微分求图像梯度不仅可以捕获图像边缘和纹理信息，而且可以弱化光照不均匀的影响。<br>$$G_x(x,y) = I(x+1,y) - I(x-1,y)$$<br>$$G_y(x,y) = I(x,y+1) - I(x,y-1)$$<br>$$\nabla G(x,y) = \sqrt(G_x(x,y)^2+G_y(x,y)^2)$$<br>$$theta(x,y) = arctan(G_y(x,y) / G_x(x,y))$$<br>一般采用梯度算子对图像进行卷积运算求取图像梯度，例如用$[-1,0,1]$梯度算子对图像进行卷积操作得到水平方向的梯度分量，用$[-1,0,1]^T$梯度算子进行卷积操作得到竖直方向的梯度分量，然后求取图像的梯度幅值和方向。</p>
+<h4 id="在cell中计算梯度方向直方图-Orientation-binning"><a href="#在cell中计算梯度方向直方图-Orientation-binning" class="headerlink" title="在cell中计算梯度方向直方图(Orientation binning)"></a>在cell中计算梯度方向直方图(Orientation binning)</h4><p>&emsp;&emsp;将图像划分为若干个连通区域(cell)，例如每个cell为$8\times 8$个像素，相邻cell之间不重叠，将所有梯度方向划分为9个方向块(bin)，然后在每个cell内统计梯度方向直方图。在计算梯度方向时，可把方向的角度范围定位$(0, 180^{\circ})$或者$(0, 360^{\circ})$。最后每个cell都对应一个9维的特征向量。此外，还可以考虑梯度幅值作为bin的统计权重。<br>&emsp;&emsp;在行人检测中，通过给局部图像区域进行编码，可以保持对目标对象的姿势和外观的弱敏感性，更好地捕获图像的轮廓和纹理信息。</p>
+<h4 id="在block中归一化梯度方向直方图-Block-Normalization"><a href="#在block中归一化梯度方向直方图-Block-Normalization" class="headerlink" title="在block中归一化梯度方向直方图(Block Normalization)"></a>在block中归一化梯度方向直方图(Block Normalization)</h4><p>&emsp;&emsp;将多个cell组合成更大连通块(block)，将block内所有cell的特征向量串联起来便得到该block的HOG特征描述子，不同block之间可能相互重叠，可以有效地利用局部邻域信息。类比在卷积神经网络(CNN)中，掩码(Kernel)和步长(stride)的选择。在跟大范围内(block)统计梯度直方图，并做归一化处理，能够更好地适应光照和对比度的变化。常用的归一化方法有以下几种：</p>
+<ul>
+<li>L2-norm<br>$$v = \dfrac{v}{\left|v\right|_{2}^{2} + \varepsilon^2$$</li>
+<li>L1-norm<br>$$v = \dfrac{v}{\left|v\right|_{1} + \varepsilon}$$</li>
+<li>L1-sqrt<br>$$v = \sqrt{\dfrac{v}{\left|v\right|_{1} + \varepsilon}}$$<br>还有一种L2-Hys，即先做一次L2-norm,然后把大于特定值(0.2)的分量幅值为0.2再做一次L2-norm，一般在检测中采用L2-norm效果更好。在一个block中，如果cell的数量为$2\times 2$，那block的特征数为$2\times 2 \times 9 = 36$维特征。</li>
+</ul>
+<h4 id="统计整幅图像-检测窗口-的HOG特征"><a href="#统计整幅图像-检测窗口-的HOG特征" class="headerlink" title="统计整幅图像(检测窗口)的HOG特征"></a>统计整幅图像(检测窗口)的HOG特征</h4><p>&emsp;&emsp;在实际应用中，通常是选取固定大小的滑动窗口来提取HOG特征，对于一个$64\times 128$的图像窗口(window)，每$8\times 8$个像素组成一个cell，每$2\times 2$个cell组成一个block，一共有$(8-1)\times (16-1) = 105$个block，因此该图像的窗口特征维数为$105\times 36 = 3780$。当然也可以将整幅图像作为一个窗口来提取HOG特征。</p>
+<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。</p>
 
       
     </div>
@@ -358,7 +356,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Sofeware/" rel="tag">#Sofeware</a>
+            <a href="/tags/Image/" rel="tag">#Image</a>
           
         </div>
       
@@ -367,17 +365,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/data-dimensionality-reduction/" rel="next" title="机器学习算法之数据降维">
-                <i class="fa fa-chevron-left"></i> 机器学习算法之数据降维
+              <a href="/2017/06/08/string-processing/" rel="next" title="C/C++处理十六进制数和字符串">
+                <i class="fa fa-chevron-left"></i> C/C++处理十六进制数和字符串
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/24/measurement-method/" rel="prev" title="数据挖掘中的度量方法">
-                数据挖掘中的度量方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +528,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013中使用openssl"><span class="nav-number">2.</span> <span class="nav-text">VS2013中使用openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-number">1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">2.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像预处理"><span class="nav-number">3.1.</span> <span class="nav-text">图像预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图像梯度"><span class="nav-number">3.2.</span> <span class="nav-text">计算图像梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在cell中计算梯度方向直方图-Orientation-binning"><span class="nav-number">3.3.</span> <span class="nav-text">在cell中计算梯度方向直方图(Orientation binning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在block中归一化梯度方向直方图-Block-Normalization"><span class="nav-number">3.4.</span> <span class="nav-text">在block中归一化梯度方向直方图(Block Normalization)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计整幅图像-检测窗口-的HOG特征"><span class="nav-number">3.5.</span> <span class="nav-text">统计整幅图像(检测窗口)的HOG特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HOG特征-SVM分类器进行行人检测"><span class="nav-number">3.6.</span> <span class="nav-text">HOG特征 + SVM分类器进行行人检测</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -670,9 +664,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/14/VS2013-compile-openssl/';
-      var disqus_title = 'VS2013编译配置openssl';
-      var disqus_url = 'https://senitco.github.io/2017/05/14/VS2013-compile-openssl/';
+      var disqus_identifier = '2017/06/08/image-feature-hog/';
+      var disqus_title = '图像特征提取之HOG特征';
+      var disqus_url = 'https://senitco.github.io/2017/06/08/image-feature-hog/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -686,7 +680,24 @@
       
         run_disqus_script('embed.js');
       
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
