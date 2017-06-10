@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-10T04:24:25.389Z</updated>
+  <updated>2017-06-10T04:32:33.545Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/08/image-feature-hog/"/>
     <id>https://senitco.github.io/2017/06/08/image-feature-hog/</id>
     <published>2017-06-08T10:10:40.545Z</published>
-    <updated>2017-06-10T04:24:25.389Z</updated>
+    <updated>2017-06-10T04:32:33.545Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。<br><a id="more"></a></p>
 <h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>&emsp;&emsp;HOG特征的核心思想是在一幅图像中，局部目标的表象和形状(appearance and shape)能够被梯度和边缘的方向密度（梯度的统计信息，而梯度主要存在于边缘地方）很好地描述。通过将整幅图像分为多个小的连通区域(cells)，并计算每个cell的梯度或边缘方向直方图，这些直方图的组合可用于构成特征描述子，为了提高准确率，可以将局部直方图在图像更大范围内(称为block)进行对比度归一化(constrast-normalized)。所采用的方法是：先计算各直方图在对应的block中的密度，然后根据这个密度对block中的所有cell做归一化(normalize)。归一化操作对光照变化和阴影具有更好的鲁棒性。</p>
@@ -42,7 +42,17 @@
 <li>L1-sqrt<br>$$v = \sqrt{\dfrac{v}{\left|v\right|_{1} + \varepsilon}}$$<br>还有一种L2-Hys，即先做一次L2-norm,然后把大于特定值(0.2)的分量幅值为0.2再做一次L2-norm，一般在检测中采用L2-norm效果更好。在一个block中，如果cell的数量为$2\times 2$，那block的特征数为$2\times 2 \times 9 = 36$维特征。</li>
 </ul>
 <h4 id="统计整幅图像-检测窗口-的HOG特征"><a href="#统计整幅图像-检测窗口-的HOG特征" class="headerlink" title="统计整幅图像(检测窗口)的HOG特征"></a>统计整幅图像(检测窗口)的HOG特征</h4><p>&emsp;&emsp;在实际应用中，通常是选取固定大小的滑动窗口来提取HOG特征，对于一个$64\times 128$的图像窗口(window)，每$8\times 8$个像素组成一个cell，每$2\times 2$个cell组成一个block，一共有$(8-1)\times (16-1) = 105$个block，因此该图像的窗口特征维数为$105\times 36 = 3780$。当然也可以将整幅图像作为一个窗口来提取HOG特征。</p>
-<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。</p>
+<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。  </p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf" target="_blank" rel="external">paper: Histograms of Oriented Gradients for Human Detection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients" target="_blank" rel="external">wikipedia: Histogram of oriented gradients</a></li>
+<li><a href="http://blog.csdn.net/zouxy09/article/details/7929348" target="_blank" rel="external">http://blog.csdn.net/zouxy09/article/details/7929348</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47337707" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47337707</a></li>
+<li><a href="http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html" target="_blank" rel="external">http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html</a></li>
+<li><a href="http://shuokay.com/2016/07/18/hog/" target="_blank" rel="external">http://shuokay.com/2016/07/18/hog/</a></li>
+<li><a href="http://www.jianshu.com/p/6f69c751e9e7" target="_blank" rel="external">http://www.jianshu.com/p/6f69c751e9e7</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">

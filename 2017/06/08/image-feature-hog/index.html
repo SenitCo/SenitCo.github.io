@@ -92,7 +92,7 @@
 <meta property="og:url" content="https://senitco.github.io/2017/06/08/image-feature-hog/index.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
-<meta property="og:updated_time" content="2017-06-10T04:24:25.389Z">
+<meta property="og:updated_time" content="2017-06-10T04:32:33.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征提取之HOG特征">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
@@ -334,7 +334,17 @@
 <li>L1-sqrt<br>$$v = \sqrt{\dfrac{v}{\left|v\right|_{1} + \varepsilon}}$$<br>还有一种L2-Hys，即先做一次L2-norm,然后把大于特定值(0.2)的分量幅值为0.2再做一次L2-norm，一般在检测中采用L2-norm效果更好。在一个block中，如果cell的数量为$2\times 2$，那block的特征数为$2\times 2 \times 9 = 36$维特征。</li>
 </ul>
 <h4 id="统计整幅图像-检测窗口-的HOG特征"><a href="#统计整幅图像-检测窗口-的HOG特征" class="headerlink" title="统计整幅图像(检测窗口)的HOG特征"></a>统计整幅图像(检测窗口)的HOG特征</h4><p>&emsp;&emsp;在实际应用中，通常是选取固定大小的滑动窗口来提取HOG特征，对于一个$64\times 128$的图像窗口(window)，每$8\times 8$个像素组成一个cell，每$2\times 2$个cell组成一个block，一共有$(8-1)\times (16-1) = 105$个block，因此该图像的窗口特征维数为$105\times 36 = 3780$。当然也可以将整幅图像作为一个窗口来提取HOG特征。</p>
-<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。</p>
+<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。  </p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf" target="_blank" rel="external">paper: Histograms of Oriented Gradients for Human Detection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients" target="_blank" rel="external">wikipedia: Histogram of oriented gradients</a></li>
+<li><a href="http://blog.csdn.net/zouxy09/article/details/7929348" target="_blank" rel="external">http://blog.csdn.net/zouxy09/article/details/7929348</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47337707" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47337707</a></li>
+<li><a href="http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html" target="_blank" rel="external">http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html</a></li>
+<li><a href="http://shuokay.com/2016/07/18/hog/" target="_blank" rel="external">http://shuokay.com/2016/07/18/hog/</a></li>
+<li><a href="http://www.jianshu.com/p/6f69c751e9e7" target="_blank" rel="external">http://www.jianshu.com/p/6f69c751e9e7</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html</a></li>
+</ul>
 
       
     </div>
@@ -528,7 +538,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-number">1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">2.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像预处理"><span class="nav-number">3.1.</span> <span class="nav-text">图像预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图像梯度"><span class="nav-number">3.2.</span> <span class="nav-text">计算图像梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在cell中计算梯度方向直方图-Orientation-binning"><span class="nav-number">3.3.</span> <span class="nav-text">在cell中计算梯度方向直方图(Orientation binning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在block中归一化梯度方向直方图-Block-Normalization"><span class="nav-number">3.4.</span> <span class="nav-text">在block中归一化梯度方向直方图(Block Normalization)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计整幅图像-检测窗口-的HOG特征"><span class="nav-number">3.5.</span> <span class="nav-text">统计整幅图像(检测窗口)的HOG特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HOG特征-SVM分类器进行行人检测"><span class="nav-number">3.6.</span> <span class="nav-text">HOG特征 + SVM分类器进行行人检测</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-number">1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">2.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像预处理"><span class="nav-number">3.1.</span> <span class="nav-text">图像预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图像梯度"><span class="nav-number">3.2.</span> <span class="nav-text">计算图像梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在cell中计算梯度方向直方图-Orientation-binning"><span class="nav-number">3.3.</span> <span class="nav-text">在cell中计算梯度方向直方图(Orientation binning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在block中归一化梯度方向直方图-Block-Normalization"><span class="nav-number">3.4.</span> <span class="nav-text">在block中归一化梯度方向直方图(Block Normalization)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计整幅图像-检测窗口-的HOG特征"><span class="nav-number">3.5.</span> <span class="nav-text">统计整幅图像(检测窗口)的HOG特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HOG特征-SVM分类器进行行人检测"><span class="nav-number">3.6.</span> <span class="nav-text">HOG特征 + SVM分类器进行行人检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
