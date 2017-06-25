@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-13T04:35:51.262Z</updated>
+  <updated>2017-06-25T13:13:32.615Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图像特征提取之Haar特征</title>
+    <link href="https://senitco.github.io/2017/06/25/image-feature-haar/"/>
+    <id>https://senitco.github.io/2017/06/25/image-feature-haar/</id>
+    <published>2017-06-25T06:06:55.987Z</published>
+    <updated>2017-06-25T13:13:32.615Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;Haar特征是一种用于目标检测或识别的图像特征描述子，Haar特征通常和AdaBoost分类器组合使用，而且由于Haar特征提取的实时性以及AdaBoost分类的准确率，使其成为人脸检测以及识别领域较为经典的算法。<br><a id="more"></a></p>
+<h3 id="多种Haar-like特征"><a href="#多种Haar-like特征" class="headerlink" title="多种Haar-like特征"></a>多种Haar-like特征</h3><p>&emsp;&emsp;在Haar-like特征提出之前，传统的人脸检测算法一般是基于图像像素值进行的，计算量较大且实时性较差。Papageorgiou等人最早将Harr小波用于人脸特征表示，Viola和Jones则在此基础上，提出了多种形式的Haar特征。Lienhart等人对Haar矩形特征做了进一步的扩展，加入了旋转$45^{\circ}$的矩形特征，因此现有的Haar特征模板主要如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/25/594f76b0d6c65.jpg" alt="haar.jpg" title="Haar-like矩形特征"></p>
+<p>在计算Haar特征值时，用白色区域像素值的和减去黑色区域像素值的和，也就是说白色区域的权值为正值，黑色区域的权值为负值，而且权值与矩形区域的面积成反比，抵消两种矩形区域面积不等造成的影响，保证Haar特征值在灰度分布均匀的区域特征值趋近于0。Haar特征在一定程度上反应了图像灰度的局部变化，在人脸检测中，脸部的一些特征可由矩形特征简单刻画，例如，眼睛比周围区域的颜色要深，鼻梁比两侧颜色要前等。<br>Haar-like矩形特征分为多类，特征模板可用于图像中的任一位置，而且大小也可任意变化，因此Haar特征的取值受到特征模板的类别、位置以及大小这三种因素的影响，使得在一固定大小的图像窗口内，可以提取出大量的Haar特征。例如，在一个$24\times 24$的检测窗口内，矩形特征的数量可以达到16万个。这样就需要解决两个重要问题，快速计算Haar矩形特征值——积分图；筛选有效的矩形特征用于分类识别——AdaBoost分类器。</p>
+<h3 id="快速计算——积分图"><a href="#快速计算——积分图" class="headerlink" title="快速计算——积分图"></a>快速计算——积分图</h3><h4 id="积分图构建"><a href="#积分图构建" class="headerlink" title="积分图构建"></a>积分图构建</h4><p>&emsp;&emsp;在一个图像窗口中，可以提取出大量的Haar矩形特征区域，如果在计算Haar特征值时，每次都遍历矩形特征区域，将会造成大量重复计算，严重浪费时间。而积分图正是一种快速计算矩形特征的方法，其主要思想是将图像起始像素点到每一个像素点之间所形成的矩形区域的像素值的和，作为一个元素保存下来，也就是将原始图像转换为积分图(或者求和图)，这样在求某一矩形区域的像素和时，只需索引矩形区域4个角点在积分图中的取值，进行普通的加减运算，即可求得Haar特征值，整个过程只需遍历一次图像，计算特征的时间复杂度为常数(O(1))。因此可以大大提升计算效率。<br>积分图中元素的公式定义如下：<br>$$ii(x,y) = Sigma_{x’&lt;x,y’&lt;y} i(x’,y’)$$<br>上式含义是在$(x,y)$(第$x$行第$y$列)位置处，积分图中元素为原图像中对应像素我左上角所有像素值之和。在具体实现时，可用下式进行迭代运算。<br>$$s(x,y)=s(x,y-1)+i(x,y)$$<br>$$ii(x,y)=ii(x-1,y)+s(x,y)$$<br>$s(x,y)$为行元素累加值，初始值$s(x,-1)=0,ii(-1,y)=0$</p>
+<h4 id="矩形特征计算"><a href="#矩形特征计算" class="headerlink" title="矩形特征计算"></a>矩形特征计算</h4><p>构建后积分图后，图像中任何矩形区域的像素值累加和都可以通过简单的简单的加减运算快速得到，如下图所示，矩形区域D的像素和值计算公式如下：<br>$$Sum(D)=ii(x_4, y_4)-ii(x_2,y_2)-ii(x_3,y_3)+ii(x_1,y_1)$$</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/25/594fb4dceae3c.jpg" alt="rectangle.jpg" title="矩形区域求和示意图"></p>
+<h3 id="AdaBoost分类器"><a href="#AdaBoost分类器" class="headerlink" title="AdaBoost分类器"></a>AdaBoost分类器</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;Haar特征是一种用于目标检测或识别的图像特征描述子，Haar特征通常和AdaBoost分类器组合使用，而且由于Haar特征提取的实时性以及AdaBoost分类的准确率，使其成为人脸检测以及识别领域较为经典的算法。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
+    
+  </entry>
   
   <entry>
     <title>图像特征提取之LBP特征</title>
