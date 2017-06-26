@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-26T02:57:25.593Z</updated>
+  <updated>2017-06-26T02:58:55.386Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/25/image-feature-haar/"/>
     <id>https://senitco.github.io/2017/06/25/image-feature-haar/</id>
     <published>2017-06-25T06:06:55.987Z</published>
-    <updated>2017-06-26T02:57:25.593Z</updated>
+    <updated>2017-06-26T02:58:55.386Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;Haar特征是一种用于目标检测或识别的图像特征描述子，Haar特征通常和AdaBoost分类器组合使用，而且由于Haar特征提取的实时性以及AdaBoost分类的准确率，使其成为人脸检测以及识别领域较为经典的算法。<br><a id="more"></a></p>
 <h3 id="多种Haar-like特征"><a href="#多种Haar-like特征" class="headerlink" title="多种Haar-like特征"></a>多种Haar-like特征</h3><p>&emsp;&emsp;在Haar-like特征提出之前，传统的人脸检测算法一般是基于图像像素值进行的，计算量较大且实时性较差。Papageorgiou等人最早将Harr小波用于人脸特征表示，Viola和Jones则在此基础上，提出了多种形式的Haar特征。Lienhart等人对Haar矩形特征做了进一步的扩展，加入了旋转$45^{\circ}$的矩形特征，因此现有的Haar特征模板主要如下图所示：</p>
@@ -30,7 +30,7 @@
 <h4 id="矩形特征计算"><a href="#矩形特征计算" class="headerlink" title="矩形特征计算"></a>矩形特征计算</h4><p>&emsp;&emsp;构建好积分图后，图像中任何矩形区域的像素值累加和都可以通过简单的简单的加减运算快速得到，如下图所示，矩形区域D的像素和值计算公式如下：<br>$$Sum(D)=ii(x_4, y_4)-ii(x_2,y_2)-ii(x_3,y_3)+ii(x_1,y_1)$$</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/25/594fb4dceae3c.jpg" alt="rectangle.jpg" title="矩形区域求和示意图"><br>在下图中，以水平向右为x轴正方向，垂直向下为y轴正方向，可定义积分图公式Summed Area Table($SAT(x,y)$)<br>$$SAT(x,y)=\Sigma_{x’leq x,y’\leq y} i(x’,y’)$$<br>以及迭代求解式<br>$$SAT(x,y)=SAT(x,y-1)+SAT(x-1,y)-SAT(x-1,y-1)+I(x,y)$$<br>$$SAT(-1,y)=0, SAT(x,-1)=0$$<br>对于左上角坐标为$(x,y)$，宽高为$(w,h)$的矩形区域$r(x,y,w,h,0)$，可利用积分图$SAT(x,y)$求取像素和值<br>$$RecSum(r)=SAT(x+w-1, y+h-1)+SAT(x-1, y-1)-SAT(x+w-1, y-1)-SAT(x-1,y+h-1)$$<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abd4e14.jpg" alt="integer.jpg" title="积分图求矩形区域和值"></p>
 <h4 id="旋转矩形特征的计算"><a href="#旋转矩形特征的计算" class="headerlink" title="旋转矩形特征的计算"></a>旋转矩形特征的计算</h4><p>&emsp;&emsp;对于旋转矩形特征，相应的有$45^{\circ}$倾斜积分图用于快速计算Haar特征值，如下图所示，倾斜积分图的定义为像素点左上角$45^{\circ}$区域和左下角$45^{\circ}$区域的像素和，公式表示如下：<br>$$RSAT(x,y)=\Sigma_{x’\leq x,x’\leq x-\left|y-y’\right|} i(x’,y’)$$<br>其递推公式计算如下：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x-1,y)-RSAT(x-2,y-1)+I(x,y)$$<br>$$RSAT(x,y)=RSAT(x,y)+RSAT(x-1,y+1)-RSAT(x-2,y)$$<br>其中$RSAT(-1,y)=RSAT(-2,y)=RSAT(x,-1)=0$<br>也可直接通过下式递归计算：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x+1,y-1)-RSAT(x,y-2)+I(x-1,y)+I(x,y)$$<br>以上3个积分图计算公式是等价的。<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abd4190.jpg" alt="titled interger.jpg" title="倾斜积分图求倾斜矩形区域和值"><br>如下图所示，构建好倾斜积分图后，可快速计算倾斜矩形区域$r=(x,y,w,h,45^{\circ})$的像素和值<br>$$RecSum(r)=RSAT(x+w,y+w)+RSAT(x-h,y+h)-RSAT(x,y)-RSAT(x+w-h,y+w+h)$$<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abe7aa1.jpg" alt="rotated rectangle.jpg" title="倾斜矩形区域求和示意图"></p>
-<h3 id="AdaBoost分类器"><a href="#AdaBoost分类器" class="headerlink" title="AdaBoost分类器"></a>AdaBoost分类器</h3><p>&emsp;&emsp;由输入图像得到积分图，通过取不同种类、大小的Haar特征模板，并在不同位置处，利用积分图提取Haar矩形特征，可快速得到大量Haar特征值，AdaBoost分类器可用于对提取的Haar特征(通常需要做归一化处理)进行训练分类，并应用于人脸检测中。AdaBoost是一种集成分类器，由若干个强分类级联而成，而每个强分类器又由若干个弱分类器(例如决策树)组合训练得到。<br>弱分类器的定义如下：<br>$$h_j(x)=\begin{cases} 1, if p_j f_j(x) &lt; p_j theta_j\\ 0, otherwise\end{cases}$$<br>上式中$p_j$是为了控制不等式的方向而设置的参数。$x$表示一个图像窗口，$f_j(x)$表示提取的Haar特征，阈值$theta$用于判断该窗口是否为目标区域(人脸)。<br>算法流程：</p>
+<h3 id="AdaBoost分类器"><a href="#AdaBoost分类器" class="headerlink" title="AdaBoost分类器"></a>AdaBoost分类器</h3><p>&emsp;&emsp;由输入图像得到积分图，通过取不同种类、大小的Haar特征模板，并在不同位置处，利用积分图提取Haar矩形特征，可快速得到大量Haar特征值，AdaBoost分类器可用于对提取的Haar特征(通常需要做归一化处理)进行训练分类，并应用于人脸检测中。AdaBoost是一种集成分类器，由若干个强分类级联而成，而每个强分类器又由若干个弱分类器(例如决策树)组合训练得到。<br>弱分类器的定义如下：<br>$$h_j(x)=\begin{cases} 1,&emsp;p_j f_j(x) &lt; p_j \theta_j\\ 0,&emsp;otherwise\end{cases}$$<br>上式中$p_j$是为了控制不等式的方向而设置的参数。$x$表示一个图像窗口，$f_j(x)$表示提取的Haar特征，阈值$theta$用于判断该窗口是否为目标区域(人脸)。<br>算法流程：</p>
 <ul>
 <li>假设训练样本为$(x_i,y_i),i=0,1,…,n$，$y_i$取值为0(负样本)、1(正样本)。</li>
 <li>初始化权重$w_1,i=\dfrac{1}{2m},y_i=\dfrac{1}{2l}$，其中$m$表示负样本的个数，$m$表示正样本的个数。</li>
