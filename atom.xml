@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-25T13:59:59.099Z</updated>
+  <updated>2017-06-26T02:47:20.897Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/25/image-feature-haar/"/>
     <id>https://senitco.github.io/2017/06/25/image-feature-haar/</id>
     <published>2017-06-25T06:06:55.987Z</published>
-    <updated>2017-06-25T13:59:59.099Z</updated>
+    <updated>2017-06-26T02:47:20.897Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;Haar特征是一种用于目标检测或识别的图像特征描述子，Haar特征通常和AdaBoost分类器组合使用，而且由于Haar特征提取的实时性以及AdaBoost分类的准确率，使其成为人脸检测以及识别领域较为经典的算法。<br><a id="more"></a></p>
 <h3 id="多种Haar-like特征"><a href="#多种Haar-like特征" class="headerlink" title="多种Haar-like特征"></a>多种Haar-like特征</h3><p>&emsp;&emsp;在Haar-like特征提出之前，传统的人脸检测算法一般是基于图像像素值进行的，计算量较大且实时性较差。Papageorgiou等人最早将Harr小波用于人脸特征表示，Viola和Jones则在此基础上，提出了多种形式的Haar特征。Lienhart等人对Haar矩形特征做了进一步的扩展，加入了旋转$45^{\circ}$的矩形特征，因此现有的Haar特征模板主要如下图所示：</p>
@@ -29,8 +29,18 @@
 <h3 id="快速计算——积分图"><a href="#快速计算——积分图" class="headerlink" title="快速计算——积分图"></a>快速计算——积分图</h3><h4 id="积分图构建"><a href="#积分图构建" class="headerlink" title="积分图构建"></a>积分图构建</h4><p>&emsp;&emsp;在一个图像窗口中，可以提取出大量的Haar矩形特征区域，如果在计算Haar特征值时，每次都遍历矩形特征区域，将会造成大量重复计算，严重浪费时间。而积分图正是一种快速计算矩形特征的方法，其主要思想是将图像起始像素点到每一个像素点之间所形成的矩形区域的像素值的和，作为一个元素保存下来，也就是将原始图像转换为积分图(或者求和图)，这样在求某一矩形区域的像素和时，只需索引矩形区域4个角点在积分图中的取值，进行普通的加减运算，即可求得Haar特征值，整个过程只需遍历一次图像，计算特征的时间复杂度为常数(O(1))。因此可以大大提升计算效率。<br>积分图中元素的公式定义如下：<br>$$ii(x,y) = \Sigma_{x’\leq x,y’\leq y} i(x’,y’)$$<br>上式含义是在$(x,y)$(第$x$行第$y$列)位置处，积分图中元素为原图像中对应像素我左上角所有像素值之和。在具体实现时，可用下式进行迭代运算。<br>$$s(x,y)=s(x,y-1)+i(x,y)$$<br>$$ii(x,y)=ii(x-1,y)+s(x,y)$$<br>$s(x,y)$为行元素累加值，初始值$s(x,-1)=0,ii(-1,y)=0$</p>
 <h4 id="矩形特征计算"><a href="#矩形特征计算" class="headerlink" title="矩形特征计算"></a>矩形特征计算</h4><p>&emsp;&emsp;构建好积分图后，图像中任何矩形区域的像素值累加和都可以通过简单的简单的加减运算快速得到，如下图所示，矩形区域D的像素和值计算公式如下：<br>$$Sum(D)=ii(x_4, y_4)-ii(x_2,y_2)-ii(x_3,y_3)+ii(x_1,y_1)$$</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/25/594fb4dceae3c.jpg" alt="rectangle.jpg" title="矩形区域求和示意图"><br>在下图中，以水平向右为x轴正方向，垂直向下为y轴正方向，可定义积分图公式Summed Area Table($SAT(x,y)$)<br>$$SAT(x,y)=\Sigma_{x’leq x,y’\leq y} i(x’,y’)$$<br>以及迭代求解式<br>$$SAT(x,y)=SAT(x,y-1)+SAT(x-1,y)-SAT(x-1,y-1)+I(x,y)$$<br>$$SAT(-1,y)=0, SAT(x,-1)=0$$<br>对于左上角坐标为$(x,y)$，宽高为$(w,h)$的矩形区域$r(x,y,w,h,0)$，可利用积分图$SAT(x,y)$求取像素和值<br>$$RecSum(r)=SAT(x+w-1, y+h-1)+SAT(x-1, y-1)-SAT(x+w-1, y-1)-SAT(x-1,y+h-1)$$<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abd4e14.jpg" alt="integer.jpg" title="积分图求矩形区域和值"></p>
-<h4 id="旋转矩形特征的计算"><a href="#旋转矩形特征的计算" class="headerlink" title="旋转矩形特征的计算"></a>旋转矩形特征的计算</h4><p>&emsp;&emsp;对于旋转矩形特征，相应的有$45^{\circ}$倾斜积分图用于快速计算Haar特征值，如下图所示，倾斜积分图的定义为像素点左上角$45^{\circ}$区域和左下角$45^{\circ}$区域的像素和，公式表示如下：<br>$$RSAT(x,y)=\Sigma_{x’\leq x,x’\leq &lt;x-\left|y-y’\right|} i(x’,y’)$$<br>其递推公式计算如下：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x-1,y)-RSAT(x-2,y-1)+I(x,y)$$<br>$$RSAT(x,y)=RSAT(x,y)+RSAT(x-1,y+1)-RSAT(x-2,y)$$<br>其中$RSAT(-1,y)=RSAT(-2,y)=RSAT(x,-1)=0$<br>也可直接通过下式递归计算：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x+1,y-1)-RSAT(x,y-2)+I(x-1,y)+I(x,y)$$<br>以上3个积分图计算公式是等价的。<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abd4190.jpg" alt="titled interger.jpg" title="倾斜积分图求倾斜矩形区域和值"><br>如下图所示，构建好倾斜积分图后，可快速计算倾斜矩形区域$r=(x,y,w,h,45^{\circ})$的像素和值<br>$$RecSum(r)=RSAT(x+w,y+w)+RSAT(x-h,y+h)-RSAT(x,y)-RSAT(x+w-h,y+w+h)$$<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abe7aa1.jpg" alt="rotated rectangle.jpg" title="倾斜矩形区域求和示意图"></p>
-<h3 id="AdaBoost分类器"><a href="#AdaBoost分类器" class="headerlink" title="AdaBoost分类器"></a>AdaBoost分类器</h3>]]></content>
+<h4 id="旋转矩形特征的计算"><a href="#旋转矩形特征的计算" class="headerlink" title="旋转矩形特征的计算"></a>旋转矩形特征的计算</h4><p>&emsp;&emsp;对于旋转矩形特征，相应的有$45^{\circ}$倾斜积分图用于快速计算Haar特征值，如下图所示，倾斜积分图的定义为像素点左上角$45^{\circ}$区域和左下角$45^{\circ}$区域的像素和，公式表示如下：<br>$$RSAT(x,y)=\Sigma_{x’\leq x,x’\leq x-\left|y-y’\right|} i(x’,y’)$$<br>其递推公式计算如下：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x-1,y)-RSAT(x-2,y-1)+I(x,y)$$<br>$$RSAT(x,y)=RSAT(x,y)+RSAT(x-1,y+1)-RSAT(x-2,y)$$<br>其中$RSAT(-1,y)=RSAT(-2,y)=RSAT(x,-1)=0$<br>也可直接通过下式递归计算：<br>$$RSAT(x,y)=RSAT(x-1,y-1)+RSAT(x+1,y-1)-RSAT(x,y-2)+I(x-1,y)+I(x,y)$$<br>以上3个积分图计算公式是等价的。<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abd4190.jpg" alt="titled interger.jpg" title="倾斜积分图求倾斜矩形区域和值"><br>如下图所示，构建好倾斜积分图后，可快速计算倾斜矩形区域$r=(x,y,w,h,45^{\circ})$的像素和值<br>$$RecSum(r)=RSAT(x+w,y+w)+RSAT(x-h,y+h)-RSAT(x,y)-RSAT(x+w-h,y+w+h)$$<br><img src="https://ooo.0o0.ooo/2017/06/25/594fb9abe7aa1.jpg" alt="rotated rectangle.jpg" title="倾斜矩形区域求和示意图"></p>
+<h3 id="AdaBoost分类器"><a href="#AdaBoost分类器" class="headerlink" title="AdaBoost分类器"></a>AdaBoost分类器</h3><p>&emsp;&emsp;由输入图像得到积分图，通过取不同种类、大小的Haar特征模板，并在不同位置处，利用积分图提取Haar矩形特征，可快速得到大量Haar特征值，AdaBoost分类器可用于对提取的Haar特征(通常需要做归一化处理)进行训练分类，并应用于人脸检测中。AdaBoost是一种集成分类器，由若干个强分类级联而成，而每个强分类器又由若干个弱分类器(例如决策树)组合训练得到。<br>弱分类器的定义如下：<br>$$h_j(x)=\begin{cases} 1, if p_j f_j(x) &lt; p_j theta_j\ 0, otherwise\end{cases}$$<br>上式中$p_j$是为了控制不等式的方向而设置的参数。$x$表示一个图像窗口，$f_j(x)$表示提取的Haar特征，阈值$theta$用于判断该窗口是否为目标区域(人脸)。<br>算法流程：<br>假设训练样本为$(x_i,y_i),i=0,1,…,n$,$y_i$取值为0(负样本)、1(正样本)。<br>初始化权重$w_1,i=\dfrac{1}{2m},y_i=\dfrac{1}{2l}$，其中$m$表示负样本的个数，$m$表示正样本的个数。<br>For $t =1,2,…,T$</p>
+<ul>
+<li>归一化权值：$w_{t,i} = dfrac{w_{t,i}}{\Sigma_{j=1}^n w_{t,j}} $</li>
+<li>对于每个(种)特征，训练一个分类器($h_j$)，每个分类器只使用一种Haar特征进行训练。分类误差为$\varepsilon_j=\Sigma_i w_i \left|h_j(x_i)-y_i\right|$，$h_j$为特征分类器，$x_i$为训练图像样本。</li>
+<li>选择最低误差的分类器$h_t$</li>
+<li>更新训练样本的权值$w_{t+1,i}=w_{t,i}\beta_t^{1-e_i}$，分类正确$e_i=0$，分类错误$e_i=1$，$\beta_t=\dfrac{\varepsilon_t}{1-\varepsilon_t}$<br>最后的强分类器为<br>$$h(x)=\begin{cases} 1, \Sigma_{t=1}^T \alpha_t h_t \geq \dfrac{1}{2}\Sigma_{t=1}^T \alpha_t \ 0, otherwise\end{cases}$$<br>其中$\alpha_t=log(\dfrac{1}{\beta_t})$<br>通过训练多个弱分类器得到强分类器，还需对强分类器进行级联，以提高检测正确率并降低误识率。级联分类器如下所示：</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/06/26/59506e87bf0f5.jpg" alt="cascade.jpg" title="级联分类器"></p>
+<p>首先将所有待检测的子窗口输入到第一个分类器中，如果某个子窗口判决通过，则进入下一个分类器继续检测识别，否则直接该子窗口直接退出检测流程，也就是说后续分类器不需要处理该子窗口。通过这样一种级联的方式可以去除一些误识为目标的子窗口，降低误识率。例如，单个强分类器，99%的目标窗口可以通过，同时50%的非目标窗口也能通过，假设有20个强分类器级联，那么最终的正确检测率为$0.99^20=98%$，而错误识别率为$0.50^20 \approx 0.0001%$，在不影响检测准确率的同时，大大降低了误识率。当然前提是单个强分类器的准确率非常高，这样级联多个分类器才能不影响最终的准确率或者影响很小。</p>
+<p>&emsp;&emsp;在一幅图像中，为了能够检测到不同位置的目标区域，需要以一定步长遍历整幅图像；而对于不同大小的目标，则需要改变检测窗口的尺寸，或者固定窗口而缩放图像。这样，最后检测到的子窗口必然存在相互重叠的情况，因此需要进一步对这些重叠的子窗口进行合并，也就是非极大值抑制(NMS,non-maximum suppression)，同时剔除零散分布的错误检测窗口。</p>
+]]></content>
     
     <summary type="html">
     
