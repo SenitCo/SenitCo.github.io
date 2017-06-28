@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/2017/06/28/image-feature-harris/</loc>
+    
+    <lastmod>2017-06-28T15:00:49.867Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/image-feature-sift.html</loc>
+    
+    <lastmod>2017-06-28T11:40:09.415Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/06/25/image-feature-haar/</loc>
     
     <lastmod>2017-06-28T02:22:15.917Z</lastmod>
