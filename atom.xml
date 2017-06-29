@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-29T02:44:58.681Z</updated>
+  <updated>2017-06-29T02:49:01.857Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="https://senitco.github.io/2017/06/28/image-feature-harris/"/>
     <id>https://senitco.github.io/2017/06/28/image-feature-harris/</id>
     <published>2017-06-28T11:12:03.114Z</published>
-    <updated>2017-06-29T02:44:58.681Z</updated>
+    <updated>2017-06-29T02:49:01.857Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。<br><a id="more"></a></p>
 <!-- mathjax config similar to math.stackexchange -->
-<p><script type="text/x-mathjax-config"><br>MathJax.Hub.Config({<br>    jax: [“input/TeX”, “output/HTML-CSS”],<br>    tex2jax: {<br>        inlineMath: [ [‘$’, ‘$’] ],<br>        displayMath: [ [‘$$’, ‘$$’]],<br>        processEscapes: true,<br>        skipTags: [‘script’, ‘noscript’, ‘style’, ‘textarea’, ‘pre’, ‘code’]<br>    },<br>    messageStyle: “none”,<br>    “HTML-CSS”: { preferredFont: “TeX”, availableFonts: [“STIX”,”TeX”] }<br>});<br></script></p>
+<p><script type="text/x-mathjax-config"><br>MathJax.Hub.Config({<br>    jax: [“input/TeX”, “output/HTML-CSS”],<br>    tex2jax: {<br>        inlineMath: [ [‘$’, ‘$’] ],<br>        displayMath: [ [‘$$’, ‘$$’]],<br>        processEscapes: true,<br>        skipTags: [‘script’, ‘noscript’, ‘style’, ‘textarea’, ‘pre’, ‘code’]<br>    },<br>    Tex: {<br>    equationNumbers: {autoNumber: ‘AMS’},<br>    Macros: {bm: “boldsymbol”}<br>    },<br>    messageStyle: “none”,<br>    “HTML-CSS”: { preferredFont: “TeX”, availableFonts: [“STIX”,”TeX”] }<br>});<br></script></p>
 <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><br>\usepackage{bm}</p>
 <h3 id="局部特征"><a href="#局部特征" class="headerlink" title="局部特征"></a>局部特征</h3><p>&emsp;&emsp;不同于HOG、LBP、Haar等基于区域(Region)的图像局部特征，Harris是基于角点的特征描述子，属于feature detector，主要用于图像特征点的匹配(match)，在SIFT算法中就有用到此类角点特征；而HOG、LBP、Haar等则是通过提取图像的局部纹理特征(feature extraction)，用于目标的检测和识别等领域。无论是HOG、Haar特征还是Harris角点都属于图像的局部特征，满足局部特征的一些特性。主要有以下几点：</p>
 <ul>
@@ -45,7 +45,7 @@
 <p>当角点边界和坐标轴没有对齐时，可对角点进行旋转变换，将其变换到与坐标轴对齐，这种旋转操作可用矩阵的相似对角化来表示，即<br>$$M=X\Sigma X^T = X \left[ \begin{matrix} \lambda_1&amp; 0\\ 0&amp; \lambda_2\end{matrix} \right] X^T$$<br>$$Mx_i=\lambda_i x_i$$</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953b0d8e3d2d.jpg" alt="not-aligned.jpg"></p>
 <p>如下图所示，可根据矩阵$M$的特征值来判断是否为角点，当两个特征值都较大时为角点(corne)，一个特征值较大而另一个较小时则为图像边缘(edge)，两个特征值都较小时为均匀区域(flat)<br><img src="https://ooo.0o0.ooo/2017/06/28/5953b3774c2f2.png" alt="judge corners.png"></p>
-<p>在判断角点时，无需具体计算矩阵$M$的特征值，而使用下式近似计算角点响应值。<br>$$R = det\bm{M}-\alpha (trace<strong>M</strong>)^2$$<br>$$det<strong>M</strong>=\lambda_1 \lambda_2=AB-C^2$$<br>$$trace<strong>M</strong>=\lambda_1 + \lambda_2 = A+B$$<br>式中，$det<strong>M</strong>$为矩阵$M$的行列式，$trace<strong>M</strong>$为矩阵$M$的迹，$\alpha$为一常数，通常取值为0.04~0.06。</p>
+<p>在判断角点时，无需具体计算矩阵$M$的特征值，而使用下式近似计算角点响应值。<br>$$R = det\bm{M}-\alpha (trace<em>M</em>)^2$$<br>$$det<strong>M</strong>=\lambda_1 \lambda_2=AB-C^2$$<br>$$trace<strong>M</strong>=\lambda_1 + \lambda_2 = A+B$$<br>式中，$det<strong>M</strong>$为矩阵$M$的行列式，$trace<strong>M</strong>$为矩阵$M$的迹，$\alpha$为一常数，通常取值为0.04~0.06。</p>
 <h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>Harris角点检测的算法步骤归纳如下：</p>
 <ul>
 <li>计算图像$I(x,y)$在$X$方向和$Y$方向的梯度<br>$$I_x=\dfrac {\partial I} {\partial x}=I(x,y)\otimes \left( \begin{matrix} -1&amp; 0&amp; 1\end{matrix} \right)$$<br>$$I_y=\dfrac {\partial I} {\partial y}=I(x,y)\otimes \left( \begin{matrix} -1&amp; 0&amp; 1\end{matrix} \right)^T$$</li>
