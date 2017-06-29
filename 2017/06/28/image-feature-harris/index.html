@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb60bb814.jpg">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb317b0b6.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bc1427011.jpg">
-<meta property="og:updated_time" content="2017-06-29T02:49:01.857Z">
+<meta property="og:updated_time" content="2017-06-29T02:50:21.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之Harris角点检测">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。">
@@ -326,7 +326,7 @@
       
         <p>&emsp;&emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。<br><a id="more"></a></p>
 <!-- mathjax config similar to math.stackexchange -->
-<p><script type="text/x-mathjax-config"><br>MathJax.Hub.Config({<br>    jax: [“input/TeX”, “output/HTML-CSS”],<br>    tex2jax: {<br>        inlineMath: [ [‘$’, ‘$’] ],<br>        displayMath: [ [‘$$’, ‘$$’]],<br>        processEscapes: true,<br>        skipTags: [‘script’, ‘noscript’, ‘style’, ‘textarea’, ‘pre’, ‘code’]<br>    },<br>    Tex: {<br>    equationNumbers: {autoNumber: ‘AMS’},<br>    Macros: {bm: “boldsymbol”}<br>    },<br>    messageStyle: “none”,<br>    “HTML-CSS”: { preferredFont: “TeX”, availableFonts: [“STIX”,”TeX”] }<br>});<br></script></p>
+<p><script type="text/x-mathjax-config"><br>MathJax.Hub.Config({<br>    jax: [“input/TeX”, “output/HTML-CSS”],<br>    tex2jax: {<br>        inlineMath: [ [‘$’, ‘$’] ],<br>        displayMath: [ [‘$$’, ‘$$’]],<br>        processEscapes: true,<br>        skipTags: [‘script’, ‘noscript’, ‘style’, ‘textarea’, ‘pre’, ‘code’]<br>    },<br>    TeX: {<br>    equationNumbers: {autoNumber: ‘AMS’},<br>    Macros: {bm: “boldsymbol”}<br>    },<br>    messageStyle: “none”,<br>    “HTML-CSS”: { preferredFont: “TeX”, availableFonts: [“STIX”,”TeX”] }<br>});<br></script></p>
 <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><br>\usepackage{bm}</p>
 <h3 id="局部特征"><a href="#局部特征" class="headerlink" title="局部特征"></a>局部特征</h3><p>&emsp;&emsp;不同于HOG、LBP、Haar等基于区域(Region)的图像局部特征，Harris是基于角点的特征描述子，属于feature detector，主要用于图像特征点的匹配(match)，在SIFT算法中就有用到此类角点特征；而HOG、LBP、Haar等则是通过提取图像的局部纹理特征(feature extraction)，用于目标的检测和识别等领域。无论是HOG、Haar特征还是Harris角点都属于图像的局部特征，满足局部特征的一些特性。主要有以下几点：</p>
 <ul>
