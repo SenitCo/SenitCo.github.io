@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-29T04:15:44.569Z</updated>
+  <updated>2017-06-29T04:16:32.578Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/28/image-feature-harris/"/>
     <id>https://senitco.github.io/2017/06/28/image-feature-harris/</id>
     <published>2017-06-28T11:12:03.114Z</published>
-    <updated>2017-06-29T04:15:44.569Z</updated>
+    <updated>2017-06-29T04:16:32.578Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。<br><a id="more"></a></p>
 <!-- mathjax config similar to math.stackexchange -->
@@ -91,6 +91,7 @@ MathJax.Hub.Config({
 <li><a href="https://xmfbit.github.io/2017/01/25/cs131-finding-features/" target="_blank" rel="external">https://xmfbit.github.io/2017/01/25/cs131-finding-features/</a></li>
 <li><a href="http://www.voidcn.com/blog/app_12062011/article/p-6071346.html" target="_blank" rel="external">http://www.voidcn.com/blog/app_12062011/article/p-6071346.html</a></li>
 <li><a href="http://blog.csdn.net/jwh_bupt/article/details/7628665" target="_blank" rel="external">http://blog.csdn.net/jwh_bupt/article/details/7628665</a></li>
+<li><a href="http://www.cnblogs.com/ztfei/archive/2012/05/07/2487123.html" target="_blank" rel="external">http://www.cnblogs.com/ztfei/archive/2012/05/07/2487123.html</a></li>
 </ul>
 ]]></content>
     
