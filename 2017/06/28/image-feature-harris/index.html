@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb60bb814.jpg">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb317b0b6.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bc1427011.jpg">
-<meta property="og:updated_time" content="2017-06-29T03:05:45.013Z">
+<meta property="og:updated_time" content="2017-06-29T04:15:44.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之Harris角点检测">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。">
@@ -359,6 +359,7 @@ MathJax.Hub.Config({
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953b0d8c854c.jpg" alt="axis-aligned.jpg"></p>
 <p>当角点边界和坐标轴没有对齐时，可对角点进行旋转变换，将其变换到与坐标轴对齐，这种旋转操作可用矩阵的相似对角化来表示，即<br>$$M=X\Sigma X^T = X \left[ \begin{matrix} \lambda_1&amp; 0\\ 0&amp; \lambda_2\end{matrix} \right] X^T$$<br>$$Mx_i=\lambda_i x_i$$</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953b0d8e3d2d.jpg" alt="not-aligned.jpg"></p>
+<p>&emsp;&emsp;对于矩阵$M$，可以将其和协方差矩阵类比，协方差表示多维随机变量之间的相关性，协方差矩阵对角线的元素表示的是各个维度的方差，而非对角线上的元素表示的是各个维度之间的相关性，在PCA(主成分分析)中，将协方差矩阵对角化，使不同维度的相关性尽可能的小，并取特征值较大的维度，来达到降维的目的。类似的，可以将矩阵$M$看成是一个二维随机分布的协方差矩阵，通过将其对角化，求取矩阵的两个特征值，并根据这两个特征值来判断角点。</p>
 <p>如下图所示，可根据矩阵$M$的特征值来判断是否为角点，当两个特征值都较大时为角点(corne)，一个特征值较大而另一个较小时则为图像边缘(edge)，两个特征值都较小时为均匀区域(flat)。<br><img src="https://ooo.0o0.ooo/2017/06/28/5953b3774c2f2.png" alt="judge corners.png"></p>
 <p>在判断角点时，无需具体计算矩阵$M$的特征值，而使用下式近似计算角点响应值。<br>$$R = detM-\alpha (traceM)^2$$<br>$$detM=\lambda_1 \lambda_2=AB-C^2$$<br>$$traceM=\lambda_1 + \lambda_2 = A+B$$<br>式中，$detM$为矩阵$M$的行列式，$traceM$为矩阵$M$的迹，$\alpha$为一常数，通常取值为0.04~0.06。</p>
 <h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>Harris角点检测的算法步骤归纳如下：</p>
