@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ML," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -86,16 +86,22 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
+<meta name="description" content="&amp;emsp;&amp;emsp;LoG(Laplacian of Gaussian)算子和DoG(Difference of Gaussian)算子是图像处理中实现极值点检测(Blob Detection)的两种方法。通过利用高斯函数卷积操作进行尺度变换，可以在不同的尺度空间检测到关键点(Key Point)或兴趣点(Interest Point)，实现尺度不变性(Scale invariance)的特征">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据挖掘中的度量方法">
-<meta property="og:url" content="https://senitco.github.io/2017/05/24/measurement-method/index.html">
+<meta property="og:title" content="图像特征之LoG算子与DoG算子">
+<meta property="og:url" content="https://senitco.github.io/2017/06/29/image-feature-LoG-DoG/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
-<meta property="og:updated_time" content="2017-05-24T06:43:54.575Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;LoG(Laplacian of Gaussian)算子和DoG(Difference of Gaussian)算子是图像处理中实现极值点检测(Blob Detection)的两种方法。通过利用高斯函数卷积操作进行尺度变换，可以在不同的尺度空间检测到关键点(Key Point)或兴趣点(Interest Point)，实现尺度不变性(Scale invariance)的特征">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/29/5954c1640caeb.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/29/5954d7a6ca776.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/29/5954d7a6cb78d.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/29/5954d7a6c963e.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/29/5954d7a6c08d4.jpg">
+<meta property="og:updated_time" content="2017-06-29T10:44:36.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据挖掘中的度量方法">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
+<meta name="twitter:title" content="图像特征之LoG算子与DoG算子">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;LoG(Laplacian of Gaussian)算子和DoG(Difference of Gaussian)算子是图像处理中实现极值点检测(Blob Detection)的两种方法。通过利用高斯函数卷积操作进行尺度变换，可以在不同的尺度空间检测到关键点(Key Point)或兴趣点(Interest Point)，实现尺度不变性(Scale invariance)的特征">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/29/5954c1640caeb.jpg">
 
 
 
@@ -113,7 +119,7 @@
   };
 </script>
 
-  <title> 数据挖掘中的度量方法 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征之LoG算子与DoG算子 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +249,7 @@
             
             
               
-                数据挖掘中的度量方法
+                图像特征之LoG算子与DoG算子
               
             
           </h1>
@@ -255,8 +261,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-24T10:20:09+08:00" content="2017-05-24">
-              2017-05-24
+            <time itemprop="dateCreated" datetime="2017-06-29T14:41:56+08:00" content="2017-06-29">
+              2017-06-29
             </time>
           </span>
 
@@ -285,8 +291,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/05/24/measurement-method/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/24/measurement-method/" itemprop="commentsCount"></span>
+                <a href="/2017/06/29/image-feature-LoG-DoG/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/29/image-feature-LoG-DoG/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,33 +320,29 @@
       
 
       
-        <p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。<br><a id="more"></a></p>
-<!-- mathjax config similar to math.stackexchange -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-        inlineMath: [ ['$', '$'] ],
-        displayMath: [ ['$$', '$$']],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    messageStyle: "none",
-    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
-
-<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;$n$维空间中两个样本点$x$和$y$之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
-<h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p>&emsp;&emsp;曼哈顿距离也称为街区距离，计算公式如下：<br>$$d(x,y)=\Sigma_{k=1}^n \left|x_k-y_k\right|$$</p>
-<h3 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h3><p>$$d(x,y) = \lim_{n\rightarrow \infty} (\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r} = max_k (\left|x_k-y_k\right|)$$<br>上面两个公式是等价的。</p>
-<h3 id="闵可夫斯基距离"><a href="#闵可夫斯基距离" class="headerlink" title="闵可夫斯基距离"></a>闵可夫斯基距离</h3><p>$$d(x,y)=(\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r}$$<br>式中，r是一个可变参数，根据参数r取值的不同，闵可夫斯基距离可以表示一类距离<br>&emsp;&emsp;r = 1时，为曼哈顿距离<br>&emsp;&emsp;r = 2时，为欧式距离<br>&emsp;&emsp;r →∞时，为切比雪夫距离<br>闵可夫斯基距离包括欧式距离、曼哈顿距离、切比雪夫距离都假设数据各维属性的量纲和分布（期望、方差）相同，因此适用于度量独立同分布的数据对象。</p>
-<h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p>&emsp;&emsp;两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数，也就是将一个字符串变换为另一个字符串所需要替换的最小字符个数，例如<br>$$Hamming Distance(1001001, 0101101) = 3$$<br>汉明距离常用于信息编码中。</p>
-<h3 id="余弦距离"><a href="#余弦距离" class="headerlink" title="余弦距离"></a>余弦距离</h3><p>&emsp;&emsp;余弦相似度公式定义如下：<br>$$cos⁡(x,y)=\dfrac{xy}{\left|x\right|\left|y\right|} = \dfrac{\Sigma_{k=1}^n x_k y_k}{\sqrt{\Sigma_{k=1}^n x_k^2} \sqrt{\Sigma_{k=1}^n y_k^2}}$$<br>余弦相似度实际上是向量$x$和$y$夹角的余弦度量，可用来衡量两个向量方向的差异。如果余弦相似度为$1$，则$x$和$y$之间夹角为$0°$，两向量除模外可认为是相同的；如果预先相似度为$0$，则$x$和$y$之间夹角为$90°$，则认为两向量完全不同。在计算余弦距离时，将向量均规范化成具有长度$1$，因此不用考虑两个数据对象的量值。<br>余弦相似度常用来度量文本之间的相似性。文档可以用向量表示，向量的每个属性代表一个特定的词或术语在文档中出现的频率，尽管文档具有大量的属性，但每个文档向量都是稀疏的，具有相对较少的非零属性值。</p>
-<h3 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h3><p>&emsp;&emsp;马氏距离的计算公式如下：<br>$$mahalanobis(x,y)=(x-y)\Sigma^{-1}(x-y)^T$$<br>式中，$\Sigma^{-1}$是数据协方差矩阵的逆。<br>前面的距离度量方法大都假设样本独立同分布、数据属性之间不相关。马氏距离考虑了数据属性之间的相关性，排除了属性间相关性的干扰，而且与量纲无关。若协方差矩阵是对角阵，则马氏距离变成了标准欧式距离；若协方差矩阵是单位矩阵，各个样本向量之间独立同分布，则变成欧式距离。</p>
-<h3 id="Jaccard系数"><a href="#Jaccard系数" class="headerlink" title="Jaccard系数"></a>Jaccard系数</h3><p>&emsp;&emsp;Jaccard系数定义为两个集合A和B的交集元素在其并集中所占的比例，即<br>$$J(A,B)=\dfrac{A\cap B}{A\cup B}$$<br>对于两个数据对象$x$和$y$，均由$n$个二元属性组成，则<br>$$J=\dfrac{f_{11}}{f_{01}+f_{10}+f_{11}}$$<br>式中，$f_{11}$为$x$取$1$且$y$取$1$的属性个数，$f_{01}$为$x$取$0$且$y$取$1$的属性个数，$f_{10}$为$x$取$1$且$y$取$0$的属性个数。<br>Jaccard系数适用于处理仅包含非对称的二元属性的对象。<br>广义Jaccard系数定义如下：<br>$$EJ(x,y)=\dfrac{xy}{‖x‖^2+‖y‖^2-xy}$$<br>广义Jaccard系数又称为Tanimoto系数，可用于处理文档数据，并在二元属性情况下归约为Jaccard系数。</p>
-<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><p>&emsp;&emsp;两个数据对象之间的相关性是对象属性之间线性关系的度量，计算公式如下<br>$$\rho_{xy}=\dfrac{s_{xy}}{s_x s_y}$$<br>$$s_{xy}=\dfrac{1}{n-1} \Sigma_{k=1}^n (x_k-\overline{x})(y_k-\overline{y})$$<br>$$s_x=\sqrt{\dfrac{1}{n-1} \Sigma_{k=1}^n (x_k-\overline{x})^2}$$<br>$$s_y=\sqrt{\dfrac{1}{n-1} \Sigma_{k=1}^n (y_k-\overline{y})^2}$$<br>$$\overline{x}=\dfrac{1}{n} \Sigma_{k=1}^n x_k ,&emsp;\overline{y}=\dfrac{1}{n} \Sigma_{k=1}^n y_k$$<br>相关系数是衡量数据对象相关程度的一种方法，取值范围为$[-1,1]$。相关系数的绝对值越大，则表明$x$和$y$相关度越高。当$x$和$y$线性相关时，相关系数取值为$1$（正线性相关）或$-1$（负线性相关）；线性无关时取值为$0$。在线性回归中，使用直线拟合样本点，可利用相关系数度量其线性性。</p>
-<h3 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h3><p>&emsp;&emsp;信息熵描述的是整个系统内部样本之间的一个距离，是衡量分布的混乱程度或分散程度的一种度量。样本分布越分散（或者说分布越平均），信息熵越大；分布越有序（或者说分布越集中），信息熵就越小。给定样本集$X$的信息熵公式定义如下：<br>$$Entropy(X)=\Sigma_{i=1}^n -p_i log_2⁡(p_i)$$<br>式中，$n$为样本集的分类数，$p_i$为第$i$类元素出现的概率。当$S$中$n$个分类出现的概率一样大时，信息熵取最大值$log2(n)$。当$X$只有一个分类时，信息熵取最小值$0$。信息熵用于度量不确定性，在决策树分类中，信息熵可用于计算子树划分前后的信息增益作为选择最佳划分的度量。</p>
+        <p>&emsp;&emsp;LoG(Laplacian of Gaussian)算子和DoG(Difference of Gaussian)算子是图像处理中实现极值点检测(Blob Detection)的两种方法。通过利用高斯函数卷积操作进行尺度变换，可以在不同的尺度空间检测到关键点(Key Point)或兴趣点(Interest Point)，实现尺度不变性(Scale invariance)的特征点检测。<br><a id="more"></a></p>
+<h3 id="Laplacian-of-Gaussian-LoG"><a href="#Laplacian-of-Gaussian-LoG" class="headerlink" title="Laplacian of Gaussian(LoG)"></a>Laplacian of Gaussian(LoG)</h3><p>&emsp;&emsp;Laplace算子通过对图像求取二阶导数的零交叉点(zero-cross)来进行边缘检测，其计算公式如下：<br>$$\nabla ^2 f(x,y)=\dfrac{\partial^2 f}{\partial x^2} + \dfrac{\partial^2 f}{\partial y^2}$$<br>由于微分运算对噪声比较敏感，可以先对图像进行高斯平滑滤波，再使用Laplace算子进行边缘检测，以降低噪声的影响。由此便形成了用于极值点检测的LoG算子。常用的二维高斯函数如下：<br>$$G_\sigma(x,y)=\dfrac{1}{\sqrt {2\pi \sigma ^{2}}} exp(-\dfrac{x^2+y^2}{2\sigma ^2})$$<br>原图像与高斯核函数卷积后再做laplace运算<br>$$\Delta[G_\sigma(x,y)<em>f(x,y)]=[\Delta G_\sigma(x,y)]</em>f(x,y)=$$<br>$$LoG = \Delta G_\sigma(x,y)=\dfrac{\partial^2 G_\sigma)(x,y)}{\partial x^2} + \dfrac{\partial^2 G_\sigma)(x,y)}{\partial y^2}=\dfrac{x^2+y^2-2\sigma^2}{\sigma^4}e^{-(x^2+y^2)/2\sigma^2}$$<br>所以先对高斯核函数求取二阶导数，再与原图像进行卷积操作。由于高斯函数是圆对称的，因此LoG算子可以有效地实现极值点或局部极值区域的检测。</p>
+<h3 id="Difference-of-Gaussian-DoG"><a href="#Difference-of-Gaussian-DoG" class="headerlink" title="Difference of Gaussian(DoG)"></a>Difference of Gaussian(DoG)</h3><p>&emsp;&emsp;DoG算子是高斯函数的差分，具体到图像中，就是将图像在不同参数下的高斯滤波结果相减，得到差分图。DoG算子的表达式如下：<br>$$DoG = G_\sigma_1 - G_\sigma_2=\dfrac{1}{\sqrt{2\pi}} (\dfrac{1}{\sigma_1} e^{-(x^2+y^2)/2\sigma_1^2} - \dfrac{1}{\sigma_2} e^{-(x^2+y^2)/2\sigma_2^2})$$<br>如果将高斯核函数的形式表示为<br>$$G_\sigma(x,y)=\dfrac{1}{2\pi \sigma ^{2}} exp(-\dfrac{x^2+y^2}{2\sigma ^2})$$<br>则存在以下等式<br>$$\dfrac{\partial G}{\partial \sigma} = \sigma \nabla ^2 G$$<br>$$\dfrac{\partial G}{\partial \sigma} \approx \dfrac{G(x,y,k\sigma)-G(x,y,\sigma)}{k\sigma-\sigma}$$<br>因此有<br>$$G(x,y,k\sigma)-G(x,y,\sigma) \approx (k-1)\sigma^2 \nabla ^2 G$$<br>其中$k-1$是个常数，不影响极值点的检测，LoG算子和DoG算子的函数波形对比如下图所示，由于高斯差分的计算更加简单，因此可用DoG算子近似替代LoG算子</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/29/5954c1640caeb.jpg" alt="LoG-DoG.jpg" title="LoG与DoG的对比"></p>
+<h3 id="边缘检测-Edge-Detection-和极值点检测-Blob-Detection"><a href="#边缘检测-Edge-Detection-和极值点检测-Blob-Detection" class="headerlink" title="边缘检测(Edge Detection)和极值点检测(Blob Detection)"></a>边缘检测(Edge Detection)和极值点检测(Blob Detection)</h3><p>&emsp;&emsp;LoG算子和DoG算子既可以用于检测图像边缘，也可用于检测局部极值点或极值区域，图像边缘在LoG算子下的响应情况如下图所示，二阶微分算子在边缘处为一过零点，而且过零点两边的最大值和最小值的差值较大。</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/29/5954d7a6ca776.jpg" alt="edge.jpg" title="LoG算子检测边缘响应"></p>
+<p>接下来观察下图，由边缘过渡到极值点，LoG算子的响应变化</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/29/5954d7a6cb78d.jpg" alt="edge to blob.jpg" title="边缘到极值点的LoG响应变化"></p>
+<p>极值点(Blob)在LoG算子的响应如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/29/5954d7a6c963e.jpg" alt="blob.jpg"></p>
+<p>通过定义不同尺寸的高斯核函数，可以实现在不同尺度检测Blob，如下图所示</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/29/5954d7a6c08d4.jpg" alt="scale blob.jpg"></p>
+<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ul>
+<li>对原图像进行LoG或者DoG卷积操作</li>
+<li>检测卷积后图像中的过零点(边缘)或者极值点(Blob)</li>
+<li>如果是检测边缘，则对过零点进行阈值化(过零点两边的最大值和最小值之间的差值要大于某个阈值)；如果是检测极值点，则极值点的LoG或DoG响应值应该大于某个阈值。</li>
+</ul>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://fourier.eng.hmc.edu/e161/lectures/gradient/node8.html" target="_blank" rel="external">http://fourier.eng.hmc.edu/e161/lectures/gradient/node8.html</a></li>
+<li><a href="http://fourier.eng.hmc.edu/e161/lectures/gradient/node9.html" target="_blank" rel="external">http://fourier.eng.hmc.edu/e161/lectures/gradient/node9.html</a></li>
+<li><a href="http://blog.csdn.net/songzitea/article/details/12851079" target="_blank" rel="external">http://blog.csdn.net/songzitea/article/details/12851079</a></li>
+<li><a href="http://blog.csdn.net/kezunhai/article/details/11579785" target="_blank" rel="external">http://blog.csdn.net/kezunhai/article/details/11579785</a></li>
+</ul>
 
       
     </div>
@@ -362,7 +364,7 @@ MathJax.Hub.Config({
       
         <div class="post-tags">
           
-            <a href="/tags/ML/" rel="tag">#ML</a>
+            <a href="/tags/Image/" rel="tag">#Image</a>
           
         </div>
       
@@ -371,17 +373,13 @@ MathJax.Hub.Config({
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/14/VS2013-compile-openssl/" rel="next" title="VS2013编译配置openssl">
-                <i class="fa fa-chevron-left"></i> VS2013编译配置openssl
+              <a href="/2017/06/28/image-feature-harris/" rel="next" title="图像特征之Harris角点检测">
+                <i class="fa fa-chevron-left"></i> 图像特征之Harris角点检测
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/24/cloud-platform/" rel="prev" title="简述云平台和相关软件工具">
-                简述云平台和相关软件工具 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -538,7 +536,7 @@ MathJax.Hub.Config({
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#欧式距离"><span class="nav-number">1.</span> <span class="nav-text">欧式距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#曼哈顿距离"><span class="nav-number">2.</span> <span class="nav-text">曼哈顿距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切比雪夫距离"><span class="nav-number">3.</span> <span class="nav-text">切比雪夫距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闵可夫斯基距离"><span class="nav-number">4.</span> <span class="nav-text">闵可夫斯基距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汉明距离"><span class="nav-number">5.</span> <span class="nav-text">汉明距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#余弦距离"><span class="nav-number">6.</span> <span class="nav-text">余弦距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马氏距离"><span class="nav-number">7.</span> <span class="nav-text">马氏距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jaccard系数"><span class="nav-number">8.</span> <span class="nav-text">Jaccard系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关系数"><span class="nav-number">9.</span> <span class="nav-text">相关系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息熵"><span class="nav-number">10.</span> <span class="nav-text">信息熵</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Laplacian-of-Gaussian-LoG"><span class="nav-number">1.</span> <span class="nav-text">Laplacian of Gaussian(LoG)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Difference-of-Gaussian-DoG"><span class="nav-number">2.</span> <span class="nav-text">Difference of Gaussian(DoG)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边缘检测-Edge-Detection-和极值点检测-Blob-Detection"><span class="nav-number">3.</span> <span class="nav-text">边缘检测(Edge Detection)和极值点检测(Blob Detection)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">4.</span> <span class="nav-text">算法流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -674,9 +672,9 @@ MathJax.Hub.Config({
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/24/measurement-method/';
-      var disqus_title = '数据挖掘中的度量方法';
-      var disqus_url = 'https://senitco.github.io/2017/05/24/measurement-method/';
+      var disqus_identifier = '2017/06/29/image-feature-LoG-DoG/';
+      var disqus_title = '图像特征之LoG算子与DoG算子';
+      var disqus_url = 'https://senitco.github.io/2017/06/29/image-feature-LoG-DoG/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
