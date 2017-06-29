@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb60bb814.jpg">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bb317b0b6.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/06/28/5953bc1427011.jpg">
-<meta property="og:updated_time" content="2017-06-29T02:59:26.215Z">
+<meta property="og:updated_time" content="2017-06-29T03:05:45.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之Harris角点检测">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;角点检测(Corner Detection)也称为特征点检测，是图像处理和计算机视觉中用来获取图像局部特征点的一类方法，广泛应用于运动检测、图像匹配、视频跟踪、三维建模以及目标识别等领域中。">
@@ -344,11 +344,11 @@ MathJax.Hub.Config({
 <h3 id="局部特征"><a href="#局部特征" class="headerlink" title="局部特征"></a>局部特征</h3><p>&emsp;&emsp;不同于HOG、LBP、Haar等基于区域(Region)的图像局部特征，Harris是基于角点的特征描述子，属于feature detector，主要用于图像特征点的匹配(match)，在SIFT算法中就有用到此类角点特征；而HOG、LBP、Haar等则是通过提取图像的局部纹理特征(feature extraction)，用于目标的检测和识别等领域。无论是HOG、Haar特征还是Harris角点都属于图像的局部特征，满足局部特征的一些特性。主要有以下几点：</p>
 <ul>
 <li>可重复性(Repeatability)：同一个特征可以出现在不同的图像中，这些图像可以在不同的几何或光学环境下成像。也就是说，同一物体在不同的环境下成像(不同时间、不同角度、不同相机等)，能够检测到同样的特征。</li>
-<li>独特性(Saliency)：特征在某一特定目标上表现为独特性，能够与场景中其他物体相区分，能够达到后续匹配或识别的目标。</li>
+<li>独特性(Saliency)：特征在某一特定目标上表现为独特性，能够与场景中其他物体相区分，能够达到后续匹配或识别的目的。</li>
 <li>局部性(Locality)；特征能够刻画图像的局部特性，而且对环境影响因子(光照、噪声等)鲁棒。</li>
 <li>紧致性和有效性(Compactness and efficiency)；特征能够有效地表达图像信息，而且在实际应用中运算要尽可能地快。  </li>
 </ul>
-<p>相比于考虑局部邻域范围的局部特征，全局特征则是从整个图像中抽取特征，较多地运用在图像检索领域，例如图像的颜色直方图。<br>除了以上几点通用的特性外，对于一些图像匹配、检测识别等任务，可能还需进一步考虑图像的局部不变特征。例如尺度不变性(Scale invariance)和旋转不变性(Rotation invariance)，当图像中的物体或目标发生旋转或者尺度发生变换，依然可以有效地检测或识别。此外，也会考虑局部特征的光照、阴影的不变性。</p>
+<p>相比于考虑局部邻域范围的局部特征，全局特征则是从整个图像中抽取特征，较多地运用在图像检索领域，例如图像的颜色直方图。<br>除了以上几点通用的特性外，对于一些图像匹配、检测识别等任务，可能还需进一步考虑图像的局部不变特征。例如尺度不变性(Scale invariance)和旋转不变性(Rotation invariance)，当图像中的物体或目标发生旋转或者尺度发生变换，依然可以有效地检测或识别。此外，也会考虑局部特征对光照、阴影的不变性。</p>
 <h3 id="Harris角点检测"><a href="#Harris角点检测" class="headerlink" title="Harris角点检测"></a>Harris角点检测</h3><p>&emsp;&emsp;特征点在图像中一般有具体的坐标，并具有某些数学特征，如局部最大或最小灰度、以及某些梯度特征等。角点可以简单的认为是两条边的交点，比较严格的定义则是在邻域内具有两个主方向的特征点，也就是说在两个方向上灰度变化剧烈。如下图所示，在各个方向上移动小窗口，如果在所有方向上移动，窗口内灰度都发生变化，则认为是角点；如果任何方向都不变化，则是均匀区域；如果灰度只在一个方向上变化，则可能是图像边缘。</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953a445031a0.jpg" alt="corner.jpg"></p>
 <p>&emsp;&emsp;对于给定图像$I(x,y)$和固定尺寸的邻域窗口，计算窗口平移前后各个像素差值的平方和，也就是自相关函数<br>$$E(u,v)=\Sigma_x\Sigma_yw(x,y)[I(x+u,y+v)-I(x,y)]^2$$<br>其中，窗口加权函数$w(x,y)$可取均值函数或者高斯函数，如下图所示：</p>
@@ -359,14 +359,14 @@ MathJax.Hub.Config({
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953b0d8c854c.jpg" alt="axis-aligned.jpg"></p>
 <p>当角点边界和坐标轴没有对齐时，可对角点进行旋转变换，将其变换到与坐标轴对齐，这种旋转操作可用矩阵的相似对角化来表示，即<br>$$M=X\Sigma X^T = X \left[ \begin{matrix} \lambda_1&amp; 0\\ 0&amp; \lambda_2\end{matrix} \right] X^T$$<br>$$Mx_i=\lambda_i x_i$$</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/28/5953b0d8e3d2d.jpg" alt="not-aligned.jpg"></p>
-<p>如下图所示，可根据矩阵$M$的特征值来判断是否为角点，当两个特征值都较大时为角点(corne)，一个特征值较大而另一个较小时则为图像边缘(edge)，两个特征值都较小时为均匀区域(flat)<br><img src="https://ooo.0o0.ooo/2017/06/28/5953b3774c2f2.png" alt="judge corners.png"></p>
+<p>如下图所示，可根据矩阵$M$的特征值来判断是否为角点，当两个特征值都较大时为角点(corne)，一个特征值较大而另一个较小时则为图像边缘(edge)，两个特征值都较小时为均匀区域(flat)。<br><img src="https://ooo.0o0.ooo/2017/06/28/5953b3774c2f2.png" alt="judge corners.png"></p>
 <p>在判断角点时，无需具体计算矩阵$M$的特征值，而使用下式近似计算角点响应值。<br>$$R = detM-\alpha (traceM)^2$$<br>$$detM=\lambda_1 \lambda_2=AB-C^2$$<br>$$traceM=\lambda_1 + \lambda_2 = A+B$$<br>式中，$detM$为矩阵$M$的行列式，$traceM$为矩阵$M$的迹，$\alpha$为一常数，通常取值为0.04~0.06。</p>
 <h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>Harris角点检测的算法步骤归纳如下：</p>
 <ul>
 <li>计算图像$I(x,y)$在$X$方向和$Y$方向的梯度<br>$$I_x=\dfrac {\partial I} {\partial x}=I(x,y)\otimes \left( \begin{matrix} -1&amp; 0&amp; 1\end{matrix} \right)$$<br>$$I_y=\dfrac {\partial I} {\partial y}=I(x,y)\otimes \left( \begin{matrix} -1&amp; 0&amp; 1\end{matrix} \right)^T$$</li>
 <li>计算图像两个方向梯度的乘积$I_x^2、I_y^2、I_x I_y$</li>
 <li>使用窗口高斯函数分别对$I_x^2、I_y^2、I_x I_y$进行高斯加权，生成矩阵$M$。</li>
-<li>计算每个像素的Harris响应值$R$，并设定一阈值$T$，对小于阈值$T$的R置零。</li>
+<li>计算每个像素的Harris响应值$R$，并设定一阈值$T$，对小于阈值$T$的$R$置零。</li>
 <li>在一个固定窗口大小的邻域内($5 \times 5$)进行非极大值抑制，局部极大值点即为图像中的角点。</li>
 </ul>
 <h3 id="Harris角点性质"><a href="#Harris角点性质" class="headerlink" title="Harris角点性质"></a>Harris角点性质</h3><p>1.参数$\alpha$对角点检测的影响：增大$\alpha$的值，将减小角点响应值$R$，减少被检测角点的数量；减小$\alpha$的值，将增大角点响应值$R$，增加被检测角点的数量。<br>2.Harris角点检测对亮度和对比度的变化不敏感。</p>
