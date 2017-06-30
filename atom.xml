@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-30T13:19:48.660Z</updated>
+  <updated>2017-06-30T14:49:47.893Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/30/image-feature-sift/"/>
     <id>https://senitco.github.io/2017/06/30/image-feature-sift/</id>
     <published>2017-06-30T07:01:18.380Z</published>
-    <updated>2017-06-30T13:19:48.660Z</updated>
+    <updated>2017-06-30T14:49:47.893Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动跟踪(Motion tracking)、图像拼接(Automatic mosaicing)、3D重建(3D reconstruction)、移动机器人导航(Mobile robot navigation)以及目标识别(Object Recognition)等领域。<br><a id="more"></a></p>
 <h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><p>&emsp;&emsp;Harris特征进行角点检测时，不具备尺度不变性。为了能够在不同的尺度检测到尽可能完整的特征点或关键点，需要借助尺度空间理论来描述图像的多尺度特征。相关研究证明高斯卷积核是实现尺度变换的唯一线性核。因此可用图像的高斯金字塔表示尺度空间，而且尺度规范化的LoG算子具有尺度不变性，在具体实现中，可用高斯差分(DoG)算子近似LoG算子，在构建的尺度空间检测稳定的特征点。</p>
@@ -38,7 +38,16 @@
 <h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><p>&emsp;&emsp;为了使特征描述子具有旋转不变性，需要利用关键点邻域像素的梯度方向分布特性为每个关键点指定方向参数。对于在DoG金字塔中检测出的关键点，在其邻近高斯金字塔图像的$3\sigma$邻域窗口内计算其梯度幅值和方向，公式如下：<br>$$m(x,y)=\sqrt{[L(x+1,y)-L(x-1,y)]^2 + [L(x,y+1)-L(x,y-1)]^2}$$<br>$$\theta(x,y)=tan^{-1}{[L(x,y+1)-L(x,y-1)] / [L(x+1,y)-L(x-1,y)]}$$<br>式中，$L$为关键点所在尺度空间的灰度值，$m(x,y)$为梯度幅值，$\theta(x,y)$为梯度方向。对模值$m(x,y)$按$\sigma=1.5\sigma_octa$、邻域窗口为$3\sigma=3 \times 1.5\sigma_octa$的高斯分布加权。在完成关键点的梯度计算后，使用直方图统计邻域内像素的梯度和方向，梯度直方图将梯度方向$(0, 360^{\circ })$分为36柱(bins)，如下图所示，直方图的峰值所在的方向代表了该关键点的主方向。</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/30/59564f338a59c.png" alt="main direction.png" title="梯度方向直方图"></p>
 <p>梯度方向直方图的峰值代表了该特征点处邻域梯度的主方向，为了增强鲁棒性，保留峰值大于主方向峰值80%的方向作为该关键点的辅方向，因此，在相同位置和尺度，将会有多个关键点被创建但方向不同，可以提高特征点匹配的稳定性。</p>
-<h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><p>&emsp;&emsp;在经过上述流程后，检测到的每个关键点有三个信息：位置、尺度以及方向，接下来要做的就是抽象出一组特征向量描述每个关键点。这个特征描述子不但包括关键点，还包括其邻域像素的贡献，而且需具备较高的独特性和稳定性，以提高特征点匹配的准确率。SIFT特征描述子是关键点邻域梯度经过高斯加权后统计结果的一种表示。通过对关键点周围图像区域分块，计算块内的梯度直方图，得到表示局部特征点信息的特征向量。例如在尺度空间$4 \times 4$的窗口内统计8个方向的梯度直方图，生成一个$4 \times 4 \times \8 = 128$维的表示向量。</p>
+<h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><p>&emsp;&emsp;特征描述子与特征点所在的尺度空间有关，因此对梯度的求取应该在特征点对应的高斯图像上进行。将关键点附近的邻域划分为$d \times d(d=4)$个子区域，每个子区域的大小与关键点方向分配时相同，即边长为$3\sigma_oct$，考虑到实际计算时需要进行三线性插值，邻域窗口边长设为$3\sigma_oct(d+1)$，有考虑到旋转因素(坐标轴旋转至关键点主方向)，最后所需的图像区域半径为<br>$$radius=\dfrac{2\sigma_oct \times \sqrt{2} \times (d+1)}{2}$$<br><img src="https://ooo.0o0.ooo/2017/06/30/595656c99be22.jpg" alt="radius.jpg"></p>
+<h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><p>&emsp;&emsp;将坐标轴旋转至关键点主方向，以确保旋转不变性。旋转后采样点的新坐标为<br>$$\left[ \begin{matrix} x’\\ y’\end{matrix} \right] = \left( \begin{matrix} cos\theta &amp; -sin\theta \\ sin\theta &amp; cos\theta \end{matrix} \right) \left[ \begin{matrix} x\\ y \end{matrix} \right], &emsp;x,y \in [-radius, radius]$$</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/595656c9f07bc.png" alt="rotation.png"></p>
+<h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><p>&emsp;&emsp;在图像半径区域内对每个像素点求其梯度幅值和方向，并对每个梯度幅值乘以高斯权重参数<br>$$w=m(a+x,b+y) \times e^{-dfrac{(x’)^2+(y’)^2}{2\sigma_w^2}}$$<br>式中，$x’、y’$分别表示像素点与关键点的行、列距离，$m(x,y)$表示像素梯度幅值，高斯尺度因子为$\sigma_w=3\sigma \times 0.5d$。<br>将旋转后的采样点坐标分配到对应的子区域，计算影响子区域的采样点的梯度和方向，分配到8个方向上。旋转后的采样点$(x’,y’)$落在子区域的下标为<br>$$\left[ \begin{matrix} u\\ v\end{matrix} \right] = \dfrac{1}{2\sigma_oct} \left[ \begin{matrix} x’\\ y’\end{matrix} \right] + \dfrac{d}{2}, &emsp;u,v \in [0,d]$$<br>将采样点在子区域的下标进行三线性插值，根据三维坐标计算与周围子区域的距离，按距离远近计算权重，最终累加在相应子区域的相关方向上的权值为<br>$$weight = w \cdot dr^i \cdot (1-dr)^{1-i} \cdot dc^j \cdot (1-dc)^{1-j} \cdot do^k \cdot (1-do)^{1-k}$$<br>式中$$i、j、k$取0或者1.</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/59565c422740a.jpg" alt="grad hist.jpg" title="梯度方向统计直方图"></p>
+<h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><p>&emsp;&emsp;得到128维特征向量后，为了去除光照变化的影响，需要对向量进行归一化处理。非线性光照变化仍可能导致梯度幅值的较大变化，但对梯度方向影响较小。因此对于超过阈值0.2的梯度幅值设为0.2，然后再进行一次归一化。最后将特征向量按照对应高斯金字塔的尺度大小排序。至此，SIFT特征描述子形成。</p>
+<h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><p>&emsp;&emsp;对两幅图像中检测到的特征点，可采用特征向量的欧式距离作为特征点相似性的度量，取图像1中某个关键点，并在图像2中找到与其距离最近的两个关键点，若最近距离与次近距离的比值小于某个阈值，则认为距离最近的这一对关键点为匹配点。降低比例阈值，SIFT匹配点数量会减少，但相对而言会更加稳定。阈值ratio的取值范围一般为0.4~0.6。</p>
+<h3 id="SIFT特征的特点"><a href="#SIFT特征的特点" class="headerlink" title="SIFT特征的特点"></a>SIFT特征的特点</h3><p>&emsp;&emsp;SIFT是一种检测、描述、匹配图像局部特征点的算法，通过在尺度空间中检测极值点，提取位置、尺度、旋转不变量，并抽象成特征向量加以描述，最后用于图像特征点的匹配。SIFT特征对灰度、对比度变换、旋转、尺度缩放等保持不变性，对视角变化、仿射变化、噪声也具有一定的鲁棒性。但其实时性不高，对边缘光滑的目标无法准确提取特征点。</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
 <li><a href="http://cgit.nutn.edu.tw:8080/cgit/PaperDL/iccv99.pdf" target="_blank" rel="external">Paper: Object Recognition from Local Scale-Invariant Features</a></li>
 <li><a href="https://people.cs.umass.edu/~elm/Teaching/ppt/SIFT.pdf" target="_blank" rel="external">PPT: Object Recognition from Local Scale-Invariant Features (SIFT)</a></li>
