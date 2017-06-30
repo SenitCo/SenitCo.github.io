@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
 
@@ -94,7 +92,7 @@
 <meta property="og:url" content="https://senitco.github.io/image-feature-sift.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;">
-<meta property="og:updated_time" content="2017-06-30T06:59:44.090Z">
+<meta property="og:updated_time" content="2017-06-30T07:00:25.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之SIFT特征匹配">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;">
@@ -234,8 +232,7 @@
     
     
       <p>&emsp;&emsp;<br><a id="more"></a></p>
-<h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><p>####消除边缘效应</p>
-<h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
 <li><a href="http://cgit.nutn.edu.tw:8080/cgit/PaperDL/iccv99.pdf" target="_blank" rel="external">Paper: Object Recognition from Local Scale-Invariant Features</a></li>
 <li><a href="https://people.cs.umass.edu/~elm/Teaching/ppt/SIFT.pdf" target="_blank" rel="external">PPT: Object Recognition from Local Scale-Invariant Features (SIFT)</a></li>
