@@ -92,10 +92,14 @@
 <meta property="og:url" content="https://senitco.github.io/2017/06/30/image-feature-sift/index.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动">
-<meta property="og:updated_time" content="2017-06-30T07:17:24.513Z">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/30/5956098d36da8.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/30/59562da5c15d9.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/30/59562da5c399e.png">
+<meta property="og:updated_time" content="2017-06-30T11:53:21.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之SIFT特征匹配">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/30/5956098d36da8.jpg">
 
 
 
@@ -315,7 +319,16 @@
 
       
         <p>&emsp;&emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动跟踪(Motion tracking)、图像拼接(Automatic mosaicing)、3D重建(3D reconstruction)、移动机器人导航(Mobile robot navigation)以及目标识别(Object Recognition)等领域。<br><a id="more"></a></p>
-<h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><p>&emsp;&emsp;Harris特征进行角点检测时，不具备尺度不变性。为了能够在不同的尺度检测到尽可能完整的特征点或关键点，需要借助尺度空间理论来描述图像的多尺度特征。相关研究证明高斯卷积核是实现尺度变换的唯一线性核。因此可用图像的高斯金字塔表示尺度空间，而且尺度规范化的LoG算子具有尺度不变性，在具体实现中，可用高斯差分(DoG)算子近似LoG算子，在构建的尺度空间检测稳定的特征点。</p>
+<h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><p>&emsp;&emsp;尺度空间理论的基本思想是：在图像处理模型中引入一个被视为尺度的参数，通过连续变化尺度参数获取多尺度下的空间表示序列，对这些空间序列提取某些特征描述子，抽象成特征向量，实现图像在不同尺度或不同分辨率的特征提取。尺度空间中各尺度图像的模糊程度逐渐变大，模拟人在由近到远时目标在人眼视网膜上的成像过程。而且尺度空间需满足一定的不变性，包括图像灰度不变性、对比度不变性、平移不变性、尺度不变性以及旋转不变性等。在某些情况下甚至要求尺度空间算子具备仿射不变性。<br>&emsp;&emsp;一幅图像的尺度空间可定义为对原图像进行可变尺度的高斯卷积：<br>$$L(x,y,\sigma)=G(x,y,\sigma) \ast I(x,y)$$<br>$$G(x,y,\sigma)=\dfrac{1}{2 \pi \sigma^2} e^{-\dfrac{x^2+y^2}{x\sigma^2}}$$<br>式中，$G(x,y,\sigma)$是尺度可变的高斯函数，$(x,y)$是图像的空间坐标，$\sigma$是尺度坐标(尺度变化因子)，$\sigma$大小决定图像的平滑程度，值越大图像模糊得越严重。大尺度对应图像的概貌特征，小尺度对应图像的细节特征。一般根据$3\sigma$原则，高斯核矩阵的大小设为$(6\sigma+1) \times (6\sigma+1)$。<br>&emsp;&emsp;在使用高斯金字塔构建尺度空间时，主要分成两部分，对图像做降采样，以及对图像做不同尺度的高斯模糊。对图像做降采样得到不同尺度的图像，也就是不同的组(Octave)，后面的Octave(高一层的金字塔)为上一个Octave(低一层的金字塔)降采样得到，图像宽高分别为上一个Octave的1/2。每组(Octave)又分为若干层(Interval)，通过对图像做不同尺度的高斯模糊得到。为了有效地在尺度空间检测稳定的关键点，提出了高斯差分尺度空间(DoG Scale-Space)，利用不同尺度的高斯差分核与图像卷积生成。<br>$$D(x,y,\sigma)=(G(x,y,k\sigma)-G(x,y,\sigma)) \ast I(x,y) = L(x,y,k\sigma)-L(x,y,\sigma)$$<br>图像的高斯金字塔和高斯差分金字塔如下图所示，高斯差分图像由高斯金字塔中同一组(Octave)内相邻层(Interval)的图像作差得到。</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/5956098d36da8.jpg" alt="Gaussian Pyramid.jpg" title="图像高斯金字塔"></p>
+<h4 id="尺度空间的参数确定"><a href="#尺度空间的参数确定" class="headerlink" title="尺度空间的参数确定"></a>尺度空间的参数确定</h4><p>&emsp;&emsp;在由图像金字塔表示的尺度空间中，图像的组数(Octave)由原始图像的大小和塔顶图像的大小决定。<br>$$Octave = log_2(min(width_0, height_0)) - log_2(min(width, height)) $$<br>式中，$width_0、height_0$分别为原始图像的宽高，$width、height$为塔顶图像的宽高。对于一幅大小为$512 \times 512$的图像，当塔顶图像大小为$4 \times 4$时，图像的组数为$Octave = 7$。<br>尺度参数$\sigma$的取值与金字塔的组数和层数相关<br>，设第一组第一层的尺度参数取值为$\sigma(1,1)=\sigma_0$，则第$m$组第$n$层的$\sigma$取值为<br>$$\sigma(m,n)=\sigma_0 \cdot 2^{m-1} \cdot k^{n-1}, &emsp;k=2^{dfrac{1}{S}}$$<br>式中，$S$为金字塔中每组的有效层数。为了得到更多的特征点，将图像扩大为原来的两倍，原始图像的尺度参数为$\sigma=0.5$，扩大两倍后的尺度为$\sigma=1.6$。在检测极值点前对原始图像的高斯平滑会导致图像高频信息的丢失，所以在建立尺度空间前先将图像扩大为原来的两倍，以保留原始图像信息，增加特征点数量。</p>
+<h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><p>&emsp;&emsp;为了寻找尺度空间的极值点，每一个采样点要和其所有邻域像素相比较，如下图所示，中间检测点与其同尺度的$8$个邻域像素点以及上下相邻两层对应的$9 \times 2$个像素点一共$26$个点作比较，以确保在图像空间和尺度空间都能检测到极值点。一个像素点如果在DoG尺度空间本层及上下两层的26邻域中取得最大或最小值时，就可以认为该点事图像在该尺度下的一个特征点。</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/59562da5c15d9.png" alt="extremum.png" title="DoG尺度空间极值检测"></p>
+<p>&emsp;&emsp;在极值比较的过程中，每一组差分图像的首末两层是无法比较的，为了在每组中检测$S$个尺度的极值点，则DoG金字图每组须有$S+2$层图像，高斯金字塔每组须有$S+3$层图像。另外，在降采样时，高斯金字塔中一组(Octive)的底层图像是由前一组图像的倒数第3张图像(S+1层)隔点采样得到。这样也保证了尺度变化的连续性，如下图所示：</p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/59562da5c399e.png" alt="parameter.png" title="parameter.png"></p>
+<p>假设每组的层数$S=3$，则$k=2^{1/S}=s^{1/3}$，在高斯金字塔中，第一个Octave中第$S+1$层图像尺度为$k^3\sigma=2\sigma$，经降采样后得到第二个Octave的第$1$层图像，尺度仍为$2\sigma$。在DoG尺度空间中，第一组($1st-Octave$)图像中间三项的尺度分别为$(k\sigma, k^2\sigma, k^3\sigma)$，下一组中间三项为$(2k\sigma, 2k^2\sigma, 2k^3\sigma)$，其“首项”$2k\sigma=2^{4/3}\sigma$，与上一组“末项”$k^3\sigma=2^{3/3}\sigma$尺度变化连续，变化尺度为$k=1/S=1/3$。</p>
+<h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
 <li><a href="http://cgit.nutn.edu.tw:8080/cgit/PaperDL/iccv99.pdf" target="_blank" rel="external">Paper: Object Recognition from Local Scale-Invariant Features</a></li>
 <li><a href="https://people.cs.umass.edu/~elm/Teaching/ppt/SIFT.pdf" target="_blank" rel="external">PPT: Object Recognition from Local Scale-Invariant Features (SIFT)</a></li>
@@ -520,7 +533,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺度空间极值检测"><span class="nav-number">1.</span> <span class="nav-text">尺度空间极值检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建尺度空间"><span class="nav-number">1.1.</span> <span class="nav-text">构建尺度空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DoG算子检测极值点"><span class="nav-number">1.2.</span> <span class="nav-text">DoG算子检测极值点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点定位"><span class="nav-number">2.</span> <span class="nav-text">关键点定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键点精确定位"><span class="nav-number">2.1.</span> <span class="nav-text">关键点精确定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除边缘效应"><span class="nav-number">2.2.</span> <span class="nav-text">消除边缘效应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点方向分配"><span class="nav-number">3.</span> <span class="nav-text">关键点方向分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点特征描述"><span class="nav-number">4.</span> <span class="nav-text">关键点特征描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定特征描述子采样区域"><span class="nav-number">4.1.</span> <span class="nav-text">确定特征描述子采样区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转坐标轴至关键点主方向"><span class="nav-number">4.2.</span> <span class="nav-text">旋转坐标轴至关键点主方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三线性插值计算权值"><span class="nav-number">4.3.</span> <span class="nav-text">三线性插值计算权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量归一化生成描述子"><span class="nav-number">4.4.</span> <span class="nav-text">向量归一化生成描述子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT特征匹配"><span class="nav-number">5.</span> <span class="nav-text">SIFT特征匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺度空间极值检测"><span class="nav-number">1.</span> <span class="nav-text">尺度空间极值检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建尺度空间"><span class="nav-number">1.1.</span> <span class="nav-text">构建尺度空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尺度空间的参数确定"><span class="nav-number">1.2.</span> <span class="nav-text">尺度空间的参数确定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DoG算子检测极值点"><span class="nav-number">1.3.</span> <span class="nav-text">DoG算子检测极值点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点定位"><span class="nav-number">2.</span> <span class="nav-text">关键点定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键点精确定位"><span class="nav-number">2.1.</span> <span class="nav-text">关键点精确定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除边缘效应"><span class="nav-number">2.2.</span> <span class="nav-text">消除边缘效应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点方向分配"><span class="nav-number">3.</span> <span class="nav-text">关键点方向分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点特征描述"><span class="nav-number">4.</span> <span class="nav-text">关键点特征描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定特征描述子采样区域"><span class="nav-number">4.1.</span> <span class="nav-text">确定特征描述子采样区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转坐标轴至关键点主方向"><span class="nav-number">4.2.</span> <span class="nav-text">旋转坐标轴至关键点主方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三线性插值计算权值"><span class="nav-number">4.3.</span> <span class="nav-text">三线性插值计算权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量归一化生成描述子"><span class="nav-number">4.4.</span> <span class="nav-text">向量归一化生成描述子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT特征匹配"><span class="nav-number">5.</span> <span class="nav-text">SIFT特征匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -672,7 +685,24 @@
       
         run_disqus_script('embed.js');
       
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
