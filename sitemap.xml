@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/image-feature-sift.html</loc>
+    
+    <lastmod>2017-06-30T06:59:44.090Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/06/29/image-feature-LoG-DoG/</loc>
     
     <lastmod>2017-06-29T11:11:04.965Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://senitco.github.io/2017/06/28/image-feature-harris/</loc>
     
     <lastmod>2017-06-29T04:16:32.578Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/image-feature-sift.html</loc>
-    
-    <lastmod>2017-06-28T15:02:10.518Z</lastmod>
     
   </url>
   
