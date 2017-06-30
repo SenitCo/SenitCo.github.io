@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-30T14:51:52.991Z</updated>
+  <updated>2017-06-30T14:52:57.985Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/30/image-feature-sift/"/>
     <id>https://senitco.github.io/2017/06/30/image-feature-sift/</id>
     <published>2017-06-30T07:01:18.380Z</published>
-    <updated>2017-06-30T14:51:52.991Z</updated>
+    <updated>2017-06-30T14:52:57.985Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动跟踪(Motion tracking)、图像拼接(Automatic mosaicing)、3D重建(3D reconstruction)、移动机器人导航(Mobile robot navigation)以及目标识别(Object Recognition)等领域。<br><a id="more"></a></p>
 <h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><p>&emsp;&emsp;Harris特征进行角点检测时，不具备尺度不变性。为了能够在不同的尺度检测到尽可能完整的特征点或关键点，需要借助尺度空间理论来描述图像的多尺度特征。相关研究证明高斯卷积核是实现尺度变换的唯一线性核。因此可用图像的高斯金字塔表示尺度空间，而且尺度规范化的LoG算子具有尺度不变性，在具体实现中，可用高斯差分(DoG)算子近似LoG算子，在构建的尺度空间检测稳定的特征点。</p>
@@ -58,6 +58,7 @@
 <li><a href="http://masikkk.com/article/RobHess-SIFT-Source-Code-Analysis-Overview/" target="_blank" rel="external">http://masikkk.com/article/RobHess-SIFT-Source-Code-Analysis-Overview/</a></li>
 <li><a href="http://masikkk.com/article/RANSAC-SIFT-Image-Match/" target="_blank" rel="external">http://masikkk.com/article/RANSAC-SIFT-Image-Match/</a></li>
 <li><a href="http://www.cnblogs.com/letben/p/5510976.html" target="_blank" rel="external">http://www.cnblogs.com/letben/p/5510976.html</a></li>
+<li><a href="http://blog.csdn.net/fzthao/article/details/62424271" target="_blank" rel="external">http://blog.csdn.net/fzthao/article/details/62424271</a></li>
 </ul>
 ]]></content>
     
