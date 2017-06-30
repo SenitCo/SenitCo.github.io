@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-30T11:53:21.292Z</updated>
+  <updated>2017-06-30T11:54:51.047Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/06/30/image-feature-sift/"/>
     <id>https://senitco.github.io/2017/06/30/image-feature-sift/</id>
     <published>2017-06-30T07:01:18.380Z</published>
-    <updated>2017-06-30T11:53:21.292Z</updated>
+    <updated>2017-06-30T11:54:51.047Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;尺度不变特征变换(Scale-invariant feature transform, SIFT)是计算机视觉中一种检测、描述和匹配图像局部特征点的方法，通过在不同的尺度空间中检测极值点或特征点(Conrner Point, Interest Point)，提取出其位置、尺度和旋转不变量，并生成特征描述子，最后用于图像的特征点匹配。SIFT特征凭借其良好的性能广泛应用于运动跟踪(Motion tracking)、图像拼接(Automatic mosaicing)、3D重建(3D reconstruction)、移动机器人导航(Mobile robot navigation)以及目标识别(Object Recognition)等领域。<br><a id="more"></a></p>
 <h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><p>&emsp;&emsp;Harris特征进行角点检测时，不具备尺度不变性。为了能够在不同的尺度检测到尽可能完整的特征点或关键点，需要借助尺度空间理论来描述图像的多尺度特征。相关研究证明高斯卷积核是实现尺度变换的唯一线性核。因此可用图像的高斯金字塔表示尺度空间，而且尺度规范化的LoG算子具有尺度不变性，在具体实现中，可用高斯差分(DoG)算子近似LoG算子，在构建的尺度空间检测稳定的特征点。</p>
@@ -30,7 +30,7 @@
 <h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><p>&emsp;&emsp;为了寻找尺度空间的极值点，每一个采样点要和其所有邻域像素相比较，如下图所示，中间检测点与其同尺度的$8$个邻域像素点以及上下相邻两层对应的$9 \times 2$个像素点一共$26$个点作比较，以确保在图像空间和尺度空间都能检测到极值点。一个像素点如果在DoG尺度空间本层及上下两层的26邻域中取得最大或最小值时，就可以认为该点事图像在该尺度下的一个特征点。</p>
 <p><img src="https://ooo.0o0.ooo/2017/06/30/59562da5c15d9.png" alt="extremum.png" title="DoG尺度空间极值检测"></p>
 <p>&emsp;&emsp;在极值比较的过程中，每一组差分图像的首末两层是无法比较的，为了在每组中检测$S$个尺度的极值点，则DoG金字图每组须有$S+2$层图像，高斯金字塔每组须有$S+3$层图像。另外，在降采样时，高斯金字塔中一组(Octive)的底层图像是由前一组图像的倒数第3张图像(S+1层)隔点采样得到。这样也保证了尺度变化的连续性，如下图所示：</p>
-<p><img src="https://ooo.0o0.ooo/2017/06/30/59562da5c399e.png" alt="parameter.png" title="parameter.png"></p>
+<p><img src="https://ooo.0o0.ooo/2017/06/30/59562da5c399e.png" alt="parameter.png" title="尺度参数的变化"></p>
 <p>假设每组的层数$S=3$，则$k=2^{1/S}=s^{1/3}$，在高斯金字塔中，第一个Octave中第$S+1$层图像尺度为$k^3\sigma=2\sigma$，经降采样后得到第二个Octave的第$1$层图像，尺度仍为$2\sigma$。在DoG尺度空间中，第一组($1st-Octave$)图像中间三项的尺度分别为$(k\sigma, k^2\sigma, k^3\sigma)$，下一组中间三项为$(2k\sigma, 2k^2\sigma, 2k^3\sigma)$，其“首项”$2k\sigma=2^{4/3}\sigma$，与上一组“末项”$k^3\sigma=2^{3/3}\sigma$尺度变化连续，变化尺度为$k=1/S=1/3$。</p>
 <h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
