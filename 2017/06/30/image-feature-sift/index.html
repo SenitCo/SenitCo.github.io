@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content=",,,,," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -87,12 +87,12 @@
 
 
 <meta name="description" content="&amp;emsp;&amp;emsp;">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="图像特征之SIFT特征匹配">
-<meta property="og:url" content="https://senitco.github.io/image-feature-sift.html">
+<meta property="og:url" content="https://senitco.github.io/2017/06/30/image-feature-sift/index.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;">
-<meta property="og:updated_time" content="2017-06-30T07:00:25.793Z">
+<meta property="og:updated_time" content="2017-06-30T07:01:53.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之SIFT特征匹配">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;">
@@ -113,13 +113,7 @@
   };
 </script>
 
-  <title>
-  
-
-  
-    图像特征之SIFT特征匹配 | Senit_Co
-  
-</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征之SIFT特征匹配 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -140,7 +134,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -230,8 +224,97 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <p>&emsp;&emsp;<br><a id="more"></a></p>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图像特征之SIFT特征匹配
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-30T15:01:18+08:00" content="2017-06-30">
+              2017-06-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/30/image-feature-sift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/30/image-feature-sift/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;<br><a id="more"></a></p>
 <h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
 <li><a href="http://cgit.nutn.edu.tw:8080/cgit/PaperDL/iccv99.pdf" target="_blank" rel="external">Paper: Object Recognition from Local Scale-Invariant Features</a></li>
@@ -245,7 +328,57 @@
 <li><a href="http://www.cnblogs.com/letben/p/5510976.html" target="_blank" rel="external">http://www.cnblogs.com/letben/p/5510976.html</a></li>
 </ul>
 
-    
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/29/image-feature-LoG-DoG/" rel="next" title="图像特征之LoG算子与DoG算子">
+                <i class="fa fa-chevron-left"></i> 图像特征之LoG算子与DoG算子
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -284,8 +417,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/my.jpg"
@@ -296,7 +438,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -371,6 +513,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺度空间极值检测"><span class="nav-number">1.</span> <span class="nav-text">尺度空间极值检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建尺度空间"><span class="nav-number">1.1.</span> <span class="nav-text">构建尺度空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DoG算子检测极值点"><span class="nav-number">1.2.</span> <span class="nav-text">DoG算子检测极值点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点定位"><span class="nav-number">2.</span> <span class="nav-text">关键点定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键点精确定位"><span class="nav-number">2.1.</span> <span class="nav-text">关键点精确定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除边缘效应"><span class="nav-number">2.2.</span> <span class="nav-text">消除边缘效应</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点方向分配"><span class="nav-number">3.</span> <span class="nav-text">关键点方向分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键点特征描述"><span class="nav-number">4.</span> <span class="nav-text">关键点特征描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定特征描述子采样区域"><span class="nav-number">4.1.</span> <span class="nav-text">确定特征描述子采样区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转坐标轴至关键点主方向"><span class="nav-number">4.2.</span> <span class="nav-text">旋转坐标轴至关键点主方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三线性插值计算权值"><span class="nav-number">4.3.</span> <span class="nav-text">三线性插值计算权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量归一化生成描述子"><span class="nav-number">4.4.</span> <span class="nav-text">向量归一化生成描述子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SIFT特征匹配"><span class="nav-number">5.</span> <span class="nav-text">SIFT特征匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -483,6 +636,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
@@ -499,9 +656,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = 'image-feature-sift.html';
+      var disqus_identifier = '2017/06/30/image-feature-sift/';
       var disqus_title = '图像特征之SIFT特征匹配';
-      var disqus_url = 'https://senitco.github.io/image-feature-sift.html';
+      var disqus_url = 'https://senitco.github.io/2017/06/30/image-feature-sift/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

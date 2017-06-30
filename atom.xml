@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-06-29T11:11:04.965Z</updated>
+  <updated>2017-06-30T07:01:53.414Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -14,6 +14,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>图像特征之SIFT特征匹配</title>
+    <link href="https://senitco.github.io/2017/06/30/image-feature-sift/"/>
+    <id>https://senitco.github.io/2017/06/30/image-feature-sift/</id>
+    <published>2017-06-30T07:01:18.380Z</published>
+    <updated>2017-06-30T07:01:53.414Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;<br><a id="more"></a></p>
+<h3 id="尺度空间极值检测"><a href="#尺度空间极值检测" class="headerlink" title="尺度空间极值检测"></a>尺度空间极值检测</h3><h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><h4 id="DoG算子检测极值点"><a href="#DoG算子检测极值点" class="headerlink" title="DoG算子检测极值点"></a>DoG算子检测极值点</h4><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h4 id="关键点精确定位"><a href="#关键点精确定位" class="headerlink" title="关键点精确定位"></a>关键点精确定位</h4><h4 id="消除边缘效应"><a href="#消除边缘效应" class="headerlink" title="消除边缘效应"></a>消除边缘效应</h4><h3 id="关键点方向分配"><a href="#关键点方向分配" class="headerlink" title="关键点方向分配"></a>关键点方向分配</h3><h3 id="关键点特征描述"><a href="#关键点特征描述" class="headerlink" title="关键点特征描述"></a>关键点特征描述</h3><h4 id="确定特征描述子采样区域"><a href="#确定特征描述子采样区域" class="headerlink" title="确定特征描述子采样区域"></a>确定特征描述子采样区域</h4><h4 id="旋转坐标轴至关键点主方向"><a href="#旋转坐标轴至关键点主方向" class="headerlink" title="旋转坐标轴至关键点主方向"></a>旋转坐标轴至关键点主方向</h4><h4 id="三线性插值计算权值"><a href="#三线性插值计算权值" class="headerlink" title="三线性插值计算权值"></a>三线性插值计算权值</h4><h4 id="向量归一化生成描述子"><a href="#向量归一化生成描述子" class="headerlink" title="向量归一化生成描述子"></a>向量归一化生成描述子</h4><h3 id="SIFT特征匹配"><a href="#SIFT特征匹配" class="headerlink" title="SIFT特征匹配"></a>SIFT特征匹配</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank" rel="external">Paper: Distinctive Image Features from Scale-Invariant Keypoints</a></li>
+<li><a href="http://cgit.nutn.edu.tw:8080/cgit/PaperDL/iccv99.pdf" target="_blank" rel="external">Paper: Object Recognition from Local Scale-Invariant Features</a></li>
+<li><a href="https://people.cs.umass.edu/~elm/Teaching/ppt/SIFT.pdf" target="_blank" rel="external">PPT: Object Recognition from Local Scale-Invariant Features (SIFT)</a></li>
+<li><a href="https://github.com/robwhess/opensift" target="_blank" rel="external">Code: RobHess OpenSIFT</a></li>
+<li><a href="http://blog.csdn.net/abcjennifer/article/details/7639681" target="_blank" rel="external">http://blog.csdn.net/abcjennifer/article/details/7639681</a></li>
+<li><a href="http://blog.csdn.net/zddblog/article/details/7521424" target="_blank" rel="external">http://blog.csdn.net/zddblog/article/details/7521424</a></li>
+<li><a href="http://www.sun11.me/blog/2016/sift-implementation-in-matlab/" target="_blank" rel="external">http://www.sun11.me/blog/2016/sift-implementation-in-matlab/</a></li>
+<li><a href="http://masikkk.com/article/RobHess-SIFT-Source-Code-Analysis-Overview/" target="_blank" rel="external">http://masikkk.com/article/RobHess-SIFT-Source-Code-Analysis-Overview/</a></li>
+<li><a href="http://masikkk.com/article/RANSAC-SIFT-Image-Match/" target="_blank" rel="external">http://masikkk.com/article/RANSAC-SIFT-Image-Match/</a></li>
+<li><a href="http://www.cnblogs.com/letben/p/5510976.html" target="_blank" rel="external">http://www.cnblogs.com/letben/p/5510976.html</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
+    
+  </entry>
   
   <entry>
     <title>图像特征之LoG算子与DoG算子</title>
