@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/categories/index.html</loc>
+    
+    <lastmod>2017-07-03T01:02:36.295Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/03/image-feature-surf/</loc>
+    
+    <lastmod>2017-07-03T00:59:31.310Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/06/30/image-feature-sift/</loc>
     
     <lastmod>2017-07-01T10:34:43.999Z</lastmod>
@@ -96,13 +110,6 @@
     <loc>https://senitco.github.io/tags/index.html</loc>
     
     <lastmod>2017-03-03T02:50:56.762Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/categories/index.html</loc>
-    
-    <lastmod>2017-03-03T02:50:09.169Z</lastmod>
     
   </url>
   
