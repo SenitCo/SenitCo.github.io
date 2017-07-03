@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-07-03T07:10:20.755Z</updated>
+  <updated>2017-07-03T07:17:42.599Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="https://senitco.github.io/2017/07/03/image-feature-surf/"/>
     <id>https://senitco.github.io/2017/07/03/image-feature-surf/</id>
     <published>2017-07-03T00:59:31.310Z</published>
-    <updated>2017-07-03T07:10:20.755Z</updated>
+    <updated>2017-07-03T07:17:42.599Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;加速鲁棒特征(Speed Up Robust Feature, SURF)和SIFT特征类似，同样是一个用于检测、描述、匹配图像局部特征点的特征描述子。SIFT是被广泛应用的特征点提取算法，但其实时性较差，如果不借助于硬件的加速和专用图形处理器(GPUs)的配合，很难达到实时的要求。对于一些实时应用场景，如基于特征点匹配的实时目标跟踪系统，每秒要处理数十帧的图像，需要在毫秒级完成特征点的搜索定位、特征向量的生成、特征向量的匹配以及目标锁定等工作，SIFT特征很难满足这种需求。SURF借鉴了SIFT中近似简化(DoG近似替代LoG)的思想，将Hessian矩阵的高斯二阶微分模板进行了简化，借助于积分图，使得模板对图像的滤波只需要进行几个简单的加减法运算，并且这种运算与滤波模板的尺寸无关。SURF相当于SIFT的加速改进版本，在特征点检测取得相似性能的条件下，提高了运算速度。整体来说，SUFR比SIFT在运算速度上要快数倍，综合性能更优。<br><a id="more"></a></p>
-<h3 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h3><h3 id="DoH近似"><a href="#DoH近似" class="headerlink" title="DoH近似"></a>DoH近似</h3><h3 id="尺度空间表示"><a href="#尺度空间表示" class="headerlink" title="尺度空间表示"></a>尺度空间表示</h3><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h3 id="特征点方向分配"><a href="#特征点方向分配" class="headerlink" title="特征点方向分配"></a>特征点方向分配</h3><h3 id="特征描述子生成"><a href="#特征描述子生成" class="headerlink" title="特征描述子生成"></a>特征描述子生成</h3><h3 id="SURF与SIFT的对比"><a href="#SURF与SIFT的对比" class="headerlink" title="SURF与SIFT的对比"></a>SURF与SIFT的对比</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<h3 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h3><p>&emsp;&emsp;SURF算法中用到了积分图的概念，积分图(Integral Image)由Viola和Jones提出，在前面的博文<img src="https://senitco.github.io/2017/06/25/image-feature-haar/" alt="Haar特征提取">中做了详细的介绍。借助积分图，图像与高斯二阶微分模板的滤波转化为对积分图像的加减运算，从而在特征点的检测时大大缩短了搜索时间。</p>
+<h3 id="Hessian矩阵近似"><a href="#Hessian矩阵近似" class="headerlink" title="Hessian矩阵近似"></a>Hessian矩阵近似</h3><h3 id="尺度空间表示"><a href="#尺度空间表示" class="headerlink" title="尺度空间表示"></a>尺度空间表示</h3><h3 id="关键点定位"><a href="#关键点定位" class="headerlink" title="关键点定位"></a>关键点定位</h3><h3 id="特征点方向分配"><a href="#特征点方向分配" class="headerlink" title="特征点方向分配"></a>特征点方向分配</h3><h3 id="特征描述子生成"><a href="#特征描述子生成" class="headerlink" title="特征描述子生成"></a>特征描述子生成</h3><h3 id="SURF与SIFT的对比"><a href="#SURF与SIFT的对比" class="headerlink" title="SURF与SIFT的对比"></a>SURF与SIFT的对比</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="http://www.vision.ee.ethz.ch/~surf/eccv06.pdf" target="_blank" rel="external">Paper: SURF: Speeded Up Robust Features</a></li>
 <li><a href="http://blog.csdn.net/songzitea/article/details/16986423" target="_blank" rel="external">http://blog.csdn.net/songzitea/article/details/16986423</a></li>
 <li><a href="http://www.cnblogs.com/ronny/p/4045979.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4045979.html</a></li>
