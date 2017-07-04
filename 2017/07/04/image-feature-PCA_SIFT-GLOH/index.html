@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sofeware," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -86,16 +86,20 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="description" content="&amp;emsp;&amp;emsp;SIFT和SURF是两种应用较为广泛的图像特征描述子，SURF可以看做是SIFT特征的加速版本。在SIFT的基础上，又陆续诞生了其他的变体：PCA-SIFT和GLOH(Gradient Location-Orientation Histogram)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VS2013编译配置openssl">
-<meta property="og:url" content="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/index.html">
+<meta property="og:title" content="图像特征描述子之PCA-SIFT与GLOH">
+<meta property="og:url" content="https://senitco.github.io/2017/07/04/image-feature-PCA_SIFT-GLOH/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
-<meta property="og:updated_time" content="2017-05-24T06:46:42.834Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;SIFT和SURF是两种应用较为广泛的图像特征描述子，SURF可以看做是SIFT特征的加速版本。在SIFT的基础上，又陆续诞生了其他的变体：PCA-SIFT和GLOH(Gradient Location-Orientation Histogram)。">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/04/595b01624b9bf.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/04/595b027a6da58.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/04/595b027a6c35e.jpg">
+<meta property="og:updated_time" content="2017-07-04T02:49:29.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VS2013编译配置openssl">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="twitter:title" content="图像特征描述子之PCA-SIFT与GLOH">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;SIFT和SURF是两种应用较为广泛的图像特征描述子，SURF可以看做是SIFT特征的加速版本。在SIFT的基础上，又陆续诞生了其他的变体：PCA-SIFT和GLOH(Gradient Location-Orientation Histogram)。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/04/595b01624b9bf.jpg">
 
 
 
@@ -113,7 +117,7 @@
   };
 </script>
 
-  <title> VS2013编译配置openssl | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征描述子之PCA-SIFT与GLOH | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +247,7 @@
             
             
               
-                VS2013编译配置openssl
+                图像特征描述子之PCA-SIFT与GLOH
               
             
           </h1>
@@ -255,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-14T11:21:35+08:00" content="2017-05-14">
-              2017-05-14
+            <time itemprop="dateCreated" datetime="2017-07-04T09:44:29+08:00" content="2017-07-04">
+              2017-07-04
             </time>
           </span>
 
@@ -269,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compile-Installation/" itemprop="url" rel="index">
-                    <span itemprop="name">Compile & Installation</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -285,8 +289,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/05/14/VS2013-compile-openssl/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/14/VS2013-compile-openssl/" itemprop="commentsCount"></span>
+                <a href="/2017/07/04/image-feature-PCA_SIFT-GLOH/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/04/image-feature-PCA_SIFT-GLOH/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,28 +318,16 @@
       
 
       
-        <p>&emsp;&emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中<br><a id="more"></a></p>
-<h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
-<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
-<p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>Visual Studio 2013, 32-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat</div></pre></td></tr></table></figure></p>
-<p>Visual Studio 2013, 64-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</div></pre></td></tr></table></figure></p>
-<p>5.进入openssl源代码目录路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd D:\openssl</div></pre></td></tr></table></figure></p>
-<p>6.依次执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">perl Configure VC-WIN32 &lt;no-asm&gt; --perfix=D:\openssl\openssl_lib //&lt;no-asm&gt;为可选参数，忽略汇编处理</div><div class="line"></div><div class="line">nmake</div><div class="line"></div><div class="line">nmake test</div><div class="line"></div><div class="line">nmake install</div></pre></td></tr></table></figure></p>
-<p>7.编译成功后，会在openssl_lib目录下生成3个文件目录</p>
-<p>bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>include\openssl: 相关头文件</p>
-<h3 id="VS2013中使用openssl"><a href="#VS2013中使用openssl" class="headerlink" title="VS2013中使用openssl"></a>VS2013中使用openssl</h3><p>1.新建VS工程，将openssl库文件(.lib、.dll)和头文件拷至工程的相应目录中</p>
-<p>2.配置路径</p>
-<p>静态库: 链接附加库目录至libssl.lib、libcrypto.lib库目录，并在附加依赖项下添加.lib文件</p>
-<p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
-<p>头文件：链接附加包含目录至 include 目录</p>
-<p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
-<p>*注：openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
+        <p>&emsp;&emsp;SIFT和SURF是两种应用较为广泛的图像特征描述子，SURF可以看做是SIFT特征的加速版本。在SIFT的基础上，又陆续诞生了其他的变体：PCA-SIFT和GLOH(Gradient Location-Orientation Histogram)。<br><a id="more"></a></p>
+<h3 id="PCA-SIFT"><a href="#PCA-SIFT" class="headerlink" title="PCA-SIFT"></a>PCA-SIFT</h3><p>&emsp;&emsp;SIFT特征提取主要分为4步：尺度空间构建，关键点定位，主方向分配，生成特征描述子。PCA-SIFT的前3步和标准SIFT相同，也就说PCA-SIFT和标准SIFT具有相同的尺度空间、亚像素定位以及主方向。但在生成特征描述子时，使用特征点周围$41 \times 41$的邻域计算特征向量，并通过主成分分析(PCA)，对特征向量进行降维，以滤除噪声，保留有效信息，并提高匹配效率。PCA-SIFT生成特征描述子的算法流程如下：<br>1.以特征点为中心，选定$41 \times 41$的矩形邻域<br>2.计算邻域内所有像素水平和垂直方向的梯度(偏导数)，得到一个$39 \times 39 \times 2 = 3042$维的特征向量(不计最外层像素)<br>3.假设有$N$个特征点，所有特征点描述子向量构成一个$N \times 3042$的矩阵，计算所有向量的协方差矩阵$C$<br>4.计算协方差矩阵$C$前$k$个最大特征值对应的特征向量，组成一个$3042 \times k$的投影矩阵$T$<br>5.对于新的特征描述子向量，乘以投影矩阵$T$，可以得到降维后的特征向量<br>&emsp;&emsp;实际上，第3步和第4步一般提前计算好，也就是投影矩阵$T$是事先通过大量典型样本的训练得到。关于维数$k$的选择，可以是一个经验设定的固定值，也可以是基于特征值能量百分比动态选择。一般取20可得到较佳的效果。<br>&emsp;&emsp;PCA-SIFT描述子和标准SIFT相比，在保持各种不变性的同时，降低了特征向量的维数，是的特征点匹配速度大大提升。但其缺点是事先需要有一组典型图像的学习，而且，训练得到的投影矩阵只适用于同类的输入图像。</p>
+<h3 id="GLOH"><a href="#GLOH" class="headerlink" title="GLOH"></a>GLOH</h3><p>&emsp;&emsp;梯度位置方向直方图(Gradient Location-Orientation Histogram, GLOH)也是SIFT特征描述子的一种扩展，其目的是为了增加特征描述子的鲁棒性和独特性。GLOH把标准SIFT中$4 \times 4$的邻域子块改成仿射状的对数-极坐标同心圆，同心圆半分别设为6、11、15。在角度方向分成8等分，每等分为$\pi / 4$，这样一共产生了17个图像子块。如下图所示，在每个子块中，计算梯度方向直方图，梯度方向分为16个方向区间，因此可生成一个$17 \times 16 = 272$的特征向量。借助PCA-SIFT的思想，通过事先建立典型图像的协方差矩阵，并得到投影矩阵。然后，对每个特征点进行PCA降维处理，最终得到一个128维的特征向量，与标准SIFT保持一致。此外，也可以对GLOH进行简化，在生成梯度直方图时，只分8个方向，这样特征向量的维数为$17 \times 8 = 136$，这样就不需要进行降维处理，减少对样本图像的依赖性。</p>
+<p><img src="https://ooo.0o0.ooo/2017/07/04/595b01624b9bf.jpg" alt="keypoint descriptor.jpg" title="GLOH特征点描述子"></p>
+<h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><p>&emsp;&emsp;SIFT、PCA-SIFT、GLOH的实验结果如下所示</p>
+<p><img src="https://ooo.0o0.ooo/2017/07/04/595b027a6da58.jpg" alt="keypoint match.jpg" title="SIFT、PCA-SIFT特征点匹配"></p>
+<p><img src="https://ooo.0o0.ooo/2017/07/04/595b027a6c35e.jpg" alt="keypoint detection.jpg" title="GLOH特征点检测与匹配"></p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
-<li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
-<li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
+<li><a href="http://www.cs.cmu.edu/~rahuls/pub/cvpr2004-keypoint-rahuls.pdf" target="_blank" rel="external">Paper: PCA-SIFT: A More Distinctive Representation for Local Image Descriptors</a></li>
+<li><a href="https://www.robots.ox.ac.uk/~vgg/research/affine/det_eval_files/mikolajczyk_pami2004.pdf" target="_blank" rel="external">Paper: A Performance Evaluation of Local Descriptors</a></li>
 </ul>
 
       
@@ -358,7 +350,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Sofeware/" rel="tag">#Sofeware</a>
+            <a href="/tags/Image/" rel="tag">#Image</a>
           
         </div>
       
@@ -367,17 +359,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/data-dimensionality-reduction/" rel="next" title="机器学习算法之数据降维">
-                <i class="fa fa-chevron-left"></i> 机器学习算法之数据降维
+              <a href="/2017/07/03/image-feature-surf/" rel="next" title="图像特征之SURF特征匹配">
+                <i class="fa fa-chevron-left"></i> 图像特征之SURF特征匹配
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/24/measurement-method/" rel="prev" title="数据挖掘中的度量方法">
-                数据挖掘中的度量方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +522,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013中使用openssl"><span class="nav-number">2.</span> <span class="nav-text">VS2013中使用openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA-SIFT"><span class="nav-number">1.</span> <span class="nav-text">PCA-SIFT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GLOH"><span class="nav-number">2.</span> <span class="nav-text">GLOH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#result"><span class="nav-number">3.</span> <span class="nav-text">result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -670,9 +658,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/14/VS2013-compile-openssl/';
-      var disqus_title = 'VS2013编译配置openssl';
-      var disqus_url = 'https://senitco.github.io/2017/05/14/VS2013-compile-openssl/';
+      var disqus_identifier = '2017/07/04/image-feature-PCA_SIFT-GLOH/';
+      var disqus_title = '图像特征描述子之PCA-SIFT与GLOH';
+      var disqus_url = 'https://senitco.github.io/2017/07/04/image-feature-PCA_SIFT-GLOH/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -686,7 +674,24 @@
       
         run_disqus_script('embed.js');
       
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
