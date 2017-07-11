@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;前面已经介绍多种图像特征点(角点、斑点、极值点)的检测算法，包括Harris、LoG、HoG以及SIFT、SURF等，这些方法大多涉及图像局部邻域的梯度计算和统计，相比较而言，FAST(Features From Accelerated Segment Test)在进行角点检测时，计算速度更快，实时性更好。">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/10/596386112222c.jpg">
-<meta property="og:updated_time" content="2017-07-11T01:14:01.459Z">
+<meta property="og:updated_time" content="2017-07-11T01:15:40.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之FAST角点检测">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;前面已经介绍多种图像特征点(角点、斑点、极值点)的检测算法，包括Harris、LoG、HoG以及SIFT、SURF等，这些方法大多涉及图像局部邻域的梯度计算和统计，相比较而言，FAST(Features From Accelerated Segment Test)在进行角点检测时，计算速度更快，实时性更好。">
@@ -327,7 +327,7 @@
 <p>一种快速排除大部分非角点像素的方法就是检查周围1、5、9、13四个位置的像素，如果位置1和9与中心像素P点的灰度差小于给定阈值，则P点不可能是角点，直接排除；否则进一步判断位置5和13与中心像素的灰度差，如果四个像素中至少有3个像素与P点的灰度差超过阈值，则考察邻域圆上16个像素点与中心点的灰度差，如果有至少9个超过给定阈值则认为是角点。</p>
 <h3 id="角点分类器"><a href="#角点分类器" class="headerlink" title="角点分类器"></a>角点分类器</h3><ul>
 <li>选取需要检测的场景的多张图像进行FAST角点检测，选取合适的阈值n(n&lt;12)，提取多个特征点作为训练数据</li>
-<li>对于特征点邻域圆上的16个像素$x \in \left{1,2,…,16 \right}$，按下式将其划分为3类<br>$$S_{p\rightarrow x} = \begin{cases} d, &emsp;I_{p\rightarrow x} \leq I_p-t \\ s, &emsp;I_p-t \leq I_{p\rightarrow x} \leq I_p+t \\ b, &emsp;I_p+t \leq  I_{p\rightarrow x} \end{cases}$$</li>
+<li>对于特征点邻域圆上的16个像素$x \in {1,2,…,16 }$，按下式将其划分为3类<br>$$S_{p\rightarrow x} = \begin{cases} d, &emsp;I_{p\rightarrow x} \leq I_p-t \\ s, &emsp;I_p-t \leq I_{p\rightarrow x} \leq I_p+t \\ b, &emsp;I_p+t \leq  I_{p\rightarrow x} \end{cases}$$</li>
 <li>对每个特征点定义一个bool变量$K_p$，如果$p$是一个角点，则$K_p$为真，否则为假</li>
 <li>对提取的特征点集进行训练，使用ID3算法建立一颗决策树，通过第$x$个像素点进行决策树的划分，对集合$P$，得到熵值为<br>$$H(P)=(c+\hat{c})log_2 (c+\hat{c})-clog_2 c - \hat{c}log_2 \hat{c} $$<br>其中$c$为角点的数目，$\hat{c}$为非角点的数目。由此得到的信息增益为<br>$$\Delta H = H(P) - H(P_d) - H(P_s) - H(P_b)$$<br>选择信息增益最大位置进行划分，得到决策树</li>
 <li>使用决策树对类似场景进行特征点的检测与分类</li>
