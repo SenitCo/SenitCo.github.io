@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ML," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -86,16 +86,19 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
+<meta name="description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据挖掘中的度量方法">
-<meta property="og:url" content="https://senitco.github.io/2017/05/24/measurement-method/index.html">
+<meta property="og:title" content="图像特征描述子之BRIEF">
+<meta property="og:url" content="https://senitco.github.io/2017/07/14/image-feature-brief/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
-<meta property="og:updated_time" content="2017-05-24T06:43:54.575Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/596879b800c06.jpg">
+<meta property="og:updated_time" content="2017-07-14T07:57:52.817Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据挖掘中的度量方法">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。">
+<meta name="twitter:title" content="图像特征描述子之BRIEF">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg">
 
 
 
@@ -113,7 +116,7 @@
   };
 </script>
 
-  <title> 数据挖掘中的度量方法 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征描述子之BRIEF | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +246,7 @@
             
             
               
-                数据挖掘中的度量方法
+                图像特征描述子之BRIEF
               
             
           </h1>
@@ -255,8 +258,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-24T10:20:09+08:00" content="2017-05-24">
-              2017-05-24
+            <time itemprop="dateCreated" datetime="2017-07-14T10:45:40+08:00" content="2017-07-14">
+              2017-07-14
             </time>
           </span>
 
@@ -285,8 +288,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/05/24/measurement-method/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/24/measurement-method/" itemprop="commentsCount"></span>
+                <a href="/2017/07/14/image-feature-brief/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/14/image-feature-brief/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,33 +317,34 @@
       
 
       
-        <p>&emsp;&emsp;在数据挖掘中，无论是对数据进行分类、聚类还是异常检测、关联性分析，都建立在数据之间相似性或相异性的度量基础上。通常使用距离作为数据之间相似性或相异性的度量方法，常用的度量方法有欧式距离、曼哈顿距离、切比雪夫距离、闵可夫斯基距离、汉明距离、余弦距离、马氏距离、Jaccard系数、相关系数、信息熵。<br><a id="more"></a></p>
-<!-- mathjax config similar to math.stackexchange -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-        inlineMath: [ ['$', '$'] ],
-        displayMath: [ ['$$', '$$']],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    messageStyle: "none",
-    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
-
-<h3 id="欧式距离"><a href="#欧式距离" class="headerlink" title="欧式距离"></a>欧式距离</h3><p>&emsp;&emsp;$n$维空间中两个样本点$x$和$y$之间的欧几里得距离定义如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (x_k-y_k)^2}$$<br>标准化欧式距离公式如下：<br>$$d(x,y)=\sqrt{\Sigma_{k=1}^n (\dfrac{x_k-y_k}{s_k})^2}$$<br>式中，$s_k$为数据每一维的方差，标准化欧式距离考虑了数据各维分量的量纲和分布不一样，相当于对每维数据做了标准化处理。欧式距离适用于度量数据属性无关、值域或分布相同的数据对象。</p>
-<h3 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h3><p>&emsp;&emsp;曼哈顿距离也称为街区距离，计算公式如下：<br>$$d(x,y)=\Sigma_{k=1}^n \left|x_k-y_k\right|$$</p>
-<h3 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h3><p>$$d(x,y) = \lim_{n\rightarrow \infty} (\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r} = max_k (\left|x_k-y_k\right|)$$<br>上面两个公式是等价的。</p>
-<h3 id="闵可夫斯基距离"><a href="#闵可夫斯基距离" class="headerlink" title="闵可夫斯基距离"></a>闵可夫斯基距离</h3><p>$$d(x,y)=(\Sigma_{k=1}^n (\left|x_k-y_k\right|)^r)^\dfrac{1}{r}$$<br>式中，r是一个可变参数，根据参数r取值的不同，闵可夫斯基距离可以表示一类距离<br>&emsp;&emsp;r = 1时，为曼哈顿距离<br>&emsp;&emsp;r = 2时，为欧式距离<br>&emsp;&emsp;r →∞时，为切比雪夫距离<br>闵可夫斯基距离包括欧式距离、曼哈顿距离、切比雪夫距离都假设数据各维属性的量纲和分布（期望、方差）相同，因此适用于度量独立同分布的数据对象。</p>
-<h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p>&emsp;&emsp;两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数，也就是将一个字符串变换为另一个字符串所需要替换的最小字符个数，例如<br>$$Hamming Distance(1001001, 0101101) = 3$$<br>汉明距离常用于信息编码中。</p>
-<h3 id="余弦距离"><a href="#余弦距离" class="headerlink" title="余弦距离"></a>余弦距离</h3><p>&emsp;&emsp;余弦相似度公式定义如下：<br>$$cos⁡(x,y)=\dfrac{xy}{\left|x\right|\left|y\right|} = \dfrac{\Sigma_{k=1}^n x_k y_k}{\sqrt{\Sigma_{k=1}^n x_k^2} \sqrt{\Sigma_{k=1}^n y_k^2}}$$<br>余弦相似度实际上是向量$x$和$y$夹角的余弦度量，可用来衡量两个向量方向的差异。如果余弦相似度为$1$，则$x$和$y$之间夹角为$0°$，两向量除模外可认为是相同的；如果预先相似度为$0$，则$x$和$y$之间夹角为$90°$，则认为两向量完全不同。在计算余弦距离时，将向量均规范化成具有长度$1$，因此不用考虑两个数据对象的量值。<br>余弦相似度常用来度量文本之间的相似性。文档可以用向量表示，向量的每个属性代表一个特定的词或术语在文档中出现的频率，尽管文档具有大量的属性，但每个文档向量都是稀疏的，具有相对较少的非零属性值。</p>
-<h3 id="马氏距离"><a href="#马氏距离" class="headerlink" title="马氏距离"></a>马氏距离</h3><p>&emsp;&emsp;马氏距离的计算公式如下：<br>$$mahalanobis(x,y)=(x-y)\Sigma^{-1}(x-y)^T$$<br>式中，$\Sigma^{-1}$是数据协方差矩阵的逆。<br>前面的距离度量方法大都假设样本独立同分布、数据属性之间不相关。马氏距离考虑了数据属性之间的相关性，排除了属性间相关性的干扰，而且与量纲无关。若协方差矩阵是对角阵，则马氏距离变成了标准欧式距离；若协方差矩阵是单位矩阵，各个样本向量之间独立同分布，则变成欧式距离。</p>
-<h3 id="Jaccard系数"><a href="#Jaccard系数" class="headerlink" title="Jaccard系数"></a>Jaccard系数</h3><p>&emsp;&emsp;Jaccard系数定义为两个集合A和B的交集元素在其并集中所占的比例，即<br>$$J(A,B)=\dfrac{A\cap B}{A\cup B}$$<br>对于两个数据对象$x$和$y$，均由$n$个二元属性组成，则<br>$$J=\dfrac{f_{11}}{f_{01}+f_{10}+f_{11}}$$<br>式中，$f_{11}$为$x$取$1$且$y$取$1$的属性个数，$f_{01}$为$x$取$0$且$y$取$1$的属性个数，$f_{10}$为$x$取$1$且$y$取$0$的属性个数。<br>Jaccard系数适用于处理仅包含非对称的二元属性的对象。<br>广义Jaccard系数定义如下：<br>$$EJ(x,y)=\dfrac{xy}{‖x‖^2+‖y‖^2-xy}$$<br>广义Jaccard系数又称为Tanimoto系数，可用于处理文档数据，并在二元属性情况下归约为Jaccard系数。</p>
-<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><p>&emsp;&emsp;两个数据对象之间的相关性是对象属性之间线性关系的度量，计算公式如下<br>$$\rho_{xy}=\dfrac{s_{xy}}{s_x s_y}$$<br>$$s_{xy}=\dfrac{1}{n-1} \Sigma_{k=1}^n (x_k-\overline{x})(y_k-\overline{y})$$<br>$$s_x=\sqrt{\dfrac{1}{n-1} \Sigma_{k=1}^n (x_k-\overline{x})^2}$$<br>$$s_y=\sqrt{\dfrac{1}{n-1} \Sigma_{k=1}^n (y_k-\overline{y})^2}$$<br>$$\overline{x}=\dfrac{1}{n} \Sigma_{k=1}^n x_k ,&emsp;\overline{y}=\dfrac{1}{n} \Sigma_{k=1}^n y_k$$<br>相关系数是衡量数据对象相关程度的一种方法，取值范围为$[-1,1]$。相关系数的绝对值越大，则表明$x$和$y$相关度越高。当$x$和$y$线性相关时，相关系数取值为$1$（正线性相关）或$-1$（负线性相关）；线性无关时取值为$0$。在线性回归中，使用直线拟合样本点，可利用相关系数度量其线性性。</p>
-<h3 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h3><p>&emsp;&emsp;信息熵描述的是整个系统内部样本之间的一个距离，是衡量分布的混乱程度或分散程度的一种度量。样本分布越分散（或者说分布越平均），信息熵越大；分布越有序（或者说分布越集中），信息熵就越小。给定样本集$X$的信息熵公式定义如下：<br>$$Entropy(X)=\Sigma_{i=1}^n -p_i log_2⁡(p_i)$$<br>式中，$n$为样本集的分类数，$p_i$为第$i$类元素出现的概率。当$S$中$n$个分类出现的概率一样大时，信息熵取最大值$log2(n)$。当$X$只有一个分类时，信息熵取最小值$0$。信息熵用于度量不确定性，在决策树分类中，信息熵可用于计算子树划分前后的信息增益作为选择最佳划分的度量。</p>
+        <p>&emsp;&emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。<br><a id="more"></a></p>
+<h3 id="原理概述"><a href="#原理概述" class="headerlink" title="原理概述"></a>原理概述</h3><p>&emsp;&emsp;经典的图像特征描述子SIFT和SURF采用128维(SIFT)或者64维(SURF)特征向量，每维数据一般占用4个字节(Byte)，一次一个特征点的特征描述向量需要占用512或者255个字节。如果衣服图像中包含有大量的特征点，那么特征描述子将占用大量的存储，而且在生成描述子的过程也会相当耗时。在SIFT特征的实际应用中，可以采用PCA、LDA等特征降维的方法来减少特征描述子的维度，例如PCA-SIFT；此外还可以采用一些局部敏感哈希(Locality-Sensitive Hashing, LSH)的方法将特征描述子编码为二进制串，然后使用汉明距离(Hamming Distance)进行特征点的匹配，汉明距离计算的是两个二进制比特串中同一位置不同值的个数，可通过异或操作快速实现，大大提升了特征匹配的效率。</p>
+<p>&emsp;&emsp;BRIEF正是这样一种基于二进制编码生成特征描述子，以及利用汉明距离进行特征匹配的算法。由于BRIEF只是一种特征描述子，因此事先得检测并定位特征点，可采用Harris、FAST或者是SIFT算法检测特征点，在此基础上利用BRIEF算法建立特征描述符，在特征点邻域Patch内随机选取若干点对$(p,q)$，并比较这些点对的灰度值，若$I(p)&gt;I(q)$，则编码为1，否则编码为0。这样便可得到一个特定长度的二进制编码串，即BRIEF特征描述子。</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ul>
+<li>利用Harris或者FAST等方法检测特征点</li>
+<li>确定特征点的邻域窗口Patch，并对该邻域所有像素点进行$\sigma=2$、窗口尺寸为9的高斯平滑，以滤除噪声</li>
+<li>在邻域窗口内随机选取n对(n可取128、256等)像素点，并根据灰度值大小编码成二进制串，生成n位(bit)的特征描述子</li>
+</ul>
+<h3 id="采样方式"><a href="#采样方式" class="headerlink" title="采样方式"></a>采样方式</h3><p>&emsp;&emsp;论文原作者Calonder提供了5中在$S \times S$的邻域Patch内随机选取点对$(X,Y)$的方法，如下图所示，一条线段的两个端点表示一个随机点对$(x_i,y_i)$。</p>
+<ul>
+<li>$X、Y$为均匀分布$[-S/2,S/2]$</li>
+<li>$X、Y$均为高斯分布$[0, S^2 / 25]$，采样准则服从各向同性的同一高斯分布</li>
+<li>$X$服从高斯分布$[0, S^2 / 25]$，$Y$服从高斯分布$(x_i, S^2 / 100)$，即采样分为两步，首先在原点处为$x_i$进行高斯采样，然后在中心为$x_i$处为$y_i$进行高斯采样</li>
+<li>$X、Y$在空间量化极坐标下的离散位置处进行随机采样</li>
+<li>$X$固定为$(0,0)$，$Y$在空间量化极坐标下的离散位置处进行随机从采样。</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg" alt="sample.jpg" title="随机点对选取方式"></p>
+<h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><p>&emsp;&emsp;BRIEF算法通过检测随机响应，并采用二进制编码方式建立特征描述子，减少了特征的存储空间需求，并提升了特征生成的速度；Hamming距离的度量方式便于进行特征点的快速匹配，而且大量实验数据表明，不匹配特征点的Hamming距离为128左右(特征维数为256)，而匹配点的Hamming距离则远小于128。<br>&emsp;&emsp;BRIEF算法的缺点不具备尺度不变性和旋转不变性，在图像的旋转角度超过$30^{\circ}$时，特征点匹配的准确率快速下降。</p>
+<h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><p>OpenCV实现BRIEF特征检测与匹配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">#include &lt;opencv2/core/core.hpp&gt; </div><div class="line">#include &lt;opencv2/highgui/highgui.hpp&gt; </div><div class="line">#include &lt;opencv2/imgproc/imgproc.hpp&gt; </div><div class="line">#include &lt;opencv2/features2d/features2d.hpp&gt;</div><div class="line"></div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc, char** argv) </div><div class="line">&#123; </div><div class="line">    Mat img_1 = imread(&quot;box.png&quot;); </div><div class="line">    Mat img_2 = imread(&quot;box_in_scene.png&quot;);</div><div class="line"></div><div class="line">    // -- Step 1: Detect the keypoints using STAR Detector </div><div class="line">    std::vector&lt;KeyPoint&gt; keypoints_1,keypoints_2; </div><div class="line">    StarDetector detector; </div><div class="line">    detector.detect(img_1, keypoints_1); </div><div class="line">    detector.detect(img_2, keypoints_2);</div><div class="line"></div><div class="line">    // -- Stpe 2: Calculate descriptors (feature vectors) </div><div class="line">    BriefDescriptorExtractor brief; </div><div class="line">    Mat descriptors_1, descriptors_2; </div><div class="line">    brief.compute(img_1, keypoints_1, descriptors_1); </div><div class="line">    brief.compute(img_2, keypoints_2, descriptors_2);</div><div class="line"></div><div class="line">    //-- Step 3: Matching descriptor vectors with a brute force matcher </div><div class="line">    BFMatcher matcher(NORM_HAMMING); </div><div class="line">    std::vector&lt;DMatch&gt; mathces; </div><div class="line">    matcher.match(descriptors_1, descriptors_2, mathces); </div><div class="line">    // -- dwaw matches </div><div class="line">    Mat img_mathes; </div><div class="line">    drawMatches(img_1, keypoints_1, img_2, keypoints_2, mathces, img_mathes); </div><div class="line">    // -- show </div><div class="line">    imshow(&quot;Mathces&quot;, img_mathes);</div><div class="line"></div><div class="line">    waitKey(0); </div><div class="line">    return 0; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/596879b800c06.jpg" alt="match result.jpg" title="BRIEF特征描述与匹配"></p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://cvlabwww.epfl.ch/~lepetit/papers/calonder_eccv10.pdf" target="_blank" rel="external">Paper: BRIEF: Binary Robust Independent Elementary Features</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4081362.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4081362.html</a></li>
+<li><a href="http://blog.csdn.net/songzitea/article/details/18272559" target="_blank" rel="external">http://blog.csdn.net/songzitea/article/details/18272559</a></li>
+<li><a href="http://blog.csdn.net/luoshixian099/article/details/48338273" target="_blank" rel="external">http://blog.csdn.net/luoshixian099/article/details/48338273</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/46910259" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/46910259</a></li>
+<li><a href="http://blog.csdn.net/icvpr/article/details/12342159" target="_blank" rel="external">http://blog.csdn.net/icvpr/article/details/12342159</a></li>
+</ul>
 
       
     </div>
@@ -362,7 +366,7 @@ MathJax.Hub.Config({
       
         <div class="post-tags">
           
-            <a href="/tags/ML/" rel="tag">#ML</a>
+            <a href="/tags/Image/" rel="tag">#Image</a>
           
         </div>
       
@@ -371,16 +375,16 @@ MathJax.Hub.Config({
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/14/VS2013-compile-openssl/" rel="next" title="VS2013编译配置openssl">
-                <i class="fa fa-chevron-left"></i> VS2013编译配置openssl
+              <a href="/2017/07/11/image-feature-susan/" rel="next" title="图像特征之SUSAN角点检测">
+                <i class="fa fa-chevron-left"></i> 图像特征之SUSAN角点检测
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/24/cloud-platform/" rel="prev" title="简述云平台和相关软件工具">
-                简述云平台和相关软件工具 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/14/image-feature-brief/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -538,7 +542,7 @@ MathJax.Hub.Config({
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#欧式距离"><span class="nav-number">1.</span> <span class="nav-text">欧式距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#曼哈顿距离"><span class="nav-number">2.</span> <span class="nav-text">曼哈顿距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切比雪夫距离"><span class="nav-number">3.</span> <span class="nav-text">切比雪夫距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闵可夫斯基距离"><span class="nav-number">4.</span> <span class="nav-text">闵可夫斯基距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汉明距离"><span class="nav-number">5.</span> <span class="nav-text">汉明距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#余弦距离"><span class="nav-number">6.</span> <span class="nav-text">余弦距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马氏距离"><span class="nav-number">7.</span> <span class="nav-text">马氏距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jaccard系数"><span class="nav-number">8.</span> <span class="nav-text">Jaccard系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关系数"><span class="nav-number">9.</span> <span class="nav-text">相关系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息熵"><span class="nav-number">10.</span> <span class="nav-text">信息熵</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理概述"><span class="nav-number">1.</span> <span class="nav-text">原理概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法步骤"><span class="nav-number">2.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采样方式"><span class="nav-number">3.</span> <span class="nav-text">采样方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">4.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-amp-Result"><span class="nav-number">5.</span> <span class="nav-text">Experiment & Result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -674,9 +678,9 @@ MathJax.Hub.Config({
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/24/measurement-method/';
-      var disqus_title = '数据挖掘中的度量方法';
-      var disqus_url = 'https://senitco.github.io/2017/05/24/measurement-method/';
+      var disqus_identifier = '2017/07/14/image-feature-brief/';
+      var disqus_title = '图像特征描述子之BRIEF';
+      var disqus_url = 'https://senitco.github.io/2017/07/14/image-feature-brief/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

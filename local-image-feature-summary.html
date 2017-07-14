@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sofeware," />
+  <meta name="keywords" content=",,,,," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
-<meta property="og:type" content="article">
-<meta property="og:title" content="VS2013编译配置openssl">
-<meta property="og:url" content="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/index.html">
+<meta name="description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
+<meta property="og:type" content="website">
+<meta property="og:title" content="图像局部特征描述总结">
+<meta property="og:url" content="https://senitco.github.io/local-image-feature-summary.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
-<meta property="og:updated_time" content="2017-05-24T06:46:42.834Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
+<meta property="og:updated_time" content="2017-07-14T03:00:06.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VS2013编译配置openssl">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="twitter:title" content="图像局部特征描述总结">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
 
 
 
@@ -113,7 +113,13 @@
   };
 </script>
 
-  <title> VS2013编译配置openssl | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>
+  
+
+  
+    图像局部特征描述总结 | Senit_Co
+  
+</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -134,7 +140,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,175 +230,27 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                VS2013编译配置openssl
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-14T11:21:35+08:00" content="2017-05-14">
-              2017-05-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compile-Installation/" itemprop="url" rel="index">
-                    <span itemprop="name">Compile & Installation</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/05/14/VS2013-compile-openssl/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/14/VS2013-compile-openssl/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>&emsp;&emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中<br><a id="more"></a></p>
-<h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
-<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
-<p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>Visual Studio 2013, 32-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat</div></pre></td></tr></table></figure></p>
-<p>Visual Studio 2013, 64-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</div></pre></td></tr></table></figure></p>
-<p>5.进入openssl源代码目录路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd D:\openssl</div></pre></td></tr></table></figure></p>
-<p>6.依次执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">perl Configure VC-WIN32 &lt;no-asm&gt; --perfix=D:\openssl\openssl_lib //&lt;no-asm&gt;为可选参数，忽略汇编处理</div><div class="line"></div><div class="line">nmake</div><div class="line"></div><div class="line">nmake test</div><div class="line"></div><div class="line">nmake install</div></pre></td></tr></table></figure></p>
-<p>7.编译成功后，会在openssl_lib目录下生成3个文件目录</p>
-<p>bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>include\openssl: 相关头文件</p>
-<h3 id="VS2013中使用openssl"><a href="#VS2013中使用openssl" class="headerlink" title="VS2013中使用openssl"></a>VS2013中使用openssl</h3><p>1.新建VS工程，将openssl库文件(.lib、.dll)和头文件拷至工程的相应目录中</p>
-<p>2.配置路径</p>
-<p>静态库: 链接附加库目录至libssl.lib、libcrypto.lib库目录，并在附加依赖项下添加.lib文件</p>
-<p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
-<p>头文件：链接附加包含目录至 include 目录</p>
-<p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
-<p>*注：openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
+      <p>&emsp;&emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，而自动地建立图像之间点与点之间的可靠对应关系通常都依赖于一个优秀的局部图像特征描述子。又比如，在物体识别中，目前非常流行以及切实可行的方法之一是基于局部特征的，由于特征的局部性，使得物体识别可以处理遮挡、复杂背景等比较复杂的情况。</p>
+<p>&emsp;&emsp;局部图像特征描述的核心问题是不变性（鲁棒性）和可区分性。由于使用局部图像特征描述子的时候，通常是为了鲁棒地处理各种图像变换的情况。因此，在构建/设计特征描述子的时候，不变性问题就是首先需要考虑的问题。在宽基线匹配中，需要考虑特征描述子对于视角变化的不变性、对尺度变化的不变性、对旋转变化的不变性等；在形状识别和物体检索中，需要考虑特征描述子对形状的不变性。</p>
+<p>&emsp;&emsp;然而，特征描述子的可区分性的强弱往往和其不变性是矛盾的，也就是说，一个具有众多不变性的特征描述子，它区分局部图像内容的能力就稍弱；而如果一个非常容易区分不同局部图像内容的特征描述子，它的鲁棒性往往比较低。举个例子，假定我们需要对一个点周围固定大小的局部图像内容进行描述。如果我们直接将图像内容展开成一个列向量对其进行描述，那么只要局部图像内容发生了一点变化，就会使得它的特征描述子发生较大的变化，因此这样的特征描述方式很容易区分不同的局部图像内容，但是对于相同的局部图像内容发生旋转变化等情况，它同样会产生很大的差异，即不变性弱。</p>
+<p>&emsp;&emsp;而另一方面，如果我们通过统计局部图像灰度直方图来进行特征描述，这种描述方式具有较强的不变性，对于局部图像内容发生旋转变化等情况比较鲁棒，但是区分能力较弱，例如无法区分两个灰度直方图相同但内容不同的局部图像块。</p>
+<p>&emsp;&emsp;综上所述，一个优秀的特征描述子不仅应该具有很强不变性，还应该具有很强的可区分性。</p>
+<p>&emsp;&emsp;在诸多的局部图像特征描述子中，SIFT（Scale Invariant Feature Transform）是其中应用最广的，它在1999年首次提出，至2004年得到完善。SIFT的提出也是局部图像特征描述子研究领域一项里程碑式的工作。由于SIFT对尺度、旋转以及一定视角和光照变化等图像变化都具有不变性，并且SIFT具有很强的可区分性，自它提出以来，很快在物体识别、宽基线图像匹配、三维重建、图像检索中得到了应用，局部图像特征描述子在计算机视觉领域内也得到了更加广泛的关注，涌现了一大批各具特色的局部图像特征描述子。</p>
+<p>&emsp;&emsp;SURF（Speeded Up Robust Features）是对SIFT的改进版本，它利用Haar小波来近似SIFT方法中的梯度操作，同时利用积分图技术进行快速计算，SURF的速度是SIFT的3-7倍，大部分情况下它和SIFT的性能相当，因此它在很多应用中得到了应用，尤其是对运行时间要求高的场合。</p>
+<p>&emsp;&emsp;DAISY是面向稠密特征提取的可快速计算的局部图像特征描述子，它本质思想和SIFT是一样的：分块统计梯度方向直方图，不同的是，DAISY在分块策略上进行了改进，利用高斯卷积来进行梯度方向直方图的分块汇聚，这样利用高斯卷积的可快速计算性就可以快速稠密地进行特征描述子的提取。比较巧合的是，DAISY这种特征汇聚策略被一些研究者（Matthen Brown，Gang Hua，Simon Winder）通过机器学习的方法证明相对于其他几种特征汇聚策略（卡迪尔坐标下分块、极坐标下分块）是最优的。</p>
+<p>&emsp;&emsp;ASIFT（Affine SIFT）通过模拟所有成像视角下得到的图像进行特征匹配，可以很好地处理视角变化的情况，尤其是大视角变化下的图像匹配。</p>
+<p>&emsp;&emsp;MROGH（Multi-support Region Order-based Gradient Histogram）则是特征汇聚策略上寻求创新，之前的局部图像特征描述子，其特征汇聚策略都是基于邻域内点的几何位置的，而MROGH基于点的灰度序进行特征汇聚。</p>
+<p>&emsp;&emsp;BRIEF（Binary Robust Independent Element Feature）利用局部图像邻域内随机点对的灰度大小关系来建立局部图像特征描述子，得到的二值特征描述子不仅匹配速度快，而且存储要求内存低，因此手机应用中具有很好的应用前景。其实，利用邻域内点对的灰度大小关系进行特征描述这一思想在SMD（ECCV’08）中就已经有了。</p>
+<p>&emsp;&emsp;除了BRIEF，近两年还提出了许多二值特征描述子，例如ORB、BRISK、FREAK。上述这些特征描述子都是基于手动设计得到的，也有一些研究试图利用机器学习的方法，通过数据驱动得到想要的特征描述子。这类特征描述子包括PCA-SIFT，Linear Discriminative Embedding，LDA-Hash等。当然，除了提到的这些特征描述子之外，还有许多其他的特征描述子，在这就不再一一叙述了。</p>
+<p>&emsp;&emsp;最近几年局部图像特征描述子的发展趋势是：快速、低存储。这两个趋势使得局部图像特征描述子可以在快速实时、大规模应用中发挥作用，而且有利于将许多应用做到手机上去进行开发，实实在在的将计算机视觉技术应用于我们周围的世界中。为了满足快速和低存储这两个需求，二值特征描述子得到了研究者的广泛关注，这两年CVPR和ICCV中关于局部图像特征描述子的文章，大部分都是这类的。相信它们在未来几年还会继续受到关注，期待出现一些深入大众生活中的成功应用。</p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
-<li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
-<li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
+<li><a href="http://www.eng.auburn.edu/~troppel/courses/7970%202015A%20AdvMobRob%20sp15/literature/%5B2008%5D%20Local%20Invariant%20Feature%20Detectors-%20A%20Survey.pdf" target="_blank" rel="external">Paper: Local Invariant Feature Detectors: A Survey</a></li>
+<li><a href="https://web.eecs.umich.edu/~jjcorso/t/598F14/files/lecture_0929_features.pdf" target="_blank" rel="external">PPT: Local Image Features</a></li>
+<li><a href="http://mamicode.com/info-detail-296752.html" target="_blank" rel="external">http://mamicode.com/info-detail-296752.html</a></li>
 </ul>
 
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Sofeware/" rel="tag">#Sofeware</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/05/10/data-dimensionality-reduction/" rel="next" title="机器学习算法之数据降维">
-                <i class="fa fa-chevron-left"></i> 机器学习算法之数据降维
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/24/measurement-method/" rel="prev" title="数据挖掘中的度量方法">
-                数据挖掘中的度量方法 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
 
 
@@ -431,17 +289,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/my.jpg"
@@ -527,17 +376,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013中使用openssl"><span class="nav-number">2.</span> <span class="nav-text">VS2013中使用openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text">reference</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -650,10 +488,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
@@ -670,9 +504,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/14/VS2013-compile-openssl/';
-      var disqus_title = 'VS2013编译配置openssl';
-      var disqus_url = 'https://senitco.github.io/2017/05/14/VS2013-compile-openssl/';
+      var disqus_identifier = 'local-image-feature-summary.html';
+      var disqus_title = '图像局部特征描述总结';
+      var disqus_url = 'https://senitco.github.io/local-image-feature-summary.html';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
