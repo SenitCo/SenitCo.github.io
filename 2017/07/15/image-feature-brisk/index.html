@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Sofeware," />
+  <meta name="keywords" content="Image," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VS2013编译配置openssl">
-<meta property="og:url" content="https://senitco.github.io/2017/05/14/VS2013-compile-openssl/index.html">
+<meta property="og:title" content="图像特征描述子之BRISK">
+<meta property="og:url" content="https://senitco.github.io/2017/07/15/image-feature-brisk/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
-<meta property="og:updated_time" content="2017-05-24T06:46:42.834Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
+<meta property="og:updated_time" content="2017-07-15T02:51:24.457Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VS2013编译配置openssl">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中">
+<meta name="twitter:title" content="图像特征描述子之BRISK">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
 
 
 
@@ -113,7 +113,7 @@
   };
 </script>
 
-  <title> VS2013编译配置openssl | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 图像特征描述子之BRISK | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +243,7 @@
             
             
               
-                VS2013编译配置openssl
+                图像特征描述子之BRISK
               
             
           </h1>
@@ -255,8 +255,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-14T11:21:35+08:00" content="2017-05-14">
-              2017-05-14
+            <time itemprop="dateCreated" datetime="2017-07-15T10:18:23+08:00" content="2017-07-15">
+              2017-07-15
             </time>
           </span>
 
@@ -269,8 +269,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compile-Installation/" itemprop="url" rel="index">
-                    <span itemprop="name">Compile & Installation</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -285,8 +285,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2017/05/14/VS2013-compile-openssl/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/14/VS2013-compile-openssl/" itemprop="commentsCount"></span>
+                <a href="/2017/07/15/image-feature-brisk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/15/image-feature-brisk/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,28 +314,54 @@
       
 
       
-        <p>&emsp;&emsp;简单介绍如何使用VS2013编译配置openssl，并添加到工程中<br><a id="more"></a></p>
-<h3 id="VS2013编译openssl1-1-0e"><a href="#VS2013编译openssl1-1-0e" class="headerlink" title="VS2013编译openssl1.1.0e"></a>VS2013编译openssl1.1.0e</h3><p>1.下载OpenSSL <a href="http://www.openssl.org" target="_blank" rel="external">http://www.openssl.org</a> ，并解压到指定目录，例如 D:\openssl</p>
-<p>2.下载并安装Perl  <a href="http://www.activestate.com/ActivePerl" target="_blank" rel="external">http://www.activestate.com/ActivePerl</a></p>
-<p>3.新建一个存放openssl库文件的目录，例如 D:\openssl\openssl_lib</p>
-<p>4.打开VS2013控制台命令提示(root_dir为VS安装目录)<br>Visual Studio 2013, 32-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\vcvars32.bat</div></pre></td></tr></table></figure></p>
-<p>Visual Studio 2013, 64-bit: Open CMD.EXE and run<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root_dir\Microsoft Visual Studio 12.0\VC\bin\amd64\vcvars64.bat</div></pre></td></tr></table></figure></p>
-<p>5.进入openssl源代码目录路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd D:\openssl</div></pre></td></tr></table></figure></p>
-<p>6.依次执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">perl Configure VC-WIN32 &lt;no-asm&gt; --perfix=D:\openssl\openssl_lib //&lt;no-asm&gt;为可选参数，忽略汇编处理</div><div class="line"></div><div class="line">nmake</div><div class="line"></div><div class="line">nmake test</div><div class="line"></div><div class="line">nmake install</div></pre></td></tr></table></figure></p>
-<p>7.编译成功后，会在openssl_lib目录下生成3个文件目录</p>
-<p>bin: 主要有libcrypto-1_1.dll、libssl-1_1.dll动态链接库文件和openssl.exe文件</p>
-<p>lib: 静态链接库libcrypto.lib、libssl.lib文件</p>
-<p>include\openssl: 相关头文件</p>
-<h3 id="VS2013中使用openssl"><a href="#VS2013中使用openssl" class="headerlink" title="VS2013中使用openssl"></a>VS2013中使用openssl</h3><p>1.新建VS工程，将openssl库文件(.lib、.dll)和头文件拷至工程的相应目录中</p>
-<p>2.配置路径</p>
-<p>静态库: 链接附加库目录至libssl.lib、libcrypto.lib库目录，并在附加依赖项下添加.lib文件</p>
-<p>动态库：libcrypto-1_1.dll、libssl-1_1.dll放置到.exe输出目录中（Debug/Release)</p>
-<p>头文件：链接附加包含目录至 include 目录</p>
-<p>*关于动态库dll的链接问题：<br>（1）包含exe文件的输出目录<br>（2）进程的工作目录（工程主目录）<br>（3）Windows系统目录<br>（4）Windows目录<br>（5）列在Path环境变量中的一系列目录<br>  在VS工程中设置Path路径：配置属性&gt;调试&gt;环境 PATH=dll所在路径，可以是相对路径（不要有空格，最后已半角分号结束）</p>
-<p>*注：openssl的1.1.0及以上版本和1.0.2及以下版本的编译方式有所不同</p>
-<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
-<li><a href="http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html" target="_blank" rel="external">http://p-nand-q.com/programming/windows/building_openssl_with_visual_studio_2013.html</a></li>
-<li><a href="http://blog.csdn.net/u010725842/article/details/50295235" target="_blank" rel="external">http://blog.csdn.net/u010725842/article/details/50295235</a></li>
+        <p>&emsp;&emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。<br><a id="more"></a></p>
+<h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;BRISK主要利用FAST算法进行特征点检测，为了满足尺度不变性，BRISK构造图像金字塔在多尺度空间检测特征点。</p>
+<h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><p>&emsp;&emsp;尺度空间包含n个octave($c_i$表示)和n个intro-octave($d_i$表示)，原论文中n=4。$c_0$是原始图像，$c_{i+1}$是$c_i$的降采样图像，缩放因子为2，即$c_{i+1}$的宽高分别为$c_i$的1/2；$d_0$是相对于原图缩放因子为1.5的降采样图像，同样，$d_{i+1}$是$d_i$的2倍降采样。</p>
+<table>
+<thead>
+<tr>
+<th>image</th>
+<th>$c_0$</th>
+<th>$d_0$</th>
+<th>$c_1$</th>
+<th>$d_1$</th>
+<th>$c_2$</th>
+<th>$d_2$</th>
+<th>$c_3$</th>
+<th>$d_3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>w</td>
+<td>2w/3</td>
+<td>w/2</td>
+<td>w/3</td>
+<td>w/4</td>
+<td>w/6</td>
+<td>w/8</td>
+<td>w/12   </td>
+</tr>
+<tr>
+<td>height</td>
+<td>h</td>
+<td>2h/2</td>
+<td>h/2</td>
+<td>h/3</td>
+<td>h/4</td>
+<td>h/6</td>
+<td>h/8</td>
+<td>h/12 </td>
+</tr>
+</tbody>
+</table>
+<h4 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h4><h4 id="亚像素精确定位"><a href="#亚像素精确定位" class="headerlink" title="亚像素精确定位"></a>亚像素精确定位</h4><h3 id="特征点描述"><a href="#特征点描述" class="headerlink" title="特征点描述"></a>特征点描述</h3><h4 id="采样模式和旋转估计"><a href="#采样模式和旋转估计" class="headerlink" title="采样模式和旋转估计"></a>采样模式和旋转估计</h4><h4 id="生成描述子"><a href="#生成描述子" class="headerlink" title="生成描述子"></a>生成描述子</h4><h3 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h3><h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="https://www.robots.ox.ac.uk/~vgg/rg/papers/brisk.pdf" target="_blank" rel="external">Paper: BRISK: Binary Robust Invariant Scalable Keypoints</a></li>
+<li><a href="http://blog.csdn.net/jinxueliu31/article/details/18556855" target="_blank" rel="external">http://blog.csdn.net/jinxueliu31/article/details/18556855</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47045497" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47045497</a></li>
+<li><a href="http://blog.csdn.net/luoshixian099/article/details/50731801" target="_blank" rel="external">http://blog.csdn.net/luoshixian099/article/details/50731801</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4260167.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4260167.html</a></li>
 </ul>
 
       
@@ -358,7 +384,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Sofeware/" rel="tag">#Sofeware</a>
+            <a href="/tags/Image/" rel="tag">#Image</a>
           
         </div>
       
@@ -367,17 +393,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/10/data-dimensionality-reduction/" rel="next" title="机器学习算法之数据降维">
-                <i class="fa fa-chevron-left"></i> 机器学习算法之数据降维
+              <a href="/2017/07/14/image-feature-orb/" rel="next" title="图像特征描述子之ORB">
+                <i class="fa fa-chevron-left"></i> 图像特征描述子之ORB
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/24/measurement-method/" rel="prev" title="数据挖掘中的度量方法">
-                数据挖掘中的度量方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -534,7 +556,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013编译openssl1-1-0e"><span class="nav-number">1.</span> <span class="nav-text">VS2013编译openssl1.1.0e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS2013中使用openssl"><span class="nav-number">2.</span> <span class="nav-text">VS2013中使用openssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">3.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点检测"><span class="nav-number">1.</span> <span class="nav-text">特征点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建尺度空间"><span class="nav-number">1.1.</span> <span class="nav-text">构建尺度空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制"><span class="nav-number">1.2.</span> <span class="nav-text">非极大值抑制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#亚像素精确定位"><span class="nav-number">1.3.</span> <span class="nav-text">亚像素精确定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点描述"><span class="nav-number">2.</span> <span class="nav-text">特征点描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样模式和旋转估计"><span class="nav-number">2.1.</span> <span class="nav-text">采样模式和旋转估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成描述子"><span class="nav-number">2.2.</span> <span class="nav-text">生成描述子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点匹配"><span class="nav-number">3.</span> <span class="nav-text">特征点匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-amp-Result"><span class="nav-number">4.</span> <span class="nav-text">Experiment & Result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -670,9 +692,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'SenitCo';
-      var disqus_identifier = '2017/05/14/VS2013-compile-openssl/';
-      var disqus_title = 'VS2013编译配置openssl';
-      var disqus_url = 'https://senitco.github.io/2017/05/14/VS2013-compile-openssl/';
+      var disqus_identifier = '2017/07/15/image-feature-brisk/';
+      var disqus_title = '图像特征描述子之BRISK';
+      var disqus_url = 'https://senitco.github.io/2017/07/15/image-feature-brisk/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -686,7 +708,24 @@
       
         run_disqus_script('embed.js');
       
-    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
