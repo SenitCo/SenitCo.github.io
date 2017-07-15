@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-07-15T07:50:59.789Z</updated>
+  <updated>2017-07-15T14:25:52.077Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -16,11 +16,62 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>图像特征描述子之FREAK</title>
+    <link href="https://senitco.github.io/2017/07/15/image-feature-freak/"/>
+    <id>https://senitco.github.io/2017/07/15/image-feature-freak/</id>
+    <published>2017-07-15T12:36:13.015Z</published>
+    <updated>2017-07-15T14:25:52.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;FREAK算法来源2012年CVPR上的一篇文章&lt;&lt;<a href="https://infoscience.epfl.ch/record/175537/files/2069.pdf" target="_blank" rel="external">FREAK: Fast Retina Keypoint</a>&gt;&gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜识别物体的启发而提出的。<br><a id="more"></a></p>
+<p>&emsp;&emsp;在前面的博文中，介绍的BRIEF、ORB、BRISK算法都是基于特征点周围邻域像素点对之间的比较，形成二进制编码串作为特征描述子，这种描述方法计算速度快，且占用内存小，满足一些实时应用场景的需求。对于这类特征描述子，就是需要确定邻域哪些像素点对进行比较，以及如何匹配。BRIEF算法中特征点邻域的像素点对是随机采样生成的，ORB算法是通过贪婪穷举的方法在所有可能的像素点对中选取相关性较小的若干点对，BRISK则是采用平均采样的方法生成若干采样点。特征匹配方法通常都是采样Hamming距离来进行度量，由于是二进制编码方式，可通过异或操作快速计算。</p>
+<h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;FAST算法可实现快速检测图像特征点，而且对应有一个加速版本AGAST，因此在诸多特征描述子中，都是首先通过FAST算法搜索定位特征点，再加以描述。FREAK同BRISK算法类似，都是建立多尺度空间，在不同尺度的图像上使用FAST算法检测特征点。</p>
+<h3 id="采样模式"><a href="#采样模式" class="headerlink" title="采样模式"></a>采样模式</h3><p>&emsp;&emsp;FREAK算法中采样模式接近于人眼视网膜接受图像信息的采样模型，如下图所示，人眼视网膜中，Fovea区域主要对高精度的图像信息进行处理，而Para区域则主要对对低精度的图像信息进行处理。</p>
+<p><img src="https://i.loli.net/2017/07/15/596a168be43b5.jpg" alt="retina.jpg"></p>
+<p>在FREAK的采样模式中，图中每一个黑点代表一个采样点，每个圆圈代表一个感受野，每个采样点需进行高斯模糊处理，以降低噪声影响，感受野的半径表示高斯模糊的标准差。这种采样模式与BRISK的不同之处在于，感受野之间存在重叠的区域；与BRIEF和ORB算法的不同之处在于，FREAK的采样点根据与特征点的距离远近，采用了不同大小的高斯核函数进行平滑处理。不同大小的感受野在人眼视网膜中也存在类似的结构，通过重叠的感受野，可以获得更多的信息，使最终的描述符更具独特性和可区分性。最终FREAK算法的采样结构为6、6、6、6、6、6、6、1，6代表每层中有个采样点并且这6个采样点在一个同心圆上，一共有7个同心圆，最后的1表示特征点。</p>
+<h3 id="特征描述"><a href="#特征描述" class="headerlink" title="特征描述"></a>特征描述</h3><p>&emsp;&emsp;FREAK算法同样采用二进制编码描述特征点，用$F$表示编码特征<br>$$F=\Sigma_{0 \leq a &lt; N} 2^a T(P_a)$$<br>$$T(P_a) = \begin{cases} 1,&emsp;I(P_a^{r_1}) &gt; I(P_a^{r_2}) \\ 0,&emsp;otherwise \end{cases}$$<br>式中，$I(P_a^{r_1})$表示采样点经过高斯模糊后的灰度值。<br>FREAK的采样模式中一共有43个采样点，可以产生$N = 43(43 - 1)/2 = 903$个采样点对，有些采样点对的编码值对特征描述并没有实际作用，反而或造成特征冗余，因此需要对特征的描述向量进行筛选，也就是降维。原论文中采用与ORB中类似的贪婪穷举的方法筛选采样点对。</p>
+<ul>
+<li>对$M(M=50000)$个特征点建立一个$M \times N$的矩阵$D$，矩阵的每一行表示每个特征点的二进制描述符</li>
+<li>对矩阵的每一列，计算其均值。由于$D$中元素是0/1分布的，均值月接近0.5说明方差越大</li>
+<li>根据均值与0.5的距离从小到大，对矩阵的所有列重新排序(即按方差从大到小)</li>
+<li>选取前$k(k=512)$列作为最终的二进制描述符</li>
+</ul>
+<p>原论文中作者将得到的512个采样点对分成4组，每组128个，把这些采样点对进行连线，得到下图结果。作者发现，这四组连线中的第一组主要在外围，之后每一组连线逐渐内缩，最后一组的连线主要在中央部分，这与人眼视觉系统很相似，人眼视网膜首先也是通过perifoveal区域对感兴趣的物体的位置进行估计，然后通过感光细胞更加密集的fovea区域进行验证，最终确定物体的信息。</p>
+<p><img src="https://i.loli.net/2017/07/15/596a1f0191ac7.jpg" alt="sample points.jpg"></p>
+<h3 id="特征方向"><a href="#特征方向" class="headerlink" title="特征方向"></a>特征方向</h3><p>&emsp;&emsp;FREAK描述子自身的圆形对称采样结构，在某种程度上使其具有旋转不变性；采样的位置和半径随着尺度的变化使其具有尺度不变性；对每个采样点进行高斯模糊，也具有一定的抗噪性能，像素点的强度对比生成二进制描述子使其具有光照不变性。因此由上述产生的二进制描述子可以用来进行特征匹配。但是在匹配之前，可以进一步描述特征点的方向信息。由于BRISK算法与FREAK算法对特征点邻域的采样模式相近，因此FREAK算法特征点方向的计算也与之类似。BRISK算法是通过计算具有长距离的采样点对的梯度来表示特征点的方向，FREAK算法则采用其中45个距离长的、对称的采样点计算其梯度，如下图所示：</p>
+<p><img src="https://i.loli.net/2017/07/15/596a1f01a4d82.jpg" alt="main direction.jpg"></p>
+<p>梯度计算公式为<br>$$O = \dfrac{1}{M} \Sigma_{P_o \in G} (I(P_o^{r_1}) - I(P_o^{r_2}) \dfrac{P_o^{r_1} - P_o^{r_2}}{||P_o^{r_1} - P_o^{r_2}||}$$<br>式中，$O$表示特征点局部邻域梯度，$M$表示采样点对的个数，$G$表示采样点对集合，$P_o$表示采样点对的位置。可根据梯度进一步求得特征点的主方向。</p>
+<h3 id="特征匹配"><a href="#特征匹配" class="headerlink" title="特征匹配"></a>特征匹配</h3><p>&emsp;&emsp;在特征描述中，得到了512bit的二进制描述符，该描述符的列是方差由高到低的排列，而高方差表征了模糊信息，低方差表征了细节信息，与人眼视网膜相似，人眼先处理的是模糊信息，再处理细节信息。因此，选取前128bit即16bytes进行匹配，若两个待匹配的特征点前16bytes距离小于设定的阈值，则再用剩余的比特位进行匹配。第一步匹配可以剔除掉90%的不相关匹配点，这种级联的操作在很大程度上提高了匹配的速度。</p>
+<h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><p>OpenCV实现BRISK检测与匹配参考代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">#include &lt;opencv2/core/core.hpp&gt;  </div><div class="line">#include &lt;opencv2/features2d/features2d.hpp&gt;  </div><div class="line">#include &lt;opencv2/highgui/highgui.hpp&gt;  </div><div class="line">#include &lt;opencv2/nonfree/features2d.hpp&gt;  </div><div class="line">#include &lt;opencv2/legacy/legacy.hpp&gt;  </div><div class="line">#include &lt;iostream&gt;  </div><div class="line">#include &lt;vector&gt;  </div><div class="line">  </div><div class="line">using namespace cv;  </div><div class="line">using namespace std;  </div><div class="line">  </div><div class="line">int main(void)  </div><div class="line">&#123;  </div><div class="line">    string filename1 = &quot;beaver1.png&quot;;  </div><div class="line">    string filename2 = &quot;beaver2.png&quot;;  </div><div class="line">    // FREAK  </div><div class="line">    Mat imgA_Freak = imread(filename1);  </div><div class="line">    Mat imgB_Freak = imread(filename2);  </div><div class="line">    vector&lt;KeyPoint&gt; keypointsA_Freak, keypointsB_Freak;  </div><div class="line">    Mat descriptorsA_Freak, descriptorsB_Freak;  </div><div class="line">    vector&lt;DMatch&gt; matches_Freak;  </div><div class="line">  </div><div class="line">    // Detector </div><div class="line">    SurfFeatureDetector detector_Freak(200, 4);  </div><div class="line">  </div><div class="line">    // Descriptor  </div><div class="line">    FREAK freak;  </div><div class="line">  </div><div class="line">    // MAatcher</div><div class="line">    BruteForceMatcher&lt;HammingLUT&gt; matcher_Freak;  </div><div class="line">  </div><div class="line">     </div><div class="line">    detector_Freak.detect(imgA_Freak, keypointsA_Freak);  </div><div class="line">    detector_Freak.detect(imgB_Freak, keypointsB_Freak);  </div><div class="line">   </div><div class="line">    freak.compute(imgA_Freak, keypointsA_Freak, descriptorsA_Freak);  </div><div class="line">    freak.compute(imgB_Freak, keypointsB_Freak, descriptorsB_Freak);  </div><div class="line">  </div><div class="line">    matcher_Freak.match(descriptorsA_Freak, descriptorsB_Freak, matches_Freak);   </div><div class="line">  </div><div class="line">    double max_dist = 0;  </div><div class="line">    double min_dist = 100;  </div><div class="line">    </div><div class="line">    for (int i=0; i&lt;descriptorsA_Freak.rows; i++)  </div><div class="line">    &#123;   </div><div class="line">        double dist = matches_Freak[i].distance;  </div><div class="line">        if (dist &lt; min_dist) min_dist = dist;  </div><div class="line">        if(dist &gt; max_dist) max_dist = dist;  </div><div class="line">    &#125;  </div><div class="line">    </div><div class="line">    vector&lt;DMatch&gt; good_matches_Freak;  </div><div class="line">    for (int i=0; i&lt;descriptorsA_Freak.rows; i++)  </div><div class="line">    &#123;   </div><div class="line">        if(matches_Freak[i].distance &lt; 0.7*max_dist)  </div><div class="line">        &#123;   </div><div class="line">            good_matches_Freak.push_back(matches_Freak[i]);   </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    </div><div class="line">    Mat imgMatch_Freak;  </div><div class="line">    drawMatches(imgA_Freak, keypointsA_Freak, imgB_Freak, keypointsB_Freak, good_matches_Freak, imgMatch_Freak,  </div><div class="line">        Scalar::all(-1), Scalar::all(-1),  </div><div class="line">        vector&lt;char&gt;(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);  </div><div class="line">    </div><div class="line">    imshow(&quot;matchFREAK&quot;, imgMatch_Freak);  </div><div class="line">      </div><div class="line">    waitKey(0);  </div><div class="line">    return 0;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="https://i.loli.net/2017/07/15/596a253ce5bb7.jpg" alt="result.jpg" title="ORB(left)和FREAK(left)的对比实验结果"></p>
+<p>从图示对比实验结果可以看出，ORB的特征点匹配效果要好。FREAK的突出特点在于将人眼视网膜的视觉机理引入了随机点对的采样模式，以及在特征匹配时采用Saccadic Search由粗到精的级联匹配方式，提高了特征匹配速度。</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="https://infoscience.epfl.ch/record/175537/files/2069.pdf" target="_blank" rel="external">Paper: FREAK: Fast Retina Keypoint</a></li>
+<li><a href="https://gilscvblog.com/2013/12/09/a-tutorial-on-binary-descriptors-part-5-the-freak-descriptor/" target="_blank" rel="external">https://gilscvblog.com/2013/12/09/a-tutorial-on-binary-descriptors-part-5-the-freak-descriptor/</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47060677" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47060677</a></li>
+<li><a href="http://blog.csdn.net/lhanchao/article/details/52744514" target="_blank" rel="external">http://blog.csdn.net/lhanchao/article/details/52744514</a></li>
+<li><a href="http://blog.csdn.net/yang_xian521/article/details/7732835" target="_blank" rel="external">http://blog.csdn.net/yang_xian521/article/details/7732835</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章&amp;lt;&amp;lt;&lt;a href=&quot;https://infoscience.epfl.ch/record/175537/files/2069.pdf&quot;&gt;FREAK: Fast Retina Keypoint&lt;/a&gt;&amp;gt;&amp;gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜识别物体的启发而提出的。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Algorithm" scheme="https://senitco.github.io/categories/Algorithm/"/>
+    
+    
+      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
+    
+  </entry>
+  
+  <entry>
     <title>图像特征描述子之BRISK</title>
     <link href="https://senitco.github.io/2017/07/15/image-feature-brisk/"/>
     <id>https://senitco.github.io/2017/07/15/image-feature-brisk/</id>
     <published>2017-07-15T02:18:23.595Z</published>
-    <updated>2017-07-15T07:50:59.789Z</updated>
+    <updated>2017-07-15T07:52:27.324Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。<br><a id="more"></a></p>
 <h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;BRISK主要利用FAST算法进行特征点检测，为了满足尺度不变性，BRISK构造图像金字塔在多尺度空间检测特征点。</p>
@@ -71,7 +122,7 @@
 <h3 id="特征点描述"><a href="#特征点描述" class="headerlink" title="特征点描述"></a>特征点描述</h3><p>&emsp;&emsp;给定一组特征点(包含亚像素图像位置和浮点型尺度值)，BRISK通过比较邻域Patch内像素点对的灰度值，并进行二进制编码得到特征描述子。为了满足旋转不变性，需要选取合适的特征点主方向。</p>
 <h4 id="采样模式和旋转估计"><a href="#采样模式和旋转估计" class="headerlink" title="采样模式和旋转估计"></a>采样模式和旋转估计</h4><p>&emsp;&emsp;特征点邻域的采样模式如下图所示，以特征点为中心，构建不同半径的同心圆，在每个圆上获取一定数目的等间隔采样点，所有采样点包括特征点一共有$N$个。由于这种采样模式会引起混叠效应，需要对所有采样点进行高斯滤波，滤波半径$r$和高斯方差$\sigma$成正比，同心圆半径越大，采样点滤波半径也越大。</p>
 <p><img src="https://i.loli.net/2017/07/15/596996704acaf.jpg" alt="sample pattern.jpg"></p>
-<p>$N$个采样点两两组合共有$\dfrac{N(N-1)}{2}$个点对，用集合$\cal A$表示，$I(p_i, \sigma_i)$为像素灰度值，$\sigma$表示尺度，用$g(p_i, p_j)$表示特征点局部梯度值，其计算公式为<br>$$g(p_i, p_j)=(p_j - p_i) \dfrac{I(p_j, \sigma_j) - I(p_i, \sigma_i)}{||p_j - p_i||^2}$$<br>采样点对的集合表示为<br>$$\cal A = {(p_i, p_j) \in R^2 \times R^2 | i &lt; N \^ j &lt; i }$$<br>定义短距离点对子集$\cal S$和长距离点对子集$\cal L$<br>$$\cal S = {(p_i, p_j) \in \cal A | \left| p_j - p_i \right| &lt; \sigma_{max}} \subseteq \cal A$$<br>$$\cal L = {(p_i, p_j) \in \cal A | \left| p_j - p_i \right| &gt; \sigma_{min}} \subseteq \cal A$$<br>式中，阈值分别设置为$\sigma_{max} = 9.57t, \sigma_{min} = 13.67t$，$t$是特征点所在的尺度。特征点的主方向计算如下(此处仅用到了长距离点对子集)：<br>$$g = \left( \begin{matrix} g_x \\ g_y\end{matrix} \right) = \dfrac{1}{L} \Sigma_{p_i,p_j \in \cal L} g(p_i, p_j)$$<br>$$\alpha = arctan2(g_y, g_x)$$<br>长距离的点对均参与了运算，基于本地梯度互相抵消的假设，全局梯度的计算是不必要的。</p>
+<p>$N$个采样点两两组合共有$\dfrac{N(N-1)}{2}$个点对，用集合$\cal A$表示，$I(p_i, \sigma_i)$为像素灰度值，$\sigma$表示尺度，用$g(p_i, p_j)$表示特征点局部梯度值，其计算公式为<br>$$g(p_i, p_j)=(p_j - p_i) \dfrac{I(p_j, \sigma_j) - I(p_i, \sigma_i)}{||p_j - p_i||^2}$$<br>采样点对的集合表示为<br>$$\cal A = {(p_i, p_j) \in R^2 \times R^2 | i &lt; N \wedge j &lt; i }$$<br>定义短距离点对子集$\cal S$和长距离点对子集$\cal L$<br>$$\cal S = {(p_i, p_j) \in \cal A | \left| p_j - p_i \right| &lt; \sigma_{max}} \subseteq \cal A$$<br>$$\cal L = {(p_i, p_j) \in \cal A | \left| p_j - p_i \right| &gt; \sigma_{min}} \subseteq \cal A$$<br>式中，阈值分别设置为$\sigma_{max} = 9.57t, \sigma_{min} = 13.67t$，$t$是特征点所在的尺度。特征点的主方向计算如下(此处仅用到了长距离点对子集)：<br>$$g = \left( \begin{matrix} g_x \\ g_y\end{matrix} \right) = \dfrac{1}{L} \Sigma_{p_i,p_j \in \cal L} g(p_i, p_j)$$<br>$$\alpha = arctan2(g_y, g_x)$$<br>长距离的点对均参与了运算，基于本地梯度互相抵消的假设，全局梯度的计算是不必要的。</p>
 <h4 id="生成描述子"><a href="#生成描述子" class="headerlink" title="生成描述子"></a>生成描述子</h4><p>&emsp;&emsp;要解决旋转不变性，需要对特征点周围的采样区域旋转至主方向，得到新的采样区域，采样模式同上。采样点集合中包含$\dfrac{N(N-1)}{2}$个采样点对，考虑其中短距离点对子集中的512个点对，进行二进制编码，编码方式如下：<br>$$b = \begin{cases} 1, &emsp;I(p_j^\alpha, \sigma_j) &gt; I(p_i^\alpha, \sigma_i) \\ 0, &emsp;otherwise \end{cases}, &emsp; \forall (p_i^\alpha, p_j^\alpha) \in \cal S$$<br>$p_i^\alpha$表示旋转角度$\alpha$后的采样点。由此得到512bit也就是64Byte的二进制编码(BRISK64)。</p>
 <h3 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h3><p>&emsp;&emsp;BRISK特征匹配和BRIEF一样，都是通过计算特征描述子的Hamming距离来实现。</p>
 <h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><p>&emsp;&emsp;简单总结，BRISK算法具有较好的尺度不变性、旋转不变性，以及抗噪性能。在图像特征点的检测与匹配中，计算速度优于SIFT、SURF，而次于FREAK、ORB。对于较模糊的图像，能够取得较为出色的匹配结果。</p>
@@ -1157,54 +1208,6 @@ MathJax.Hub.Config({
     
     
       <category term="ML" scheme="https://senitco.github.io/tags/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Chinese Text Detection and Recognition</title>
-    <link href="https://senitco.github.io/2017/03/03/text-detection-recognition/"/>
-    <id>https://senitco.github.io/2017/03/03/text-detection-recognition/</id>
-    <published>2017-03-03T06:45:21.196Z</published>
-    <updated>2017-05-24T06:44:44.280Z</updated>
-    
-    <content type="html"><![CDATA[<p>&emsp;&emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including text, to convert each region into machine-encoded text. It is an important technique for understanding text information in 2D images, and many other applications such as text-to-speech, machine translation, text mining, etc.<br><a id="more"></a></p>
-<h3 id="Course"><a href="#Course" class="headerlink" title="Course"></a>Course</h3><p>&emsp;&emsp;Image Analysis and Understanding</p>
-<h3 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h3><p>&emsp;&emsp;Chinese Text Detection and Recognition</p>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>&emsp;&emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including text, to convert each region into machine-encoded text. It is an important technique for understanding text information in 2D images, and many other applications such as text-to-speech, machine translation, text mining, etc.</p>
-<h3 id="Deadline"><a href="#Deadline" class="headerlink" title="Deadline"></a>Deadline</h3><p>&emsp;&emsp;April 11, Tuesday, 2017</p>
-<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>&emsp;&emsp;图像文本一般分为两大类，图形文本(Graphic text)和场景文本(Scene text)，图形文本通常是指覆盖在图像上的机器打印的文本，如图片水印、视频字幕等；而场景文本则是自然场景中物体上的文本，如墙壁上的标语、衣服上的文字等。最近大部分的研究都集中在自然场景中文本检测与识别上，由于受到场景复杂、光照变化、成像随意等因素的影响，这一研究任务具有较大的挑战性，但其应用领域十分广泛，包括文字转语音、多语言翻译、自动化生产等。<br>&emsp;&emsp;对于文本检测，需要在一幅2D图像上准确定位到文本区域，而识别则是在此基础上将其识别转换为机器编码的文字。此次项目设计，主要针对自然场景中文本图像，采用多种方法进行检测并作对比，在定位到文本区域的基础上，采用Tesseract的开源库做进一步的识别。</p>
-<h3 id="Method-amp-Model"><a href="#Method-amp-Model" class="headerlink" title="Method &amp; Model"></a>Method &amp; Model</h3><p>&emsp;&emsp;文本检测方法来源于ECCV 2016上的一篇文章——<a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="external">Detecting Text in Natural Image with Connectionist Text Proposal Network</a>，是一种基于Faster R-CNN的端到端的检测方法。R-CNN是目标检测领域中十分经典的方法，相比于传统的手工特征，R-CNN将卷积神经网络引入，用于提取深度特征，后接一个分类器预测搜索区域是否包含目标及其置信度，并取得了相对而言较为准确的检测结果，而Fast R-CNN和Faster R-CNN则是R-CNN的升级版本，在准确率和实时性方面都得到了较大的提升。在Fast R-CNN中，首先需要使用Selective Search的方法提取图像的proposals，也就是候选目标区域。而新提出的Faster R-CNN模型则引入了RPN网络(Region Proposal Network)提取proposals，RPN是一个全卷积网络，通过共享卷积层特征大大缩短了proposals提取的时间，Fast R-CNN基于RPN提取的proposal作进一步的检测和识别。因此Faster R-CNN模型主要由两大模块组成：RPN候选框提取模块和Fast R-CNN检测模块，如下图所示。</p>
-<p><img src="https://ooo.0o0.ooo/2017/05/14/5917b8d52ee44.jpg" alt="Faster R-CNN.jpg" title="Faster R-CNN模型图" width="50%" height="50%" align="center"></p>
-<p>&emsp;&emsp;在Faster R-CNN中，利用VGG-16进行特征提取，RPN网络结构如图2所示，在conv5卷积层用一个n x n的滑动窗口生成一个512维的全连接层，该层后接两个子连接层：分类层(cls-layer)和回归层(reg-layer)，cls-layer用于判断检测的proposal是目标还是背景，reg-layer则用于预测proposal的宽高和中心锚点的坐标，滑动窗口的处理方式保证了两个子连接层关联了conv5的全部特征空间。在RPN中有一个较为重要的概念——Anchor，对于一个滑动窗口，可以同时预测多个proposal，假设proposal最多为k个，k个proposal对应k个参考候选框(reference box)，这k个参考候选框即为Anchor，通过取不同的scale和aspect ratio，对应不同的Anchor，Faster R-CNN模型k值为9，即3种不同的scale和aspect ratio确定当前滑动窗口位置处对应的9个Anchor，最后cls-layer和reg-layer输出参数的数量分别为2k和4k。对于一幅W x H的卷积特征层，对应 W x H x k个Anchor，所有的Anchor都具有尺度不变性。</p>
-<p><img src="https://ooo.0o0.ooo/2017/05/14/5917b9c3ab2a9.jpg" alt="RPN.jpg" title="RPN网络结构" width="50%" height="50%" align="center"></p>
-<p>&emsp;&emsp;训练RPN时，一个Mini-batch是由一幅图像中任意选取的256个proposal组成的，其中正负样本的比例为1 : 1。如果正样本数不足，则多补充一些负样本以满足有256个proposal可以用于训练。在RPN训练开始时，共享的VGG卷积层参数可以直接拷贝ImageNet中训练好的模型参数，剩余层参数用标准差为0.01的高斯分布初始化。RPN在提取到proposal后，通过训练Fast R-CNN进行检测和识别，而RPN和Fast R-CNN共用了VGG的卷积层，因此采用交替训练的方式实现卷积层特征共享。Faster R-CNN一个较为突出的贡献就是引入RPN，将proposal部分嵌入到了内部网络，因此整个网络模型即可完成端到端的检测任务，而不需要先执行proposal的搜索定位算法。<br>&emsp;&emsp;Faster R-CNN在目标检测方面能取得良好的效果，但文本检测和一般的目标检测不同，文本是一系列字符、笔画或单词的序列集合，而不是一般目标检测中独立的目标，同一文本序列上的不同字符可能差异较大、距离长短不一，检测出一个完整的文本行可能比检测单个目标的难度要大。因此针对文本检测这种特殊的情况，论文中提出了一种Recurrent Connectionist Text Proposal Network (CTPN)的检测方法，算法思想和Faster R-CNN类似，通过搜索定位多个候选文本框(Text Proposal)，对每个proposal做分类判决，包括proposal为文本、非文本的概率以及proposal的坐标位置。不同的是，CTPN中定义的Anchor是fine-scale的，在水平方向固定宽度为16个像素，而在垂直方向考虑k(=10)种尺寸，这和RPN中同一个滑动窗口考虑9个Anchor，分别为3种不同的scale和aspect ratio有所不同，正是考虑了文本和一般目标检测的差异，作者认为预测文本的垂直位置比水平位置要更容易，在proposal生成网络中，最后的输出分别为proposal的分类概率以及proposal的高度、中心锚点的y坐标以及在水平方向的偏移量，因为宽度是固定的，不予考虑。CTPN与Faster R-CNN还有一个较大的不同之处就是将RPN换成了双向的长短时记忆网络(BLSTM)，VGG-16的conv5卷积层(W x H x C)，不是直接连接到全连接层，而是将每一行的所有滑动窗口对应的3 x 3 x C特征输入到BLSTM中，用于编码Text Proposal的上下文信息，更加准确地检测文本区域。单向LSTM的维数为128，因此得到W x 256的输出，然后将BLSTM连接到512维的全连接层，全连接层后接3个子连接层，分别用于预测proposal的类别信息、在垂直方向的高度和y坐标以及在水平方向的偏移量。CTPN的整体网络结构和提取的Text Proposal示意图如图3所示，在得到多个细长的Text Proposal后，文中利用一种文本行构造算法，将多个Text Proposal合并成一个完整的文本区域，其主要思想是根据一定的约束条件，将相邻的Text Proposal两两合并，直到没有公共元素为止。</p>
-<p><img src="https://ooo.0o0.ooo/2017/05/14/5917ba8f3a3ed.jpg" alt="CTPN.jpg" title="CTPN网络结构和Text Proposal" align="center"></p>
-<h3 id="Detection-Results"><a href="#Detection-Results" class="headerlink" title="Detection Results"></a>Detection Results</h3><!-- <figure class="third">
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63897c8.jpg" alt="1.jpg" width=30% height=30%>
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6386978.jpg" alt="2.jpg" width=30% height=30%>
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638a778.jpg" alt="3.jpg" width=30% height=30%>
-</figure>
-<figure class="third">
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63857a0.jpg" alt="4.jpg" width=30% height=30%>
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638e4f5.jpg" alt="5.jpg" width=30% height=30%>
-    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6387f6b.jpg" alt="6.jpg" width=30% height=30%>
-</figure> -->
-<p><img src="https://ooo.0o0.ooo/2017/05/14/5917cbb71e93b.png" alt="7.png" title="Detection Results" align="center"></p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>&emsp;&emsp;在文本检测中用到的这种基于Faster R-CNN的算法模型，针对自然场景的多语言文本能取得良好的检测结果，比较适用于水平方向的文本检测，对于非水平方向的文本，该模型虽然也能有效检测，但不能获取文本的整体偏转信息，不利于后续的文本识别，因此在检测到文本区域后，对文本的整体偏转角度做了进一步的检测和校正。在识别任务中，主要用到了Tesseract的开源库，该OCR引擎对于中文的识别效果不是太理想。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6945320" target="_blank" rel="external">Text Detection and Recognition in Imagery: A Survey</a><br><a href="http://lbmedia.ece.ucsb.edu/member/uweb/Teaching/website/index.htm" target="_blank" rel="external">Course Website: Image Analysis and Understanding</a><br><a href="http://www.cnblogs.com/venus024/p/5717766.html" target="_blank" rel="external">R-CNN,SPP-NET, Fast-R-CNN,Faster-R-CNN系列检测方法解读</a><br><a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="external">Detecting Text in Natural Image with Connectionist Text Proposal Network</a><br><a href="http://www.cnblogs.com/lillylin/p/6277061.html" target="_blank" rel="external">Paper Reading: CTPN</a><br><a href="https://github.com/tianzhi0549/CTPN" target="_blank" rel="external">Source Code: CTPN</a><br><a href="https://github.com/chongyangtao/Awesome-Scene-Text-Recognition" target="_blank" rel="external">Text Detection and Recognition Resource –1</a><br><a href="https://handong1587.github.io/deep_learning/2015/10/09/ocr.html" target="_blank" rel="external">Text Detection and Recognition Resource –2</a><br><a href="http://blog.csdn.net/peaceinmind/article/details/51387367" target="_blank" rel="external">Text Detection and Recognition Resource –2</a>  </p>
-<p>关于Tesseract OCR引擎的安装和配置：<br><a href="http://www.leptonica.org/source/README.html" target="_blank" rel="external">依赖库Leptonica的编译</a><br><a href="https://github.com/tesseract-ocr/tesseract/wiki/Compiling" target="_blank" rel="external">Tesseract-OCR的编译和配置</a><br><a href="https://github.com/openpaperwork/pyocr" target="_blank" rel="external">OCR引擎的Python接口</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including text, to convert each region into machine-encoded text. It is an important technique for understanding text information in 2D images, and many other applications such as text-to-speech, machine translation, text mining, etc.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Projects" scheme="https://senitco.github.io/categories/Projects/"/>
-    
-    
-      <category term="Image" scheme="https://senitco.github.io/tags/Image/"/>
     
   </entry>
   
