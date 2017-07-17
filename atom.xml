@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-07-17T08:55:43.592Z</updated>
+  <updated>2017-07-17T08:57:29.739Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/07/17/linux-install-tensorflow/"/>
     <id>https://senitco.github.io/2017/07/17/linux-install-tensorflow/</id>
     <published>2017-07-17T07:35:05.817Z</published>
-    <updated>2017-07-17T08:55:43.592Z</updated>
+    <updated>2017-07-17T08:57:29.739Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在<a href="https://www.tensorflow.org/install/install_linux" target="_blank" rel="external">官网</a>均有介绍，这里简单记录下基于Anaconda安装的方法。<br><a id="more"></a></p>
 <h3 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h3><p>&emsp;&emsp;Anaconda是一个集成许多第三方科学计算库的Python科学计算环境，Anaconda使用conda 作为自己的包管理工具，同时具有自己的计算环境，类似Virtualenv。和Virtualenv一样,不同Python工程需要的依赖包，conda将其存储在不同的地方。TensorFlow上安装的Anaconda不会对之前安装的Python包进行覆盖。</p>
@@ -47,11 +47,14 @@
 <li><p>下载并安装TensorFlow</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade tfBinaryURL﻿​</div></pre></td></tr></table></figure>
 </li>
-</ul>
-<p>&emsp;&emsp;<a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade \</div><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在不确定安装版本的情况下也可直接使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure></p>
-<ul>
-<li>退出虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure>
+<li><p><a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade \</div><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure>
+</li>
+<li><p>在不确定安装版本的情况下也可直接使用如下命令安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure>
+</li>
+<li><p>退出虚拟环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
