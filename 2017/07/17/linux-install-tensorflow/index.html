@@ -92,7 +92,7 @@
 <meta property="og:url" content="https://senitco.github.io/2017/07/17/linux-install-tensorflow/index.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在官网均有介绍，这里简单记录下基于Anaconda安装的方法。">
-<meta property="og:updated_time" content="2017-07-17T08:47:00.657Z">
+<meta property="og:updated_time" content="2017-07-17T08:50:10.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux服务器下安装TensorFlow">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在官网均有介绍，这里简单记录下基于Anaconda安装的方法。">
@@ -342,7 +342,10 @@
 </ul>
 <p><a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade \</div><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure></p>
 <p>在不确定安装版本的情况下也可直接使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure></p>
-<p>退出虚拟环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure></p>
+<ul>
+<li>退出虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
 <li><p>用source activate指令进入tensorflow环境，执行Python解释器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python</div></pre></td></tr></table></figure>
