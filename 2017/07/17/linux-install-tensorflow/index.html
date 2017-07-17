@@ -92,7 +92,7 @@
 <meta property="og:url" content="https://senitco.github.io/2017/07/17/linux-install-tensorflow/index.html">
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在官网均有介绍，这里简单记录下基于Anaconda安装的方法。">
-<meta property="og:updated_time" content="2017-07-17T08:42:18.187Z">
+<meta property="og:updated_time" content="2017-07-17T08:47:00.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux服务器下安装TensorFlow">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在官网均有介绍，这里简单记录下基于Anaconda安装的方法。">
@@ -315,20 +315,46 @@
 
       
         <p>&emsp;&emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在<a href="https://www.tensorflow.org/install/install_linux" target="_blank" rel="external">官网</a>均有介绍，这里简单记录下基于Anaconda安装的方法。<br><a id="more"></a></p>
-<h3 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h3><p>&emsp;&emsp;Anaconda是一个集成许多第三方科学计算库的Python科学计算环境，Anaconda使用conda 作为自己的包管理工具，同时具有自己的计算环境，类似Virtualenv。和Virtualenv一样,不同Python工程需要的依赖包，conda将其存储在不同的地方。TensorFlow上安装的Anaconda不会对之前安装的Python包进行覆盖。<br>进入Anaconda官网<a href="https://www.continuum.io/downloads" target="_blank" rel="external">下载页面</a>，选择合适版本直接下载，或者在个人终端目录下，使用wget命令，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh</div></pre></td></tr></table></figure></p>
-<p>下载到本地后运行安装脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bash Anaconda2-4.4.0-Linux-x86_64.sh</div></pre></td></tr></table></figure></p>
-<p>安装完成后在~/.bashrc文件中添加环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=&quot;/$HOME/anaconda2/bin:$PATH&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h3><p>&emsp;&emsp;Anaconda是一个集成许多第三方科学计算库的Python科学计算环境，Anaconda使用conda 作为自己的包管理工具，同时具有自己的计算环境，类似Virtualenv。和Virtualenv一样,不同Python工程需要的依赖包，conda将其存储在不同的地方。TensorFlow上安装的Anaconda不会对之前安装的Python包进行覆盖。</p>
+<ul>
+<li><p>进入Anaconda官网<a href="https://www.continuum.io/downloads" target="_blank" rel="external">下载页面</a>，选择合适版本直接下载，或者在个人终端目录下，使用wget命令，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://repo.continuum.io/archive/Anaconda2-4.4.0-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载到本地后运行安装脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bash Anaconda2-4.4.0-Linux-x86_64.sh</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装完成后在~/.bashrc文件中添加环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=&quot;/$HOME/anaconda2/bin:$PATH&quot;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>此外，还需在~/.zshrc文件添加相关路径，否则在后面执行conda命令时，可能会出现错误信息：zsh: command not found: conda。在.zshrc文件的 #User configuration 处追加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH = &quot;$PATH:$HOME/anaconda/bin&quot;</div></pre></td></tr></table></figure></p>
 <p>添加完路径后分别执行以下命令使之生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div><div class="line">source ~/.zshrc</div></pre></td></tr></table></figure></p>
-<h3 id="安装TensorFlow"><a href="#安装TensorFlow" class="headerlink" title="安装TensorFlow"></a>安装TensorFlow</h3><p>创建conda环境，命名为tensorflow<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">conda create -n tensorflow﻿​</div><div class="line">#也可指定Python版本</div><div class="line">conda create -n tensorflow python=2.7</div></pre></td></tr></table></figure></p>
-<p>激活并进入创建的conda环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source activate tensorflow</div></pre></td></tr></table></figure></p>
-<p>下载并安装TensorFlow<br>pip install –ignore-installed –upgrade tfBinaryURL﻿​<br><a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本<br><figure class="highlight plain"><figcaption><span>install --ignore-installed --upgrade \</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure></p>
-<p>在不确定安装版本的情况下也可直接按如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure></p>
+<h3 id="安装TensorFlow"><a href="#安装TensorFlow" class="headerlink" title="安装TensorFlow"></a>安装TensorFlow</h3><ul>
+<li><p>创建conda环境，命名为tensorflow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">conda create -n tensorflow﻿​</div><div class="line">#也可指定Python版本</div><div class="line">conda create -n tensorflow python=2.7</div></pre></td></tr></table></figure>
+</li>
+<li><p>激活并进入创建的conda环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source activate tensorflow</div></pre></td></tr></table></figure>
+</li>
+<li><p>下载并安装TensorFlow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade tfBinaryURL﻿​</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade \</div><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure></p>
+<p>在不确定安装版本的情况下也可直接使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure></p>
 <p>退出虚拟环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure></p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>用source activate指令进入tensorflow环境，执行Python解释器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python</div></pre></td></tr></table></figure></p>
-<p>在Python环境内，逐条输入以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import tensorflow as tf</div><div class="line">&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</div><div class="line">&gt;&gt;&gt; sess = tf.Session()</div><div class="line">&gt;&gt;&gt; print(sess.run(hello))</div></pre></td></tr></table></figure></p>
-<p>如果成功打印下面语句，说明安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello, TensorFlow!</div></pre></td></tr></table></figure></p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>&emsp;&emsp;安装GPU版本的TensorFlow时，需要使用的NVIDIA的显卡，并安装和配置CUDA和CUDNN环境。<br>&emsp;&emsp;一般对于多用户使用的服务器，系统主目录下都会安装有Python解释器(甚至是多个版本)。对于大多数用户而言都不具备管理员权限，在利用pip命令安装一些Python依赖库时会失败，因此在个人目录下安装集成的Anaconda环境，可以有效地与系统自带的Python解释器隔离，前提是在.bashrc文件中添加路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=&quot;$HOME/anaconda2/bin:$PATH&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li><p>用source activate指令进入tensorflow环境，执行Python解释器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python</div></pre></td></tr></table></figure>
+</li>
+<li><p>在Python环境内，逐条输入以下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import tensorflow as tf</div><div class="line">&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</div><div class="line">&gt;&gt;&gt; sess = tf.Session()</div><div class="line">&gt;&gt;&gt; print(sess.run(hello))</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果成功打印下面语句，说明安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello, TensorFlow!</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>&emsp;&emsp;安装GPU版本的TensorFlow时，需要使用NVIDIA的显卡，并安装和配置CUDA和CUDNN环境。<br>&emsp;&emsp;一般对于多用户使用的服务器，系统主目录下都会安装有Python解释器(甚至是多个版本)。对于大多数用户而言都不具备管理员权限，在利用pip命令安装一些Python依赖库时会失败，因此在个人目录下安装集成的Anaconda环境，可以有效地与系统自带的Python解释器隔离，前提是在.bashrc文件中添加路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=&quot;$HOME/anaconda2/bin:$PATH&quot;</div></pre></td></tr></table></figure></p>
 <p>并执行以下命令使之生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure></p>
 <p>这样每次执行python命令都是在个人目录下的Anaconda环境中。如果要与系统Python环境随时切换，可通过给命令起别名的方式，即别名声明alias。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alias python27=&quot;/usr/bin/python2.7&quot;  	#系统Python环境</div><div class="line">alias python36=&quot;/usr/bin/python3.6&quot; </div><div class="line">alias pyana=&quot;/home/myname/anaconda2/bin/python2.7&quot;	#个人Python环境，精确到版本路径</div></pre></td></tr></table></figure></p>
 <p>使用系统自带的Python时，执行Python27或者Python36命令即可；使用Anaconda时，执行pyana或者python命令。将上述命令添加到.bashrc文件中，这样每次开机都不需要重新输入。</p>
