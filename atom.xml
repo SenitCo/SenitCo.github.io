@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://senitco.github.io/"/>
-  <updated>2017-07-17T08:53:36.903Z</updated>
+  <updated>2017-07-17T08:54:37.428Z</updated>
   <id>https://senitco.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://senitco.github.io/2017/07/17/linux-install-tensorflow/"/>
     <id>https://senitco.github.io/2017/07/17/linux-install-tensorflow/</id>
     <published>2017-07-17T07:35:05.817Z</published>
-    <updated>2017-07-17T08:53:36.903Z</updated>
+    <updated>2017-07-17T08:54:37.428Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;简单介绍在Linux服务器的个人目录下安装TensorFlow。TensorFlow的安装方式有多种，基于Pip的安装、基于Docker的安装、基于VirtualEnv的安装、基于Anaconda的安装，以及从源码编译安装，这些在<a href="https://www.tensorflow.org/install/install_linux" target="_blank" rel="external">官网</a>均有介绍，这里简单记录下基于Anaconda安装的方法。<br><a id="more"></a></p>
 <h3 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h3><p>&emsp;&emsp;Anaconda是一个集成许多第三方科学计算库的Python科学计算环境，Anaconda使用conda 作为自己的包管理工具，同时具有自己的计算环境，类似Virtualenv。和Virtualenv一样,不同Python工程需要的依赖包，conda将其存储在不同的地方。TensorFlow上安装的Anaconda不会对之前安装的Python包进行覆盖。</p>
@@ -45,34 +45,31 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source activate tensorflow</div></pre></td></tr></table></figure>
 </li>
 <li><p>下载并安装TensorFlow</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade tfBinaryURL﻿​ </div><div class="line">```[tfBinaryURL](https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL)须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade tfBinaryURL﻿​</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>pip install –ignore-installed –upgrade \<br><a href="https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl" target="_blank" rel="external">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">在不确定安装版本的情况下也可直接使用如下命令安装</div></pre></td></tr></table></figure></p>
-<p>pip install tensorflow         #CPU版本<br>pip install tensorflow-gpu    #GPU版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 退出虚拟环境</div></pre></td></tr></table></figure></p>
-<p>source deactivate tensorflow<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 测试</div><div class="line">- 用source activate指令进入tensorflow环境，执行Python解释器</div></pre></td></tr></table></figure></p>
-<p>python<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 在Python环境内，逐条输入以下语句</div></pre></td></tr></table></figure></p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import tensorflow as tf<br>hello = tf.constant(‘Hello, TensorFlow!’)<br>sess = tf.Session()<br>print(sess.run(hello))<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- 如果成功打印下面语句，说明安装成功</div></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Hello, TensorFlow!<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 注意事项</div><div class="line">&amp;emsp;&amp;emsp;安装GPU版本的TensorFlow时，需要使用NVIDIA的显卡，并安装和配置CUDA和CUDNN环境。</div><div class="line">&amp;emsp;&amp;emsp;一般对于多用户使用的服务器，系统主目录下都会安装有Python解释器(甚至是多个版本)。对于大多数用户而言都不具备管理员权限，在利用pip命令安装一些Python依赖库时会失败，因此在个人目录下安装集成的Anaconda环境，可以有效地与系统自带的Python解释器隔离，前提是在.bashrc文件中添加路径</div></pre></td></tr></table></figure></p>
-<p>export PATH=”$HOME/anaconda2/bin:$PATH”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">并执行以下命令使之生效</div></pre></td></tr></table></figure></p>
-<p>source ~/.bashrc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">这样每次执行python命令都是在个人目录下的Anaconda环境中。如果要与系统Python环境随时切换，可通过给命令起别名的方式，即别名声明alias。</div></pre></td></tr></table></figure></p>
-<p>alias python27=”/usr/bin/python2.7”      #系统Python环境<br>alias python36=”/usr/bin/python3.6”<br>alias pyana=”/home/myname/anaconda2/bin/python2.7”    #个人Python环境，精确到版本路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">使用系统自带的Python时，执行Python27或者Python36命令即可；使用Anaconda时，执行pyana或者python命令。将上述命令添加到.bashrc文件中，这样每次开机都不需要重新输入。</div><div class="line"></div><div class="line">conda的简单命令</div></pre></td></tr></table></figure></p>
-<p>conda create -n [name]      #创建名为name的conda环境，如tensorflow</p>
-<p>source activate [name]      #激活并进入创建的环境</p>
-<p>source deactivate [name]    #退出名为name的环境，回到系统默认环境</p>
-<p>conda remove -n [name] –all   #删除创建的conda环境 </p>
-<p>conda info -envs    #查看所安装环境列表，创建的环境都在<code>~/anaconda2/envs/</code>目录下面</p>
-<p>conda list      #查看已经安装的包</p>
-<p>conda install [packagename]        #安装具体的包，加-n [name]可以安装到指定环境</p>
-<p>conda list -n [name]      #name环境下安装了哪些包</p>
-<p>conda update -n [name] [packagename]     #升级name环境的名为packagename的包</p>
-<p>conda remove -n [name] [packagename]     #删除name环境的名为packagename的包<br>```</p>
+<p>&emsp;<a href="https://www.tensorflow.org/install/install_linux#TF_PYTHON_URL" target="_blank" rel="external">tfBinaryURL</a>须根据平台环境进行选择。例如，对于Python2.7，GPU版本为CUDA8.0的平台，可安装如下版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install --ignore-installed --upgrade \</div><div class="line">https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.1-cp27-cp27mu-manylinux1_x86_64.whl</div></pre></td></tr></table></figure></p>
+<p>&emsp;在不确定安装版本的情况下也可直接使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip install tensorflow 		#CPU版本</div><div class="line">pip install tensorflow-gpu	#GPU版本</div></pre></td></tr></table></figure></p>
+<ul>
+<li>退出虚拟环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source deactivate tensorflow</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li><p>用source activate指令进入tensorflow环境，执行Python解释器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python</div></pre></td></tr></table></figure>
+</li>
+<li><p>在Python环境内，逐条输入以下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import tensorflow as tf</div><div class="line">&gt;&gt;&gt; hello = tf.constant(&apos;Hello, TensorFlow!&apos;)</div><div class="line">&gt;&gt;&gt; sess = tf.Session()</div><div class="line">&gt;&gt;&gt; print(sess.run(hello))</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果成功打印下面语句，说明安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello, TensorFlow!</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>&emsp;&emsp;安装GPU版本的TensorFlow时，需要使用NVIDIA的显卡，并安装和配置CUDA和CUDNN环境。<br>&emsp;&emsp;一般对于多用户使用的服务器，系统主目录下都会安装有Python解释器(甚至是多个版本)。对于大多数用户而言都不具备管理员权限，在利用pip命令安装一些Python依赖库时会失败，因此在个人目录下安装集成的Anaconda环境，可以有效地与系统自带的Python解释器隔离，前提是在.bashrc文件中添加路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=&quot;$HOME/anaconda2/bin:$PATH&quot;</div></pre></td></tr></table></figure></p>
+<p>并执行以下命令使之生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source ~/.bashrc</div></pre></td></tr></table></figure></p>
+<p>这样每次执行python命令都是在个人目录下的Anaconda环境中。如果要与系统Python环境随时切换，可通过给命令起别名的方式，即别名声明alias。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alias python27=&quot;/usr/bin/python2.7&quot;  	#系统Python环境</div><div class="line">alias python36=&quot;/usr/bin/python3.6&quot; </div><div class="line">alias pyana=&quot;/home/myname/anaconda2/bin/python2.7&quot;	#个人Python环境，精确到版本路径</div></pre></td></tr></table></figure></p>
+<p>使用系统自带的Python时，执行Python27或者Python36命令即可；使用Anaconda时，执行pyana或者python命令。将上述命令添加到.bashrc文件中，这样每次开机都不需要重新输入。</p>
+<p>conda的简单命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">conda create -n [name]      #创建名为name的conda环境，如tensorflow</div><div class="line"></div><div class="line">source activate [name]  	#激活并进入创建的环境</div><div class="line"></div><div class="line">source deactivate [name]    #退出名为name的环境，回到系统默认环境</div><div class="line"></div><div class="line">conda remove -n [name] --all   #删除创建的conda环境 </div><div class="line"></div><div class="line">conda info -envs    #查看所安装环境列表，创建的环境都在`~/anaconda2/envs/`目录下面</div><div class="line"></div><div class="line">conda list      #查看已经安装的包</div><div class="line"></div><div class="line">conda install [packagename]        #安装具体的包，加-n [name]可以安装到指定环境</div><div class="line"></div><div class="line">conda list -n [name]      #name环境下安装了哪些包</div><div class="line"></div><div class="line">conda update -n [name] [packagename]     #升级name环境的名为packagename的包</div><div class="line"></div><div class="line">conda remove -n [name] [packagename]     #删除name环境的名为packagename的包</div></pre></td></tr></table></figure></p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
 <li><a href="https://www.tensorflow.org/install/install_linux" target="_blank" rel="external">https://www.tensorflow.org/install/install_linux</a></li>
 <li><a href="https://github.com/jikexueyuanwiki/tensorflow-zh/blob/master/SOURCE/get_started/os_setup.md" target="_blank" rel="external">https://github.com/jikexueyuanwiki/tensorflow-zh/blob/master/SOURCE/get_started/os_setup.md</a></li>
