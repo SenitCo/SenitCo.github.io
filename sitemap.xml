@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/2017/07/29/test/</loc>
+    
+    <lastmod>2017-07-29T13:55:51.555Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/07/17/linux-install-tensorflow/</loc>
     
     <lastmod>2017-07-17T08:57:29.739Z</lastmod>
