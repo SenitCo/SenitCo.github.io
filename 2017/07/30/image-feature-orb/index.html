@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Image," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;ORB(Oriented FAST and Rotated BRIEF)算法是对FAST特征点检测和BRIEF特征描述子的一种结合，在原有的基础上做了改进与优化，使得ORB特征具备多种局部不变性，并为实时计算提供了可能。">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像特征描述子之ORB">
+<meta property="og:url" content="https://senitco.github.io/2017/07/30/image-feature-orb/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;ORB(Oriented FAST and Rotated BRIEF)算法是对FAST特征点检测和BRIEF特征描述子的一种结合，在原有的基础上做了改进与优化，使得ORB特征具备多种局部不变性，并为实时计算提供了可能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/5968d134c4b7e.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/5968d13635388.png">
+<meta property="og:updated_time" content="2017-07-30T02:57:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像特征描述子之ORB">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;ORB(Oriented FAST and Rotated BRIEF)算法是对FAST特征点检测和BRIEF特征描述子的一种结合，在原有的基础上做了改进与优化，使得ORB特征具备多种局部不变性，并为实时计算提供了可能。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/14/5968d134c4b7e.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 图像特征描述子之ORB | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图像特征描述子之ORB
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-30T10:57:00+08:00" content="2017-07-30">
+              2017-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/30/image-feature-orb/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/30/image-feature-orb/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;ORB(Oriented FAST and Rotated BRIEF)算法是对FAST特征点检测和BRIEF特征描述子的一种结合，在原有的基础上做了改进与优化，使得ORB特征具备多种局部不变性，并为实时计算提供了可能。<br><a id="more"></a></p>
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;ORB首先利用FAST算法检测特征点，然后计算每个特征点的Harris角点响应值，从中筛选出$N$个最大的特征点，Harris角点的响应函数如下：<br>$$R = detM-\alpha (traceM)^2$$<br>相关内容已在前面的博文<a href="https://senitco.github.io/2017/07/10/image-feature-fast/">FAST角点检测</a>和<a href="https://senitco.github.io/2017/06/28/image-feature-harris/">Harris角点检测</a>分别做了详细的介绍。<br>FAST检测特征点不具备尺度不变性，可以像SIFT特征一样，借助尺度空间理论构建图像高斯金字塔，然后在每一层金字塔图像上检测角点，以实现尺度不变性。对于旋转不变性，原论文中提出了一种利用图像矩(几何矩)，在半径为r的邻域内求取灰度质心的方法，从特征点到灰度质心的向量，定义为该特征点的主方向。图像矩定义如下：<br>$$m_{pq}=\Sigma_{x,y} x^p y^q I(x,y),&emsp;x,y \in [-r,r]$$<br>$I(x,y)$表示像素灰度值，0阶矩$m_{00}$即图像邻域窗口内所有像素的灰度和，$m_{10}$和$m_{01}$分别相对$x$和相对$y$的一阶矩，因此图像局部邻域的中心矩或者质心可定义为<br>$$C = ( \dfrac{m_{10}}{m_{00}}, \dfrac{m_{01}}{m_{00}}) $$<br>特征点与质心形成的向量与$X$轴的夹角定义为特征点的主方向<br>$$\theta = arctan(m_{01}, m_{10})$$</p>
+<h3 id="特征点描述"><a href="#特征点描述" class="headerlink" title="特征点描述"></a>特征点描述</h3><p>&emsp;&emsp;ORB采用BRIEF作为特征描述方法，BRIEF虽然速度优势明显，但也存在一些缺陷，例如不具备尺度不变性和旋转不变性，对噪声敏感。尺度不变性的问题在利用FAST检测特征点时，通过构建高斯金字塔得以解决。BRIEF中采用$9 \times 9$的高斯卷积核进行滤波降噪，可以在一定程度上缓解噪声敏感问题；ORB中利用积分图像，在$31 \times 31$的Patch中选取随机点对，并以选取的随机点为中心，在$5 \times 5$的窗口内计算灰度平均值(灰度和)，比较随机点对的邻域灰度均值，进行二进制编码，而不是仅仅由两个随机点对的像素值决定编码结果，可以有效地解决噪声问题。<br>&emsp;&emsp;至于旋转不变性问题，可利用FAST特征点检测时求取的主方向，旋转特征点邻域，但旋转整个Patch再提取BRIEF特征描述子的计算代价较大，因此，ORB采用了一种更高效的方式，在每个特征点邻域Patch内，先选取256对随机点，将其进行旋转，然后做判决编码为二进制串。n个点对构成矩阵$S$<br>$$S=\left[ \begin{matrix} x_1 &amp; x_2 &amp; \ldots  &amp; x_{2n}\\ y_1 &amp; y_2 &amp; \ldots &amp; y_{2n}\end{matrix} \right]$$<br>旋转矩阵$R_{\theta}为$<br>$$R_{\theta} = \left[ \begin{matrix} cos \theta &amp; -sin \theta \\ sin \theta &amp; cos \theta \end{matrix} \right]$$<br>旋转后的坐标矩阵为<br>$$S_{\theta} = R_{\theta}S$$</p>
+<h3 id="描述子的区分性"><a href="#描述子的区分性" class="headerlink" title="描述子的区分性"></a>描述子的区分性</h3><p>&emsp;&emsp;通过上述方法得到的特征描述子具有旋转不变性，称为steered BRIEF(sBRIEF)，但匹配效果却不如原始BRIEF算法，因为可区分性减弱了。特征描述子的一个要求就是要尽可能地表达特征点的独特性，便于区分不同的特征点。如下图所示，为几种特征描述子的均值分布，横轴为均值与0.5之间的距离，纵轴为相应均值下特征点的统计数量。可以看出，BRIEF描述子所有比特位的均值接近于0.5，且方差很大；方差越大表明可区分性越好。不同特征点的描述子表现出较大的差异性，不易造成无匹配。但steered BRIEF进行了坐标旋转，损失了这个特性，导致可区分性减弱，相关性变强，不利于匹配。</p>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/5968d134c4b7e.jpg" alt="sBRIEF-rBRIEF.jpg"></p>
+<p>&emsp;&emsp;为了解决steered BRIEF可区分性降低的问题，ORB使用了一种基于学习的方法来选择一定数量的随机点对。首先建立一个大约300k特征点的数据集(特征点来源于PASCAL2006中的图像)，对每个特征点，考虑其$31 \times 31$的邻域Patch，为了去除噪声的干扰，选择$5 \times 5$的子窗口的灰度均值代替单个像素的灰度，这样每个Patch内就有$N = (31-5+1) \times (31-5+1) = 27 \times 27 = 729$个子窗口，从中随机选取2个非重复的子窗口，一共有$M = C_N ^ 2$中方法。这样，每个特征点便可提取出一个长度为$M$的二进制串，所有特征点可构成一个$300k \times M$的二进制矩阵$Q$，矩阵中每个元素取值为0或1。现在需要从$M$个点对中选取256个相关性最小、可区分性最大的点对，作为最终的二进制编码。筛选方法如下：</p>
+<ul>
+<li>对矩阵$Q$的每一列求取均值，并根据均值与0.5之间的距离从小到大的顺序，依次对所有列向量进行重新排序，得到矩阵$T$</li>
+<li>将$T$中的第一列向量放到结果矩阵$R$中</li>
+<li>取出$T$中的下一列向量，计算其与矩阵$R$中所有列向量的相关性，如果相关系数小于给定阈值，则将$T$中的该列向量移至矩阵$R$中，否则丢弃</li>
+<li>循环执行上一步，直到$R$中有256个列向量；如果遍历$T$中所有列，$R$中向量列数还不满256，则增大阈值，重复以上步骤。</li>
+</ul>
+<p>这样，最后得到的就是相关性最小的256对随机点，该方法称为rBRIEF。</p>
+<h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><p>OpenCV实现ORB特征检测与描述<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#include &lt;opencv2/core/core.hpp&gt; </div><div class="line">#include &lt;opencv2/highgui/highgui.hpp&gt; </div><div class="line">#include &lt;opencv2/imgproc/imgproc.hpp&gt; </div><div class="line">#include &lt;opencv2/features2d/features2d.hpp&gt;</div><div class="line"></div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc, char** argv) </div><div class="line">&#123; </div><div class="line">    Mat img_1 = imread(&quot;box.png&quot;); </div><div class="line">    Mat img_2 = imread(&quot;box_in_scene.png&quot;);</div><div class="line"></div><div class="line">    // -- Step 1: Detect the keypoints using STAR Detector </div><div class="line">    std::vector&lt;KeyPoint&gt; keypoints_1,keypoints_2; </div><div class="line">    ORB orb; </div><div class="line">    orb.detect(img_1, keypoints_1); </div><div class="line">    orb.detect(img_2, keypoints_2);</div><div class="line"></div><div class="line">    // -- Stpe 2: Calculate descriptors (feature vectors) </div><div class="line">    Mat descriptors_1, descriptors_2; </div><div class="line">    orb.compute(img_1, keypoints_1, descriptors_1); </div><div class="line">    orb.compute(img_2, keypoints_2, descriptors_2);</div><div class="line"></div><div class="line">    //-- Step 3: Matching descriptor vectors with a brute force matcher </div><div class="line">    BFMatcher matcher(NORM_HAMMING); </div><div class="line">    std::vector&lt;DMatch&gt; mathces; </div><div class="line">    matcher.match(descriptors_1, descriptors_2, mathces); </div><div class="line">    // -- dwaw matches </div><div class="line">    Mat img_mathes; </div><div class="line">    drawMatches(img_1, keypoints_1, img_2, keypoints_2, mathces, img_mathes); </div><div class="line">    // -- show </div><div class="line">    imshow(&quot;Mathces&quot;, img_mathes);</div><div class="line"></div><div class="line">    waitKey(0); </div><div class="line">    return 0; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/5968d13635388.png" alt="result.png"></p>
+<p>OpenCV中ORB算法的部分源码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div></pre></td><td class="code"><pre><div class="line">//计算Harris角点响应  </div><div class="line">static void HarrisResponses(const Mat&amp; img, vector&lt;KeyPoint&gt;&amp; pts, int blockSize, float harris_k)  </div><div class="line">&#123;  </div><div class="line">    CV_Assert( img.type() == CV_8UC1 &amp;&amp; blockSize*blockSize &lt;= 2048 );  </div><div class="line">  </div><div class="line">    size_t ptidx, ptsize = pts.size();  </div><div class="line">  </div><div class="line">    const uchar* ptr00 = img.ptr&lt;uchar&gt;();  </div><div class="line">    int step = (int)(img.step/img.elemSize1());  </div><div class="line">    int r = blockSize/2;  </div><div class="line">  </div><div class="line">    float scale = (1 &lt;&lt; 2) * blockSize * 255.0f;  </div><div class="line">    scale = 1.0f / scale;  </div><div class="line">    float scale_sq_sq = scale * scale * scale * scale;  </div><div class="line">  </div><div class="line">    AutoBuffer&lt;int&gt; ofsbuf(blockSize*blockSize);  </div><div class="line">    int* ofs = ofsbuf;  </div><div class="line">    for( int i = 0; i &lt; blockSize; i++ )  </div><div class="line">        for( int j = 0; j &lt; blockSize; j++ )  </div><div class="line">            ofs[i*blockSize + j] = (int)(i*step + j);  </div><div class="line">  </div><div class="line">    for( ptidx = 0; ptidx &lt; ptsize; ptidx++ )  </div><div class="line">    &#123;  </div><div class="line">        int x0 = cvRound(pts[ptidx].pt.x - r);  </div><div class="line">        int y0 = cvRound(pts[ptidx].pt.y - r);  </div><div class="line">  </div><div class="line">        const uchar* ptr0 = ptr00 + y0*step + x0;  </div><div class="line">        int a = 0, b = 0, c = 0;  </div><div class="line">  </div><div class="line">        for( int k = 0; k &lt; blockSize*blockSize; k++ )  </div><div class="line">        &#123;  </div><div class="line">            const uchar* ptr = ptr0 + ofs[k];  </div><div class="line">            int Ix = (ptr[1] - ptr[-1])*2 + (ptr[-step+1] - ptr[-step-1]) + (ptr[step+1] - ptr[step-1]);  </div><div class="line">            int Iy = (ptr[step] - ptr[-step])*2 + (ptr[step-1] - ptr[-step-1]) + (ptr[step+1] - ptr[-step+1]);  </div><div class="line">            a += Ix*Ix;  </div><div class="line">            b += Iy*Iy;  </div><div class="line">            c += Ix*Iy;  </div><div class="line">        &#125;  </div><div class="line">        pts[ptidx].response = ((float)a * b - (float)c * c -  harris_k * ((float)a + b) * ((float)a + b))*scale_sq_sq;  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"></div><div class="line">//计算FAST角点的主方向  </div><div class="line">static float IC_Angle(const Mat&amp; image, const int half_k, Point2f pt, const vector&lt;int&gt; &amp; u_max)  </div><div class="line">&#123;  </div><div class="line">    int m_01 = 0, m_10 = 0;  </div><div class="line">  </div><div class="line">    const uchar* center = &amp;image.at&lt;uchar&gt; (cvRound(pt.y), cvRound(pt.x));  </div><div class="line">  </div><div class="line">    // Treat the center line differently, v=0  </div><div class="line">    for (int u = -half_k; u &lt;= half_k; ++u)  </div><div class="line">        m_10 += u * center[u];  </div><div class="line">  </div><div class="line">    // Go line by line in the circular patch  </div><div class="line">    int step = (int)image.step1();  </div><div class="line">    for (int v = 1; v &lt;= half_k; ++v)  </div><div class="line">    &#123;  </div><div class="line">        // Proceed over the two lines  </div><div class="line">        int v_sum = 0;  </div><div class="line">        int d = u_max[v];  </div><div class="line">        for (int u = -d; u &lt;= d; ++u)  </div><div class="line">        &#123;  </div><div class="line">            int val_plus = center[u + v*step], val_minus = center[u - v*step];  </div><div class="line">            v_sum += (val_plus - val_minus);  </div><div class="line">            m_10 += u * (val_plus + val_minus);  </div><div class="line">        &#125;  </div><div class="line">        m_01 += v * v_sum;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    return fastAtan2((float)m_01, (float)m_10);  </div><div class="line">&#125;  </div><div class="line"></div><div class="line"></div><div class="line">//计算ORB特征描述子</div><div class="line">static void computeOrbDescriptor(const KeyPoint&amp; kpt, const Mat&amp; img, const Point* pattern, uchar* desc, int dsize, int WTA_K)  </div><div class="line">&#123;  </div><div class="line">    float angle = kpt.angle;   </div><div class="line">    //angle = cvFloor(angle/12)*12.f;  </div><div class="line">    angle *= (float)(CV_PI/180.f);  </div><div class="line">    float a = (float)cos(angle), b = (float)sin(angle);  </div><div class="line">  </div><div class="line">    const uchar* center = &amp;img.at&lt;uchar&gt;(cvRound(kpt.pt.y), cvRound(kpt.pt.x));  </div><div class="line">    int step = (int)img.step;  </div><div class="line">  </div><div class="line">#if 1  </div><div class="line">    #define GET_VALUE(idx) \       //取旋转后一个像素点的值  </div><div class="line">        center[cvRound(pattern[idx].x*b + pattern[idx].y*a)*step + \  </div><div class="line">               cvRound(pattern[idx].x*a - pattern[idx].y*b)]  </div><div class="line">#else  </div><div class="line">    float x, y;  </div><div class="line">    int ix, iy;  </div><div class="line">    #define GET_VALUE(idx) \ //取旋转后一个像素点，插值法  </div><div class="line">        (x = pattern[idx].x*a - pattern[idx].y*b, \  </div><div class="line">        y = pattern[idx].x*b + pattern[idx].y*a, \  </div><div class="line">        ix = cvFloor(x), iy = cvFloor(y), \  </div><div class="line">        x -= ix, y -= iy, \  </div><div class="line">        cvRound(center[iy*step + ix]*(1-x)*(1-y) + center[(iy+1)*step + ix]*(1-x)*y + \  </div><div class="line">                center[iy*step + ix+1]*x*(1-y) + center[(iy+1)*step + ix+1]*x*y))  </div><div class="line">#endif  </div><div class="line">  </div><div class="line">    if( WTA_K == 2 )  </div><div class="line">    &#123;  </div><div class="line">        for (int i = 0; i &lt; dsize; ++i, pattern += 16)//每个特征描述子长度为32个字节  </div><div class="line">        &#123;  </div><div class="line">            int t0, t1, val;  </div><div class="line">            t0 = GET_VALUE(0); t1 = GET_VALUE(1);  </div><div class="line">            val = t0 &lt; t1;  </div><div class="line">            t0 = GET_VALUE(2); t1 = GET_VALUE(3);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 1;  </div><div class="line">            t0 = GET_VALUE(4); t1 = GET_VALUE(5);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 2;  </div><div class="line">            t0 = GET_VALUE(6); t1 = GET_VALUE(7);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 3;  </div><div class="line">            t0 = GET_VALUE(8); t1 = GET_VALUE(9);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 4;  </div><div class="line">            t0 = GET_VALUE(10); t1 = GET_VALUE(11);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 5;  </div><div class="line">            t0 = GET_VALUE(12); t1 = GET_VALUE(13);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 6;  </div><div class="line">            t0 = GET_VALUE(14); t1 = GET_VALUE(15);  </div><div class="line">            val |= (t0 &lt; t1) &lt;&lt; 7;  </div><div class="line">  </div><div class="line">            desc[i] = (uchar)val;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    else if( WTA_K == 3 )  </div><div class="line">    &#123;  </div><div class="line">        for (int i = 0; i &lt; dsize; ++i, pattern += 12)  </div><div class="line">        &#123;  </div><div class="line">            int t0, t1, t2, val;  </div><div class="line">            t0 = GET_VALUE(0); t1 = GET_VALUE(1); t2 = GET_VALUE(2);  </div><div class="line">            val = t2 &gt; t1 ? (t2 &gt; t0 ? 2 : 0) : (t1 &gt; t0);  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(3); t1 = GET_VALUE(4); t2 = GET_VALUE(5);  </div><div class="line">            val |= (t2 &gt; t1 ? (t2 &gt; t0 ? 2 : 0) : (t1 &gt; t0)) &lt;&lt; 2;  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(6); t1 = GET_VALUE(7); t2 = GET_VALUE(8);  </div><div class="line">            val |= (t2 &gt; t1 ? (t2 &gt; t0 ? 2 : 0) : (t1 &gt; t0)) &lt;&lt; 4;  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(9); t1 = GET_VALUE(10); t2 = GET_VALUE(11);  </div><div class="line">            val |= (t2 &gt; t1 ? (t2 &gt; t0 ? 2 : 0) : (t1 &gt; t0)) &lt;&lt; 6;  </div><div class="line">  </div><div class="line">            desc[i] = (uchar)val;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    else if( WTA_K == 4 )  </div><div class="line">    &#123;  </div><div class="line">        for (int i = 0; i &lt; dsize; ++i, pattern += 16)  </div><div class="line">        &#123;  </div><div class="line">            int t0, t1, t2, t3, u, v, k, val;  </div><div class="line">            t0 = GET_VALUE(0); t1 = GET_VALUE(1);  </div><div class="line">            t2 = GET_VALUE(2); t3 = GET_VALUE(3);  </div><div class="line">            u = 0, v = 2;  </div><div class="line">            if( t1 &gt; t0 ) t0 = t1, u = 1;  </div><div class="line">            if( t3 &gt; t2 ) t2 = t3, v = 3;  </div><div class="line">            k = t0 &gt; t2 ? u : v;  </div><div class="line">            val = k;  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(4); t1 = GET_VALUE(5);  </div><div class="line">            t2 = GET_VALUE(6); t3 = GET_VALUE(7);  </div><div class="line">            u = 0, v = 2;  </div><div class="line">            if( t1 &gt; t0 ) t0 = t1, u = 1;  </div><div class="line">            if( t3 &gt; t2 ) t2 = t3, v = 3;  </div><div class="line">            k = t0 &gt; t2 ? u : v;  </div><div class="line">            val |= k &lt;&lt; 2;  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(8); t1 = GET_VALUE(9);  </div><div class="line">            t2 = GET_VALUE(10); t3 = GET_VALUE(11);  </div><div class="line">            u = 0, v = 2;  </div><div class="line">            if( t1 &gt; t0 ) t0 = t1, u = 1;  </div><div class="line">            if( t3 &gt; t2 ) t2 = t3, v = 3;  </div><div class="line">            k = t0 &gt; t2 ? u : v;  </div><div class="line">            val |= k &lt;&lt; 4;  </div><div class="line">  </div><div class="line">            t0 = GET_VALUE(12); t1 = GET_VALUE(13);  </div><div class="line">            t2 = GET_VALUE(14); t3 = GET_VALUE(15);  </div><div class="line">            u = 0, v = 2;  </div><div class="line">            if( t1 &gt; t0 ) t0 = t1, u = 1;  </div><div class="line">            if( t3 &gt; t2 ) t2 = t3, v = 3;  </div><div class="line">            k = t0 &gt; t2 ? u : v;  </div><div class="line">            val |= k &lt;&lt; 6;  </div><div class="line">  </div><div class="line">            desc[i] = (uchar)val;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    else  </div><div class="line">        CV_Error( CV_StsBadSize, &quot;Wrong WTA_K. It can be only 2, 3 or 4.&quot; );  </div><div class="line">  </div><div class="line">    #undef GET_VALUE  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://218.199.87.242/cache/2/03/willowgarage.com/fccf2f159ae03231bd5f5e4335e0c429/orb_final.pdf" target="_blank" rel="external">Paper: ORB: an efficient alternative to SIFT or SURF</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/46984411" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/46984411</a></li>
+<li><a href="http://blog.csdn.net/zouzoupaopao229/article/details/52625678" target="_blank" rel="external">http://blog.csdn.net/zouzoupaopao229/article/details/52625678</a></li>
+<li><a href="https://segmentfault.com/a/1190000004200111" target="_blank" rel="external">https://segmentfault.com/a/1190000004200111</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4083537.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4083537.html</a></li>
+<li><a href="http://blog.csdn.net/luoshixian099/article/details/48523267" target="_blank" rel="external">http://blog.csdn.net/luoshixian099/article/details/48523267</a></li>
+<li><a href="http://blog.csdn.net/tiandijun/article/details/40679581" target="_blank" rel="external">http://blog.csdn.net/tiandijun/article/details/40679581</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/30/image-feature-sift/" rel="next" title="图像特征之SIFT特征匹配">
+                <i class="fa fa-chevron-left"></i> 图像特征之SIFT特征匹配
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/30/image-feature-lbp/" rel="prev" title="图像特征提取之LBP特征">
+                图像特征提取之LBP特征 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点检测"><span class="nav-number">1.</span> <span class="nav-text">特征点检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点描述"><span class="nav-number">2.</span> <span class="nav-text">特征点描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述子的区分性"><span class="nav-number">3.</span> <span class="nav-text">描述子的区分性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-amp-Result"><span class="nav-number">4.</span> <span class="nav-text">Experiment & Result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/07/30/image-feature-orb/';
+      var disqus_title = '图像特征描述子之ORB';
+      var disqus_url = 'https://senitco.github.io/2017/07/30/image-feature-orb/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

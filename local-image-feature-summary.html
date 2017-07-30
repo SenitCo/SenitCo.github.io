@@ -1,0 +1,542 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=",,,,," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="website">
+<meta property="og:title" content="图像局部特征描述总结">
+<meta property="og:url" content="https://senitco.github.io/local-image-feature-summary.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-30T02:57:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像局部特征描述总结">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title>
+  
+
+  
+    图像局部特征描述总结 | Senit_Co
+  
+</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+      <p>&emsp;&emsp;局部图像特征描述是计算机视觉的一个基本研究问题，在寻找图像中的对应点以及物体特征描述中有着重要的作用。它是许多方法的基础，因此也是目前视觉研究中的一个热点，每年在视觉领域的顶级会议ICCV/CVPR/ECCV上都有高质量的特征描述论文发表。同时它也有着广泛的应用，举例来说，在利用多幅二维图像进行三维重建、恢复场景三维结构的应用中，其基本出发点是要有一个可靠的图像对应点集合，而自动地建立图像之间点与点之间的可靠对应关系通常都依赖于一个优秀的局部图像特征描述子。又比如，在物体识别中，目前非常流行以及切实可行的方法之一是基于局部特征的，由于特征的局部性，使得物体识别可以处理遮挡、复杂背景等比较复杂的情况。</p>
+<p>&emsp;&emsp;局部图像特征描述的核心问题是不变性（鲁棒性）和可区分性。由于使用局部图像特征描述子的时候，通常是为了鲁棒地处理各种图像变换的情况。因此，在构建/设计特征描述子的时候，不变性问题就是首先需要考虑的问题。在宽基线匹配中，需要考虑特征描述子对于视角变化的不变性、对尺度变化的不变性、对旋转变化的不变性等；在形状识别和物体检索中，需要考虑特征描述子对形状的不变性。</p>
+<p>&emsp;&emsp;然而，特征描述子的可区分性的强弱往往和其不变性是矛盾的，也就是说，一个具有众多不变性的特征描述子，它区分局部图像内容的能力就稍弱；而如果一个非常容易区分不同局部图像内容的特征描述子，它的鲁棒性往往比较低。举个例子，假定我们需要对一个点周围固定大小的局部图像内容进行描述。如果我们直接将图像内容展开成一个列向量对其进行描述，那么只要局部图像内容发生了一点变化，就会使得它的特征描述子发生较大的变化，因此这样的特征描述方式很容易区分不同的局部图像内容，但是对于相同的局部图像内容发生旋转变化等情况，它同样会产生很大的差异，即不变性弱。</p>
+<p>&emsp;&emsp;而另一方面，如果我们通过统计局部图像灰度直方图来进行特征描述，这种描述方式具有较强的不变性，对于局部图像内容发生旋转变化等情况比较鲁棒，但是区分能力较弱，例如无法区分两个灰度直方图相同但内容不同的局部图像块。</p>
+<p>&emsp;&emsp;综上所述，一个优秀的特征描述子不仅应该具有很强不变性，还应该具有很强的可区分性。</p>
+<p>&emsp;&emsp;在诸多的局部图像特征描述子中，SIFT（Scale Invariant Feature Transform）是其中应用最广的，它在1999年首次提出，至2004年得到完善。SIFT的提出也是局部图像特征描述子研究领域一项里程碑式的工作。由于SIFT对尺度、旋转以及一定视角和光照变化等图像变化都具有不变性，并且SIFT具有很强的可区分性，自它提出以来，很快在物体识别、宽基线图像匹配、三维重建、图像检索中得到了应用，局部图像特征描述子在计算机视觉领域内也得到了更加广泛的关注，涌现了一大批各具特色的局部图像特征描述子。</p>
+<p>&emsp;&emsp;SURF（Speeded Up Robust Features）是对SIFT的改进版本，它利用Haar小波来近似SIFT方法中的梯度操作，同时利用积分图技术进行快速计算，SURF的速度是SIFT的3-7倍，大部分情况下它和SIFT的性能相当，因此它在很多应用中得到了应用，尤其是对运行时间要求高的场合。</p>
+<p>&emsp;&emsp;DAISY是面向稠密特征提取的可快速计算的局部图像特征描述子，它本质思想和SIFT是一样的：分块统计梯度方向直方图，不同的是，DAISY在分块策略上进行了改进，利用高斯卷积来进行梯度方向直方图的分块汇聚，这样利用高斯卷积的可快速计算性就可以快速稠密地进行特征描述子的提取。比较巧合的是，DAISY这种特征汇聚策略被一些研究者（Matthen Brown，Gang Hua，Simon Winder）通过机器学习的方法证明相对于其他几种特征汇聚策略（卡迪尔坐标下分块、极坐标下分块）是最优的。</p>
+<p>&emsp;&emsp;ASIFT（Affine SIFT）通过模拟所有成像视角下得到的图像进行特征匹配，可以很好地处理视角变化的情况，尤其是大视角变化下的图像匹配。</p>
+<p>&emsp;&emsp;MROGH（Multi-support Region Order-based Gradient Histogram）则是特征汇聚策略上寻求创新，之前的局部图像特征描述子，其特征汇聚策略都是基于邻域内点的几何位置的，而MROGH基于点的灰度序进行特征汇聚。</p>
+<p>&emsp;&emsp;BRIEF（Binary Robust Independent Element Feature）利用局部图像邻域内随机点对的灰度大小关系来建立局部图像特征描述子，得到的二值特征描述子不仅匹配速度快，而且存储要求内存低，因此手机应用中具有很好的应用前景。其实，利用邻域内点对的灰度大小关系进行特征描述这一思想在SMD（ECCV’08）中就已经有了。</p>
+<p>&emsp;&emsp;除了BRIEF，近两年还提出了许多二值特征描述子，例如ORB、BRISK、FREAK。上述这些特征描述子都是基于手动设计得到的，也有一些研究试图利用机器学习的方法，通过数据驱动得到想要的特征描述子。这类特征描述子包括PCA-SIFT，Linear Discriminative Embedding，LDA-Hash等。当然，除了提到的这些特征描述子之外，还有许多其他的特征描述子，在这就不再一一叙述了。</p>
+<p>&emsp;&emsp;最近几年局部图像特征描述子的发展趋势是：快速、低存储。这两个趋势使得局部图像特征描述子可以在快速实时、大规模应用中发挥作用，而且有利于将许多应用做到手机上去进行开发，实实在在的将计算机视觉技术应用于我们周围的世界中。为了满足快速和低存储这两个需求，二值特征描述子得到了研究者的广泛关注，这两年CVPR和ICCV中关于局部图像特征描述子的文章，大部分都是这类的。相信它们在未来几年还会继续受到关注，期待出现一些深入大众生活中的成功应用。</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://www.eng.auburn.edu/~troppel/courses/7970%202015A%20AdvMobRob%20sp15/literature/%5B2008%5D%20Local%20Invariant%20Feature%20Detectors-%20A%20Survey.pdf" target="_blank" rel="external">Paper: Local Invariant Feature Detectors: A Survey</a></li>
+<li><a href="https://web.eecs.umich.edu/~jjcorso/t/598F14/files/lecture_0929_features.pdf" target="_blank" rel="external">PPT: Local Image Features</a></li>
+<li><a href="http://mamicode.com/info-detail-296752.html" target="_blank" rel="external">http://mamicode.com/info-detail-296752.html</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4260167.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4260167.html</a></li>
+</ul>
+
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = 'local-image-feature-summary.html';
+      var disqus_title = '图像局部特征描述总结';
+      var disqus_url = 'https://senitco.github.io/local-image-feature-summary.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

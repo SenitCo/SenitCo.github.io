@@ -1,0 +1,766 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Image," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像特征描述子之BRISK">
+<meta property="og:url" content="https://senitco.github.io/2017/07/30/image-feature-brisk/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2017/07/15/59698a0fcb428.jpg">
+<meta property="og:image" content="https://i.loli.net/2017/07/15/596996704acaf.jpg">
+<meta property="og:image" content="https://i.loli.net/2017/07/15/5969c49105899.jpg">
+<meta property="og:updated_time" content="2017-07-30T02:57:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像特征描述子之BRISK">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
+<meta name="twitter:image" content="https://i.loli.net/2017/07/15/59698a0fcb428.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 图像特征描述子之BRISK | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图像特征描述子之BRISK
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-30T10:57:00+08:00" content="2017-07-30">
+              2017-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/30/image-feature-brisk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/30/image-feature-brisk/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。<br><a id="more"></a></p>
+<h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;BRISK主要利用FAST算法进行特征点检测，为了满足尺度不变性，BRISK构造图像金字塔在多尺度空间检测特征点。</p>
+<h4 id="构建尺度空间"><a href="#构建尺度空间" class="headerlink" title="构建尺度空间"></a>构建尺度空间</h4><p>&emsp;&emsp;尺度空间包含n个octave($c_i$表示)和n个intro-octave($d_i$表示)，原论文中n=4。$c_0$是原始图像，$c_{i+1}$是$c_i$的降采样图像，缩放因子为2，即$c_{i+1}$的宽高分别为$c_i$的1/2；$d_0$是相对于原图缩放因子为1.5的降采样图像，同样，$d_{i+1}$是$d_i$的2倍降采样。$c_i$、$d_i$与原图像的大小关系如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">image</th>
+<th style="text-align:center">$c_0$</th>
+<th style="text-align:center">$d_0$</th>
+<th style="text-align:center">$c_1$</th>
+<th style="text-align:center">$d_1$</th>
+<th style="text-align:center">$c_2$</th>
+<th style="text-align:center">$d_2$</th>
+<th style="text-align:center">$c_3$</th>
+<th style="text-align:center">$d_3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">width</td>
+<td style="text-align:center">w</td>
+<td style="text-align:center">2w/3</td>
+<td style="text-align:center">w/2</td>
+<td style="text-align:center">w/3</td>
+<td style="text-align:center">w/4</td>
+<td style="text-align:center">w/6</td>
+<td style="text-align:center">w/8</td>
+<td style="text-align:center">w/12   </td>
+</tr>
+<tr>
+<td style="text-align:center">height</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">2h/2</td>
+<td style="text-align:center">h/2</td>
+<td style="text-align:center">h/3</td>
+<td style="text-align:center">h/4</td>
+<td style="text-align:center">h/6</td>
+<td style="text-align:center">h/8</td>
+<td style="text-align:center">h/12 </td>
+</tr>
+</tbody>
+</table>
+<p>由于n = 4，一共可以得到8张不同尺度的图像。在多尺度空间中，利用FAST9-16检测算子定位特征点，即在特征点邻域边界圆上的16个像素，至少有9个连续像素与特征点的灰度差值大于给定阈值T。此外，对原图像进行一次FAST5-8角点检测，作为$d_{-1}$层，方便后续在做非极大值抑制处理时，可以对相邻尺度空间的图像特征点进行比对。在前面博文中已详细介绍<a href="https://senitco.github.io/2017/07/10/image-feature-fast/">FAST角点检测</a>。</p>
+<h4 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h4><p>&emsp;&emsp;对多尺度空间的9幅图像进行非极大值抑制，与SIFT算法类似，在特征点的图像空间(8邻域)和尺度空间(上下两层18邻域)共26个邻域点做比较，FAST响应值须取得极大值，否则不能作为特征点。由于是在离散坐标空间中，特征点的位置比较粗糙，还需进一步精确定位。</p>
+<h4 id="亚像素精确定位"><a href="#亚像素精确定位" class="headerlink" title="亚像素精确定位"></a>亚像素精确定位</h4><p>&emsp;&emsp;得到图像特征点的坐标和尺度信息后，在极值点所在层及其上下层所对应的位置，对3个相应关键点的FAST响应进行二维二次函数插值(x,y方向)，得到二维平面精确的极值点位置和响应值后，再对尺度方向进行一维插值，得到特征点所对应的精确尺度。</p>
+<p><img src="https://i.loli.net/2017/07/15/59698a0fcb428.jpg" alt="multi-scale.jpg"></p>
+<h3 id="特征点描述"><a href="#特征点描述" class="headerlink" title="特征点描述"></a>特征点描述</h3><p>&emsp;&emsp;给定一组特征点(包含亚像素图像位置和浮点型尺度值)，BRISK通过比较邻域Patch内像素点对的灰度值，并进行二进制编码得到特征描述子。为了满足旋转不变性，需要选取合适的特征点主方向。</p>
+<h4 id="采样模式和旋转估计"><a href="#采样模式和旋转估计" class="headerlink" title="采样模式和旋转估计"></a>采样模式和旋转估计</h4><p>&emsp;&emsp;特征点邻域的采样模式如下图所示，以特征点为中心，构建不同半径的同心圆，在每个圆上获取一定数目的等间隔采样点，所有采样点包括特征点一共有$N$个。由于这种采样模式会引起混叠效应，需要对所有采样点进行高斯滤波，滤波半径$r$和高斯方差$\sigma$成正比，同心圆半径越大，采样点滤波半径也越大。</p>
+<p><img src="https://i.loli.net/2017/07/15/596996704acaf.jpg" alt="sample pattern.jpg"></p>
+<p>$N$个采样点两两组合共有$\dfrac{N(N-1)}{2}$个点对，用集合$\cal A$表示，$I(p_i, \sigma_i)$为像素灰度值，$\sigma$表示尺度，用$g(p_i, p_j)$表示特征点局部梯度值，其计算公式为<br>$$g(p_i, p_j)=(p_j - p_i) \dfrac{I(p_j, \sigma_j) - I(p_i, \sigma_i)}{||p_j - p_i||^2}$$<br>采样点对的集合表示为<br>$$\cal A = \lbrace (p_i, p_j) \in R^2 \times R^2 | i &lt; N \wedge j &lt; i \rbrace $$<br>定义短距离点对子集$\cal S$和长距离点对子集$\cal L$<br>$$\cal S = \lbrace (p_i, p_j) \in \cal A | \left| p_j - p_i \right| &lt; \sigma_{max} \rbrace \subseteq \cal A$$<br>$$\cal L = \lbrace (p_i, p_j) \in \cal A | \left| p_j - p_i \right| &gt; \sigma_{min} \rbrace \subseteq \cal A$$<br>式中，阈值分别设置为$\sigma_{max} = 9.57t, \sigma_{min} = 13.67t$，$t$是特征点所在的尺度。特征点的主方向计算如下(此处仅用到了长距离点对子集)：<br>$$g = \left( \begin{matrix} g_x \\ g_y\end{matrix} \right) = \dfrac{1}{L} \Sigma_{p_i,p_j \in \cal L} g(p_i, p_j)$$<br>$$\alpha = arctan2(g_y, g_x)$$<br>长距离的点对均参与了运算，基于本地梯度互相抵消的假设，全局梯度的计算是不必要的。</p>
+<h4 id="生成描述子"><a href="#生成描述子" class="headerlink" title="生成描述子"></a>生成描述子</h4><p>&emsp;&emsp;要解决旋转不变性，需要对特征点周围的采样区域旋转至主方向，得到新的采样区域，采样模式同上。采样点集合中包含$\dfrac{N(N-1)}{2}$个采样点对，考虑其中短距离点对子集中的512个点对，进行二进制编码，编码方式如下：<br>$$b = \begin{cases} 1, &emsp;I(p_j^\alpha, \sigma_j) &gt; I(p_i^\alpha, \sigma_i) \\ 0, &emsp;otherwise \end{cases}, &emsp; \forall (p_i^\alpha, p_j^\alpha) \in \cal S$$<br>$p_i^\alpha$表示旋转角度$\alpha$后的采样点。由此得到512bit也就是64Byte的二进制编码(BRISK64)。</p>
+<h3 id="特征点匹配"><a href="#特征点匹配" class="headerlink" title="特征点匹配"></a>特征点匹配</h3><p>&emsp;&emsp;BRISK特征匹配和BRIEF一样，都是通过计算特征描述子的Hamming距离来实现。</p>
+<h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><p>&emsp;&emsp;简单总结，BRISK算法具有较好的尺度不变性、旋转不变性，以及抗噪性能。在图像特征点的检测与匹配中，计算速度优于SIFT、SURF，而次于FREAK、ORB。对于较模糊的图像，能够取得较为出色的匹配结果。</p>
+<h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><p>OpenCV实现BRISK特征检测与描述<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#include &lt;opencv2/highgui/highgui.hpp&gt;  </div><div class="line">#include &lt;opencv2/core/core.hpp&gt;  </div><div class="line">#include &lt;opencv2/nonfree/features2d.hpp&gt;  </div><div class="line">#include &lt;opencv2/nonfree/nonfree.hpp&gt;  </div><div class="line">  </div><div class="line">using namespace cv;  </div><div class="line">using namespace std;  </div><div class="line">  </div><div class="line">int main()  </div><div class="line">&#123;  </div><div class="line">    //Load Image  </div><div class="line">    Mat c_src1 =  imread( &quot;1.png&quot;);  </div><div class="line">    Mat c_src2 = imread(&quot;2.png&quot;);  </div><div class="line">    Mat src1 = imread( &quot;1.png&quot;, CV_LOAD_IMAGE_GRAYSCALE);  </div><div class="line">    Mat src2 = imread( &quot;2.png&quot;, CV_LOAD_IMAGE_GRAYSCALE);  </div><div class="line">    if( !src1.data || !src2.data )  </div><div class="line">    &#123;  </div><div class="line">        cout&lt;&lt; &quot;Error reading images &quot; &lt;&lt; std::endl;  </div><div class="line">        return -1;  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    //feature detect  </div><div class="line">    BRISK detector;  </div><div class="line">    vector&lt;KeyPoint&gt; kp1, kp2;     </div><div class="line">    detector.detect( src1, kp1 );  </div><div class="line">    detector.detect( src2, kp2 ); </div><div class="line"></div><div class="line">    //cv::BRISK extractor;  </div><div class="line">    Mat des1,des2;//descriptor  </div><div class="line">    detector.compute(src1, kp1, des1);  </div><div class="line">    detector.compute(src2, kp2, des2);  </div><div class="line">    Mat res1,res2;  </div><div class="line">    int drawmode = DrawMatchesFlags::DRAW_RICH_KEYPOINTS;  </div><div class="line">    drawKeypoints(c_src1, kp1, res1, Scalar::all(-1), drawmode);</div><div class="line">    drawKeypoints(c_src2, kp2, res2, Scalar::all(-1), drawmode);  </div><div class="line">     </div><div class="line">    BFMatcher matcher(NORM_HAMMING);  </div><div class="line">    vector&lt;DMatch&gt; matches;  </div><div class="line">    matcher.match(des1, des2, matches);  </div><div class="line">   </div><div class="line">    Mat img_match;  </div><div class="line">    drawMatches(src1, kp1, src2, kp2, matches, img_match);   </div><div class="line">    imshow(&quot;matches&quot;,img_match);  </div><div class="line">    cvWaitKey(0);  </div><div class="line">    cvDestroyAllWindows();  </div><div class="line">    return 0;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="https://i.loli.net/2017/07/15/5969c49105899.jpg" alt="result.jpg"></p>
+<p>OpenCV中BRISK算法的部分源码实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div></pre></td><td class="code"><pre><div class="line">// construct the image pyramids</div><div class="line">void BriskScaleSpace::constructPyramid(const cv::Mat&amp; image)  </div><div class="line">&#123;  </div><div class="line">  </div><div class="line">  // set correct size:  </div><div class="line">  pyramid_.clear();  </div><div class="line">  </div><div class="line">  // fill the pyramid:  </div><div class="line">  pyramid_.push_back(BriskLayer(image.clone()));  </div><div class="line">  if (layers_ &gt; 1)  </div><div class="line">  &#123;  </div><div class="line">    pyramid_.push_back(BriskLayer(pyramid_.back(), BriskLayer::CommonParams::TWOTHIRDSAMPLE)); </div><div class="line">  &#125;  </div><div class="line">  const int octaves2 = layers_;  </div><div class="line">  </div><div class="line">  for (uchar i = 2; i &lt; octaves2; i += 2)  </div><div class="line">  &#123;  </div><div class="line">    pyramid_.push_back(BriskLayer(pyramid_[i - 2], BriskLayer::CommonParams::HALFSAMPLE));//  </div><div class="line">    pyramid_.push_back(BriskLayer(pyramid_[i - 1], BriskLayer::CommonParams::HALFSAMPLE));//  </div><div class="line">  &#125;  </div><div class="line">&#125;  </div><div class="line"></div><div class="line"></div><div class="line">//extract the feature points </div><div class="line">void BriskScaleSpace::getKeypoints(const int threshold_, std::vector&lt;cv::KeyPoint&gt;&amp; keypoints)  </div><div class="line">&#123;  </div><div class="line">  // make sure keypoints is empty  </div><div class="line">  keypoints.resize(0);  </div><div class="line">  keypoints.reserve(2000);  </div><div class="line">  </div><div class="line">  // assign thresholds  </div><div class="line">  int safeThreshold_ = (int)(threshold_ * safetyFactor_);  </div><div class="line">  std::vector&lt;std::vector&lt;cv::KeyPoint&gt; &gt; agastPoints;  </div><div class="line">  agastPoints.resize(layers_);  </div><div class="line">  </div><div class="line">  // go through the octaves and intra layers and calculate fast corner scores:  </div><div class="line">  for (int i = 0; i &lt; layers_; i++)  </div><div class="line">  &#123;  </div><div class="line">    // call OAST16_9 without nms  </div><div class="line">    BriskLayer&amp; l = pyramid_[i];  </div><div class="line">    l.getAgastPoints(safeThreshold_, agastPoints[i]);  </div><div class="line">  &#125;  </div><div class="line">  </div><div class="line">  if (layers_ == 1)  </div><div class="line">  &#123;  </div><div class="line">    // just do a simple 2d subpixel refinement...  </div><div class="line">    const size_t num = agastPoints[0].size();  </div><div class="line">    for (size_t n = 0; n &lt; num; n++)  </div><div class="line">    &#123;  </div><div class="line">      const cv::Point2f&amp; point = agastPoints.at(0)[n].pt;  </div><div class="line">      // first check if it is a maximum:  </div><div class="line">      if (!isMax2D(0, (int)point.x, (int)point.y))  </div><div class="line">        continue;  </div><div class="line">  </div><div class="line">      // let&apos;s do the subpixel and float scale refinement:  </div><div class="line">      BriskLayer&amp; l = pyramid_[0];  </div><div class="line">      int s_0_0 = l.getAgastScore(point.x - 1, point.y - 1, 1);  </div><div class="line">      int s_1_0 = l.getAgastScore(point.x, point.y - 1, 1);  </div><div class="line">      int s_2_0 = l.getAgastScore(point.x + 1, point.y - 1, 1);  </div><div class="line">      int s_2_1 = l.getAgastScore(point.x + 1, point.y, 1);  </div><div class="line">      int s_1_1 = l.getAgastScore(point.x, point.y, 1);  </div><div class="line">      int s_0_1 = l.getAgastScore(point.x - 1, point.y, 1);  </div><div class="line">      int s_0_2 = l.getAgastScore(point.x - 1, point.y + 1, 1);  </div><div class="line">      int s_1_2 = l.getAgastScore(point.x, point.y + 1, 1);  </div><div class="line">      int s_2_2 = l.getAgastScore(point.x + 1, point.y + 1, 1);  </div><div class="line">      float delta_x, delta_y;  </div><div class="line">      float max = subpixel2D(s_0_0, s_0_1, s_0_2, s_1_0, s_1_1, s_1_2, s_2_0, s_2_1, s_2_2, delta_x, delta_y);  </div><div class="line">  </div><div class="line">      // store:  </div><div class="line">      keypoints.push_back(cv::KeyPoint(float(point.x) + delta_x, float(point.y) + delta_y, basicSize_, -1, max, 0));  </div><div class="line">  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    return;  </div><div class="line">  &#125;  </div><div class="line">  </div><div class="line">  float x, y, scale, score;  </div><div class="line">  for (int i = 0; i &lt; layers_; i++)  </div><div class="line">  &#123;  </div><div class="line">    BriskLayer&amp; l = pyramid_[i];  </div><div class="line">    const size_t num = agastPoints[i].size();  </div><div class="line">    if (i == layers_ - 1)  </div><div class="line">    &#123;  </div><div class="line">      for (size_t n = 0; n &lt; num; n++)  </div><div class="line">      &#123;  </div><div class="line">        const cv::Point2f&amp; point = agastPoints.at(i)[n].pt;  </div><div class="line">        // consider only 2D maxima...  </div><div class="line">        if (!isMax2D(i, (int)point.x, (int)point.y))  </div><div class="line">          continue;  </div><div class="line">  </div><div class="line">        bool ismax;  </div><div class="line">        float dx, dy;  </div><div class="line">        getScoreMaxBelow(i, (int)point.x, (int)point.y, l.getAgastScore(point.x, point.y, safeThreshold_), ismax, dx, dy);  </div><div class="line">        if (!ismax)  </div><div class="line">          continue;  </div><div class="line">  </div><div class="line">        // get the patch on this layer:  </div><div class="line">        int s_0_0 = l.getAgastScore(point.x - 1, point.y - 1, 1);  </div><div class="line">        int s_1_0 = l.getAgastScore(point.x, point.y - 1, 1);  </div><div class="line">        int s_2_0 = l.getAgastScore(point.x + 1, point.y - 1, 1);  </div><div class="line">        int s_2_1 = l.getAgastScore(point.x + 1, point.y, 1);  </div><div class="line">        int s_1_1 = l.getAgastScore(point.x, point.y, 1);  </div><div class="line">        int s_0_1 = l.getAgastScore(point.x - 1, point.y, 1);  </div><div class="line">        int s_0_2 = l.getAgastScore(point.x - 1, point.y + 1, 1);  </div><div class="line">        int s_1_2 = l.getAgastScore(point.x, point.y + 1, 1);  </div><div class="line">        int s_2_2 = l.getAgastScore(point.x + 1, point.y + 1, 1);  </div><div class="line">        float delta_x, delta_y;  </div><div class="line">        float max = subpixel2D(s_0_0, s_0_1, s_0_2, s_1_0, s_1_1, s_1_2, s_2_0, s_2_1, s_2_2, delta_x, delta_y);  </div><div class="line">  </div><div class="line">        // store:  </div><div class="line">        keypoints.push_back(cv::KeyPoint((float(point.x) + delta_x) * l.scale() + l.offset(), (float(point.y) + delta_y) * l.scale() + l.offset(), basicSize_ * l.scale(), -1, max, i));  </div><div class="line">      &#125;  </div><div class="line">    &#125;  </div><div class="line">    else  </div><div class="line">    &#123;  </div><div class="line">      // not the last layer:  </div><div class="line">      for (size_t n = 0; n &lt; num; n++)  </div><div class="line">      &#123;  </div><div class="line">        const cv::Point2f&amp; point = agastPoints.at(i)[n].pt;  </div><div class="line">  </div><div class="line">        // first check if it is a maximum:  </div><div class="line">        if (!isMax2D(i, (int)point.x, (int)point.y))  </div><div class="line">          continue;  </div><div class="line">  </div><div class="line">        // let&apos;s do the subpixel and float scale refinement:  </div><div class="line">        bool ismax=false;  </div><div class="line">        score = refine3D(i, (int)point.x, (int)point.y, x, y, scale, ismax);  </div><div class="line">        if (!ismax)  </div><div class="line">        &#123;  </div><div class="line">          continue;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        // finally store the detected keypoint:  </div><div class="line">        if (score &gt; float(threshold_))  </div><div class="line">        &#123;  </div><div class="line">          keypoints.push_back(cv::KeyPoint(x, y, basicSize_ * scale, -1, score, i));  </div><div class="line">        &#125;  </div><div class="line">      &#125;  </div><div class="line">    &#125;  </div><div class="line">  &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="https://www.robots.ox.ac.uk/~vgg/rg/papers/brisk.pdf" target="_blank" rel="external">Paper: BRISK: Binary Robust Invariant Scalable Keypoints</a></li>
+<li><a href="http://blog.csdn.net/jinxueliu31/article/details/18556855" target="_blank" rel="external">http://blog.csdn.net/jinxueliu31/article/details/18556855</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47045497" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47045497</a></li>
+<li><a href="http://blog.csdn.net/luoshixian099/article/details/50731801" target="_blank" rel="external">http://blog.csdn.net/luoshixian099/article/details/50731801</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4260167.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4260167.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/30/image-feature-fast/" rel="next" title="图像特征之FAST角点检测">
+                <i class="fa fa-chevron-left"></i> 图像特征之FAST角点检测
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/30/image-feature-brief/" rel="prev" title="图像特征描述子之BRIEF">
+                图像特征描述子之BRIEF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点检测"><span class="nav-number">1.</span> <span class="nav-text">特征点检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建尺度空间"><span class="nav-number">1.1.</span> <span class="nav-text">构建尺度空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非极大值抑制"><span class="nav-number">1.2.</span> <span class="nav-text">非极大值抑制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#亚像素精确定位"><span class="nav-number">1.3.</span> <span class="nav-text">亚像素精确定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点描述"><span class="nav-number">2.</span> <span class="nav-text">特征点描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样模式和旋转估计"><span class="nav-number">2.1.</span> <span class="nav-text">采样模式和旋转估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成描述子"><span class="nav-number">2.2.</span> <span class="nav-text">生成描述子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征点匹配"><span class="nav-number">3.</span> <span class="nav-text">特征点匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">4.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-amp-Result"><span class="nav-number">5.</span> <span class="nav-text">Experiment & Result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/07/30/image-feature-brisk/';
+      var disqus_title = '图像特征描述子之BRISK';
+      var disqus_url = 'https://senitco.github.io/2017/07/30/image-feature-brisk/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
