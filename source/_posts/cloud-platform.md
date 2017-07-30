@@ -1,5 +1,6 @@
 ---
 title: 简述云平台和相关软件工具
+date: 2017-05-27
 categories: Projects
 tags: computing
 ---

@@ -1,5 +1,6 @@
 ---
 title: 字符编码：Unicode、UTF-8、GBK
+date: 2017-06-06
 categories: coding
 tags: encode/decode
 ---

@@ -1,5 +1,6 @@
 ---
 title: 图像特征描述子之BRIEF
+date: 2017-07-05
 categories: Algorithm
 tags: Image
 ---

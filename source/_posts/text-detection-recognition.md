@@ -1,5 +1,6 @@
 ---
 title: Chinese Text Detection and Recognition
+date: 2017-03-03
 categories: Projects
 tags: Image
 ---

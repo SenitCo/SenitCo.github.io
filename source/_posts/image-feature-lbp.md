@@ -1,5 +1,6 @@
 ---
 title: 图像特征提取之LBP特征
+date: 2017-06-12
 categories: Algorithm
 tags: Image
 ---

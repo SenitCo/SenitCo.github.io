@@ -1,5 +1,6 @@
 ---
 title: Linux服务器下安装TensorFlow
+date: 2017-07-20
 categories: Compile & Installation 
 tags: Sofeware
 ---

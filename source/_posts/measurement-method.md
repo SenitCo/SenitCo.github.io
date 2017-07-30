@@ -1,5 +1,6 @@
 ---
 title: 数据挖掘中的度量方法
+date: 2017-05-24
 categories: Algorithm
 tags: ML
 ---

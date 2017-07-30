@@ -1,5 +1,6 @@
 ---
 title: 机器学习算法之数据降维
+date: 2017-05-10
 categories: Algorithm
 tags: ML
 ---

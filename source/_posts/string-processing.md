@@ -1,5 +1,6 @@
 ---
 title: C/C++处理十六进制数和字符串
+date: 2017-06-07
 categories: coding
 tags: C/C++ 
 ---

@@ -1,5 +1,6 @@
 ---
 title: 图像特征之SIFT特征匹配
+date: 2017-06-24
 categories: Algorithm
 tags: Image
 ---

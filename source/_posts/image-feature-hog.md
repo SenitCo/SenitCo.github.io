@@ -1,5 +1,6 @@
 ---
 title: 图像特征提取之HOG特征
+date: 2017-06-10
 categories: Algorithm
 tags: Image
 ---

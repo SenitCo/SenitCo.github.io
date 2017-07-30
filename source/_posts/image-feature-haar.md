@@ -1,5 +1,6 @@
 ---
 title: 图像特征提取之Haar特征
+date: 2017-06-15
 categories: Algorithm
 tags: Image
 ---
