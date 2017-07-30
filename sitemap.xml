@@ -2,170 +2,170 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-local-feature-summary/</loc>
+    <loc>https://senitco.github.io/2017/07/28/test/</loc>
     
-    <lastmod>2017-07-30T04:13:27.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-lbp/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:34:13.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/cloud-platform/</loc>
+    <loc>https://senitco.github.io/2017/06/12/image-feature-lbp/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-LoG-DoG/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/data-dimensionality-reduction/</loc>
+    <loc>https://senitco.github.io/2017/05/27/cloud-platform/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-PCA_SIFT-GLOH/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-brief/</loc>
+    <loc>https://senitco.github.io/2017/06/20/image-feature-LoG-DoG/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-brisk/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-fast/</loc>
+    <loc>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-freak/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-haar/</loc>
+    <loc>https://senitco.github.io/2017/06/28/image-feature-PCA_SIFT-GLOH/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-hog/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-harris/</loc>
+    <loc>https://senitco.github.io/2017/07/05/image-feature-brief/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/character-encoding/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-orb/</loc>
+    <loc>https://senitco.github.io/2017/07/12/image-feature-brisk/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-sift/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-surf/</loc>
+    <loc>https://senitco.github.io/2017/06/30/image-feature-fast/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/image-feature-susan/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/VS2013-compile-openssl/</loc>
+    <loc>https://senitco.github.io/2017/07/15/image-feature-freak/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/linux-install-tensorflow/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/measurement-method/</loc>
+    <loc>https://senitco.github.io/2017/06/15/image-feature-haar/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/07/30/string-processing/</loc>
-    
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/30/text-detection-recognition/</loc>
+    <loc>https://senitco.github.io/2017/06/10/image-feature-hog/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/local-image-feature-summary.html</loc>
+    <loc>https://senitco.github.io/2017/06/18/image-feature-harris/</loc>
     
-    <lastmod>2017-07-30T02:57:00.000Z</lastmod>
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/06/character-encoding/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/09/image-feature-orb/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/24/image-feature-sift/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/27/image-feature-surf/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/01/image-feature-susan/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/18/image-local-feature-summary/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/20/linux-install-tensorflow/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/05/24/measurement-method/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/07/string-processing/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/03/03/text-detection-recognition/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/05/14/VS2013-compile-openssl/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   

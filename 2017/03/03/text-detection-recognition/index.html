@@ -1,0 +1,709 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Image," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chinese Text Detection and Recognition">
+<meta property="og:url" content="https://senitco.github.io/2017/03/03/text-detection-recognition/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917b8d52ee44.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917b9c3ab2a9.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917ba8f3a3ed.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/05/14/5917cbb71e93b.png">
+<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chinese Text Detection and Recognition">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/05/14/5917b8d52ee44.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Chinese Text Detection and Recognition | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Chinese Text Detection and Recognition
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-03T00:00:00+08:00" content="2017-03-03">
+              2017-03-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Projects/" itemprop="url" rel="index">
+                    <span itemprop="name">Projects</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/03/text-detection-recognition/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/03/03/text-detection-recognition/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including text, to convert each region into machine-encoded text. It is an important technique for understanding text information in 2D images, and many other applications such as text-to-speech, machine translation, text mining, etc.<br><a id="more"></a></p>
+<h3 id="Course"><a href="#Course" class="headerlink" title="Course"></a>Course</h3><p>&emsp;&emsp;Image Analysis and Understanding</p>
+<h3 id="Project"><a href="#Project" class="headerlink" title="Project"></a>Project</h3><p>&emsp;&emsp;Chinese Text Detection and Recognition</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>&emsp;&emsp;The task of Chinese text detection is to localize the regions in a 2D image which contain Chinese characters. The task of Chinese text recognition is, given the localized regions including text, to convert each region into machine-encoded text. It is an important technique for understanding text information in 2D images, and many other applications such as text-to-speech, machine translation, text mining, etc.</p>
+<h3 id="Deadline"><a href="#Deadline" class="headerlink" title="Deadline"></a>Deadline</h3><p>&emsp;&emsp;April 11, Tuesday, 2017</p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>&emsp;&emsp;图像文本一般分为两大类，图形文本(Graphic text)和场景文本(Scene text)，图形文本通常是指覆盖在图像上的机器打印的文本，如图片水印、视频字幕等；而场景文本则是自然场景中物体上的文本，如墙壁上的标语、衣服上的文字等。最近大部分的研究都集中在自然场景中文本检测与识别上，由于受到场景复杂、光照变化、成像随意等因素的影响，这一研究任务具有较大的挑战性，但其应用领域十分广泛，包括文字转语音、多语言翻译、自动化生产等。<br>&emsp;&emsp;对于文本检测，需要在一幅2D图像上准确定位到文本区域，而识别则是在此基础上将其识别转换为机器编码的文字。此次项目设计，主要针对自然场景中文本图像，采用多种方法进行检测并作对比，在定位到文本区域的基础上，采用Tesseract的开源库做进一步的识别。</p>
+<h3 id="Method-amp-Model"><a href="#Method-amp-Model" class="headerlink" title="Method &amp; Model"></a>Method &amp; Model</h3><p>&emsp;&emsp;文本检测方法来源于ECCV 2016上的一篇文章——<a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="external">Detecting Text in Natural Image with Connectionist Text Proposal Network</a>，是一种基于Faster R-CNN的端到端的检测方法。R-CNN是目标检测领域中十分经典的方法，相比于传统的手工特征，R-CNN将卷积神经网络引入，用于提取深度特征，后接一个分类器预测搜索区域是否包含目标及其置信度，并取得了相对而言较为准确的检测结果，而Fast R-CNN和Faster R-CNN则是R-CNN的升级版本，在准确率和实时性方面都得到了较大的提升。在Fast R-CNN中，首先需要使用Selective Search的方法提取图像的proposals，也就是候选目标区域。而新提出的Faster R-CNN模型则引入了RPN网络(Region Proposal Network)提取proposals，RPN是一个全卷积网络，通过共享卷积层特征大大缩短了proposals提取的时间，Fast R-CNN基于RPN提取的proposal作进一步的检测和识别。因此Faster R-CNN模型主要由两大模块组成：RPN候选框提取模块和Fast R-CNN检测模块，如下图所示。</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/14/5917b8d52ee44.jpg" alt="Faster R-CNN.jpg" title="Faster R-CNN模型图" width="50%" height="50%" align="center"></p>
+<p>&emsp;&emsp;在Faster R-CNN中，利用VGG-16进行特征提取，RPN网络结构如图2所示，在conv5卷积层用一个n x n的滑动窗口生成一个512维的全连接层，该层后接两个子连接层：分类层(cls-layer)和回归层(reg-layer)，cls-layer用于判断检测的proposal是目标还是背景，reg-layer则用于预测proposal的宽高和中心锚点的坐标，滑动窗口的处理方式保证了两个子连接层关联了conv5的全部特征空间。在RPN中有一个较为重要的概念——Anchor，对于一个滑动窗口，可以同时预测多个proposal，假设proposal最多为k个，k个proposal对应k个参考候选框(reference box)，这k个参考候选框即为Anchor，通过取不同的scale和aspect ratio，对应不同的Anchor，Faster R-CNN模型k值为9，即3种不同的scale和aspect ratio确定当前滑动窗口位置处对应的9个Anchor，最后cls-layer和reg-layer输出参数的数量分别为2k和4k。对于一幅W x H的卷积特征层，对应 W x H x k个Anchor，所有的Anchor都具有尺度不变性。</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/14/5917b9c3ab2a9.jpg" alt="RPN.jpg" title="RPN网络结构" width="50%" height="50%" align="center"></p>
+<p>&emsp;&emsp;训练RPN时，一个Mini-batch是由一幅图像中任意选取的256个proposal组成的，其中正负样本的比例为1 : 1。如果正样本数不足，则多补充一些负样本以满足有256个proposal可以用于训练。在RPN训练开始时，共享的VGG卷积层参数可以直接拷贝ImageNet中训练好的模型参数，剩余层参数用标准差为0.01的高斯分布初始化。RPN在提取到proposal后，通过训练Fast R-CNN进行检测和识别，而RPN和Fast R-CNN共用了VGG的卷积层，因此采用交替训练的方式实现卷积层特征共享。Faster R-CNN一个较为突出的贡献就是引入RPN，将proposal部分嵌入到了内部网络，因此整个网络模型即可完成端到端的检测任务，而不需要先执行proposal的搜索定位算法。<br>&emsp;&emsp;Faster R-CNN在目标检测方面能取得良好的效果，但文本检测和一般的目标检测不同，文本是一系列字符、笔画或单词的序列集合，而不是一般目标检测中独立的目标，同一文本序列上的不同字符可能差异较大、距离长短不一，检测出一个完整的文本行可能比检测单个目标的难度要大。因此针对文本检测这种特殊的情况，论文中提出了一种Recurrent Connectionist Text Proposal Network (CTPN)的检测方法，算法思想和Faster R-CNN类似，通过搜索定位多个候选文本框(Text Proposal)，对每个proposal做分类判决，包括proposal为文本、非文本的概率以及proposal的坐标位置。不同的是，CTPN中定义的Anchor是fine-scale的，在水平方向固定宽度为16个像素，而在垂直方向考虑k(=10)种尺寸，这和RPN中同一个滑动窗口考虑9个Anchor，分别为3种不同的scale和aspect ratio有所不同，正是考虑了文本和一般目标检测的差异，作者认为预测文本的垂直位置比水平位置要更容易，在proposal生成网络中，最后的输出分别为proposal的分类概率以及proposal的高度、中心锚点的y坐标以及在水平方向的偏移量，因为宽度是固定的，不予考虑。CTPN与Faster R-CNN还有一个较大的不同之处就是将RPN换成了双向的长短时记忆网络(BLSTM)，VGG-16的conv5卷积层(W x H x C)，不是直接连接到全连接层，而是将每一行的所有滑动窗口对应的3 x 3 x C特征输入到BLSTM中，用于编码Text Proposal的上下文信息，更加准确地检测文本区域。单向LSTM的维数为128，因此得到W x 256的输出，然后将BLSTM连接到512维的全连接层，全连接层后接3个子连接层，分别用于预测proposal的类别信息、在垂直方向的高度和y坐标以及在水平方向的偏移量。CTPN的整体网络结构和提取的Text Proposal示意图如图3所示，在得到多个细长的Text Proposal后，文中利用一种文本行构造算法，将多个Text Proposal合并成一个完整的文本区域，其主要思想是根据一定的约束条件，将相邻的Text Proposal两两合并，直到没有公共元素为止。</p>
+<p><img src="https://ooo.0o0.ooo/2017/05/14/5917ba8f3a3ed.jpg" alt="CTPN.jpg" title="CTPN网络结构和Text Proposal" align="center"></p>
+<h3 id="Detection-Results"><a href="#Detection-Results" class="headerlink" title="Detection Results"></a>Detection Results</h3><!-- <figure class="third">
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63897c8.jpg" alt="1.jpg" width=30% height=30%>
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6386978.jpg" alt="2.jpg" width=30% height=30%>
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638a778.jpg" alt="3.jpg" width=30% height=30%>
+</figure>
+<figure class="third">
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc63857a0.jpg" alt="4.jpg" width=30% height=30%>
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc638e4f5.jpg" alt="5.jpg" width=30% height=30%>
+    <img src="https://ooo.0o0.ooo/2017/05/14/5917bc6387f6b.jpg" alt="6.jpg" width=30% height=30%>
+</figure> -->
+<p><img src="https://ooo.0o0.ooo/2017/05/14/5917cbb71e93b.png" alt="7.png" title="Detection Results" align="center"></p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>&emsp;&emsp;在文本检测中用到的这种基于Faster R-CNN的算法模型，针对自然场景的多语言文本能取得良好的检测结果，比较适用于水平方向的文本检测，对于非水平方向的文本，该模型虽然也能有效检测，但不能获取文本的整体偏转信息，不利于后续的文本识别，因此在检测到文本区域后，对文本的整体偏转角度做了进一步的检测和校正。在识别任务中，主要用到了Tesseract的开源库，该OCR引擎对于中文的识别效果不是太理想。</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6945320" target="_blank" rel="external">Text Detection and Recognition in Imagery: A Survey</a><br><a href="http://lbmedia.ece.ucsb.edu/member/uweb/Teaching/website/index.htm" target="_blank" rel="external">Course Website: Image Analysis and Understanding</a><br><a href="http://www.cnblogs.com/venus024/p/5717766.html" target="_blank" rel="external">R-CNN,SPP-NET, Fast-R-CNN,Faster-R-CNN系列检测方法解读</a><br><a href="https://arxiv.org/pdf/1609.03605.pdf" target="_blank" rel="external">Detecting Text in Natural Image with Connectionist Text Proposal Network</a><br><a href="http://www.cnblogs.com/lillylin/p/6277061.html" target="_blank" rel="external">Paper Reading: CTPN</a><br><a href="https://github.com/tianzhi0549/CTPN" target="_blank" rel="external">Source Code: CTPN</a><br><a href="https://github.com/chongyangtao/Awesome-Scene-Text-Recognition" target="_blank" rel="external">Text Detection and Recognition Resource –1</a><br><a href="https://handong1587.github.io/deep_learning/2015/10/09/ocr.html" target="_blank" rel="external">Text Detection and Recognition Resource –2</a><br><a href="http://blog.csdn.net/peaceinmind/article/details/51387367" target="_blank" rel="external">Text Detection and Recognition Resource –2</a>  </p>
+<p>关于Tesseract OCR引擎的安装和配置：<br><a href="http://www.leptonica.org/source/README.html" target="_blank" rel="external">依赖库Leptonica的编译</a><br><a href="https://github.com/tesseract-ocr/tesseract/wiki/Compiling" target="_blank" rel="external">Tesseract-OCR的编译和配置</a><br><a href="https://github.com/openpaperwork/pyocr" target="_blank" rel="external">OCR引擎的Python接口</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/10/data-dimensionality-reduction/" rel="prev" title="机器学习算法之数据降维">
+                机器学习算法之数据降维 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Course"><span class="nav-number">1.</span> <span class="nav-text">Course</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Project"><span class="nav-number">2.</span> <span class="nav-text">Project</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Description"><span class="nav-number">3.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deadline"><span class="nav-number">4.</span> <span class="nav-text">Deadline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">5.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-amp-Model"><span class="nav-number">6.</span> <span class="nav-text">Method & Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Detection-Results"><span class="nav-number">7.</span> <span class="nav-text">Detection Results</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">9.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/03/03/text-detection-recognition/';
+      var disqus_title = 'Chinese Text Detection and Recognition';
+      var disqus_url = 'https://senitco.github.io/2017/03/03/text-detection-recognition/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

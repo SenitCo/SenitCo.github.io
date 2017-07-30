@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Image," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像特征提取之HOG特征">
+<meta property="og:url" content="https://senitco.github.io/2017/06/10/image-feature-hog/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像特征提取之HOG特征">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 图像特征提取之HOG特征 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图像特征提取之HOG特征
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-10T00:00:00+08:00" content="2017-06-10">
+              2017-06-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/10/image-feature-hog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/10/image-feature-hog/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;方向梯度直方图(Histogram of Oriented Gradient, HOG)特征是一种在计算机视觉和图像处理中用来进行物体检测的特征描述子。它通过计算和统计图像局部区域的梯度方向直方图来构成特征。Hog特征结合SVM分类器已经被广泛应用于图像识别中，尤其在行人检测中获得了极大的成功。<br><a id="more"></a></p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><p>&emsp;&emsp;HOG特征的核心思想是在一幅图像中，局部目标的表象和形状(appearance and shape)能够被梯度和边缘的方向密度（梯度的统计信息，而梯度主要存在于边缘地方）很好地描述。通过将整幅图像分为多个小的连通区域(cells)，并计算每个cell的梯度或边缘方向直方图，这些直方图的组合可用于构成特征描述子，为了提高准确率，可以将局部直方图在图像更大范围内(称为block)进行对比度归一化(constrast-normalized)。所采用的方法是：先计算各直方图在对应的block中的密度，然后根据这个密度对block中的所有cell做归一化(normalize)。归一化操作对光照变化和阴影具有更好的鲁棒性。</p>
+<h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><ul>
+<li>HOG特征是在图像的局部操作，对图像几何和光学的变化有较好的稳健性，这两种变化只会出现在更大的空域上。</li>
+<li>在粗粒度的空域抽样、细粒度的方向抽样，以及较强的局部光学归一化条件下，只要行人大体保持直立的姿势，可以容许行人有一些细微的肢体动作，而不影响检测效果。</li>
+</ul>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>HOG特征提取的流程如下：  </p>
+<h4 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h4><ul>
+<li>灰度化：HOG提取的是纹理特征，颜色信息不起作用，所以将彩色图转化为灰度图。</li>
+<li>Gamma校正(归一化)：对图像进行Gamma校正，完成对整个图像的标准化(归一化)，可以调节图像的对比度，降低局部光照不均匀或者阴影的影响，同时也可以在一定程度上降低噪声的干扰，提高特征描述器对光照等干扰因素的鲁棒性。校正公式如下：<br>$$I(x, y) = I(x, y)^{\gamma}, \gamma = \dfrac{1}{2}$$</li>
+</ul>
+<h4 id="计算图像梯度"><a href="#计算图像梯度" class="headerlink" title="计算图像梯度"></a>计算图像梯度</h4><p>&emsp;&emsp;分别求取图像水平方向和垂直方向的梯度，然后计算每个像素点的梯度幅值和方向，微分求图像梯度不仅可以捕获图像边缘和纹理信息，而且可以弱化光照不均匀的影响。<br>$$G_x(x,y) = I(x+1,y) - I(x-1,y)$$<br>$$G_y(x,y) = I(x,y+1) - I(x,y-1)$$<br>$$\nabla G(x,y) = \sqrt{G_x(x,y)^2+G_y(x,y)^2}$$<br>$$theta(x,y) = arctan(G_y(x,y) / G_x(x,y))$$<br>一般采用梯度算子对图像进行卷积运算求取图像梯度，例如用$[-1,0,1]$梯度算子对图像进行卷积操作得到水平方向的梯度分量，用$[-1,0,1]^T$梯度算子进行卷积操作得到竖直方向的梯度分量，然后求取图像的梯度幅值和方向。</p>
+<h4 id="在cell中计算梯度方向直方图-Orientation-binning"><a href="#在cell中计算梯度方向直方图-Orientation-binning" class="headerlink" title="在cell中计算梯度方向直方图(Orientation binning)"></a>在cell中计算梯度方向直方图(Orientation binning)</h4><p>&emsp;&emsp;将图像划分为若干个连通区域(cell)，例如每个cell为$8\times 8$个像素，相邻cell之间不重叠，将所有梯度方向划分为9个方向块(bin)，然后在每个cell内统计梯度方向直方图。在计算梯度方向时，可把方向的角度范围定位$(0, 180^{\circ})$或者$(0, 360^{\circ})$。最后每个cell都对应一个9维的特征向量。此外，还可以考虑梯度幅值作为bin的统计权重。<br>&emsp;&emsp;在行人检测中，通过给局部图像区域进行编码，可以保持对目标对象的姿势和外观的弱敏感性，更好地捕获图像的轮廓和纹理信息。</p>
+<h4 id="在block中归一化梯度方向直方图-Block-Normalization"><a href="#在block中归一化梯度方向直方图-Block-Normalization" class="headerlink" title="在block中归一化梯度方向直方图(Block Normalization)"></a>在block中归一化梯度方向直方图(Block Normalization)</h4><p>&emsp;&emsp;将多个cell组合成更大连通块(block)，将block内所有cell的特征向量串联起来便得到该block的HOG特征描述子，不同block之间可能相互重叠，可以有效地利用局部邻域信息。类比在卷积神经网络(CNN)中，掩码(Kernel)和步长(stride)的选择。在跟大范围内(block)统计梯度直方图，并做归一化处理，能够更好地适应光照和对比度的变化。常用的归一化方法有以下几种：</p>
+<ul>
+<li>L2-norm<br>$$v = \dfrac{v}{\left|v\right|_{2}^{2} + \varepsilon^2}$$</li>
+<li>L1-norm<br>$$v = \dfrac{v}{\left|v\right|_{1} + \varepsilon}$$</li>
+<li>L1-sqrt<br>$$v = \sqrt{\dfrac{v}{\left|v\right|_{1} + \varepsilon}}$$<br>还有一种L2-Hys，即先做一次L2-norm,然后把大于特定值(0.2)的分量幅值为0.2再做一次L2-norm，一般在检测中采用L2-norm效果更好。在一个block中，如果cell的数量为$2\times 2$，那block的特征数为$2\times 2 \times 9 = 36$维特征。</li>
+</ul>
+<h4 id="统计整幅图像-检测窗口-的HOG特征"><a href="#统计整幅图像-检测窗口-的HOG特征" class="headerlink" title="统计整幅图像(检测窗口)的HOG特征"></a>统计整幅图像(检测窗口)的HOG特征</h4><p>&emsp;&emsp;在实际应用中，通常是选取固定大小的滑动窗口来提取HOG特征，对于一个$64\times 128$的图像窗口(window)，每$8\times 8$个像素组成一个cell，每$2\times 2$个cell组成一个block，一共有$(8-1)\times (16-1) = 105$个block，因此该图像的窗口特征维数为$105\times 36 = 3780$。当然也可以将整幅图像作为一个窗口来提取HOG特征。</p>
+<h4 id="HOG特征-SVM分类器进行行人检测"><a href="#HOG特征-SVM分类器进行行人检测" class="headerlink" title="HOG特征 + SVM分类器进行行人检测"></a>HOG特征 + SVM分类器进行行人检测</h4><p>&emsp;&emsp;训练过程中正样本为图片中包含有目标区域(行人)的boundingbox，尺寸统一为检测窗口的大小即$64\times 128$，负样本不需要统一尺寸，只需比检测窗口大，且图片中不包含检测目标，可任意截取图片中$64\times 128$大小的区域提取HOG特征作为负样本的特征向量，并与正样本图片中boundingbox区域提取出的HOG特征向量一起训练，得到SVM的分类模型。<br>&emsp;&emsp;检测过程中采用滑动窗口法，检测窗口尺寸固定不变，对待检测图片进行尺度缩放，在每一层的图像上，用固定大小的滑动窗口提取HOG特征，并根据训练好的分类模型判断检测窗口是否为目标(行人)。因此HOG + SVM进行行人检测的过程实际上就是对图像的检测窗口提取HOG特征进行分类判决的过程。  </p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf" target="_blank" rel="external">paper: Histograms of Oriented Gradients for Human Detection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients" target="_blank" rel="external">wikipedia: Histogram of oriented gradients</a></li>
+<li><a href="http://blog.csdn.net/zouxy09/article/details/7929348" target="_blank" rel="external">http://blog.csdn.net/zouxy09/article/details/7929348</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/47337707" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/47337707</a></li>
+<li><a href="http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html" target="_blank" rel="external">http://www.cnblogs.com/tornadomeet/archive/2012/08/15/2640754.html</a></li>
+<li><a href="http://shuokay.com/2016/07/18/hog/" target="_blank" rel="external">http://shuokay.com/2016/07/18/hog/</a></li>
+<li><a href="http://www.jianshu.com/p/6f69c751e9e7" target="_blank" rel="external">http://www.jianshu.com/p/6f69c751e9e7</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_60e6e3d50101bkpn.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/07/string-processing/" rel="next" title="C/C++处理十六进制数和字符串">
+                <i class="fa fa-chevron-left"></i> C/C++处理十六进制数和字符串
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/12/image-feature-lbp/" rel="prev" title="图像特征提取之LBP特征">
+                图像特征提取之LBP特征 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-number">1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">2.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像预处理"><span class="nav-number">3.1.</span> <span class="nav-text">图像预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图像梯度"><span class="nav-number">3.2.</span> <span class="nav-text">计算图像梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在cell中计算梯度方向直方图-Orientation-binning"><span class="nav-number">3.3.</span> <span class="nav-text">在cell中计算梯度方向直方图(Orientation binning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在block中归一化梯度方向直方图-Block-Normalization"><span class="nav-number">3.4.</span> <span class="nav-text">在block中归一化梯度方向直方图(Block Normalization)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计整幅图像-检测窗口-的HOG特征"><span class="nav-number">3.5.</span> <span class="nav-text">统计整幅图像(检测窗口)的HOG特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HOG特征-SVM分类器进行行人检测"><span class="nav-number">3.6.</span> <span class="nav-text">HOG特征 + SVM分类器进行行人检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">4.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/06/10/image-feature-hog/';
+      var disqus_title = '图像特征提取之HOG特征';
+      var disqus_url = 'https://senitco.github.io/2017/06/10/image-feature-hog/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

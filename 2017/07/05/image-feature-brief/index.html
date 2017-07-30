@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Image," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
+<meta name="keywords" content="Image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像特征描述子之BRIEF">
+<meta property="og:url" content="https://senitco.github.io/2017/07/05/image-feature-brief/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/14/596879b800c06.jpg">
+<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图像特征描述子之BRIEF">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 图像特征描述子之BRIEF | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                图像特征描述子之BRIEF
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-05T00:00:00+08:00" content="2017-07-05">
+              2017-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/05/image-feature-brief/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/05/image-feature-brief/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;BRIEF(Binary Robust Independent Elementary Features)是一种对已检测到的特征点进行表示和描述的特征描述方法，和传统的利用图像局部邻域的灰度直方图或梯度直方图提取特征的方式不同，BRIEF是一种二进制编码的特征描述子，既降低了存储空间的需求，提升了特征描述子生成的速度，也减少了特征匹配时所需的时间。<br><a id="more"></a></p>
+<h3 id="原理概述"><a href="#原理概述" class="headerlink" title="原理概述"></a>原理概述</h3><p>&emsp;&emsp;经典的图像特征描述子SIFT和SURF采用128维(SIFT)或者64维(SURF)特征向量，每维数据一般占用4个字节(Byte)，一个特征点的特征描述向量需要占用512或者256个字节。如果一幅图像中包含有大量的特征点，那么特征描述子将占用大量的存储，而且生成描述子的过程也会相当耗时。在SIFT特征的实际应用中，可以采用PCA、LDA等特征降维的方法来减少特征描述子的维度，例如PCA-SIFT；此外还可以采用一些局部敏感哈希(Locality-Sensitive Hashing, LSH)的方法将特征描述子编码为二进制串，然后使用汉明距离(Hamming Distance)进行特征点的匹配，汉明距离计算的是两个二进制比特串中同一位置不同值的个数，可通过异或操作快速实现，大大提升了特征匹配的效率。</p>
+<p>&emsp;&emsp;BRIEF正是这样一种基于二进制编码生成特征描述子，以及利用汉明距离进行特征匹配的算法。由于BRIEF只是一种特征描述子，因此事先得检测并定位特征点，可采用Harris、FAST或者是SIFT算法检测特征点，在此基础上利用BRIEF算法建立特征描述符，在特征点邻域Patch内随机选取若干点对$(p,q)$，并比较这些点对的灰度值，若$I(p)&gt;I(q)$，则编码为1，否则编码为0。这样便可得到一个特定长度的二进制编码串，即BRIEF特征描述子。</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ul>
+<li>利用Harris或者FAST等方法检测特征点</li>
+<li>确定特征点的邻域窗口Patch，并对该邻域内像素点进行$\sigma=2$、窗口尺寸为9的高斯平滑，以滤除噪声(也可直接对整幅图像做高斯平滑)</li>
+<li>在邻域窗口内随机选取n对(n可取128、256等)像素点，并根据灰度值大小编码成二进制串，生成n位(bit)的特征描述子</li>
+</ul>
+<h3 id="采样方式"><a href="#采样方式" class="headerlink" title="采样方式"></a>采样方式</h3><p>&emsp;&emsp;论文原作者Calonder提供了5种在$S \times S$的邻域Patch内随机选取点对$(X,Y)$的方法，如下图所示，一条线段的两个端点表示一个随机点对$(x_i,y_i)$。</p>
+<ul>
+<li>$X、Y$为均匀分布$[-S/2,S/2]$</li>
+<li>$X、Y$均为高斯分布$[0, S^2 / 25]$，采样准则服从各向同性的同一高斯分布</li>
+<li>$X$服从高斯分布$[0, S^2 / 25]$，$Y$服从高斯分布$(x_i, S^2 / 100)$，即采样分为两步，首先在原点处为$x_i$进行高斯采样，然后在中心为$x_i$处为$y_i$进行高斯采样</li>
+<li>$X、Y$在空间量化极坐标下的离散位置处进行随机采样</li>
+<li>$X$固定为$(0,0)$，$Y$在空间量化极坐标下的离散位置处进行随机从采样。</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/596875e06003f.jpg" alt="sample.jpg" title="随机点对选取方式"></p>
+<h3 id="算法特点"><a href="#算法特点" class="headerlink" title="算法特点"></a>算法特点</h3><p>&emsp;&emsp;BRIEF算法通过检测随机响应，并采用二进制编码方式建立特征描述子，减少了特征的存储空间需求，并提升了特征生成的速度；Hamming距离的度量方式便于进行特征点的快速匹配，而且大量实验数据表明，不匹配特征点的Hamming距离为128左右(特征维数为256)，而匹配点的Hamming距离则远小于128。<br>&emsp;&emsp;BRIEF算法的缺点是不具备尺度不变性和旋转不变性，在图像的旋转角度超过$30^{\circ}$时，特征点匹配的准确率快速下降。</p>
+<h3 id="Experiment-amp-Result"><a href="#Experiment-amp-Result" class="headerlink" title="Experiment &amp; Result"></a>Experiment &amp; Result</h3><p>OpenCV实现BRIEF特征检测与匹配<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">#include &lt;opencv2/core/core.hpp&gt; </div><div class="line">#include &lt;opencv2/highgui/highgui.hpp&gt; </div><div class="line">#include &lt;opencv2/imgproc/imgproc.hpp&gt; </div><div class="line">#include &lt;opencv2/features2d/features2d.hpp&gt;</div><div class="line"></div><div class="line">using namespace cv;</div><div class="line"></div><div class="line">int main(int argc, char** argv) </div><div class="line">&#123; </div><div class="line">    Mat img_1 = imread(&quot;box.png&quot;); </div><div class="line">    Mat img_2 = imread(&quot;box_in_scene.png&quot;);</div><div class="line"></div><div class="line">    // -- Step 1: Detect the keypoints using STAR Detector </div><div class="line">    std::vector&lt;KeyPoint&gt; keypoints_1,keypoints_2; </div><div class="line">    StarDetector detector; </div><div class="line">    detector.detect(img_1, keypoints_1); </div><div class="line">    detector.detect(img_2, keypoints_2);</div><div class="line"></div><div class="line">    // -- Stpe 2: Calculate descriptors (feature vectors) </div><div class="line">    BriefDescriptorExtractor brief; </div><div class="line">    Mat descriptors_1, descriptors_2; </div><div class="line">    brief.compute(img_1, keypoints_1, descriptors_1); </div><div class="line">    brief.compute(img_2, keypoints_2, descriptors_2);</div><div class="line"></div><div class="line">    //-- Step 3: Matching descriptor vectors with a brute force matcher </div><div class="line">    BFMatcher matcher(NORM_HAMMING); </div><div class="line">    std::vector&lt;DMatch&gt; mathces; </div><div class="line">    matcher.match(descriptors_1, descriptors_2, mathces); </div><div class="line">    // -- dwaw matches </div><div class="line">    Mat img_mathes; </div><div class="line">    drawMatches(img_1, keypoints_1, img_2, keypoints_2, mathces, img_mathes); </div><div class="line">    // -- show </div><div class="line">    imshow(&quot;Mathces&quot;, img_mathes);</div><div class="line"></div><div class="line">    waitKey(0); </div><div class="line">    return 0; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="https://ooo.0o0.ooo/2017/07/14/596879b800c06.jpg" alt="match result.jpg" title="BRIEF特征描述与匹配"></p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://cvlabwww.epfl.ch/~lepetit/papers/calonder_eccv10.pdf" target="_blank" rel="external">Paper: BRIEF: Binary Robust Independent Elementary Features</a></li>
+<li><a href="http://www.cnblogs.com/ronny/p/4081362.html" target="_blank" rel="external">http://www.cnblogs.com/ronny/p/4081362.html</a></li>
+<li><a href="http://blog.csdn.net/songzitea/article/details/18272559" target="_blank" rel="external">http://blog.csdn.net/songzitea/article/details/18272559</a></li>
+<li><a href="http://blog.csdn.net/luoshixian099/article/details/48338273" target="_blank" rel="external">http://blog.csdn.net/luoshixian099/article/details/48338273</a></li>
+<li><a href="http://blog.csdn.net/hujingshuang/article/details/46910259" target="_blank" rel="external">http://blog.csdn.net/hujingshuang/article/details/46910259</a></li>
+<li><a href="http://blog.csdn.net/icvpr/article/details/12342159" target="_blank" rel="external">http://blog.csdn.net/icvpr/article/details/12342159</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Image/" rel="tag">#Image</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/01/image-feature-susan/" rel="next" title="图像特征之SUSAN角点检测">
+                <i class="fa fa-chevron-left"></i> 图像特征之SUSAN角点检测
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/09/image-feature-orb/" rel="prev" title="图像特征描述子之ORB">
+                图像特征描述子之ORB <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理概述"><span class="nav-number">1.</span> <span class="nav-text">原理概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法步骤"><span class="nav-number">2.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采样方式"><span class="nav-number">3.</span> <span class="nav-text">采样方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法特点"><span class="nav-number">4.</span> <span class="nav-text">算法特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-amp-Result"><span class="nav-number">5.</span> <span class="nav-text">Experiment & Result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/07/05/image-feature-brief/';
+      var disqus_title = '图像特征描述子之BRIEF';
+      var disqus_url = 'https://senitco.github.io/2017/07/05/image-feature-brief/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
