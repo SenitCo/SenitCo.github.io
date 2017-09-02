@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://senitco.github.io/2017/06/18/image-feature-harris/</loc>
+    <loc>https://senitco.github.io/2017/06/10/image-feature-hog/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -16,14 +16,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/05/27/cloud-platform/</loc>
-    
-    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/06/20/image-feature-LoG-DoG/</loc>
+    <loc>https://senitco.github.io/2017/06/06/character-encoding/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -31,6 +24,13 @@
   
   <url>
     <loc>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</loc>
+    
+    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/20/image-feature-LoG-DoG/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/06/10/image-feature-hog/</loc>
+    <loc>https://senitco.github.io/2017/06/18/image-feature-harris/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/06/06/character-encoding/</loc>
+    <loc>https://senitco.github.io/2017/05/27/cloud-platform/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
