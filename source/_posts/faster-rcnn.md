@@ -2,7 +2,7 @@
 title: Faster R-CNN论文及源码解读
 date: 2017-09-02
 categories: Algorithm
-tags: ML
+tags: DL
 ---
 
 &emsp;&emsp;R-CNN是目标检测领域中十分经典的方法，相比于传统的手工特征，R-CNN将卷积神经网络引入，用于提取深度特征，后接一个分类器判决搜索区域是否包含目标及其置信度，取得了较为准确的检测结果。Fast R-CNN和Faster R-CNN是R-CNN的升级版本，在准确率和实时性方面都得到了较大提升。在Fast R-CNN中，首先需要使用Selective Search的方法提取图像的候选目标区域(Proposal)。而新提出的Faster R-CNN模型则引入了RPN网络(Region Proposal Network)，将Proposal的提取部分嵌入到内部网络，实现了卷积层特征共享，Fast R-CNN则基于RPN提取的Proposal做进一步的分类判决和回归预测，因此，整个网络模型可以完成端到端的检测任务，而不需要先执行特定的候选框搜索算法，显著提升了算法模型的实时性。
