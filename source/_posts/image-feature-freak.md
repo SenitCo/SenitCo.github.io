@@ -4,7 +4,7 @@ date: 2017-07-15
 categories: Algorithm
 tags: Image
 ---
-&emsp;&emsp;FREAK算法来源2012年CVPR上的一篇文章<<[FREAK: Fast Retina Keypoint](https://infoscience.epfl.ch/record/175537/files/2069.pdf)>>，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。
+&emsp;&emsp;FREAK算法来源2012年CVPR上的一篇文章[FREAK: Fast Retina Keypoint](https://infoscience.epfl.ch/record/175537/files/2069.pdf)，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。
 <!-- more -->
 
 &emsp;&emsp;在前面的博文中，介绍的BRIEF、ORB、BRISK算法都是基于特征点周围邻域像素点对之间的比较，形成二进制编码串作为特征描述子，这种描述方法计算速度快，且占用内存小，满足一些实时应用场景的需求。对于这类特征描述子，关键是确定邻域哪些像素点对进行比较，以及如何匹配。BRIEF算法中特征点邻域的像素点对是随机采样生成的，ORB算法是通过贪婪穷举的方法，在所有可能的像素点对中选取相关性较小的若干点对，BRISK则是采用平均采样的方法生成若干采样点。特征匹配方法通常都是采样Hamming距离来进行度量，由于是二进制编码方式，可通过异或操作快速计算。
