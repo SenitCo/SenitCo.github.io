@@ -1,10 +1,10 @@
 ---
-title: Deep Learning —— Dropout
+title: Deep Learning -- Dropout
 date: 2017-09-12
 categories: Algorithm
 tags: DL
 ---
-&emsp;&emsp;训练神经网络模型时(Nerual Network)，如果网络规模较大，训练样本较少，为了防止模型过拟合，通常会采用Regularization(正则化，e.g. L2-norm)，或者Dropout。Dropout的基本思想是在模型训练时，让某些神经元以一定的概率不工作。
+&emsp;&emsp;训练神经网络模型时(Nerual Network)，如果网络规模较大，训练样本较少，为了防止模型过拟合，通常会采用Regularization(正则化，e.g. L2-norm、Dropout)。Dropout的基本思想是在模型训练时，让某些神经元以一定的概率不工作。
 <!-- more -->
 ### Overview
 &emsp;&emsp;深度学习领域大神Hinton在2012的一篇文献[《Improving neural networks by preventing co-adaptation of feature detectors》](https://arxiv.org/pdf/1207.0580.pdf)中提出，在每次训练的时候，让一半的特征检测器停止工作，可以提高网络模型的泛化能力。Hinton认为过拟合可通过阻止某些特征的协同作用来缓解，并将这种方法称之为Dropout。

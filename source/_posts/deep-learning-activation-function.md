@@ -1,5 +1,5 @@
 ---
-title: Deep Learning —— Activation Function
+title: Deep Learning -- Activation Function
 date: 2017-09-10
 categories: Algorithm
 tags: DL
