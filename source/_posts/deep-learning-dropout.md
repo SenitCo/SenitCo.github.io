@@ -1,6 +1,6 @@
 ---
 title: Deep Learning -- Dropout
-date: 2017-09-12
+date: 2017-09-08
 categories: Algorithm
 tags: DL
 ---

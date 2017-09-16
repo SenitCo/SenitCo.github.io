@@ -1,6 +1,6 @@
 ---
 title: Deep Learning -- Activation Function
-date: 2017-09-10
+date: 2017-09-05
 categories: Algorithm
 tags: DL
 ---

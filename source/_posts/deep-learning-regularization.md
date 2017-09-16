@@ -1,6 +1,6 @@
 ---
 title: Deep Learning -- Regularization
-date: 2017-09-13
+date: 2017-09-10
 categories: Algorithm
 tags: DL
 ---
