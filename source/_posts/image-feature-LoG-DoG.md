@@ -29,7 +29,8 @@ $$\dfrac{\partial G}{\partial \sigma} \approx \dfrac{G(x,y,k\sigma)-G(x,y,\sigma
 $$G(x,y,k\sigma)-G(x,y,\sigma) \approx (k-1)\sigma^2 \nabla ^2 G$$
 其中$k-1$是个常数，不影响极值点的检测，LoG算子和DoG算子的函数波形对比如下图所示，由于高斯差分的计算更加简单，因此可用DoG算子近似替代LoG算子
 
-<img src="https://ooo.0o0.ooo/2017/06/29/5954c1640caeb.jpg" alt="LoG-DoG.jpg" title="LoG与DoG的对比" />
+<img src="https://i.loli.net/2017/12/18/5a3741bdd1528.jpg" alt="LoG-DoG.jpg" title="LoG与DoG的对比" />
+
 ### 边缘检测(Edge Detection)和极值点检测(Blob Detection)
 &emsp;&emsp;LoG算子和DoG算子既可以用于检测图像边缘，也可用于检测局部极值点或极值区域，图像边缘在LoG算子下的响应情况如下图所示，二阶微分算子在边缘处为一过零点，而且过零点两边的最大值(正)和最小值(负)的差值较大。
 
