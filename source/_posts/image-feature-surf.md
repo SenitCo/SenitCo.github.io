@@ -9,7 +9,7 @@ tags: Image
 
 ### 积分图像
 &emsp;&emsp;SURF算法中用到了积分图的概念，积分图(Integral Image)由Viola和Jones提出，在前面的博文[Haar特征提取](https://senitco.github.io/2017/06/25/image-feature-haar/)中做了详细的介绍。借助积分图，图像与高斯二阶微分模板的滤波转化为对积分图像的加减运算，从而在特征点的检测时大大缩短了搜索时间。    
-&mesp;&emsp;积分图中任意一点$(i,j)$的值$ii(i,j)$，为原图像左上角到任意点$(i,j)$相应对角线区域灰度值的总和，即
+&emsp;&emsp;积分图中任意一点$(i,j)$的值$ii(i,j)$，为原图像左上角到任意点$(i,j)$相应对角线区域灰度值的总和，即
 $$ii(x,y) = \Sigma\_{x'\leq x,y'\leq y} i(x',y')$$
 式中，$i(x',y')$表示原图像中的灰度值，具体实现时$ii(x,y)$可由下式迭代计算得到
 $$s(x,y)=s(x,y-1)+i(x,y)$$
