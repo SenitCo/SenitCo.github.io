@@ -26,7 +26,7 @@ MathJax.Hub.Config({
 ### 特征点检测
 &emsp;&emsp;ORB首先利用FAST算法检测特征点，然后计算每个特征点的Harris角点响应值，从中筛选出$N$个最大的特征点，Harris角点的响应函数如下：
 $$R = detM-\alpha (traceM)^2$$
-相关内容已在前面的博文[FAST角点检测](https://senitco.github.io/2017/07/10/image-feature-fast/)和[Harris角点检测](https://senitco.github.io/2017/06/28/image-feature-harris/)分别做了详细的介绍。
+相关内容已在前面的博文[FAST角点检测](https://senitco.github.io/2017/06/30/image-feature-fast/)和[Harris角点检测](https://senitco.github.io/2017/06/18/image-feature-harris/)分别做了详细的介绍。
 FAST检测特征点不具备尺度不变性，可以像SIFT特征一样，借助尺度空间理论构建图像高斯金字塔，然后在每一层金字塔图像上检测角点，以实现尺度不变性。对于旋转不变性，原论文中提出了一种利用图像矩(几何矩)，在半径为r的邻域内求取灰度质心的方法，从特征点到灰度质心的向量，定义为该特征点的主方向。图像矩定义如下：
 $$m\_{pq}=\Sigma\_{x,y} x^p y^q I(x,y),&emsp;x,y \in [-r,r]$$
 $I(x,y)$表示像素灰度值，0阶矩$m\_{00}$即图像邻域窗口内所有像素的灰度和，$m\_{10}$和$m\_{01}$分别相对$x$和相对$y$的一阶矩，因此图像局部邻域的中心矩或者质心可定义为
