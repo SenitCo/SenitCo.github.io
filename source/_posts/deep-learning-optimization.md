@@ -43,7 +43,7 @@ $$\theta = \theta - \eta \cdot \nabla_\theta J( \theta)$$
 
 ### Momentum
 &emsp;&emsp;SGD存在一个缺陷就是，当某一个方向(维度)梯度较大、另一个方向梯度较小时，代价函数可能会在大梯度方向以大步长来回振荡，而在小梯度方向缓慢前进，造成收敛缓慢。Momentum受到物理学中动量的启发，能够在相关方向加速SGD，并抑制振荡，加快收敛
-<img src="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg" alt="momentum.jpg" title="SGD without momentum(left) and with momentum(right)" />
+<img src="https://i.loli.net/2017/12/23/5a3e02df1d688.jpg" alt="momentum.jpg" title="SGD without momentum(left) and with momentum(right)" />
 
 \begin{split}
 v\_t &= \gamma v\_{t-1} + \eta \nabla\_\theta J(\theta) \cr
