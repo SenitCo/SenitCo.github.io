@@ -35,7 +35,7 @@ $$w = w - \eta (\dfrac{\partial C\_0}{\partial w} + \dfrac{\lambda}{n}sgn(w))$$
 L1正则化对梯度的影响不再与权重$w$线性相关，而是一个常量因子。当$w$为正时，更新后的$w$变小；当$w$为负时，更新后的$w$变大。因此L1正则化的效果就是让$w$往0靠，使网络中的权重尽可能为0，也就相当于减小了网络复杂度，防止过拟合。与L2-norm相比，L1-norm会导致参数稀疏，因此可用于特征选取，参数被惩罚为0的特征可以被丢弃。
 
 ### Dropout
-&emsp;&emsp;L1、L2正则化是通过修改代价函数来实现的，而Dropout则是修改神经网络本身，使得网络中的部分神经元以一定概率停止工作，具体内容可参考博文[Dropout](https://senitco.github.io/2017/09/12/deep-learning-dropout/)
+&emsp;&emsp;L1、L2正则化是通过修改代价函数来实现的，而Dropout则是修改神经网络本身，使得网络中的部分神经元以一定概率停止工作，具体内容可参考博文[Dropout](https://senitco.github.io/2017/09/08/deep-learning-dropout/)
 
 ### Data Argumentation
 &emsp;&emsp;引起过拟合的一个因素就是数据量较少，扩增数据集，可以适应更深的网络模型，训练表达能力更强的模型。数据扩增的方法主要有：
