@@ -1,5 +1,5 @@
 ---
-title: 链表问题集锦
+title: 链表问题集锦（一）
 date: 2018-02-01
 categories: Data Structure
 tags: code
@@ -30,70 +30,6 @@ void deleteNode(ListNode *node)
     node->val = pNext->val;
     node->next = pNext->next;
     delete pNext;
-}
-
-```
-
-### 单链表逆转
-题目描述：给定一个单链表，将其逆转。[LeetCode](https://leetcode.com/problems/reverse-linked-list/description/)
-分析：迭代法求解，借助三个指针start、head、next，start指向逆转后（已重排）的第一个结点，head指向未重排的第一个结点，next指向head的下一个结点，每次将未重排的第一个结点插入到已重排序列的首部。也可利用递归法实现。
-```cpp
-ListNode* reverseList(ListNode* head) 
-{
-    ListNode *start = NULL, next;
-    while(head)
-    {
-        next = head->next;
-        head->next = start;
-        start = head;
-        head = next;
-    }
-    return start;
-}
-
-//增加一个头结点的迭代版本
-ListNode* reverseList(ListNode* head) 
-{
-    if(!head)
-        return NULL;
-    ListNode* start = new ListNode(0);
-    start->next = head;
-    ListNode *first = head;
-    ListNode *second = first->next;
-    while(second)
-    {
-        first->next = second->next;
-        second->next = start->next;
-        start->next = second;
-        second = first->next;
-    }
-    return start->next;
-}
-
-//递归法
-ListNode* reverseList(ListNode* head) 
-{
-    return recursive(head, NULL);
-}
-
-ListNode* recursive(ListNode* head, ListNode* start)
-{
-    if(!head)   return start;
-    ListNode* next = head->next;
-    head->next = start;
-    return recursive(next, head);
-}
-
-//直接递归
-Node* reverseByRecursion(Node *head)
-{
-    //第一个条件是判断异常，第二个条件是结束判断
-    if(head == NULL || head->next == NULL) 
-        return head;
-    Node *newHead = reverseByRecursion(head->next);
-    head->next->next = head;
-    head->next = NULL;
-    return newHead;    //返回新链表的头指针
 }
 
 ```
