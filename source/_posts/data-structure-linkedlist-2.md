@@ -72,6 +72,54 @@ Node* reverseByRecursion(Node *head)
 
 ```
 
+### 将单链表中的某一段逆转
+问题描述：将单链表中第m到第n个结点之间的序列逆转。[LeetCode](https://leetcode.com/problems/reverse-linked-list-ii/description/)
+分析：思路和逆转整个链表一样，借助三个指针，pre指向链表中的第 m-1 个元素，begin指向第一个未逆转的元素，then指向begin的下一个元素，即即将插入到pre后面的元素，then = begin->next，依次将begin后面的元素插入到pre后面，并保证所有元素能连接成串。
+```cpp
+ListNode* reverseBetween(ListNode* head, int m, int n) 
+{
+    ListNode* start = new ListNode(0);  
+    start->next = head;
+    ListNode *pre = start;
+    for(int i = 0; i < m - 1; i++)
+        pre = pre->next;
+    ListNode* begin = pre->next;
+    ListNode* then = begin->next;
+   
+    for(int i = 0; i < n - m; i++)
+    {
+        begin->next = then->next;
+        then->next = pre->next;
+        pre->next = then;
+        then = begin->next;
+    }
+    return start->next;
+}
+
+ListNode* reverseBetween(ListNode* head, int m, int n) 
+{
+    ListNode* start = new ListNode(0);
+    ListNode* cur, *nex, *tmp;
+    start->next = head;
+    cur = start;
+    int i = 0;
+    for(; i < m - 1; i++)
+    {
+        cur = cur->next;
+    }
+    nex = cur->next;
+    for(; i < n - 1 && nex->next; i++)  //i初值为 m-1，后续插入操作次数为 n-m
+    {
+        tmp = cur->next;                //暂时存储cur后面的元素
+        cur->next = nex->next;          //将nex后面的元素插入到cur后
+        nex->next = nex->next->next;    //取出nex的下一个元素后，nex的下一个元素变成更后面的元素
+        cur->next->next = tmp;          //将插入到cur的元素与之前暂存的元素链接起来
+    }
+    return start->next;
+}
+
+```
+
 ### 将单链表进行分组逆转
 问题描述：将单链表按顺序分成N组，每组K个元素，最后一组可能少于K个，分别将每组元素逆转，并链接成一个完整的序列。例如一个链表：1->2->3->4->5，如果k=2，则逆转后的序列为2->1->4->3->5；如果k=3，则逆转序列为3->2->1->4->5。[LeetCode](https://leetcode.com/problems/reverse-nodes-in-k-group/description/)
 分析：分别对每组结点进行逆转，可用迭代法和递归法
