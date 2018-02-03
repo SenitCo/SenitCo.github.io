@@ -1,6 +1,6 @@
 ---
 title: 二叉树问题集锦
-date: 2018-02-02
+date: 2018-02-03
 categories: Data Structure
 tags: code
 ---
@@ -209,8 +209,7 @@ vector<int> postorderTraversal(TreeNode* root)
 
 ### 还原二叉搜索树
 问题描述：给定一颗二叉搜索树，其中两个结点互换，将其还原成一颗完整的二叉搜索树。[LeetCode](https://leetcode.com/problems/recover-binary-search-tree/description/)
-分析：对二叉搜索树进行中序遍历，即可得到一个有序的序列。对于异常点，存在前一个元素大于后一个元素，但两个异常点略有差异（第一个异常点，
-其值大于后一个元素；第二个异常点，其值小于前一个元素）
+分析：对二叉搜索树进行中序遍历，即可得到一个有序的序列。对于异常点，存在前一个元素大于后一个元素，但两个异常点略有差异（第一个异常点，其值大于后一个元素；第二个异常点，其值小于前一个元素）
 ```cpp
 //递归法中序遍历
 
