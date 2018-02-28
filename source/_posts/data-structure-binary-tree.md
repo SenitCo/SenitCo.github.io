@@ -265,6 +265,60 @@ void recoverTree(TreeNode* root)
 }
 ```
 
+### 计算二叉树根结点到叶子结点的数字和
+问题描述：LeetCode(https://leetcode.com/problems/sum-root-to-leaf-numbers/description/)
+Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.Find the total sum of all root-to-leaf numbers. For example,
+    1
+   / \
+  2   3
+The root-to-leaf path 1->2 represents the number 12.
+The root-to-leaf path 1->3 represents the number 13.
+Return the sum = 12 + 13 = 25.
+```cpp
+//递归法
+int sumNumbers(TreeNode* root) 
+{
+    return sum(root, 0);
+}
+
+int sum(TreeNode* node, int s)
+{
+    if(!node)   return 0;
+    if(!node->left && !node->right)
+        return s * 10 + node->val;
+    return sum(node->left, s * 10 + node->val) + sum(node->right, s * 10 + node->val);
+}
+
+//迭代法
+int sumNumbers(TreeNode* root) 
+{
+    if(!root)   return 0;
+    int sum = 0;
+    stack<TreeNode*> toVisit;
+    toVisit.push(root);
+    while(!toVisit.empty())
+    {
+        TreeNode* cur = toVisit.top();
+        toVisit.pop();
+        if(cur->right)
+        {
+            cur->right->val = cur->val * 10 + cur->right->val;
+            toVisit.push(cur->right);
+        }
+        if(cur->left)
+        {
+            cur->left->val = cur->val * 10 + cur->left->val;
+            toVisit.push(cur->left);
+        }
+        if(!cur->left && !cur->right)
+        {
+            sum += cur->val;
+        }
+    }
+    return sum;
+}
+```
+
 ### 线索二叉树的构建与遍历
 线索二叉树：将二叉链表中的空指针分别指向对应的前驱或后继结点
 ```cpp
