@@ -2,7 +2,7 @@
 title: 深度优先遍历与广度优先遍历（一）
 date: 2018-02-18
 categories: Data Structure
-tags: code
+tags: [code, dfs, bfs]
 ---
 数据结构与算法中深度优先遍历(DFS)与广度优先遍历(BFS)问题总结归纳。
 <!--more-->

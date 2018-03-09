@@ -1,8 +1,8 @@
 ---
-title: 动态规划(Dynamic Programming)问题集锦
+title: 动态规划(Dynamic Programming)问题集锦（一）
 date: 2018-02-04
 categories: Data Structure
-tags: code
+tags: [code, dp]
 ---
 数据结构与算法中动态规划问题的总结归纳。
 <!--more-->
