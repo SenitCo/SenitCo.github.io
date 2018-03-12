@@ -26,7 +26,7 @@ void deleteNode(ListNode *node)
 {
     if(!node || !node->next)
     	return;
-    ListNode* pNext = cur->next;
+    ListNode* pNext = node->next;
     node->val = pNext->val;
     node->next = pNext->next;
     delete pNext;
