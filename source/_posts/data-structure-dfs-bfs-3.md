@@ -185,6 +185,75 @@ private:
 };
 ```
 
+### Flatten Binary Tree to Linked List
+题目描述：Given a binary tree, flatten it to a linked list in-place.[LeetCode](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
+```cpp
+/**
+Given a binary tree, flatten it to a linked list in-place.
+For example, Given
+
+         1
+        / \
+       2   5
+      / \   \
+     3   4   6
+The flattened tree should look like:
+   1
+    \
+     2
+      \
+       3
+        \
+         4
+          \
+           5
+            \
+             6
+*/
+
+/**
+迭代法：对任意一个结点curr，其左子树（如果存在）按先序遍历的最后一个结点的右子结点为curr的右子结点，
+curr的右子结点为curr的左子结点
+*/
+void flatten(TreeNode* root) 
+{
+    TreeNode* curr = root;
+    while(curr)
+    {
+        if(curr->left)
+        {
+            TreeNode* prev = curr->left;
+            while(prev->right)
+                prev = prev->right; //遍历到左子树的最后一个结点，用于连接curr的右子树
+            prev->right = curr->right;
+            curr->right = curr->left;   //用当前结点的左子树替换右子树
+            curr->left = NULL;
+        }
+        curr = curr->right; //往右移动结点
+    }
+}
+
+//递归法（先序遍历的逆转版本：右-左-中）
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* prev = NULL;
+        reversePreorder(root, prev);
+    }
+private:
+    //prev指针必须得传引用，保持更新，或者定义成一个成员变量
+    void reversePreorder(TreeNode* node, TreeNode*& prev)   
+    {
+        if(node == NULL)    return;
+        reversePreorder(node->right, prev);
+        reversePreorder(node->left, prev);
+        node->right = prev;
+        node->left = NULL;
+        prev = node;
+    }
+};
+```
+
 ### Binary Tree Maximum Path Sum
 题目描述：Given a binary tree, find the maximum path sum. For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.[LeetCode](https://leetcode.com/problems/binary-tree-maximum-path-sum/description/)
 分析：要求二叉树中任意两个结点之间最大路径和，而不是从根结点出发到某一子结点的最大路径和。可采用深度优先遍历求解，只不过递归函数的返回值不是要求的最大和（最大和通过一个全局变量或者引用参数来同步更新），而是结点自身为根结点时到其子结点的最大路径，该值用于提供给其父结点计算最长路径（当其父节点为根结点时，下面的子结点只能是单向的）。简单来说，一个结点的最大路径和是其左子树路径和 + 右子树路径和 + 当前节点值，而返回值则是当前结点值加上左子树路径和与右子树路径和的较大值。考虑负数的影响，加入与0的比较。
