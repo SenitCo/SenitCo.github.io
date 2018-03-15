@@ -1,5 +1,5 @@
 ---
-title: 二叉树与深度优先遍历
+title: 二叉树与深度优先遍历（一）
 date: 2018-02-23
 categories: Data Structure
 tags: [code, dfs, binary tree]

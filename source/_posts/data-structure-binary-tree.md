@@ -1,8 +1,8 @@
 ---
-title: 二叉树问题集锦
+title: 二叉树问题集锦（一）
 date: 2018-02-03
 categories: Data Structure
-tags: code
+tags: [code, binary tree, preorder, inorder, postorder]
 ---
 
 数据结构中经典二叉树问题的总结归纳。
