@@ -4,7 +4,7 @@ date: 2018-03-08
 categories: Data Structure
 tags: [code, recursive, backtracking]
 ---
-数据结构与算法中回溯(Backtracking)问题的总结归纳。
+数据结构与算法中回溯(Backtracking)问题总结归纳。
 <!--more-->
 
 ### Palindrome Partitioning
