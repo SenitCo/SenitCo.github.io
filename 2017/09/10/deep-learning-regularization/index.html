@@ -1,0 +1,726 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。">
+<meta name="keywords" content="DL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning -- Regularization">
+<meta property="og:url" content="https://senitco.github.io/2017/09/10/deep-learning-regularization/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2017/09/13/59b9296eb2674.png">
+<meta property="og:image" content="https://i.loli.net/2017/09/13/59b93367e4f7f.png">
+<meta property="og:image" content="https://i.loli.net/2017/09/13/59b93c6685cc0.png">
+<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning -- Regularization">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。">
+<meta name="twitter:image" content="https://i.loli.net/2017/09/13/59b9296eb2674.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Deep Learning -- Regularization | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Deep Learning -- Regularization
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-10T00:00:00+08:00" content="2017-09-10">
+              2017-09-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/09/10/deep-learning-regularization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/10/deep-learning-regularization/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。<br><a id="more"></a></p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>&emsp;&emsp;过拟合具体表现如下图所示，在迭代训练的过程中，模型复杂度增加，在训练集上的错误率降低，而在验证集上反而上升，也就是说，模型过拟合了训练集，在除训练集以外的其他数据集上表现较差。有较多的方法可用来缓解过拟合问题，例如减小网络规模，扩增数据集(Date Argumentation)、正则化(Regulariztion)、提前终止(Early stopping)等。由于较大的网络规模通常具有较强的模型表达能力，所以减小网络规模以缓解过拟合并不十分可取。正则化则是一种使用较为广泛的方法，主要有L1-norm、L2-norm、Dropout。</p>
+<p><img src="https://i.loli.net/2017/09/13/59b9296eb2674.png" alt="overfitting.png" title="Overfitting"></p>
+<h3 id="L2-Regularization"><a href="#L2-Regularization" class="headerlink" title="L2 Regularization"></a>L2 Regularization</h3><p>&emsp;&emsp;L2正则也称为权重衰减(Weights Decay)，直接在代价函数(Loss Function)后面增加一个L2范数的正则化项，也就是对网络中所有权值求平方和然后开方。数学表达式如下：<br>$$C = C_0 + \dfrac{\lambda}{2n} \Sigma_w w^2$$<br>式中，$C_0$为原始代价函数，$n$为训练集大小，$\lambda$是两项的平衡系数。L2正则项通过惩罚(penalizes)权重的平方，倾向于让网络学习到更小的权值。添加正则项后的代价函数对网络参数的梯度为<br>$$\dfrac{\partial C}{\partial w} = \dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}w,&emsp;\dfrac{\partial C}{\partial b} = \dfrac{\partial C_0}{\partial b}$$<br>梯度反向传播用于更新网络权值<br>$$w = w - \eta (\dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}w) = (1-\dfrac{\eta \lambda}{n})w - \eta \dfrac{\partial C_0}{\partial w}$$<br>$$b = b - \eta \dfrac{\partial C_0}{\partial b}$$<br>式中，$\eta$为学习率(learning rate)，$w$的系数$(1-\dfrac{\eta \lambda}{n})$使得权重相比未正则化时减小，这也是$L2-norm$称作权重衰减的原因。<br>&emsp;&emsp;更小的权重，如何保证能够缓解过拟合？从某种意义上，权重越小表示模型复杂度更低，对数据的拟合刚好。在实际应用中，也验证了L2正则化的效果往往更好。过拟合的时候，拟合函数的系数通常较大，如下图所示，拟合函数需要顾及每个数据点，因此波动较大。在一些较小的区间内，函数值变化剧烈，意味着函数在这些小区间内的导数值（绝对值）非常大。由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。而L2正则化通过约束权值参数的范数使其不要太大，可以在一定程度上减少过拟合情况。</p>
+<p><img src="https://i.loli.net/2017/09/13/59b93367e4f7f.png" alt="regular2.png"></p>
+<h3 id="L1-Regularization"><a href="#L1-Regularization" class="headerlink" title="L1 Regularization"></a>L1 Regularization</h3><p>&emsp;&emsp;L1正则是在原始的代价函数后增加一个L1范数的正则化项，即所有权重绝对值的和。数学表达式如下：<br>$$C = C_0 + \dfrac{\lambda}{n} \Sigma_w w$$<br>梯度计算公式为<br>$$\dfrac{\partial C}{\partial w} = \dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}sgn(w)$$<br>式中$sgn(w)$表示权重的符号，权重更新规则为<br>$$w = w - \eta (\dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}sgn(w))$$<br>L1正则化对梯度的影响不再与权重$w$线性相关，而是一个常量因子。当$w$为正时，更新后的$w$变小；当$w$为负时，更新后的$w$变大。因此L1正则化的效果就是让$w$往0靠，使网络中的权重尽可能为0，也就相当于减小了网络复杂度，防止过拟合。与L2-norm相比，L1-norm会导致参数稀疏，因此可用于特征选取，参数被惩罚为0的特征可以被丢弃。</p>
+<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>&emsp;&emsp;L1、L2正则化是通过修改代价函数来实现的，而Dropout则是修改神经网络本身，使得网络中的部分神经元以一定概率停止工作，具体内容可参考博文<a href="https://senitco.github.io/2017/09/12/deep-learning-dropout/">Dropout</a></p>
+<h3 id="Data-Argumentation"><a href="#Data-Argumentation" class="headerlink" title="Data Argumentation"></a>Data Argumentation</h3><p>&emsp;&emsp;引起过拟合的一个因素就是数据量较少，扩增数据集，可以适应更深的网络模型，训练表达能力更强的模型。数据扩增的方法主要有：</p>
+<ul>
+<li>沿水平方向将图像左右翻转</li>
+<li>平移、缩放、旋转或者随机裁剪图像</li>
+<li>添加随机噪声</li>
+</ul>
+<h3 id="Early-Stopping"><a href="#Early-Stopping" class="headerlink" title="Early Stopping"></a>Early Stopping</h3><p>&emsp;&emsp;过拟合在验证集上表现为模型的错误率降到最低后上升，因此提前终止就是在模型的错误率降到最低，性能变坏之前停止迭代训练，如下图所示。当然在实际训练过程中，并不需要如此操作，而且通过设置checkpoints，每迭代一定次数保存模型，最后选择最优的作为最终模型。</p>
+<p><img src="https://i.loli.net/2017/09/13/59b93c6685cc0.png" alt="early stopping.png"></p>
+<p>关于数据集的划分：<br>&emsp;&emsp;一般数据集分为三部分：训练集(training data)、验证集(validation data)、测试集(testing data)。训练集用于在迭代训练中计算梯度、更新网络权值。验证集则在训练中评估模型的性能，用于确定一组模型的超参数，如学习率等；也就是说通过验证集，需要确定一组最优的超参数，以及在该组超参数下训练出的网络模型。而测试集则用于评估最终的模型性能，既不参与训练，也不用于选取超参数。验证集和测试集容易搞混，如果直接将测试集作为验证集使用，随着训练的进行，网络实际上在拟合测试集中的数据，那么测试集对网络的评估没有任意意义，因为最终用于评估模型的数据集应当是一个未知数据集，不参与任何训练过程。</p>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="https://chatbotslife.com/regularization-in-deep-learning-f649a45d6e0" target="_blank" rel="external">https://chatbotslife.com/regularization-in-deep-learning-f649a45d6e0</a></li>
+<li><a href="http://www.deeplearningbook.org/contents/regularization.html" target="_blank" rel="external">http://www.deeplearningbook.org/contents/regularization.html</a></li>
+<li><a href="https://hit-scir.gitbooks.io/neural-networks-and-deep-learning-zh_cn/content/chap3/c3s5ss1.html" target="_blank" rel="external">https://hit-scir.gitbooks.io/neural-networks-and-deep-learning-zh_cn/content/chap3/c3s5ss1.html</a></li>
+<li><a href="http://shartoo.github.io/regularization-deeplearning/" target="_blank" rel="external">http://shartoo.github.io/regularization-deeplearning/</a></li>
+<li><a href="http://blog.csdn.net/u012162613/article/details/44261657" target="_blank" rel="external">http://blog.csdn.net/u012162613/article/details/44261657</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DL/" rel="tag">#DL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/08/deep-learning-dropout/" rel="next" title="Deep Learning -- Dropout">
+                <i class="fa fa-chevron-left"></i> Deep Learning -- Dropout
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/12/deep-learning-normalization/" rel="prev" title="Deep Learning -- Normalization">
+                Deep Learning -- Normalization <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L2-Regularization"><span class="nav-number">2.</span> <span class="nav-text">L2 Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L1-Regularization"><span class="nav-number">3.</span> <span class="nav-text">L1 Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dropout"><span class="nav-number">4.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Argumentation"><span class="nav-number">5.</span> <span class="nav-text">Data Argumentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-Stopping"><span class="nav-number">6.</span> <span class="nav-text">Early Stopping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">7.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/09/10/deep-learning-regularization/';
+      var disqus_title = 'Deep Learning -- Regularization';
+      var disqus_url = 'https://senitco.github.io/2017/09/10/deep-learning-regularization/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

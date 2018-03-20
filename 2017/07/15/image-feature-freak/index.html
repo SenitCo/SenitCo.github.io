@@ -86,22 +86,22 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章&amp;lt;&amp;lt;FREAK: Fast Retina Keypoint&amp;gt;&amp;gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
+<meta name="description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章FREAK: Fast Retina Keypoint，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
 <meta name="keywords" content="Image">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像特征描述子之FREAK">
 <meta property="og:url" content="https://senitco.github.io/2017/07/15/image-feature-freak/index.html">
 <meta property="og:site_name" content="Senit_Co">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章&amp;lt;&amp;lt;FREAK: Fast Retina Keypoint&amp;gt;&amp;gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章FREAK: Fast Retina Keypoint，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/596a168be43b5.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/596a1f0191ac7.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/596a1f01a4d82.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/596a253ce5bb7.jpg">
-<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征描述子之FREAK">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章&amp;lt;&amp;lt;FREAK: Fast Retina Keypoint&amp;gt;&amp;gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;FREAK算法来源2012年CVPR上的一篇文章FREAK: Fast Retina Keypoint，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。">
 <meta name="twitter:image" content="https://i.loli.net/2017/07/15/596a168be43b5.jpg">
 
 
@@ -321,7 +321,7 @@
       
 
       
-        <p>&emsp;&emsp;FREAK算法来源2012年CVPR上的一篇文章&lt;&lt;<a href="https://infoscience.epfl.ch/record/175537/files/2069.pdf" target="_blank" rel="external">FREAK: Fast Retina Keypoint</a>&gt;&gt;，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。<br><a id="more"></a></p>
+        <p>&emsp;&emsp;FREAK算法来源2012年CVPR上的一篇文章<a href="https://infoscience.epfl.ch/record/175537/files/2069.pdf" target="_blank" rel="external">FREAK: Fast Retina Keypoint</a>，与ORB、BRISK算法类似，FREAK也是一种基于二进制编码的图像特征描述子，计算较快，对噪声鲁棒，具有尺度不变性和旋转不变性。此外，该算法还有一个突出特点就是受到人眼视网膜视觉机理的启发而提出。<br><a id="more"></a></p>
 <p>&emsp;&emsp;在前面的博文中，介绍的BRIEF、ORB、BRISK算法都是基于特征点周围邻域像素点对之间的比较，形成二进制编码串作为特征描述子，这种描述方法计算速度快，且占用内存小，满足一些实时应用场景的需求。对于这类特征描述子，关键是确定邻域哪些像素点对进行比较，以及如何匹配。BRIEF算法中特征点邻域的像素点对是随机采样生成的，ORB算法是通过贪婪穷举的方法，在所有可能的像素点对中选取相关性较小的若干点对，BRISK则是采用平均采样的方法生成若干采样点。特征匹配方法通常都是采样Hamming距离来进行度量，由于是二进制编码方式，可通过异或操作快速计算。</p>
 <h3 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h3><p>&emsp;&emsp;FAST算法可实现快速检测图像特征点，而且对应有一个加速版本AGAST，因此在诸多特征描述子中，都是首先通过FAST算法搜索定位特征点，再加以描述。FREAK同BRISK算法类似，也是建立多尺度空间，在不同尺度的图像上使用FAST算法检测特征点。</p>
 <h3 id="采样模式"><a href="#采样模式" class="headerlink" title="采样模式"></a>采样模式</h3><p>&emsp;&emsp;FREAK算法中采样模式接近于人眼视网膜接收图像信息的采样模型，如下图所示，人眼视网膜中，Fovea区域主要对高精度的图像信息进行处理，而Para区域则主要对低精度的图像信息进行处理。</p>
@@ -465,7 +465,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -473,7 +473,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -482,7 +482,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -566,7 +566,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

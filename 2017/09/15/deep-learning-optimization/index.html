@@ -1,0 +1,784 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。">
+<meta name="keywords" content="DL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning -- Optimization">
+<meta property="og:url" content="https://senitco.github.io/2017/09/15/deep-learning-optimization/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg">
+<meta property="og:image" content="https://i.loli.net/2017/09/17/59be22509c283.jpeg">
+<meta property="og:image" content="https://i.loli.net/2017/09/17/59be6494370fd.gif">
+<meta property="og:image" content="https://i.loli.net/2017/09/17/59be6493e3d8b.gif">
+<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning -- Optimization">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。">
+<meta name="twitter:image" content="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> Deep Learning -- Optimization | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Deep Learning -- Optimization
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-09-15T00:00:00+08:00" content="2017-09-15">
+              2017-09-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/09/15/deep-learning-optimization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/15/deep-learning-optimization/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。<br><a id="more"></a></p>
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>&emsp;&emsp;由一组模型参数$\theta$定义的目标函数$J(\theta)$，梯度下降法通过计算目标函数对所有参数的梯度$\nabla _{\theta}J(\theta)$，然后往梯度相反的方向更新参数，使得目标函数逐步下降，最终趋于（局部）极小值。<br>$$\theta = \theta - \eta \cdot \nabla_\theta J( \theta)$$<br>学习率$\eta$决定每次更新的步长。梯度下降法有三种变体：Batch gradient descent、Stochastic gradient descent、Mini-batch gradient descent。不同之处在于每次迭代训练使用的样本数。</p>
+<h4 id="Batch-Gradient-Descent"><a href="#Batch-Gradient-Descent" class="headerlink" title="Batch Gradient Descent"></a>Batch Gradient Descent</h4><p>&emsp;&emsp;BGD每次迭代计算所有训练样本的代价函数（均值），并求其梯度用于更新参数，这种方法在较小的学习率下能够保证收敛到全局最小（凸函数）或者局部最小（非凸函数）。但每次更新参数需要计算整个训练集的梯度，造成训练缓慢；样本数据较多的情况下无法全部放入内存；并且不能在线(Online)更新。</p>
+<h4 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h4><p>&emsp;&emsp;SGD和BGD相反，每次迭代训练只计算一个样本的梯度，对参数进行更新。相比于Batch gradient descent对大数据集执行冗余计算，每次更新参数之前都要重复计算相似样本的梯度，SGD通过每次计算单个样本可以消除这种冗余，参数更新较快，可用于在线学习。而且SGD在迭代的过程中波动较大，可能从一个局部最优跳到另一个更好的局部最优，甚至是全局最优。但SGD没法利用矩阵运算加速计算过程。</p>
+<h4 id="Mini-batch-Gradient-Descent"><a href="#Mini-batch-Gradient-Descent" class="headerlink" title="Mini-batch Gradient Descent"></a>Mini-batch Gradient Descent</h4><p>&emsp;&emsp;Mini-batch Gradient Descent相当于是BGD和SGD的折衷，每次迭代训练从数据集中选取一部分样本(minibatch)计算梯度值。这种方法减少了参数更新时的波动，使代价函数整体上呈下降趋势，达到了平稳收敛的效果；而且可以有效利用矩阵计算工具加速训练，通常minibatch的取值范围为[50, 256]。由于minibatch的方法使用较为广泛，因此现在的SGD一般是指Mini-batch Gradient Descent。</p>
+<h4 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h4><p>&emsp;&emsp;上述几种梯度下降法并不能保证模型达到最优的效果，还有一些比较有挑战性的问题需要解决：</p>
+<ul>
+<li>选取合适的学习率是困难的。学习率较小导致训练缓慢；学习率较大造成收敛困难，代价函数在最小值附近波动甚至发散</li>
+<li>通过Schedule的方式在训练过程中调整学习率，例如迭代到一定次数后降低学习率，但这些都需要提前设置好，不能适应训练数据的特性</li>
+<li>所有参数更新的学习率是相同的，如果训练数据是稀疏的，而且特征出现的频率不一样，比较合适的做法是对出现频率低的特征采用较大的学习率更新</li>
+<li>对于非凸函数，可能会陷入鞍点(saddle points)而导致训练困难，在鞍点区域某些维度呈上升趋势，而另外一些呈下降趋势，鞍点的梯度在所有维度都趋近于0，导致代价函数陷入其中，参数更新困难</li>
+</ul>
+<h3 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h3><p>&emsp;&emsp;SGD存在一个缺陷就是，当某一个方向(维度)梯度较大、另一个方向梯度较小时，代价函数可能会在大梯度方向以大步长来回振荡，而在小梯度方向缓慢前进，造成收敛缓慢。Momentum受到物理学中动量的启发，能够在相关方向加速SGD，并抑制振荡，加快收敛<br><img src="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg" alt="momentum.jpg" title="SGD without momentum(left) and with momentum(right)"></p>
+<p>\begin{split}<br>v_t &amp;= \gamma v_{t-1} + \eta \nabla_\theta J(\theta) \cr<br>\theta &amp;= \theta - v_t<br>\end{split}</p>
+<p>由上式可以看到，当前梯度的方向要与之前的梯度方向进行加权平均，$\gamma$一般取值为0.9。在梯度方向不变的维度，momentum项增加；在梯度方向频繁改变的维度，momentum项更新减少。经过一段时间动量项的累加，可以在一定程度上抑制振荡，加速收敛。</p>
+<h3 id="Nesterov-accelerated-gradient-NAG"><a href="#Nesterov-accelerated-gradient-NAG" class="headerlink" title="Nesterov accelerated gradient(NAG)"></a>Nesterov accelerated gradient(NAG)</h3><p>&emsp;&emsp;在梯度下降更新参数的过程中，有时候希望提前知道下一步到达位置的梯度，以便及时调整参数更新方向。NAG实现了这一想法，利用Momentum预测下一步的梯度，而不是直接使用当前的$\theta$</p>
+<p>\begin{split}<br>v_t &amp;= \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} ) \cr<br>\theta &amp;= \theta - v_t<br>\end{split}</p>
+<p>动量项系数$\gamma$取值为0.9。在上面提到的Momentum方法中，首先计算当前参数(位置)的梯度，然后更新动量项，并沿着动量项（更新后）的方向更新参数；而在NAG方法中，首先沿着之前累积的动量项的方向更新参数，然后基于更新后的参数计算梯度，并对参数进行调整。两种方法的对比如下图所示：<br><img src="https://i.loli.net/2017/09/17/59be22509c283.jpeg" alt="nesterov.jpeg" title="Momentum and NAG"><br>详细介绍可参考<a href="http://cs231n.github.io/neural-networks-3/#sgd-and-bells-and-whistles" target="_blank" rel="external">cs231n-sgd</a></p>
+<h3 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h3><p>&emsp;&emsp;Adagrad是一种在学习过程中自动调整学习率的参数优化方法，不同参数采用不同的学习率进行更新。出现频率低的参数更新较大，频率高的参数更新较小，因此特别适用于处理稀疏数据，而且Adagrad提高了SGD的鲁棒性</p>
+<p>\begin{split}<br>g_t &amp;= \nabla_\theta J( \theta) \cr<br>G_t &amp;= G_{t-1} + g_t^2 \cr<br>\theta_{t+1} &amp;= \theta_t -  \dfrac{\eta}{\sqrt{G_t + \varepsilon}} \cdot g_t<br>\end{split}</p>
+<p>$t$表示迭代次数，$G_t是每个参数的梯度平方的累加和$，使用$\sqrt{G_t + \varepsilon}$作为约束项自动调整每个参数在训练过程中的学习率。对于梯度较大的参数，有效学习率会降低；而梯度较小的参数，有效学习率则相对会增大。但对每个参数而言，由于梯度平方和的累加，学习率实际上一直是递减的，这也是Adagrad的一个缺陷，可能会导致学习率降低至0，过早结束训练过程。</p>
+<h3 id="Adadelta"><a href="#Adadelta" class="headerlink" title="Adadelta"></a>Adadelta</h3><p>&emsp;&emsp;Adagrad方法比较激进，会过早结束训练过程。在对参数进行调整时，Adagrad使用的是每次迭代的梯度累加和，而在Adadelta中则通过衰减平均(decaying average)的方式计算梯度平方的加权均值<br>$$E[g^2]_t = \gamma E[g^2]_{t-1} + (1 - \gamma) g^2_t$$<br>$\gamma$可取值为0.9(0.95)，使用$E[g^2]_t$调整学习率<br>$$\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_{t}$$<br>考虑到分母为梯度的均方根(root mean squared, RMS)，公式可替换为<br>$$\Delta \theta_t = - \dfrac{\eta}{RMS[g]_{t}} g_t,&emsp;RMS[g]_t=\sqrt{E\left[g^2\right]_t+\epsilon}$$<br>将学习率$\eta$替换为$RMS[\Delta \theta]_{t-1}$，利用之前的步长估计下一步的步长，公式如下：</p>
+<p>\begin{split}<br>\Delta \theta_t &amp;= - \dfrac{RMS[\Delta \theta]_{t-1}}{RMS[g]_{t}} g_{t} \\<br>\theta_{t+1} &amp;= \theta_t + \Delta \theta_t<br>\end{split}</p>
+<p>式中，$RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon},E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t$，在Adadelta中，不需要设置默认学习率，其自身可通过迭代计算得到。详细讲解参考原论文<a href="https://arxiv.org/pdf/1212.5701v1.pdf" target="_blank" rel="external">Adadelta</a></p>
+<h3 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h3><p>&emsp;&emsp;RMSprop同样是用来解决Adagrad学习率趋于0、过早结束训练的方法，来源于Hinton大神的<a href="http://218.199.87.242/cache/9/03/www.cs.toronto.edu/a1dce074ab79c3b6a179c02438d76249/lecture_slides_lec6.pdf" target="_blank" rel="external">slide</a>，而且思想基本和Adadelta一致，公式就是上面Adadelta方法中的前两项：</p>
+<p>\begin{split}<br>E[g^2]_t &amp;= \gamma E[g^2]_{t-1} + (1-\gamma) g^2_t \\<br>\theta_{t+1} &amp;= \theta_{t} - \dfrac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_{t}<br>\end{split}</p>
+<p>$\gamma$为权重衰减率，一般可设置为0.9、0.99、0.999，$\eta$为学习率，可取值为0.001。</p>
+<h3 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h3><p>&emsp;&emsp;Adaptive Moment Estimation(Adam)是一种结合了Momentum和RMSprop优点的方法，利用指数衰减平均的方法(exponentially decaying average)计算梯度平方的加权均值$v_t$，类似于Adadelta和RMSprop，并且基于同样的方法计算梯度值的加权均值$m_t$，相当于引入动量项</p>
+<p>\begin{split}<br>m_t &amp;= \beta_1 m_{t-1} + (1 - \beta_1) g_t \\<br>v_t &amp;= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2<br>\end{split}</p>
+<p>$m_t$和$v_t$分别是梯度的一阶矩（均值）和二阶矩（方差）估计，$\beta_1$和$\beta_2$为衰减率，一般取值为$\beta_1=0.9$、$\beta_2=0.999$。由于$m_t$和$v_t$在初始几步的取值较小，趋近于0，Adam对此进行了偏差校正(Bias Correction)：</p>
+<p>\begin{split}<br>\hat{m}_t &amp;= \dfrac{m_t}{1 - \beta^t_1} \\<br>\hat{v}_t &amp;= \dfrac{v_t}{1 - \beta^t_2}<br>\end{split}</p>
+<p>参数更新规则类似于RMSprop：<br>$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t$$<br>Adam集成了多种优化方法的优点，既适用于处理稀疏数据，又能够达到平稳快速收敛的效果，应用十分广泛。</p>
+<h3 id="AdaMax"><a href="#AdaMax" class="headerlink" title="AdaMax"></a>AdaMax</h3><p>&emsp;&emsp;AdaMax是Adam的一种变体，在Adam中计算$v_t$时考虑的是$\ell_2$范数(l2-norm)，AdaMax将这种约束推广到$\ell_p$范数：<br>$$v_t = \beta_2^p v_{t-1} + (1 - \beta_2^p) |g_t|^p$$<br>$\ell_\infty$能够取得较为稳定的结果，因此在AdaMax中被采纳</p>
+<p>\begin{split}<br>u_t &amp;= \beta_2^\infty v_{t-1} + (1 - \beta_2^\infty) |g_t|^\infty\\<br>              &amp; = \max(\beta_2 \cdot v_{t-1}, |g_t|)\\<br>              \theta_{t+1} &amp;= \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t<br>\end{split}</p>
+<p>$u_t$取两项中的较大值，不需要再执行偏差校正操作，$\hat{m}_t$仍然和Adam中一样，超参数取值分别为$\eta = 0.002,\beta_1=0.9,\beta_2=0.999$。</p>
+<h3 id="Nadam"><a href="#Nadam" class="headerlink" title="Nadam"></a>Nadam</h3><p>&emsp;&emsp;Nadam类似于带有Nesterov动量项的Adam，相当于NAG和Adam的组合，在NAG中，参数更新规则为：</p>
+<p>\begin{split}<br>g_t &amp;= \nabla_{\theta_t}J(\theta_t - \gamma m_{t-1})\\<br>m_t &amp;= \gamma m_{t-1} + \eta g_t\\<br>\theta_{t+1} &amp;= \theta_t - m_t<br>\end{split}</p>
+<p>在NAG中既要更新梯度$g_t$，又要更新参数$\theta_{t+1}$，Nadam作者Dozat直接应用look-ahead momentum更新当前参数</p>
+<p>\begin{split}<br>g_t &amp;= \nabla_{\theta_t}J(\theta_t)\\<br>m_t &amp;= \gamma m_{t-1} + \eta g_t\\<br>\theta_{t+1} &amp;= \theta_t - (\gamma m_t + \eta g_t)<br>\end{split}</p>
+<p>注意到在更新参数时，用的不是previous momentum $m_{t-1}$，而是current momentum $m_t$。Adam的参数更新规则为</p>
+<p>\begin{split}<br>m_t &amp;= \beta_1 m_{t-1} + (1 - \beta_1) g_t\\<br>\hat{m}_t &amp; = \frac{m_t}{1 - \beta^t_1}\\<br>\theta_{t+1} &amp;= \theta_{t} - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t<br>\end{split}</p>
+<p>为了将Nesterov momentum加入Adam中，需要扩展参数更新式：</p>
+<p>\begin{split}<br>\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} (\dfrac{\beta_1 m_{t-1}}{1 - \beta^t_1} + \dfrac{(1 - \beta_1) g_t}{1 - \beta^t_1}) \<br>&amp;= \theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} (\beta_1 \hat{m}_{t-1} + \dfrac{(1 - \beta_1) g_t}{1 - \beta^t_1})<br>\end{split}</p>
+<p>将$\hat{m}_{t-1}$替换为$\hat{m}_t$，即可得到Nadam的参数更新规则<br>$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} (\beta_1 \hat{m}_t + \dfrac{(1 - \beta_1) g_t}{1 - \beta^t_1})$$<br>详细内容参考论文<a href="http://cs229.stanford.edu/proj2015/054_report.pdf" target="_blank" rel="external">Nadam</a></p>
+<h3 id="Visualization-of-Algorithms"><a href="#Visualization-of-Algorithms" class="headerlink" title="Visualization of Algorithms"></a>Visualization of Algorithms</h3><p>&emsp;&emsp;下面两幅图直观地展示了各种优化方法的性能，从左图中可以看出，Adagrad、Adadelta、RMSprop能够朝着正确的方向更新参数，而Momentum和NAG则在一开始偏离了正确路线，但最后均完成了收敛，而且NAG可以较为迅速地校正参数更新方向。右图展示了各种方法在鞍点处的表现，可以看出SGD、Momentum和NAG很难打破鞍点处的平衡(symmetry)，不过Momentum和NAG最终还是能够逃逸出来，而Adagrad、Adadelta、RMSprop则能够迅速朝代价函数的下降方向更新参数。</p>
+<p><table><br>  <tr><br>    <td style="padding:1px"><br>      <figure><br>      <img src="https://i.loli.net/2017/09/17/59be6494370fd.gif" style="width: 100%; height: 100%" title="SGD optimization on loss surface contours"><br></figure><br>    </td><br>    <td style="padding:1px"><br>      <figure><br>      <img src="https://i.loli.net/2017/09/17/59be6493e3d8b.gif" style="width: 100%; height: 100%" title="SGD optimization on saddle point"><br></figure><br>    </td><br>  </tr><br></table></p>
+<h3 id="Which-Optimizer-to-use"><a href="#Which-Optimizer-to-use" class="headerlink" title="Which Optimizer to use"></a>Which Optimizer to use</h3><ul>
+<li>对于稀疏数据，尽可能地选择能够自适应调整学习率(adaptive learning rate)的优化方法，不需手动调节，在设置好默认值的情况下可以实现较好的结果</li>
+<li>RMSprop、Adadelta是Adagrad的扩展，解决了Adagrad学习率递减、过早结束训练的问题；RMSprop、Adadelta、Adam在相似的情况下表现差不多，相对而言Adam能够达到更好的效果</li>
+<li>SGD通常训练时间更长，可能陷入鞍点，但是在好的参数初始化和学习率调度方案的情况下，结果依然十分可靠</li>
+<li>在训练深层或复杂的网络时，如果考虑快速收敛，一般选择Adam这类自适应调整学习率的优化方法</li>
+</ul>
+<h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><ul>
+<li><a href="http://ruder.io/optimizing-gradient-descent/" target="_blank" rel="external">http://ruder.io/optimizing-gradient-descent/</a></li>
+<li><a href="https://arxiv.org/pdf/1609.04747.pdf" target="_blank" rel="external">Paper: An overview of gradient descent optimization algorithms</a></li>
+<li><a href="http://cs231n.github.io/optimization-1/" target="_blank" rel="external">http://cs231n.github.io/optimization-1/</a></li>
+<li><a href="http://ufldl.stanford.edu/wiki/index.php/%E5%8F%8D%E5%90%91%E4%BC%A0%E5%AF%BC%E7%AE%97%E6%B3%95" target="_blank" rel="external">http://ufldl.stanford.edu/wiki/index.php/%E5%8F%8D%E5%90%91%E4%BC%A0%E5%AF%BC%E7%AE%97%E6%B3%95</a></li>
+<li><a href="http://cs231n.github.io/neural-networks-3/" target="_blank" rel="external">http://cs231n.github.io/neural-networks-3/</a></li>
+<li><a href="http://blog.mrtanke.com/2016/10/24/An-overview-of-gradient-descent-optimization-algorithms/" target="_blank" rel="external">http://blog.mrtanke.com/2016/10/24/An-overview-of-gradient-descent-optimization-algorithms/</a></li>
+<li><a href="http://shuokay.com/2016/06/11/optimization/" target="_blank" rel="external">http://shuokay.com/2016/06/11/optimization/</a></li>
+<li><a href="https://blog.slinuxer.com/2016/09/sgd-comparison" target="_blank" rel="external">https://blog.slinuxer.com/2016/09/sgd-comparison</a></li>
+<li><a href="https://json0071.gitbooks.io/svm/content/sui_ji_ti_du_xia_jiang.html" target="_blank" rel="external">https://json0071.gitbooks.io/svm/content/sui_ji_ti_du_xia_jiang.html</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/22252270" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/22252270</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DL/" rel="tag">#DL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/12/deep-learning-normalization/" rel="next" title="Deep Learning -- Normalization">
+                <i class="fa fa-chevron-left"></i> Deep Learning -- Normalization
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/cplusplus-smart-pointer/" rel="prev" title="C++智能指针">
+                C++智能指针 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">1.</span> <span class="nav-text">Gradient Descent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Batch-Gradient-Descent"><span class="nav-number">1.1.</span> <span class="nav-text">Batch Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stochastic-Gradient-Descent"><span class="nav-number">1.2.</span> <span class="nav-text">Stochastic Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mini-batch-Gradient-Descent"><span class="nav-number">1.3.</span> <span class="nav-text">Mini-batch Gradient Descent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Challenges"><span class="nav-number">1.4.</span> <span class="nav-text">Challenges</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Momentum"><span class="nav-number">2.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nesterov-accelerated-gradient-NAG"><span class="nav-number">3.</span> <span class="nav-text">Nesterov accelerated gradient(NAG)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adagrad"><span class="nav-number">4.</span> <span class="nav-text">Adagrad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adadelta"><span class="nav-number">5.</span> <span class="nav-text">Adadelta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMSprop"><span class="nav-number">6.</span> <span class="nav-text">RMSprop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adam"><span class="nav-number">7.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AdaMax"><span class="nav-number">8.</span> <span class="nav-text">AdaMax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nadam"><span class="nav-number">9.</span> <span class="nav-text">Nadam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visualization-of-Algorithms"><span class="nav-number">10.</span> <span class="nav-text">Visualization of Algorithms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Which-Optimizer-to-use"><span class="nav-number">11.</span> <span class="nav-text">Which Optimizer to use</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">12.</span> <span class="nav-text">reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2017/09/15/deep-learning-optimization/';
+      var disqus_title = 'Deep Learning -- Optimization';
+      var disqus_url = 'https://senitco.github.io/2017/09/15/deep-learning-optimization/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
