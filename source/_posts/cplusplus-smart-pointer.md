@@ -22,10 +22,10 @@ void func(std::string & str)
     return;
 }
 ```
-当出现异常时（weird_thing()返回true），delete将不被执行，因此将导致内存泄露。如何避免这种问题？直接在throw exception();之前加上delete ps;。这样确实可行，但更多时候开发者都会忘记在适当的地方加上delete语句。换个角度想，如果func()函数终止（不管是正常终止还是异常终止），局部变量都会自动从栈内存中删除，因此指针ps占据的内存将被释放，如果ps指向的内存也能被自动释放，这样就不会出现内存泄漏的问题，析构函数确实有这个功能，如果ps有一个析构函数，该析构函数将在ps过期时自动释放它指向的内存。但是问题在于ps只是一个常规指针，不是有析构凼数的类对象指针。因此引出了智能指针的设计思想：将常规指针封装成类（类模板，以适应不同类型的需求），并在析构函数里编写delete语句删除指针指向的内存空间。这样就无需程序员显式调用delete语句释放内存，也不会因为程序异常退出导致内存泄漏。
+当出现异常时（weird_thing()返回true），delete将不被执行，因此将导致内存泄露。如何避免这种问题？直接在throw exception();之前加上delete ps;。这样确实可行，但更多时候开发者都会忘记在适当的地方加上delete语句。换个角度想，如果func()函数终止（不管是正常终止还是异常终止），局部变量都会自动从栈内存中删除，因此指针ps占据的内存将被释放，如果ps指向的内存也能被自动释放，这样就不会出现内存泄漏的问题，析构函数确实有这个功能，如果ps有一个析构函数，该析构函数将在ps过期时自动释放它指向的内存。但是问题在于ps只是一个常规指针，不是有析构凼数的类对象指针。因此引出了智能指针的设计思想：将常规指针封装成类（模板类，以适应不同类型的需求），并在析构函数里编写delete语句删除指针指向的内存空间。这样就无需程序员显式调用delete语句释放内存，也不会因为程序异常退出导致内存泄漏。
 
 ### 智能指针的简单介绍
-&emsp;&emsp;C++一共提供了四种智能指针：auto_ptr、unique_ptr、shared_ptr和weak_ptr（此处只介绍前三种）。auto_ptr是C++98提供的解决方案，C+11已将将其摒弃，并提供了另外两种解决方案。然而，虽然auto_ptr被摒弃，但已使用了多年：同时，如果你所用的编译器不支持其他两种解决力案，auto_ptr将是唯一的选择。
+&emsp;&emsp;C++一共提供了四种智能指针：auto_ptr、unique_ptr、shared_ptr和weak_ptr（此处只介绍前三种）。auto_ptr是C++98提供的解决方案，C+11已将其摒弃，并提供了另外两种解决方案。然而，虽然auto_ptr被摒弃，但已使用了多年；如果你所用的编译器不支持其他两种解决力案，auto_ptr将是唯一的选择。
 - 所有的智能指针都有一个explicit构造函数，以指针作为参数，因此不能自动将指针转换为智能指针对象，必须显示调用
 ```cpp
 shared_ptr<double> pd; 
@@ -55,11 +55,11 @@ delete p1;
 delete p2;
 ```
 要避免这种问题，有多种方法：
-- 在复制指针的时候采用深拷贝。这样两个指针将指向不同的对象，其中一个对象时另一个对象的副本。缺点时浪费空间，所有智能指针都未采用此方案。
+- 在复制指针的时候采用深拷贝。这样两个指针将指向不同的对象，其中一个对象时另一个对象的副本。缺点是浪费空间，所有智能指针都未采用此方案。
 - 建立所有权概念。对于特定的对象，只有一个智能指针可拥有，在进行复制操作时，会转让对象的所有权，这样只有拥有该对象的智能指针在生命周期结束时会自动销毁对象。这就是auto_ptr和unique_ptr的策略，但unique_ptr的策略更严格。
-- 创建智能程度更高的指针，跟踪引用（指向）特定对象的智能指针数，称为引用计数。例如赋值时引用计数加一，而指针过期时计数减一，当减为0时才调用delete。这时shared_ptr采用的策略。
+- 创建智能程度更高的指针，跟踪引用（指向）特定对象的智能指针数，称为引用计数。例如赋值时引用计数加一，而指针过期时计数减一，当减为0时才调用delete。这是shared_ptr采用的策略。
 
-同样的策略适用于复制运算符（重载）和复制构造函数。但是auto_ptr存在一定的弊端，这也是在后面的版本中将其摒弃的原因。举个例子：
+同样的策略适用于赋值运算符（重载）和复制构造函数。但是auto_ptr存在一定的弊端，这也是在后面的版本中将其摒弃的原因。举个例子：
 ```cpp
 #include <iostream>
 #include <string>
@@ -93,7 +93,7 @@ int main()
 之所以要摒弃auto_ptr，就是要避免潜在的内存崩溃问题。
 
 ### unique_ptr
-&emsp;&emsp;unique_ptr和auto_ptr一样，一个对象只能被一个智能指针所占有，这样可防止多个指针试图销毁销毁同一个对象。但在进行复制操作后，auto_ptr可能存在潜在的内存崩溃问题，如果访问失去对象所有权的指针的话，而unique_ptr则会在编译期提前报错。此外，unique_ptr还有其他优势，例如下面的例子
+&emsp;&emsp;unique_ptr和auto_ptr一样，一个对象只能被一个智能指针所占有，这样可防止多个指针试图销毁同一个对象。但在进行复制操作后，auto_ptr可能存在潜在的内存崩溃问题，如果访问失去对象所有权的指针的话，而unique_ptr则会在编译期提前报错。此外，unique_ptr还有其他优势，例如下面的例子
 ```cpp
 unique_ptr<string> func(const char* s)
 {
@@ -103,8 +103,8 @@ unique_ptr<string> func(const char* s)
 
 unique_ptr<string> ps = func("Hello World");
 ```
-func()返回一个临时的unique_ptr，ps接管了临时unique_ptr所指的对象，而返回时该临时unique_ptr被销毁，也就是说后面没有机会通过该指针来访问无效的数据。也就是说这种赋值是没有问题的，实际上，编译器也允许unique_ptr的这种赋值。
-简单总结，当程序试图将一个unique_ptr赋值给另一个时，如果源unique_ptr是个临时右值，编译器运行这么做；如果源unique_ptr将存在一段时间，编译器将禁止这种做法。
+func()返回一个临时的unique_ptr，ps接管了临时unique_ptr所指的对象，而返回时该临时unique_ptr被销毁，后面没有机会通过该指针来访问无效的数据。也就是说这种赋值是没有问题的，实际上，编译器也允许unique_ptr的这种赋值。
+简单总结，当程序试图将一个unique_ptr赋值给另一个时，如果源unique_ptr是个临时右值，编译器允许这么做；如果源unique_ptr将存在一段时间，编译器将禁止这种做法。
 ```cpp
 unique_ptr<string> ps1(new string("Hello World"));	
 unique_ptr<string> ps2 = ps1;   //调用拷贝构造函数 #1 not allowed
@@ -116,11 +116,11 @@ ps2 = ps1；  //赋值运算符重载（operator=）
 unique_ptr<string> ps3;	    //调用默认（无参）构造函数
 ps3 = unique_ptr<string>(new string("Hello World"));    //先调用有参构造函数创建临时对象，再调用赋值运算符	#2 allowed
 ```
-前面已经提到，第一种情况#1编译器是会报错的，转让对象所有权留下了空指针，而第二种情况#2是先创建可一个unique_ptr临时对象，然后将所指对象的所有权转让给ps3。这种随情况而异的行为表明，unique_ptr从安全性和实用性方面都优于auto_ptr。
-如果想对unique_ptr对象执行普通的赋值操作，可借助移动语义实现（将左值转换为右值，std::move()）,能够直接将一个unique_ptr赋给另一个，使用move()后，原来的指针转让所有权成为空指针，可对其重新赋值后再使用。
+前面已经提到，第一种情况#1编译器是会报错的，转让对象所有权留下了空指针，而第二种情况#2是先创建一个unique_ptr临时对象，然后将所指对象的所有权转让给ps3。这种随情况而异的行为表明，unique_ptr从安全性和实用性方面都优于auto_ptr。
+如果确实想对unique_ptr对象执行普通的赋值操作，可借助移动语义实现（将左值转换为右值，std::move()）,能够直接将一个unique_ptr赋给另一个，使用move()后，原来的指针转让所有权成为空指针，可对其重新赋值后再使用。
 ```cpp
 unique_ptr<string> ps1 = unique<string>(new string("Hello World!"));    //等价于unique_ptr<string> ps1(new string("Hello world!"))，直接调用有参构造函数
-uinque_ptr<string> ps2 = std::move(ps1)
+uinque_ptr<string> ps2 = std::move(ps1);
 if(ps == NULL) //此处判断条件为真，与auto_ptr必须通过get()成员函数返回指针略有不同，ps可直接和指针进行比较（应该是重载了operator==），也可通过get()函数返回指针
     cout << "The pointer is null!" << endl;
 ```
@@ -202,7 +202,7 @@ int main(int argc, char** argv)
 ```
 
 ### 如何选择智能指针
-- 如果程序要使用多个指向同一个对象的指针，应该选择shared_ptr。例如STL容器中包含指针，很多STL算法都只会复制和赋值操作，这些操作可用于shared_ptr，而不能用于unique_ptr（编译器warning警告）和auto_ptr（行为不确定）。
+- 如果程序要使用多个指向同一个对象的指针，应该选择shared_ptr。例如STL容器中包含指针，很多STL算法都支持复制和赋值操作，这些操作可用于shared_ptr，而不能用于unique_ptr（编译器warning警告）和auto_ptr（行为不确定）。
 - 如果程序不需要多个指向同一个对象的指针，则可使用unique_ptr，可省去显式调用delete销毁对象的过程；而且unique_ptr可通过传引用的方式作为函数的参数，传值则不允许。
 - 尽量不要使用auto_ptr指针。
 
@@ -230,7 +230,7 @@ int main()
 ```
 其中push_back调用没有问题，因为它返回一个临时unique_ptr，该unique_ptr被赋给vp中的一个unique_ptr。另外，如果按值而不是按引用给show()传递对象，for_each()将非法，因为这将导致使用一个来自vp的非临时unique_ptr初始化p，而这是不允许的，编译器会报错。
 
-在unique_ptr为右值时，可将其赋给shared_ptr，这与将一个unique_ptr赋给另一个需要满足的条件相同。
+在unique_ptr为右值时，可将其赋给shared_ptr，这与将一个unique_ptr赋给另一个指针需要满足的条件相同。
 ```cpp
 unique_ptr<int> p1(make_int(rand() % 1000));   // ok
 shared_ptr<int> p2(p1);                        // not allowed, p1 as lvalue
