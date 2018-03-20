@@ -94,15 +94,15 @@
 <meta property="og:site_name" content="Senit_Co">
 <meta property="og:description" content="&amp;emsp;&amp;emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg">
+<meta property="og:image" content="https://i.loli.net/2017/12/23/5a3e02df1d688.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/09/17/59be22509c283.jpeg">
 <meta property="og:image" content="https://i.loli.net/2017/09/17/59be6494370fd.gif">
 <meta property="og:image" content="https://i.loli.net/2017/09/17/59be6493e3d8b.gif">
-<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning -- Optimization">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。">
-<meta name="twitter:image" content="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg">
+<meta name="twitter:image" content="https://i.loli.net/2017/12/23/5a3e02df1d688.jpg">
 
 
 
@@ -349,7 +349,7 @@ MathJax.Hub.Config({
 <li>所有参数更新的学习率是相同的，如果训练数据是稀疏的，而且特征出现的频率不一样，比较合适的做法是对出现频率低的特征采用较大的学习率更新</li>
 <li>对于非凸函数，可能会陷入鞍点(saddle points)而导致训练困难，在鞍点区域某些维度呈上升趋势，而另外一些呈下降趋势，鞍点的梯度在所有维度都趋近于0，导致代价函数陷入其中，参数更新困难</li>
 </ul>
-<h3 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h3><p>&emsp;&emsp;SGD存在一个缺陷就是，当某一个方向(维度)梯度较大、另一个方向梯度较小时，代价函数可能会在大梯度方向以大步长来回振荡，而在小梯度方向缓慢前进，造成收敛缓慢。Momentum受到物理学中动量的启发，能够在相关方向加速SGD，并抑制振荡，加快收敛<br><img src="https://i.loli.net/2017/09/17/59be150c4a4d4.jpg" alt="momentum.jpg" title="SGD without momentum(left) and with momentum(right)"></p>
+<h3 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h3><p>&emsp;&emsp;SGD存在一个缺陷就是，当某一个方向(维度)梯度较大、另一个方向梯度较小时，代价函数可能会在大梯度方向以大步长来回振荡，而在小梯度方向缓慢前进，造成收敛缓慢。Momentum受到物理学中动量的启发，能够在相关方向加速SGD，并抑制振荡，加快收敛<br><img src="https://i.loli.net/2017/12/23/5a3e02df1d688.jpg" alt="momentum.jpg" title="SGD without momentum(left) and with momentum(right)"></p>
 <p>\begin{split}<br>v_t &amp;= \gamma v_{t-1} + \eta \nabla_\theta J(\theta) \cr<br>\theta &amp;= \theta - v_t<br>\end{split}</p>
 <p>由上式可以看到，当前梯度的方向要与之前的梯度方向进行加权平均，$\gamma$一般取值为0.9。在梯度方向不变的维度，momentum项增加；在梯度方向频繁改变的维度，momentum项更新减少。经过一段时间动量项的累加，可以在一定程度上抑制振荡，加速收敛。</p>
 <h3 id="Nesterov-accelerated-gradient-NAG"><a href="#Nesterov-accelerated-gradient-NAG" class="headerlink" title="Nesterov accelerated gradient(NAG)"></a>Nesterov accelerated gradient(NAG)</h3><p>&emsp;&emsp;在梯度下降更新参数的过程中，有时候希望提前知道下一步到达位置的梯度，以便及时调整参数更新方向。NAG实现了这一想法，利用Momentum预测下一步的梯度，而不是直接使用当前的$\theta$</p>
@@ -516,7 +516,7 @@ MathJax.Hub.Config({
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -524,7 +524,7 @@ MathJax.Hub.Config({
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -533,7 +533,7 @@ MathJax.Hub.Config({
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

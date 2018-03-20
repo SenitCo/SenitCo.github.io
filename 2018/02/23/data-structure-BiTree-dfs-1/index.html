@@ -1,0 +1,693 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code,dfs,binary tree," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+<meta name="keywords" content="code,dfs,binary tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树与深度优先遍历（一）">
+<meta property="og:url" content="https://senitco.github.io/2018/02/23/data-structure-BiTree-dfs-1/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.589Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树与深度优先遍历（一）">
+<meta name="twitter:description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 二叉树与深度优先遍历（一） | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                二叉树与深度优先遍历（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-23T00:00:00+08:00" content="2018-02-23">
+              2018-02-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/23/data-structure-BiTree-dfs-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/23/data-structure-BiTree-dfs-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。<br><a id="more"></a></p>
+<p>二叉树结点定义：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> </span></div><div class="line"><span class="class">&#123;</span></div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    TreeNode *left;</div><div class="line">    TreeNode *right;</div><div class="line">    TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Sum-Root-to-Leaf-Numbers"><a href="#Sum-Root-to-Leaf-Numbers" class="headerlink" title="Sum Root to Leaf Numbers"></a>Sum Root to Leaf Numbers</h3><p>题目描述：Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number. An example is the root-to-leaf path 1-&gt;2-&gt;3 which represents the number 123. Find the total sum of all root-to-leaf numbers.<a href="https://leetcode.com/problems/sum-root-to-leaf-numbers/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">For example,</div><div class="line">    <span class="number">1</span></div><div class="line">   / \</div><div class="line">  <span class="number">2</span>   <span class="number">3</span></div><div class="line">The root-to-leaf path <span class="number">1</span>-&gt;<span class="number">2</span> represents the number <span class="number">12.</span></div><div class="line">The root-to-leaf path <span class="number">1</span>-&gt;<span class="number">3</span> represents the number <span class="number">13.</span></div><div class="line">Return the sum = <span class="number">12</span> + <span class="number">13</span> = <span class="number">25.</span></div><div class="line"></div><div class="line"><span class="comment">//法一：栈实现</span></div><div class="line"><span class="keyword">int</span> sumNumbers(TreeNode* root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; toVisit;</div><div class="line">    toVisit.push(root);</div><div class="line">    <span class="keyword">while</span>(!toVisit.empty())</div><div class="line">    &#123;</div><div class="line">        TreeNode* cur = toVisit.top();</div><div class="line">        toVisit.pop();</div><div class="line">        <span class="keyword">if</span>(cur-&gt;right)</div><div class="line">        &#123;</div><div class="line">            cur-&gt;right-&gt;val = cur-&gt;val * <span class="number">10</span> + cur-&gt;right-&gt;val;</div><div class="line">            toVisit.push(cur-&gt;right);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(cur-&gt;left)</div><div class="line">        &#123;</div><div class="line">            cur-&gt;left-&gt;val = cur-&gt;val * <span class="number">10</span> + cur-&gt;left-&gt;val;</div><div class="line">            toVisit.push(cur-&gt;left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(!cur-&gt;left &amp;&amp; !cur-&gt;right)</div><div class="line">        &#123;</div><div class="line">            sum += cur-&gt;val;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> sum;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//法二：递归实现</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumNumbers</span><span class="params">(TreeNode* root)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> sum(root, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(TreeNode* node, <span class="keyword">int</span> s)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(!node)   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span>(!node-&gt;left &amp;&amp; !node-&gt;right)</div><div class="line">            <span class="keyword">return</span> s * <span class="number">10</span> + node-&gt;val;</div><div class="line">        <span class="keyword">return</span> sum(node-&gt;left, s * <span class="number">10</span> + node-&gt;val) + sum(node-&gt;right, s * <span class="number">10</span> + node-&gt;val);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Path-Sum"><a href="#Path-Sum" class="headerlink" title="Path Sum"></a>Path Sum</h3><p>题目描述：Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.<a href="https://leetcode.com/problems/path-sum/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">For example: Given the below binary tree <span class="keyword">and</span> sum = <span class="number">22</span>,</div><div class="line">              <span class="number">5</span></div><div class="line">             / \</div><div class="line">            <span class="number">4</span>   <span class="number">8</span></div><div class="line">           /   / \</div><div class="line">          <span class="number">11</span>  <span class="number">13</span>  <span class="number">4</span></div><div class="line">         /  \      \</div><div class="line">        <span class="number">7</span>    <span class="number">2</span>      <span class="number">1</span></div><div class="line"><span class="keyword">return</span> <span class="literal">true</span>, as there exist a root-to-leaf path <span class="number">5</span>-&gt;<span class="number">4</span>-&gt;<span class="number">11</span>-&gt;<span class="number">2</span> which sum is <span class="number">22.</span></div><div class="line"></div><div class="line"><span class="comment">//深度优先遍历，迭代（借助栈）实现</span></div><div class="line"><span class="keyword">bool</span> hasPathSum(TreeNode* root, <span class="keyword">int</span> sum) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; toVisit;</div><div class="line">    toVisit.push(root);</div><div class="line">    <span class="keyword">int</span> pathSum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(!toVisit.empty())</div><div class="line">    &#123;</div><div class="line">        TreeNode* cur = toVisit.top();</div><div class="line">        toVisit.pop();</div><div class="line">        <span class="keyword">if</span>(cur-&gt;right)</div><div class="line">        &#123;</div><div class="line">            cur-&gt;right-&gt;val += cur-&gt;val;</div><div class="line">            toVisit.push(cur-&gt;right);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(cur-&gt;left)</div><div class="line">        &#123;</div><div class="line">            cur-&gt;left-&gt;val += cur-&gt;val;</div><div class="line">            toVisit.push(cur-&gt;left);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(!cur-&gt;left &amp;&amp; !cur-&gt;right)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(cur-&gt;val == sum)</div><div class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//深度优先遍历，递归实现</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> sum)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!root)   <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right &amp;&amp; root-&gt;val == sum) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    <span class="keyword">return</span> hasPathSum(root-&gt;left, sum - root-&gt;val) || hasPathSum(root-&gt;right, sum - root-&gt;val);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Path-Sum-II"><a href="#Path-Sum-II" class="headerlink" title="Path Sum II"></a>Path Sum II</h3><p>题目描述：Given a binary tree and a sum, find all root-to-leaf paths where each path’s sum equals the given sum.<a href="https://leetcode.com/problems/path-sum-ii/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">For example: Given the below binary tree <span class="keyword">and</span> sum = <span class="number">22</span>,</div><div class="line">              <span class="number">5</span></div><div class="line">             / \</div><div class="line">            <span class="number">4</span>   <span class="number">8</span></div><div class="line">           /   / \</div><div class="line">          <span class="number">11</span>  <span class="number">13</span>  <span class="number">4</span></div><div class="line">         /  \    / \</div><div class="line">        <span class="number">7</span>    <span class="number">2</span>  <span class="number">5</span>   <span class="number">1</span></div><div class="line"><span class="keyword">return</span></div><div class="line">[</div><div class="line">   [<span class="number">5</span>,<span class="number">4</span>,<span class="number">11</span>,<span class="number">2</span>],</div><div class="line">   [<span class="number">5</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">5</span>]</div><div class="line">]</div><div class="line"></div><div class="line"><span class="comment">//深度优先遍历 + 回溯法</span></div><div class="line">class Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; pathSum(TreeNode* root, <span class="keyword">int</span> sum) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</div><div class="line">        <span class="keyword">if</span>(!root)   <span class="keyword">return</span> result;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path;</div><div class="line">        traverse(root, sum, result, path);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">traverse</span><span class="params">(TreeNode* node, <span class="keyword">int</span> sum, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; result, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; path)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="literal">NULL</span>)    <span class="keyword">return</span>;</div><div class="line">        path.push_back(node-&gt;val);</div><div class="line">        <span class="keyword">if</span>(!node-&gt;left &amp;&amp; !node-&gt;right &amp;&amp; sum == node-&gt;val)</div><div class="line">            result.push_back(path);</div><div class="line">        traverse(node-&gt;left, sum - node-&gt;val, result, path);</div><div class="line">        traverse(node-&gt;right, sum - node-&gt;val, result, path);</div><div class="line">        path.pop_back();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//与上面等价</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">traverse</span><span class="params">(TreeNode* node, <span class="keyword">int</span> sum, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; result, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; path)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="literal">NULL</span>)    <span class="keyword">return</span>;</div><div class="line">        path.push_back(node-&gt;val);</div><div class="line">        <span class="keyword">if</span>(!node-&gt;left &amp;&amp; !node-&gt;right &amp;&amp; sum == node-&gt;val)</div><div class="line">        &#123;</div><div class="line">            result.push_back(path);</div><div class="line">            path.pop_back();</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        traverse(node-&gt;left, sum - node-&gt;val, result, path);</div><div class="line">        traverse(node-&gt;right, sum - node-&gt;val, result, path);</div><div class="line">        path.pop_back();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Flatten-Binary-Tree-to-Linked-List"><a href="#Flatten-Binary-Tree-to-Linked-List" class="headerlink" title="Flatten Binary Tree to Linked List"></a>Flatten Binary Tree to Linked List</h3><p>题目描述：Given a binary tree, flatten it to a linked list in-place.<a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">Given a binary tree, flatten it to a linked list in-place.</span></div><div class="line"><span class="comment">For example, Given</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">         1</span></div><div class="line"><span class="comment">        / \</span></div><div class="line"><span class="comment">       2   5</span></div><div class="line"><span class="comment">      / \   \</span></div><div class="line"><span class="comment">     3   4   6</span></div><div class="line"><span class="comment">The flattened tree should look like:</span></div><div class="line"><span class="comment">   1</span></div><div class="line"><span class="comment">    \</span></div><div class="line"><span class="comment">     2</span></div><div class="line"><span class="comment">      \</span></div><div class="line"><span class="comment">       3</span></div><div class="line"><span class="comment">        \</span></div><div class="line"><span class="comment">         4</span></div><div class="line"><span class="comment">          \</span></div><div class="line"><span class="comment">           5</span></div><div class="line"><span class="comment">            \</span></div><div class="line"><span class="comment">             6</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">迭代法：对任意一个结点curr，其左子树（如果存在）按先序遍历的最后一个结点的右子结点为curr的右子结点，</span></div><div class="line"><span class="comment">curr的右子结点为curr的左子结点</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    TreeNode* curr = root;</div><div class="line">    <span class="keyword">while</span>(curr)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(curr-&gt;left)</div><div class="line">        &#123;</div><div class="line">            TreeNode* prev = curr-&gt;left;</div><div class="line">            <span class="keyword">while</span>(prev-&gt;right)</div><div class="line">                prev = prev-&gt;right; <span class="comment">//遍历到左子树的最后一个结点，用于连接curr的右子树</span></div><div class="line">            prev-&gt;right = curr-&gt;right;</div><div class="line">            curr-&gt;right = curr-&gt;left;   <span class="comment">//用当前结点的左子树替换右子树</span></div><div class="line">            curr-&gt;left = <span class="literal">NULL</span>;</div><div class="line">        &#125;</div><div class="line">        curr = curr-&gt;right; <span class="comment">//往右移动结点</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//递归法（先序遍历的逆转版本：右-左-中）</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span>&#123;</div><div class="line">        TreeNode* prev = <span class="literal">NULL</span>;</div><div class="line">        reversePreorder(root, prev);</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="comment">//prev指针必须得传引用，保持更新，或者定义成一个成员变量</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reversePreorder</span><span class="params">(TreeNode* node, TreeNode*&amp; prev)</span>   </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(node == <span class="literal">NULL</span>)    <span class="keyword">return</span>;</div><div class="line">        reversePreorder(node-&gt;right, prev);</div><div class="line">        reversePreorder(node-&gt;left, prev);</div><div class="line">        node-&gt;right = prev;</div><div class="line">        node-&gt;left = <span class="literal">NULL</span>;</div><div class="line">        prev = node;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Binary-Tree-Maximum-Path-Sum"><a href="#Binary-Tree-Maximum-Path-Sum" class="headerlink" title="Binary Tree Maximum Path Sum"></a>Binary Tree Maximum Path Sum</h3><p>题目描述：Given a binary tree, find the maximum path sum. For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.<a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/description/" target="_blank" rel="external">LeetCode</a><br>分析：要求二叉树中任意两个结点之间最大路径和，而不是从根结点出发到某一子结点的最大路径和。可采用深度优先遍历求解，只不过递归函数的返回值不是要求的最大和（最大和通过一个全局变量或者引用参数来同步更新），而是结点自身为根结点时到其子结点的最大路径，该值用于提供给其父结点计算最长路径（当其父节点为根结点时，下面的子结点只能是单向的）。简单来说，一个结点的最大路径和是其左子树路径和 + 右子树路径和 + 当前节点值，而返回值则是当前结点值加上左子树路径和与右子树路径和的较大值。考虑负数的影响，加入与0的比较。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> maxVal = INT_MIN;</div><div class="line">    maxPathDown(maxVal, root);</div><div class="line">    <span class="keyword">return</span> maxVal;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxPathDown</span><span class="params">(<span class="keyword">int</span>&amp; maxVal, TreeNode* node)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!node)   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> left = max(<span class="number">0</span>, maxPathDown(maxVal, node-&gt;left));     <span class="comment">//与0比较考虑了负数的影响</span></div><div class="line">    <span class="keyword">int</span> right = max(<span class="number">0</span>, maxPathDown(maxVal, node-&gt;right));</div><div class="line">    maxVal = max(maxVal, left + right + node-&gt;val);</div><div class="line">    <span class="keyword">return</span> max(left, right) + node-&gt;val;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+            <a href="/tags/dfs/" rel="tag">#dfs</a>
+          
+            <a href="/tags/binary-tree/" rel="tag">#binary tree</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/20/data-structure-dfs-bfs-2/" rel="next" title="深度优先遍历与广度优先遍历（二）">
+                <i class="fa fa-chevron-left"></i> 深度优先遍历与广度优先遍历（二）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/24/data-structure-BiTree-dfs-2/" rel="prev" title="二叉树与深度优先遍历（二）">
+                二叉树与深度优先遍历（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sum-Root-to-Leaf-Numbers"><span class="nav-number">1.</span> <span class="nav-text">Sum Root to Leaf Numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path-Sum"><span class="nav-number">2.</span> <span class="nav-text">Path Sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path-Sum-II"><span class="nav-number">3.</span> <span class="nav-text">Path Sum II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flatten-Binary-Tree-to-Linked-List"><span class="nav-number">4.</span> <span class="nav-text">Flatten Binary Tree to Linked List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Tree-Maximum-Path-Sum"><span class="nav-number">5.</span> <span class="nav-text">Binary Tree Maximum Path Sum</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/02/23/data-structure-BiTree-dfs-1/';
+      var disqus_title = '二叉树与深度优先遍历（一）';
+      var disqus_url = 'https://senitco.github.io/2018/02/23/data-structure-BiTree-dfs-1/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

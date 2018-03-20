@@ -1,0 +1,691 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code,dfs,binary tree," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+<meta name="keywords" content="code,dfs,binary tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树与深度优先遍历（二）">
+<meta property="og:url" content="https://senitco.github.io/2018/02/24/data-structure-BiTree-dfs-2/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.589Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树与深度优先遍历（二）">
+<meta name="twitter:description" content="数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 二叉树与深度优先遍历（二） | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                二叉树与深度优先遍历（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-24T00:00:00+08:00" content="2018-02-24">
+              2018-02-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/24/data-structure-BiTree-dfs-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/24/data-structure-BiTree-dfs-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构与算法中利用深度优先遍历(DFS)借助二叉树问题。<br><a id="more"></a></p>
+<h3 id="Convert-Sorted-Array-to-Binary-Search-Tree"><a href="#Convert-Sorted-Array-to-Binary-Search-Tree" class="headerlink" title="Convert Sorted Array to Binary Search Tree"></a>Convert Sorted Array to Binary Search Tree</h3><p>题目描述：Given an array where elements are sorted in ascending order, convert it to a height balanced BST. For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.<a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">Example: Given the sorted array: [-10,-3,0,5,9],</span></div><div class="line"><span class="comment">One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:</span></div><div class="line"><span class="comment">      0</span></div><div class="line"><span class="comment">     / \</span></div><div class="line"><span class="comment">   -3   9</span></div><div class="line"><span class="comment">   /   /</span></div><div class="line"><span class="comment"> -10  5</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="comment">//递归二分，将中点值置于合适的树结点中</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">sortedArrayToBST</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        TreeNode* root = <span class="literal">NULL</span>;</div><div class="line">        partition(root, nums, <span class="number">0</span>, nums.size() - <span class="number">1</span>);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partition</span><span class="params">(TreeNode*&amp; node, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(left &gt; right)    <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">int</span> mid = (left + right) / <span class="number">2</span>;</div><div class="line">        node = <span class="keyword">new</span> TreeNode(nums[mid]);</div><div class="line">        partition(node-&gt;left, nums, left, mid - <span class="number">1</span>);</div><div class="line">        partition(node-&gt;right, nums, mid + <span class="number">1</span>, right);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Convert-Sorted-List-to-Binary-Search-Tree"><a href="#Convert-Sorted-List-to-Binary-Search-Tree" class="headerlink" title="Convert Sorted List to Binary Search Tree"></a>Convert Sorted List to Binary Search Tree</h3><p>题目描述：Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST. For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.<a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">Example: Given the sorted linked list: [-10,-3,0,5,9],</span></div><div class="line"><span class="comment">One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:</span></div><div class="line"><span class="comment">      0</span></div><div class="line"><span class="comment">     / \</span></div><div class="line"><span class="comment">   -3   9</span></div><div class="line"><span class="comment">   /   /</span></div><div class="line"><span class="comment"> -10  5</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for singly-linked list.</span></div><div class="line"><span class="comment"> * struct ListNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     ListNode *next;</span></div><div class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></div><div class="line"><span class="comment"> * &#125;;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Definition for a binary tree node.</span></div><div class="line"><span class="comment"> * struct TreeNode &#123;</span></div><div class="line"><span class="comment"> *     int val;</span></div><div class="line"><span class="comment"> *     TreeNode *left;</span></div><div class="line"><span class="comment"> *     TreeNode *right;</span></div><div class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></div><div class="line"><span class="comment"> * &#125;;</span></div><div class="line"><span class="comment"> */</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">同样采用递归二分的思想，由于链表不能随机存取，因此只能通过遍历的方式定位到区间中点，此处采用快慢指针</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">sortedListToBST</span><span class="params">(ListNode* head)</span> </span>&#123;</div><div class="line">        TreeNode* root = <span class="literal">NULL</span>;</div><div class="line">        partition(root, head, <span class="literal">NULL</span>);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partition</span><span class="params">(TreeNode*&amp; tree, ListNode* start, ListNode* end)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        ListNode *slow = start, *fast = start;</div><div class="line">        <span class="keyword">if</span>(start == end)</div><div class="line">            <span class="keyword">return</span>;   </div><div class="line">        <span class="keyword">while</span>(fast != end &amp;&amp; fast-&gt;next != end)</div><div class="line">        &#123;</div><div class="line">            slow = slow-&gt;next;</div><div class="line">            fast = fast-&gt;next-&gt;next;</div><div class="line">        &#125;</div><div class="line">        tree = <span class="keyword">new</span> TreeNode(slow-&gt;val);</div><div class="line">        partition(tree-&gt;left, start, slow);</div><div class="line">        partition(tree-&gt;right, slow-&gt;next, end);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//采用累计步长定位到区间中点</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">sortedListToBST</span><span class="params">(ListNode* head)</span> </span>&#123;</div><div class="line">        TreeNode* root = <span class="literal">NULL</span>;</div><div class="line">        <span class="keyword">int</span> size = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(ListNode* node = head; node != <span class="literal">NULL</span>; node = node-&gt;next) size++;</div><div class="line">        partition(root, head, size);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">partition</span><span class="params">(TreeNode*&amp; tree, ListNode* start, <span class="keyword">int</span> size)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(size &lt; <span class="number">1</span>)</div><div class="line">            <span class="keyword">return</span>;   </div><div class="line">        ListNode *mid = start;</div><div class="line">        <span class="keyword">int</span> half = size &gt;&gt; <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; half; i++)</div><div class="line">            mid = mid-&gt;next;</div><div class="line">        tree = <span class="keyword">new</span> TreeNode(mid-&gt;val);</div><div class="line">        partition(tree-&gt;left, start, half);</div><div class="line">        partition(tree-&gt;right, mid-&gt;next, size - half - <span class="number">1</span>); <span class="comment">//此处size-half不能直接替换为size/2</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><a href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal" class="headerlink" title="Construct Binary Tree from Preorder and Inorder Traversal"></a>Construct Binary Tree from Preorder and Inorder Traversal</h3><p>题目描述：Given preorder and inorder traversal of a tree, construct the binary tree.<br>Note: You may assume that duplicates do not exist in the tree.<a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">For example, given preorder = [<span class="number">3</span>,<span class="number">9</span>,<span class="number">20</span>,<span class="number">15</span>,<span class="number">7</span>], inorder = [<span class="number">9</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">7</span>]</div><div class="line">Return the following binary tree:</div><div class="line">    <span class="number">3</span></div><div class="line">   / \</div><div class="line">  <span class="number">9</span>  <span class="number">20</span></div><div class="line">    /  \</div><div class="line">   <span class="number">15</span>   <span class="number">7</span></div><div class="line"></div><div class="line"><span class="comment">/**递归法</span></div><div class="line"><span class="comment">对于先序中的第一个元素，找到中序中的对应元素的位置（可借助一个hash表直接存取，无需每次遍历），然后以该位置为中点，</span></div><div class="line"><span class="comment">将中序序列分成两部分递归进行，同时确定两个子序列的先序起点和终点</span></div><div class="line"><span class="comment">*/</span></div><div class="line">class Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    TreeNode* buildTree(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder) &#123;</div><div class="line">        <span class="keyword">if</span>(preorder.empty())    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mp;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; inorder.size(); i++)</div><div class="line">            mp[inorder[i]] = i;</div><div class="line">        TreeNode* root = recursive(preorder, inorder, <span class="number">0</span>, preorder.size() - <span class="number">1</span>, <span class="number">0</span>, inorder.size() - <span class="number">1</span>, mp);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">recursive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="keyword">int</span> preStart, <span class="keyword">int</span> preEnd, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd, <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; mp)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(preStart &gt; preEnd || inStart &gt; inEnd)    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(preorder[preStart]);</div><div class="line">        <span class="keyword">int</span> inRoot = mp[root-&gt;val];</div><div class="line">        <span class="keyword">int</span> numLeft = inRoot - inStart; <span class="comment">//左子序列的长度</span></div><div class="line">        root-&gt;left = recursive(preorder, inorder, preStart + <span class="number">1</span>, preStart + numLeft, inStart, inRoot - <span class="number">1</span>, mp);</div><div class="line">        root-&gt;right = recursive(preorder, inorder, preStart + numLeft + <span class="number">1</span>, preEnd, inRoot + <span class="number">1</span>, inEnd, mp);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**迭代法</span></div><div class="line"><span class="comment">使用两个变量i,j分别表示先序和中序的索引，并将先序中的元素依次压入栈中，进栈的同时依次生成每颗子树的左子结点，</span></div><div class="line"><span class="comment">直至栈顶元素和中序元素一致，说明该结点为某颗子树的根结点，这时应该为该结点插入右子结点，并将该该结点出栈。</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; preorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(preorder.empty())    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</div><div class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(preorder[<span class="number">0</span>]);</div><div class="line">        st.push(root);</div><div class="line">        <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">0</span>, flag = <span class="number">0</span>; <span class="comment">//使用flag标记是插入左子结点还是右子结点</span></div><div class="line">        TreeNode* t = root;</div><div class="line">        <span class="keyword">while</span>(i &lt; preorder.size())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(!st.empty() &amp;&amp; st.top()-&gt;val == inorder[j])</div><div class="line">            &#123;</div><div class="line">                t = st.top();</div><div class="line">                st.pop();</div><div class="line">                flag = <span class="number">1</span>;   <span class="comment">//只有在回溯时（栈实现）遇到到子树的根结点才会右转生成右子结点</span></div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(flag == <span class="number">0</span>)</div><div class="line">                &#123;</div><div class="line">                    t-&gt;left = <span class="keyword">new</span> TreeNode(preorder[i]);</div><div class="line">                    t = t-&gt;left;</div><div class="line">                    st.push(t);</div><div class="line">                    i++;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    flag = <span class="number">0</span>;   <span class="comment">//每次插入右子结点重置flag标志</span></div><div class="line">                    t-&gt;right = <span class="keyword">new</span> TreeNode(preorder[i]);</div><div class="line">                    t = t-&gt;right;</div><div class="line">                    st.push(t);</div><div class="line">                    i++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal"><a href="#Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal" class="headerlink" title="Construct Binary Tree from Inorder and Postorder Traversal"></a>Construct Binary Tree from Inorder and Postorder Traversal</h3><p>题目描述：Given inorder and postorder traversal of a tree, construct the binary tree.<br>Note: You may assume that duplicates do not exist in the tree.<a href="https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/" target="_blank" rel="external">LeetCode</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">For example, given inorder = [<span class="number">9</span>,<span class="number">3</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">7</span>], postorder = [<span class="number">9</span>,<span class="number">15</span>,<span class="number">7</span>,<span class="number">20</span>,<span class="number">3</span>]</div><div class="line">Return the following binary tree:</div><div class="line">    <span class="number">3</span></div><div class="line">   / \</div><div class="line">  <span class="number">9</span>  <span class="number">20</span></div><div class="line">    /  \</div><div class="line">   <span class="number">15</span>   <span class="number">7</span></div><div class="line"></div><div class="line"><span class="comment">/**递归法</span></div><div class="line"><span class="comment">对于后序（左-右-中）中的最后一个元素，找到中序中的对应元素的位置（可借助一个hash表直接存取，无需每次遍历），然后以该位置为中点，</span></div><div class="line"><span class="comment">将中序序列分成两部分递归进行，同时确定两个子序列的后序起点和终点</span></div><div class="line"><span class="comment">*/</span></div><div class="line">class Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    TreeNode* buildTree(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder) &#123;</div><div class="line">        <span class="keyword">if</span>(inorder.empty()) <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; mp;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; inorder.size(); i++)</div><div class="line">            mp[inorder[i]] = i;</div><div class="line">        TreeNode* root = recursive(inorder, postorder, <span class="number">0</span>, inorder.size() - <span class="number">1</span>, <span class="number">0</span>, postorder.size() - <span class="number">1</span>, mp);</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">recursive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder, <span class="keyword">int</span> inStart, <span class="keyword">int</span> inEnd, <span class="keyword">int</span> postStart, <span class="keyword">int</span> postEnd, <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; mp)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(inStart &gt; inEnd || postStart &gt; postEnd)  <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        TreeNode* node = <span class="keyword">new</span> TreeNode(postorder[postEnd]);  <span class="comment">//后序序列的最后一个结点</span></div><div class="line">        <span class="keyword">int</span> inRoot = mp[node-&gt;val];</div><div class="line">        <span class="keyword">int</span> numLeft = inRoot - inStart;</div><div class="line">        node-&gt;left = recursive(inorder, postorder, inStart, inRoot - <span class="number">1</span>, postStart, postStart + numLeft - <span class="number">1</span>, mp);</div><div class="line">        node-&gt;right = recursive(inorder, postorder, inRoot + <span class="number">1</span>, inEnd, postStart + numLeft, postEnd - <span class="number">1</span>, mp);</div><div class="line">        <span class="keyword">return</span> node;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**迭代法</span></div><div class="line"><span class="comment">使用两个变量i,j分别表示后序和中序的索引，并依次从后往前遍历后序和中序序列。将后序中的元素从后往前压入栈中，进栈的同时依次生成</span></div><div class="line"><span class="comment">每颗子树的右子结点，直至栈顶元素和中序元素一致，说明该结点为某颗子树的根结点，这时应该为该结点插入左子结点，并将该该结点出栈。</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(inorder.empty()) <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        <span class="built_in">stack</span>&lt;TreeNode*&gt; st;</div><div class="line">        <span class="keyword">int</span> size = inorder.size();</div><div class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(postorder[size - <span class="number">1</span>]);</div><div class="line">        st.push(root);</div><div class="line">        TreeNode* t = root;</div><div class="line">        <span class="keyword">int</span> i = size - <span class="number">2</span>, j = size - <span class="number">1</span>, flag = <span class="number">0</span>;   <span class="comment">//使用flag标记是插入左子结点还是右子结点</span></div><div class="line">        <span class="keyword">while</span>(i &gt;= <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(!st.empty() &amp;&amp; st.top()-&gt;val == inorder[j])</div><div class="line">            &#123;</div><div class="line">                t = st.top();</div><div class="line">                st.pop();</div><div class="line">                flag = <span class="number">1</span>;       <span class="comment">//只有在回溯时（栈实现）遇到到子树的根结点才会左转生成左子结点</span></div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(flag == <span class="number">0</span>)</div><div class="line">                &#123;</div><div class="line">                    t-&gt;right = <span class="keyword">new</span> TreeNode(postorder[i]);</div><div class="line">                    t = t-&gt;right;</div><div class="line">                    st.push(t);</div><div class="line">                    i--;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    flag = <span class="number">0</span>;       <span class="comment">//每次插入左子结点重置flag标志</span></div><div class="line">                    t-&gt;left = <span class="keyword">new</span> TreeNode(postorder[i]);</div><div class="line">                    t = t-&gt;left;</div><div class="line">                    st.push(t);</div><div class="line">                    i--;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+            <a href="/tags/dfs/" rel="tag">#dfs</a>
+          
+            <a href="/tags/binary-tree/" rel="tag">#binary tree</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/23/data-structure-BiTree-dfs-1/" rel="next" title="二叉树与深度优先遍历（一）">
+                <i class="fa fa-chevron-left"></i> 二叉树与深度优先遍历（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/25/data-structure-BiTree-level-order/" rel="prev" title="二叉树与层序遍历">
+                二叉树与层序遍历 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convert-Sorted-Array-to-Binary-Search-Tree"><span class="nav-number">1.</span> <span class="nav-text">Convert Sorted Array to Binary Search Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Convert-Sorted-List-to-Binary-Search-Tree"><span class="nav-number">2.</span> <span class="nav-text">Convert Sorted List to Binary Search Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Construct-Binary-Tree-from-Preorder-and-Inorder-Traversal"><span class="nav-number">3.</span> <span class="nav-text">Construct Binary Tree from Preorder and Inorder Traversal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Construct-Binary-Tree-from-Inorder-and-Postorder-Traversal"><span class="nav-number">4.</span> <span class="nav-text">Construct Binary Tree from Inorder and Postorder Traversal</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/02/24/data-structure-BiTree-dfs-2/';
+      var disqus_title = '二叉树与深度优先遍历（二）';
+      var disqus_url = 'https://senitco.github.io/2018/02/24/data-structure-BiTree-dfs-2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

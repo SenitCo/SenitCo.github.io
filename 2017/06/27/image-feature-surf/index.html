@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/595a3c15098a0.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/03/595a3f7e23db4.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/07/04/595b05c548ec2.png">
-<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征之SURF特征匹配">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;加速鲁棒特征(Speed Up Robust Feature, SURF)和SIFT特征类似，同样是一个用于检测、描述、匹配图像局部特征点的特征描述子。SIFT是被广泛应用的特征点提取算法，但其实时性较差，如果不借助于硬件的加速和专用图形处理器(GPUs)的配合，很难达到实时的要求。对于一些实时应用场景，如基于特征点匹配的实时目标跟踪系统，每秒要处理数十帧的图像，需要在毫秒">
@@ -330,7 +330,7 @@
 
       
         <p>&emsp;&emsp;加速鲁棒特征(Speed Up Robust Feature, SURF)和SIFT特征类似，同样是一个用于检测、描述、匹配图像局部特征点的特征描述子。SIFT是被广泛应用的特征点提取算法，但其实时性较差，如果不借助于硬件的加速和专用图形处理器(GPUs)的配合，很难达到实时的要求。对于一些实时应用场景，如基于特征点匹配的实时目标跟踪系统，每秒要处理数十帧的图像，需要在毫秒级完成特征点的搜索定位、特征向量的生成、特征向量的匹配以及目标锁定等工作，SIFT特征很难满足这种需求。SURF借鉴了SIFT中近似简化(DoG近似替代LoG)的思想，将Hessian矩阵的高斯二阶微分模板进行了简化，借助于积分图，使得模板对图像的滤波只需要进行几次简单的加减法运算，并且这种运算与滤波模板的尺寸无关。SURF相当于SIFT的加速改进版本，在特征点检测取得相似性能的条件下，提高了运算速度。整体来说，SUFR比SIFT在运算速度上要快数倍，综合性能更优。<br><a id="more"></a></p>
-<h3 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h3><p>&emsp;&emsp;SURF算法中用到了积分图的概念，积分图(Integral Image)由Viola和Jones提出，在前面的博文<a href="https://senitco.github.io/2017/06/25/image-feature-haar/">Haar特征提取</a>中做了详细的介绍。借助积分图，图像与高斯二阶微分模板的滤波转化为对积分图像的加减运算，从而在特征点的检测时大大缩短了搜索时间。<br>&mesp;&emsp;积分图中任意一点$(i,j)$的值$ii(i,j)$，为原图像左上角到任意点$(i,j)$相应对角线区域灰度值的总和，即<br>$$ii(x,y) = \Sigma_{x’\leq x,y’\leq y} i(x’,y’)$$<br>式中，$i(x’,y’)$表示原图像中的灰度值，具体实现时$ii(x,y)$可由下式迭代计算得到<br>$$s(x,y)=s(x,y-1)+i(x,y)$$<br>$$ii(x,y)=ii(x-1,y)+s(x,y)$$<br>求取积分图时，对图像所有像素遍历一遍，得到积分图后，计算任何矩形区域内的像素灰度和只需进行三次加减运算，如下图所示。</p>
+<h3 id="积分图像"><a href="#积分图像" class="headerlink" title="积分图像"></a>积分图像</h3><p>&emsp;&emsp;SURF算法中用到了积分图的概念，积分图(Integral Image)由Viola和Jones提出，在前面的博文<a href="https://senitco.github.io/2017/06/25/image-feature-haar/">Haar特征提取</a>中做了详细的介绍。借助积分图，图像与高斯二阶微分模板的滤波转化为对积分图像的加减运算，从而在特征点的检测时大大缩短了搜索时间。<br>&emsp;&emsp;积分图中任意一点$(i,j)$的值$ii(i,j)$，为原图像左上角到任意点$(i,j)$相应对角线区域灰度值的总和，即<br>$$ii(x,y) = \Sigma_{x’\leq x,y’\leq y} i(x’,y’)$$<br>式中，$i(x’,y’)$表示原图像中的灰度值，具体实现时$ii(x,y)$可由下式迭代计算得到<br>$$s(x,y)=s(x,y-1)+i(x,y)$$<br>$$ii(x,y)=ii(x-1,y)+s(x,y)$$<br>求取积分图时，对图像所有像素遍历一遍，得到积分图后，计算任何矩形区域内的像素灰度和只需进行三次加减运算，如下图所示。</p>
 <p><img src="https://ooo.0o0.ooo/2017/07/03/5959f26a69af1.png" alt="integral image.png"></p>
 <h3 id="Hessian矩阵近似"><a href="#Hessian矩阵近似" class="headerlink" title="Hessian矩阵近似"></a>Hessian矩阵近似</h3><p>&emsp;&emsp;图像点的二阶微分Hessian矩阵的行列式(Determinant of Hessian, DoH)极大值，可用于图像的斑点检测(Blob Detection)。Hessian矩阵定义如下：<br>$$H(x,y,\sigma)=\left( \begin{matrix} L_{xx}&amp; L_{xy} \\ L_{xy} &amp; L_{yy}\end{matrix} \right)$$<br>式中，$L_{xx}、L_{yy}、L_{xy}$分别是高斯二阶微分算子$\dfrac{\partial ^2 g}{\partial x^2}、\dfrac{\partial ^2 g}{\partial y^2}、\dfrac{\partial ^2 g}{\partial x \partial y}$与原图像的卷积，Hessian矩阵的行列式值DoH为<br>$$detH = L_{xx} L_{yy} - L_{xy}^2$$<br>与LoG算子一样，DoH同样反映了图像局部的纹理或结构信息，与LoG相比，DoH对图像中细长结构的斑点有较好的抑制作用。LoG和DoH在利用二阶微分算子对图像进行斑点检测时，都需要利用高斯滤波平滑图像、抑制噪声，检测过程主要分为以下两步：</p>
 <ul>
@@ -494,7 +494,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -502,7 +502,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -511,7 +511,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

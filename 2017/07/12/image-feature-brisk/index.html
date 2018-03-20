@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/07/15/59698a0fcb428.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/596996704acaf.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/07/15/5969c49105899.jpg">
-<meta property="og:updated_time" content="2017-07-30T07:30:51.000Z">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.595Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像特征描述子之BRISK">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;BRISK(Binary Robust Invariant Scalable Keypoints)是BRIEF算法的一种改进，也是一种基于二进制编码的特征描述子，而且对噪声鲁棒，具有尺度不变性和旋转不变性。">
@@ -362,7 +362,7 @@
 </tr>
 </tbody>
 </table>
-<p>由于n = 4，一共可以得到8张不同尺度的图像。在多尺度空间中，利用FAST9-16检测算子定位特征点，即在特征点邻域边界圆上的16个像素，至少有9个连续像素与特征点的灰度差值大于给定阈值T。此外，对原图像进行一次FAST5-8角点检测，作为$d_{-1}$层，方便后续在做非极大值抑制处理时，可以对相邻尺度空间的图像特征点进行比对。在前面博文中已详细介绍<a href="https://senitco.github.io/2017/07/10/image-feature-fast/">FAST角点检测</a>。</p>
+<p>由于n = 4，一共可以得到8张不同尺度的图像。在多尺度空间中，利用FAST9-16检测算子定位特征点，即在特征点邻域边界圆上的16个像素，至少有9个连续像素与特征点的灰度差值大于给定阈值T。此外，对原图像进行一次FAST5-8角点检测，作为$d_{-1}$层，方便后续在做非极大值抑制处理时，可以对相邻尺度空间的图像特征点进行比对。在前面博文中已详细介绍<a href="https://senitco.github.io/2017/06/30/image-feature-fast/">FAST角点检测</a>。</p>
 <h4 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h4><p>&emsp;&emsp;对多尺度空间的9幅图像进行非极大值抑制，与SIFT算法类似，在特征点的图像空间(8邻域)和尺度空间(上下两层18邻域)共26个邻域点做比较，FAST响应值须取得极大值，否则不能作为特征点。由于是在离散坐标空间中，特征点的位置比较粗糙，还需进一步精确定位。</p>
 <h4 id="亚像素精确定位"><a href="#亚像素精确定位" class="headerlink" title="亚像素精确定位"></a>亚像素精确定位</h4><p>&emsp;&emsp;得到图像特征点的坐标和尺度信息后，在极值点所在层及其上下层所对应的位置，对3个相应关键点的FAST响应进行二维二次函数插值(x,y方向)，得到二维平面精确的极值点位置和响应值后，再对尺度方向进行一维插值，得到特征点所对应的精确尺度。</p>
 <p><img src="https://i.loli.net/2017/07/15/59698a0fcb428.jpg" alt="multi-scale.jpg"></p>
@@ -498,7 +498,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -506,7 +506,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -515,7 +515,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

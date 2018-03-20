@@ -1,0 +1,696 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="将数据结构中一些经典的链表问题做一个总结归纳。">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表问题集锦（一）">
+<meta property="og:url" content="https://senitco.github.io/2018/02/01/data-structure-linkedlist/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="将数据结构中一些经典的链表问题做一个总结归纳。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/02/02/5a73c7fb34565.jpg">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="链表问题集锦（一）">
+<meta name="twitter:description" content="将数据结构中一些经典的链表问题做一个总结归纳。">
+<meta name="twitter:image" content="https://i.loli.net/2018/02/02/5a73c7fb34565.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 链表问题集锦（一） | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                链表问题集锦（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-01T00:00:00+08:00" content="2018-02-01">
+              2018-02-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/01/data-structure-linkedlist/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/01/data-structure-linkedlist/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>将数据结构中一些经典的链表问题做一个总结归纳。<br><a id="more"></a></p>
+<p>单链表结点定义：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    ListNode *next;</div><div class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="在O-1-时间内删除指定链表结点"><a href="#在O-1-时间内删除指定链表结点" class="headerlink" title="在O(1)时间内删除指定链表结点"></a>在O(1)时间内删除指定链表结点</h3><p>题目描述：给定链表的头指针和一个结点指针，在O(1)时间内删除该结点。<br>分析：一般做法是借助两个指针p1、p2（一前一后），从头开始遍历，直到后一个指针p2和待删除结点相同，然后使p1-&gt;next=p2-&gt;next，并释放掉p2结点。但此处强调是O(1)时间，因此可直接将待删除结点p的值替换为下一个结点的值，并使p-&gt;next=p-&gt;next-&gt;next，并删除下一个结点。当然前提是待删除结点不能是尾结点，即其下一个结点不能为空。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode *node)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!node || !node-&gt;next)</div><div class="line">    	<span class="keyword">return</span>;</div><div class="line">    ListNode* pNext = node-&gt;next;</div><div class="line">    node-&gt;val = pNext-&gt;val;</div><div class="line">    node-&gt;next = pNext-&gt;next;</div><div class="line">    <span class="keyword">delete</span> pNext;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="求链表倒数第k个结点"><a href="#求链表倒数第k个结点" class="headerlink" title="求链表倒数第k个结点"></a>求链表倒数第k个结点</h3><p>题目描述：给定一个单链表，找到倒数第k个结点（或移除该结点），例如链表 1-&gt;2-&gt;3-&gt;4-&gt;5，k = 2，则倒数第k个结点值为4，移除该结点后，链表为1-&gt;2-&gt;3-&gt;5。<a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/" target="_blank" rel="external">LeetCode</a><br>分析：借助快慢两个指针fast、slow，首先fast先正向移动到第n个结点，然后两个指针同步移动，直至fast指针为空（走到链表末尾），此时slow指针所指向的即是倒数第k个结点。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//找到倒数第n个结点</span></div><div class="line"><span class="function">ListNode* <span class="title">findNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span>)   <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    ListNode *slow = head, *fast = head;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n &amp;&amp; fast; i++)</div><div class="line">    &#123;</div><div class="line">    	fast = fast-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(i &lt; n)   <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">while</span>(fast)</div><div class="line">    &#123;</div><div class="line">    	slow = slow-&gt;next;</div><div class="line">    	fast = fast-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> slow;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//删除倒数第n个结点</span></div><div class="line"><span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span>)	<span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    ListNode* start = <span class="keyword">new</span> ListNode(<span class="number">0</span>);	<span class="comment">//加一个起始（首）结点可有效解决只有一个元素的情况</span></div><div class="line">    ListNode *front = start, *back = start;</div><div class="line">    back-&gt;next = head;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n + <span class="number">1</span> &amp;&amp; front; i++)</div><div class="line">    &#123;</div><div class="line">        front = front-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(i &lt; n + <span class="number">1</span>)   <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">while</span>(front)</div><div class="line">    &#123;</div><div class="line">        front = front-&gt;next;</div><div class="line">        back = back-&gt;next;</div><div class="line">    &#125;</div><div class="line">    front = back-&gt;next;</div><div class="line">    back-&gt;next = back-&gt;next-&gt;next;</div><div class="line">    <span class="built_in">free</span>(front);</div><div class="line">    <span class="keyword">return</span> start-&gt;next;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="求链表的中间节点"><a href="#求链表的中间节点" class="headerlink" title="求链表的中间节点"></a>求链表的中间节点</h3><p>题目描述：求链表的中间结点，如果链表长度为奇数，则返回中间结点；若为偶数，则返回中间两个结点中的任意一个。<br>分析：一般思路是先完整遍历一次链表，求得整个链表的长度，然后长度取半，再从头开始移动指针，即可定位到中间结点。如果只允许遍历一次链表的话，可通过两个指针完成，两个指针均从头部结点开始，一个每次移动一步，另一个每次移动两步，这样快指针走到链表末尾时，慢指针刚好指向中间结点。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode* <span class="title">findMiddleNode</span><span class="params">(ListNode* head)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span>)    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    ListNode *slow = head, *fast = head;</div><div class="line">    <span class="comment">//while(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)	//对于链表长度为偶数的情况，返回中间两个结点中的第一个</span></div><div class="line">    <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)	<span class="comment">//对于链表长度为偶数的情况，返回中间两个结点中的第二个</span></div><div class="line">    &#123;</div><div class="line">    	fast = fast-&gt;next-&gt;next;</div><div class="line">    	slow = slow-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> slow;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="判断单链表是否存在环"><a href="#判断单链表是否存在环" class="headerlink" title="判断单链表是否存在环"></a>判断单链表是否存在环</h3><p>题目描述：输入一个单链表，判断链表是否存在环。<a href="https://leetcode.com/problems/linked-list-cycle/description/" target="_blank" rel="external">LeetCode</a><br>分析：借助两个指针，分别从头结点出发，一个指针每次移动一个步长，另一个指针每次移动两个步长，如果存在环，则两个指针必在环内相遇。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!head || !head-&gt;next)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    ListNode *p1, *p2;</div><div class="line">    p1 = p2 = head;</div><div class="line">    <span class="keyword">while</span>(p2 &amp;&amp; p2-&gt;next)</div><div class="line">    &#123;</div><div class="line">        p1 = p1-&gt;next;</div><div class="line">        p2 = p2-&gt;next-&gt;next;</div><div class="line">        <span class="keyword">if</span>(p1 == p2)  </div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="找到单链表成环的入口点"><a href="#找到单链表成环的入口点" class="headerlink" title="找到单链表成环的入口点"></a>找到单链表成环的入口点</h3><p>题目描述，如果单链表存在环，则找到环的入口点，若不存在，则返回NULL。<a href="https://leetcode.com/problems/linked-list-cycle-ii/description/" target="_blank" rel="external">LeetCode</a><br>分析：借助两个指针，分别从头结点出发，一个指针每次移动一个步长，另一个指针每次移动两个步长，如果存在环，则两个指针必在环内相遇。然后一个指针指向链表头结点，另一个指针仍位于相遇点，两个指针均以单步长移动，再次相遇点即为环的起始点。设第一次相遇点距离链表起点为k，环起始点距离链表起点为s，环起始点到第一次相遇点距离为m，环长度为r，则有k = s + m, 且2k - k = nr = k, 即 s = nr - m。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!head || !head-&gt;next)</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    ListNode *p1, *p2;</div><div class="line">    p1 = p2 = head;</div><div class="line">    <span class="keyword">bool</span> flag = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">while</span>(p2 &amp;&amp; p2-&gt;next)</div><div class="line">    &#123;</div><div class="line">        p1 = p1-&gt;next;</div><div class="line">        p2 = p2-&gt;next-&gt;next;</div><div class="line">        <span class="keyword">if</span>(p1 == p2)  </div><div class="line">        &#123;</div><div class="line">            flag = <span class="literal">true</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(!flag)   <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    </div><div class="line">    p1 = head;</div><div class="line">    <span class="keyword">while</span>(p1 != p2)</div><div class="line">    &#123;</div><div class="line">        p1 = p1-&gt;next;</div><div class="line">        p2 = p2-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> p1;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="判断两个链表是否相交"><a href="#判断两个链表是否相交" class="headerlink" title="判断两个链表是否相交"></a>判断两个链表是否相交</h3><p>题目描述：给定两个单链表（不带环），判断是否相交</p>
+<p><img src="https://i.loli.net/2018/02/02/5a73c7fb34565.jpg" alt="linkedlist.jpg"></p>
+<p>分析：<br>1.使用两重循环判断一个链表的某个结点是否在另一个链表中，时间复杂度为O(n*m)<br>2.针对第一个链表构造hash表，然后遍历第二个链表，判断第二个链表是否有结点在hash表中，时间复杂度为O(n+m)，空间复杂度为O(n)<br>3.转换为环的问题：把第二个链表连接到第一个链表后面，如果得到的链表有环，则说明两链表相交，判断是否有环可借助上面的方法。这里可使用更简单的方法，如果有环，则第二个链表的表头也在环上，即构成一个循环链表，因此只需要遍历第二个链表，看是否回到起始点即可判断，时间复杂度为线性，空间复杂度为O(1)<br>4.如果两个没有环的链表相交于一点，那这个结点之后的所有结点都是共有的，包括最后一个结点，因此只需要分别遍历两个链表至最后一个结点，判断是否相等，即可确定两链表是否相交，时间复杂度为线性，空间复杂度为O(1)<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isIntersectOfTwoLinkedList</span><span class="params">(ListNode* head1, ListNode* head2)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!head1 || !head2)	</div><div class="line">    	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">while</span>(head1-&gt;next)</div><div class="line">    	head1 = head1-&gt;next;</div><div class="line">    <span class="keyword">while</span>(head2-&gt;next)</div><div class="line">    	head2 = head2-&gt;next;</div><div class="line">    <span class="keyword">if</span>(head1 == head2)</div><div class="line">    	<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="两链表相交的第一个公共结点"><a href="#两链表相交的第一个公共结点" class="headerlink" title="两链表相交的第一个公共结点"></a>两链表相交的第一个公共结点</h3><p>题目描述：如果两个无环单链表相交，求出相交结点<br>分析：采用对齐的思想，分别遍历两个链表，得到其长度L1、L2，采用两个指针分别指向两个链表的头部，然后将较长链表的指针移动L2-L1个结点（假设L2&gt;L1），再同时向后移动两指针，直到两指针相等即为相交结点。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode* <span class="title">findIntersectNode</span><span class="params">(ListNode* head1, ListNode* head2)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> len1 = <span class="number">0</span>, len2 = <span class="number">0</span>;</div><div class="line">    ListNode *pNode1 = head1, *pNode2 = head2;</div><div class="line">    <span class="keyword">while</span>(pNode1)</div><div class="line">    &#123;</div><div class="line">    	len1++;</div><div class="line">    	pNode1 = pNode1-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(pNode2)</div><div class="line">    &#123;</div><div class="line">    	len2++;</div><div class="line">    	pNode2 = pNode2-&gt;next;</div><div class="line">    &#125;</div><div class="line">    pNode1 = head1;</div><div class="line">    pNode2 = head2;</div><div class="line">    <span class="keyword">if</span>(len1 &gt; len2)</div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len1 - len2; i++)</div><div class="line">    	   pNode1 = pNode1-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len2 - len1; i++)</div><div class="line">    	   pNode2 = pnode2-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(pNode1)</div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">if</span>(pNode1 == pNode2)</div><div class="line">    	   <span class="keyword">return</span> pNode1;</div><div class="line">    	pNode1 = pNode1-&gt;next;</div><div class="line">    	pNode2 = pNode2-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="如果两链表有环，判断是否相交"><a href="#如果两链表有环，判断是否相交" class="headerlink" title="如果两链表有环，判断是否相交"></a>如果两链表有环，判断是否相交</h3><p>分析：如果两个链表有环且相交，则两个链表共有一个环，即环上的任意一个结点都存在与两个链表上，因此只需要判断一个链表的环起始点是否在另外一个链表（的环）上。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function">ListNode* <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(!head || !head-&gt;next)</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    ListNode *p1, *p2;</div><div class="line">    p1 = p2 = head;</div><div class="line">    <span class="keyword">while</span>(p2 &amp;&amp; p2-&gt;next)</div><div class="line">    &#123;</div><div class="line">        p1 = p1-&gt;next;</div><div class="line">        p2 = p2-&gt;next-&gt;next;</div><div class="line">        <span class="keyword">if</span>(p1 == p2)  </div><div class="line">            <span class="keyword">return</span> p1;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isIntersectWithLoop</span><span class="params">(ListNode* head1, ListNode* head2)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    ListNode *pNode1, *pNode2;</div><div class="line">    pNode1 = hasCycle(head1);</div><div class="line">    pNode2 = hasCycle(head2);</div><div class="line">    <span class="keyword">if</span>(!pNode1 || !pNode2)</div><div class="line">    	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">if</span>(pNode1 == pNode2)</div><div class="line">    	<span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    ListNode* pNode = pNode2-&gt;next;</div><div class="line">    <span class="keyword">while</span>(pNode != pNode2)</div><div class="line">    &#123;</div><div class="line">    	<span class="keyword">if</span>(pNode == pNode1)</div><div class="line">    	   <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    	pNode = pNode-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/cplusplus-smart-pointer/" rel="next" title="C++智能指针">
+                <i class="fa fa-chevron-left"></i> C++智能指针
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/02/data-structure-linkedlist-2/" rel="prev" title="链表问题集锦（二）">
+                链表问题集锦（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在O-1-时间内删除指定链表结点"><span class="nav-number">1.</span> <span class="nav-text">在O(1)时间内删除指定链表结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求链表倒数第k个结点"><span class="nav-number">2.</span> <span class="nav-text">求链表倒数第k个结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求链表的中间节点"><span class="nav-number">3.</span> <span class="nav-text">求链表的中间节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断单链表是否存在环"><span class="nav-number">4.</span> <span class="nav-text">判断单链表是否存在环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找到单链表成环的入口点"><span class="nav-number">5.</span> <span class="nav-text">找到单链表成环的入口点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断两个链表是否相交"><span class="nav-number">6.</span> <span class="nav-text">判断两个链表是否相交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两链表相交的第一个公共结点"><span class="nav-number">7.</span> <span class="nav-text">两链表相交的第一个公共结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果两链表有环，判断是否相交"><span class="nav-number">8.</span> <span class="nav-text">如果两链表有环，判断是否相交</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/02/01/data-structure-linkedlist/';
+      var disqus_title = '链表问题集锦（一）';
+      var disqus_url = 'https://senitco.github.io/2018/02/01/data-structure-linkedlist/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

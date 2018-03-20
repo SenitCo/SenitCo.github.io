@@ -2,9 +2,177 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://senitco.github.io/2017/06/27/image-feature-surf/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.596Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/09/image-feature-orb/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.595Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/07/12/image-feature-brisk/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.595Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/09/10/deep-learning-regularization/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/06/20/image-feature-LoG-DoG/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.594Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/01/data-structure-linkedlist/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.593Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/02/data-structure-linkedlist-2/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.593Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/09/15/deep-learning-optimization/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.593Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/06/data-structure-dynamic-programming-2/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/09/data-structure-dynamic-programming-3/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/03/02/data-structure-greedy/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.592Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/04/data-structure-dynamic-programming-1/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.591Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/18/data-structure-dfs-bfs-1/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.591Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/20/data-structure-dfs-bfs-2/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.591Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/03/08/data-structure-backtracking-1/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.590Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/27/data-structure-binary-tree-2/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.590Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/03/data-structure-binary-tree/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.590Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/03/05/data-structure-bit-manipulation/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.590Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/23/data-structure-BiTree-dfs-1/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.589Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/24/data-structure-BiTree-dfs-2/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.589Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2018/02/25/data-structure-BiTree-level-order/</loc>
+    
+    <lastmod>2018-03-20T04:43:42.589Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://senitco.github.io/2017/10/10/cplusplus-smart-pointer/</loc>
     
     <lastmod>2018-03-20T04:42:28.029Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/09/12/deep-learning-normalization/</loc>
+    
+    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/09/08/deep-learning-dropout/</loc>
+    
+    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://senitco.github.io/2017/09/05/deep-learning-activation-function/</loc>
+    
+    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
     
   </url>
   
@@ -23,49 +191,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/09/05/deep-learning-activation-function/</loc>
-    
-    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/09/08/deep-learning-dropout/</loc>
-    
-    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/09/15/deep-learning-optimization/</loc>
-    
-    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/09/10/deep-learning-regularization/</loc>
-    
-    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/09/12/deep-learning-normalization/</loc>
-    
-    <lastmod>2017-09-18T04:15:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/06/27/image-feature-surf/</loc>
-    
-    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/05/14/VS2013-compile-openssl/</loc>
+    <loc>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -100,7 +226,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/09/image-feature-orb/</loc>
+    <loc>https://senitco.github.io/2017/05/14/VS2013-compile-openssl/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -114,7 +240,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/06/06/character-encoding/</loc>
+    <loc>https://senitco.github.io/2017/06/28/image-feature-PCA_SIFT-GLOH/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -163,28 +289,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/05/27/cloud-platform/</loc>
-    
-    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/05/10/data-dimensionality-reduction/</loc>
-    
-    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/06/20/image-feature-LoG-DoG/</loc>
-    
-    <lastmod>2017-07-30T07:30:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://senitco.github.io/2017/06/28/image-feature-PCA_SIFT-GLOH/</loc>
+    <loc>https://senitco.github.io/2017/06/06/character-encoding/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     
@@ -198,7 +303,7 @@
   </url>
   
   <url>
-    <loc>https://senitco.github.io/2017/07/12/image-feature-brisk/</loc>
+    <loc>https://senitco.github.io/2017/05/27/cloud-platform/</loc>
     
     <lastmod>2017-07-30T07:30:51.000Z</lastmod>
     

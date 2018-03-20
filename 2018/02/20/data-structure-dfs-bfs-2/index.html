@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code,dfs,bfs," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法中深度优先遍历(DFS)与广度优先遍历(BFS)问题总结归纳。">
+<meta name="keywords" content="code,dfs,bfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度优先遍历与广度优先遍历（二）">
+<meta property="og:url" content="https://senitco.github.io/2018/02/20/data-structure-dfs-bfs-2/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="数据结构与算法中深度优先遍历(DFS)与广度优先遍历(BFS)问题总结归纳。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度优先遍历与广度优先遍历（二）">
+<meta name="twitter:description" content="数据结构与算法中深度优先遍历(DFS)与广度优先遍历(BFS)问题总结归纳。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 深度优先遍历与广度优先遍历（二） | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深度优先遍历与广度优先遍历（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-20T00:00:00+08:00" content="2018-02-20">
+              2018-02-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/02/20/data-structure-dfs-bfs-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/20/data-structure-dfs-bfs-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构与算法中深度优先遍历(DFS)与广度优先遍历(BFS)问题总结归纳。<br><a id="more"></a></p>
+<h3 id="Word-Ladder"><a href="#Word-Ladder" class="headerlink" title="Word Ladder"></a>Word Ladder</h3><p>题目描述：<a href="https://leetcode.com/problems/word-ladder/description/" target="_blank" rel="external">LeetCode</a><br>Given two words (beginWord and endWord), and a dictionary’s word list, find the length of shortest<br>transformation sequence from beginWord to endWord, such that:<br>Only one letter can be changed at a time.<br>Each transformed word must exist in the word list. Note that beginWord is not a transformed word.</p>
+<p>For example, Given:<br>beginWord = “hit”<br>endWord = “cog”<br>wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”]<br>As one shortest transformation is “hit” -&gt; “hot” -&gt; “dot” -&gt; “dog” -&gt; “cog”,<br>return its length 5.</p>
+<p>Note:<br>Return 0 if there is no such transformation sequence.<br>All words have the same length.<br>All words contain only lowercase alphabetic characters.<br>You may assume no duplicates in the word list.<br>You may assume beginWord and endWord are non-empty and are not the same.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//对于求取最小长度(深度)，一般采用广度优先遍历</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> size = wordList.size();</div><div class="line">        <span class="keyword">int</span> depth = <span class="number">2</span>;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; visited(size, <span class="literal">false</span>);</div><div class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; toVisit;</div><div class="line">        findNextWord(beginWord, wordList, toVisit, visited);</div><div class="line">        <span class="keyword">while</span>(!toVisit.empty())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> num = toVisit.size();   </div><div class="line">            <span class="comment">//此处的for循环是为了分层，统计层数(深度)，如果只是遍历所有元素，可不需要</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)</div><div class="line">            &#123;</div><div class="line">                <span class="built_in">string</span> word = toVisit.front();</div><div class="line">                toVisit.pop();</div><div class="line">                <span class="keyword">if</span>(word == endWord)</div><div class="line">                    <span class="keyword">return</span> depth;</div><div class="line">                findNextWord(word, wordList, toVisit, visited);</div><div class="line">            &#125;</div><div class="line">            depth++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">findNextWord</span><span class="params">(<span class="built_in">string</span>&amp; word, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList, <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt;&amp; toVisit, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; visited)</span></span></div><div class="line"><span class="function">    </span>&#123;      </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordList.size(); i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(!visited[i] &amp;&amp; numOfDiffLetter(word, wordList[i]) == <span class="number">1</span>)</div><div class="line">            &#123;</div><div class="line">                toVisit.push(wordList[i]);</div><div class="line">                visited[i] = <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numOfDiffLetter</span><span class="params">(<span class="built_in">string</span>&amp; word1, <span class="built_in">string</span>&amp; word2)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word1.size(); i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(word1[i] != word2[i])</div><div class="line">                cnt++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cnt;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Word-Ladder-II"><a href="#Word-Ladder-II" class="headerlink" title="Word Ladder II"></a>Word Ladder II</h3><p>题目描述：<a href="https://leetcode.com/problems/word-ladder-ii/description/" target="_blank" rel="external">LeetCode</a><br>Given two words (beginWord and endWord), and a dictionary’s word list, find all shortest transformation sequence(s)<br>from beginWord to endWord, such that:<br>Only one letter can be changed at a time<br>Each transformed word must exist in the word list. Note that beginWord is not a transformed word.<br>For example, Given:<br>beginWord = “hit”<br>endWord = “cog”<br>wordList = [“hot”,”dot”,”dog”,”lot”,”log”,”cog”]<br>Return<br>  [<br>    [“hit”,”hot”,”dot”,”dog”,”cog”],<br>    [“hit”,”hot”,”lot”,”log”,”cog”]<br>  ]<br>Note:<br>Return an empty list if there is no such transformation sequence.<br>All words have the same length.<br>All words contain only lowercase alphabetic characters.<br>You may assume no duplicates in the word list.<br>You may assume beginWord and endWord are non-empty and are not the same.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">直接采用广度优先遍历，不需要回溯。tricky: 对路径进行BFS，而不是对单词</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution1</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; result;</div><div class="line">        <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; pathList; <span class="comment">//队列中存储的为单词变换的路径</span></div><div class="line">        pathList.push(&#123;beginWord&#125;);</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; wordSet(wordList.begin(), wordList.end());</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</div><div class="line">        <span class="keyword">if</span>(wordSet.find(endWord) == wordSet.end())  <span class="comment">//endWord必在单词列表中</span></div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        <span class="comment">//wordSet.insert(endWord);</span></div><div class="line">        <span class="keyword">int</span> depth = <span class="number">1</span>, minDepth = INT_MAX;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span> (!pathList.empty())</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; path = pathList.front();</div><div class="line">            pathList.pop();</div><div class="line">            <span class="keyword">if</span> (path.size() &gt; depth)    <span class="comment">//用于更新深度（层数）</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (path.size() &gt; minDepth) <span class="comment">//如果已取得最小深度，且遍历完该层，则返回</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="built_in">string</span> s : visited) <span class="comment">//将集合中已访问的元素剔除</span></div><div class="line">                    wordSet.erase(s);</div><div class="line">                depth = path.size();</div><div class="line">            &#125;</div><div class="line">            <span class="built_in">string</span> word = path.back();</div><div class="line">            <span class="comment">//遍历单词列表中的所有的元素并且和目标单词逐字符比较的方式会造成算法效率较低</span></div><div class="line">            <span class="keyword">for</span> (<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt;::iterator iter = wordSet.begin(); iter != wordSet.end();)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (numOfDiffLetter(word, *iter) == <span class="number">1</span>)</div><div class="line">                &#123;</div><div class="line">                    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; newPath = path;</div><div class="line">                    newPath.push_back(*iter);</div><div class="line">                    <span class="keyword">if</span> (*iter == endWord)</div><div class="line">                    &#123;</div><div class="line">                        result.push_back(newPath);  <span class="comment">//将满足条件的路径存储到最终结果中</span></div><div class="line">                        minDepth = depth;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span></div><div class="line">                    &#123;</div><div class="line">                        pathList.push(newPath); <span class="comment">//将可能的路径存储到队列中</span></div><div class="line">                        visited.insert(*iter);  <span class="comment">//记录已访问（在路径）中的单词</span></div><div class="line">                    &#125;          </div><div class="line">                &#125;</div><div class="line">                iter++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="keyword">private</span>: </div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numOfDiffLetter</span><span class="params">(<span class="built_in">string</span>&amp; word1, <span class="keyword">const</span> <span class="built_in">string</span>&amp; word2)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word1.size(); i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(word1[i] != word2[i])</div><div class="line">                cnt++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> cnt;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">广度优先遍历 + 回溯：BFS构造可能的路径，Backtrack搜索满足条件的路径</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; result;</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; wordSet(wordList.begin(), wordList.end());</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; toVisit(&#123;beginWord&#125;), temp;</div><div class="line">        <span class="keyword">if</span> (wordSet.find(endWord) == wordSet.end())</div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        wordSet.erase(endWord);</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; children; <span class="comment">//存储每个单词的子结点</span></div><div class="line">        <span class="keyword">bool</span> found = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">int</span> len = beginWord.length();</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (!toVisit.empty() &amp;&amp; !found)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">string</span> word : toVisit) <span class="comment">//在单词集合（列表）中剔除父结点（上一层的单词结点）</span></div><div class="line">                wordSet.erase(word);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span> word : toVisit)   <span class="comment">//搜索满足条件的子结点</span></div><div class="line">            &#123;</div><div class="line">                <span class="built_in">string</span> cur = word;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++)</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">char</span> ch = cur[j];</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="string">'a'</span>; k &lt;= <span class="string">'z'</span>; k++)</div><div class="line">                    &#123;</div><div class="line">                        cur[j] = k;</div><div class="line">                        <span class="keyword">if</span> (cur == endWord)</div><div class="line">                        &#123;</div><div class="line">                            found = <span class="literal">true</span>;</div><div class="line">                            children[word].push_back(endWord);</div><div class="line">                            <span class="keyword">break</span>;</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (wordSet.count(cur) &amp;&amp; !found)</div><div class="line">                        &#123;</div><div class="line">                            children[word].push_back(cur);</div><div class="line">                            temp.insert(cur);  </div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    cur[j] = ch;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            swap(toVisit, temp);</div><div class="line">            temp.clear();         </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (found)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; path(&#123; beginWord &#125;);</div><div class="line">            backtrack(beginWord, endWord, children, path, result);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="comment">//在所有可能的路径中递归回溯，搜索满足条件的路径</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">string</span>&amp; word, <span class="built_in">string</span>&amp; endWord, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; children, </span></span></div><div class="line"><span class="function"><span class="params">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; path, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; result)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span> (word == endWord)</div><div class="line">        &#123;</div><div class="line">            result.push_back(path);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (children.find(word) == children.end())</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">string</span> child : children[word])</div><div class="line">        &#123;</div><div class="line">            path.push_back(child);</div><div class="line">            backtrack(child, endWord, children, path, result);</div><div class="line">            path.pop_back();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">双向广度优先遍历 + 回溯，算法效率较高</span></div><div class="line"><span class="comment">See http://zxi.mytechroad.com/blog/searching/leetcode-126-word-ladder-ii/</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution3</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; findLadders(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; dict(wordList.begin(), wordList.end());</div><div class="line">        <span class="keyword">if</span> (!dict.count(endWord)) <span class="keyword">return</span> ans;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> l = beginWord.length();</div><div class="line">        </div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; q1&#123;beginWord&#125;;</div><div class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; q2&#123;endWord&#125;;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; children;</div><div class="line"> </div><div class="line">        <span class="keyword">bool</span> found = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">bool</span> backward = <span class="literal">false</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span> (!q1.empty() &amp;&amp; !q2.empty() &amp;&amp; !found) &#123;            </div><div class="line">            <span class="comment">// Always expend the smaller queue first</span></div><div class="line">            <span class="keyword">if</span> (q1.size() &gt; q2.size()) &#123;</div><div class="line">                <span class="built_in">std</span>::swap(q1, q2);</div><div class="line">                backward = !backward;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span>&amp; w : q1)</div><div class="line">                dict.erase(w);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span>&amp; w : q2)</div><div class="line">                dict.erase(w);</div><div class="line">                        </div><div class="line">            <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; q;</div><div class="line">            </div><div class="line">            <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span>&amp; word : q1) &#123;</div><div class="line">                <span class="built_in">string</span> curr = word;</div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</div><div class="line">                    <span class="keyword">char</span> ch = curr[i];</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="string">'a'</span>; j &lt;= <span class="string">'z'</span>; j++) &#123;</div><div class="line">                        curr[i] = j;</div><div class="line">                        </div><div class="line">                        <span class="keyword">const</span> <span class="built_in">string</span>* parent = &amp;word;</div><div class="line">                        <span class="keyword">const</span> <span class="built_in">string</span>* child = &amp;curr;</div><div class="line">                        </div><div class="line">                        <span class="keyword">if</span> (backward)</div><div class="line">                            <span class="built_in">std</span>::swap(parent, child);</div><div class="line">                        </div><div class="line">                        <span class="keyword">if</span> (q2.count(curr)) &#123;</div><div class="line">                            found = <span class="literal">true</span>;</div><div class="line">                            children[*parent].push_back(*child);</div><div class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dict.count(curr) &amp;&amp; !found) &#123;</div><div class="line">                            q.insert(curr);</div><div class="line">                            children[*parent].push_back(*child);</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    curr[i] = ch;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="built_in">std</span>::swap(q, q1);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (found) &#123;</div><div class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; path&#123;beginWord&#125;;</div><div class="line">            getPaths(beginWord, endWord, children, path, ans);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> ans;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getPaths</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; word, </span></span></div><div class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="built_in">string</span>&amp; endWord,                   </span></span></div><div class="line"><span class="function"><span class="params">                  <span class="keyword">const</span> <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; children, </span></span></div><div class="line"><span class="function"><span class="params">                  <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; path, </span></span></div><div class="line"><span class="function"><span class="params">                  <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; ans)</span> </span>&#123;        </div><div class="line">        <span class="keyword">if</span> (word == endWord) &#123;</div><div class="line">            ans.push_back(path);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> it = children.find(word);</div><div class="line">        <span class="keyword">if</span> (it == children.cend()) <span class="keyword">return</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span>&amp; child : it-&gt;second) &#123;</div><div class="line">            path.push_back(child);</div><div class="line">            getPaths(child, endWord, children, path, ans);</div><div class="line">            path.pop_back();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+            <a href="/tags/dfs/" rel="tag">#dfs</a>
+          
+            <a href="/tags/bfs/" rel="tag">#bfs</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/18/data-structure-dfs-bfs-1/" rel="next" title="深度优先遍历与广度优先遍历（一）">
+                <i class="fa fa-chevron-left"></i> 深度优先遍历与广度优先遍历（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/23/data-structure-BiTree-dfs-1/" rel="prev" title="二叉树与深度优先遍历（一）">
+                二叉树与深度优先遍历（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-Ladder"><span class="nav-number">1.</span> <span class="nav-text">Word Ladder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-Ladder-II"><span class="nav-number">2.</span> <span class="nav-text">Word Ladder II</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/02/20/data-structure-dfs-bfs-2/';
+      var disqus_title = '深度优先遍历与广度优先遍历（二）';
+      var disqus_url = 'https://senitco.github.io/2018/02/20/data-structure-dfs-bfs-2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

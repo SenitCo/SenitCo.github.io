@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/09/13/59b9296eb2674.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/13/59b93367e4f7f.png">
 <meta property="og:image" content="https://i.loli.net/2017/09/13/59b93c6685cc0.png">
-<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
+<meta property="og:updated_time" content="2018-03-20T04:43:42.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning -- Regularization">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。">
@@ -326,7 +326,7 @@
 <h3 id="L2-Regularization"><a href="#L2-Regularization" class="headerlink" title="L2 Regularization"></a>L2 Regularization</h3><p>&emsp;&emsp;L2正则也称为权重衰减(Weights Decay)，直接在代价函数(Loss Function)后面增加一个L2范数的正则化项，也就是对网络中所有权值求平方和然后开方。数学表达式如下：<br>$$C = C_0 + \dfrac{\lambda}{2n} \Sigma_w w^2$$<br>式中，$C_0$为原始代价函数，$n$为训练集大小，$\lambda$是两项的平衡系数。L2正则项通过惩罚(penalizes)权重的平方，倾向于让网络学习到更小的权值。添加正则项后的代价函数对网络参数的梯度为<br>$$\dfrac{\partial C}{\partial w} = \dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}w,&emsp;\dfrac{\partial C}{\partial b} = \dfrac{\partial C_0}{\partial b}$$<br>梯度反向传播用于更新网络权值<br>$$w = w - \eta (\dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}w) = (1-\dfrac{\eta \lambda}{n})w - \eta \dfrac{\partial C_0}{\partial w}$$<br>$$b = b - \eta \dfrac{\partial C_0}{\partial b}$$<br>式中，$\eta$为学习率(learning rate)，$w$的系数$(1-\dfrac{\eta \lambda}{n})$使得权重相比未正则化时减小，这也是$L2-norm$称作权重衰减的原因。<br>&emsp;&emsp;更小的权重，如何保证能够缓解过拟合？从某种意义上，权重越小表示模型复杂度更低，对数据的拟合刚好。在实际应用中，也验证了L2正则化的效果往往更好。过拟合的时候，拟合函数的系数通常较大，如下图所示，拟合函数需要顾及每个数据点，因此波动较大。在一些较小的区间内，函数值变化剧烈，意味着函数在这些小区间内的导数值（绝对值）非常大。由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。而L2正则化通过约束权值参数的范数使其不要太大，可以在一定程度上减少过拟合情况。</p>
 <p><img src="https://i.loli.net/2017/09/13/59b93367e4f7f.png" alt="regular2.png"></p>
 <h3 id="L1-Regularization"><a href="#L1-Regularization" class="headerlink" title="L1 Regularization"></a>L1 Regularization</h3><p>&emsp;&emsp;L1正则是在原始的代价函数后增加一个L1范数的正则化项，即所有权重绝对值的和。数学表达式如下：<br>$$C = C_0 + \dfrac{\lambda}{n} \Sigma_w w$$<br>梯度计算公式为<br>$$\dfrac{\partial C}{\partial w} = \dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}sgn(w)$$<br>式中$sgn(w)$表示权重的符号，权重更新规则为<br>$$w = w - \eta (\dfrac{\partial C_0}{\partial w} + \dfrac{\lambda}{n}sgn(w))$$<br>L1正则化对梯度的影响不再与权重$w$线性相关，而是一个常量因子。当$w$为正时，更新后的$w$变小；当$w$为负时，更新后的$w$变大。因此L1正则化的效果就是让$w$往0靠，使网络中的权重尽可能为0，也就相当于减小了网络复杂度，防止过拟合。与L2-norm相比，L1-norm会导致参数稀疏，因此可用于特征选取，参数被惩罚为0的特征可以被丢弃。</p>
-<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>&emsp;&emsp;L1、L2正则化是通过修改代价函数来实现的，而Dropout则是修改神经网络本身，使得网络中的部分神经元以一定概率停止工作，具体内容可参考博文<a href="https://senitco.github.io/2017/09/12/deep-learning-dropout/">Dropout</a></p>
+<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>&emsp;&emsp;L1、L2正则化是通过修改代价函数来实现的，而Dropout则是修改神经网络本身，使得网络中的部分神经元以一定概率停止工作，具体内容可参考博文<a href="https://senitco.github.io/2017/09/08/deep-learning-dropout/">Dropout</a></p>
 <h3 id="Data-Argumentation"><a href="#Data-Argumentation" class="headerlink" title="Data Argumentation"></a>Data Argumentation</h3><p>&emsp;&emsp;引起过拟合的一个因素就是数据量较少，扩增数据集，可以适应更深的网络模型，训练表达能力更强的模型。数据扩增的方法主要有：</p>
 <ul>
 <li>沿水平方向将图像左右翻转</li>
@@ -458,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -466,7 +466,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -475,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
