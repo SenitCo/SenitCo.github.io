@@ -5,7 +5,7 @@ categories: Data Structure
 tags: [code, binary search, array]
 ---
 
-数据结构中二分搜索问题总结归纳。
+数据结构中二分查找问题总结归纳。
 <!--more-->
 
 ### Search in Rotated Sorted Array

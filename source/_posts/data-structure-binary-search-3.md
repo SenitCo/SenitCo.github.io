@@ -1,11 +1,11 @@
 ---
-title: 二分查找（一）
+title: 二分查找（三）
 date: 2018-03-15
 categories: Data Structure
 tags: [code, binary search, math]
 ---
 
-数据结构中二分搜索问题总结归纳。
+数据结构中二分查找问题总结归纳。
 <!--more-->
 
 ### Divide Two Integers
