@@ -35,9 +35,9 @@ $$theta(x,y) = arctan(G\_y(x,y) / G\_x(x,y))$$
 &emsp;&emsp;在行人检测中，通过给局部图像区域进行编码，可以保持对目标对象的姿势和外观的弱敏感性，更好地捕获图像的轮廓和纹理信息。
 
 #### 在block中归一化梯度方向直方图(Block Normalization)
-&emsp;&emsp;将多个cell组合成更大连通块(block)，将block内所有cell的特征向量串联起来便得到该block的HOG特征描述子，不同block之间可能相互重叠，可以有效地利用局部邻域信息。类比在卷积神经网络(CNN)中，掩码(Kernel)和步长(stride)的选择。在跟大范围内(block)统计梯度直方图，并做归一化处理，能够更好地适应光照和对比度的变化。常用的归一化方法有以下几种：
+&emsp;&emsp;将多个cell组合成更大连通块(block)，将block内所有cell的特征向量串联起来便得到该block的HOG特征描述子，不同block之间可能相互重叠，可以有效地利用局部邻域信息。类比在卷积神经网络(CNN)中，掩码(Kernel)和步长(stride)的选择。在更大范围内(block)统计梯度直方图，并做归一化处理，能够更好地适应光照和对比度的变化。常用的归一化方法有以下几种：
 - L2-norm
-$$v = \dfrac{v}{\left|v\right\|\_{2}^{2} + \varepsilon^2}$$
+$$v = \dfrac{v}{\sqrt{\left|v\right\|\_{2}^{2} + \varepsilon^2}}$$
 - L1-norm
 $$v = \dfrac{v}{\left|v\right\|\_{1} + \varepsilon}$$
 - L1-sqrt
