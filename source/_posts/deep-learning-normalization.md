@@ -71,11 +71,6 @@ $a\_{x,y}^i$是第$i$个卷积核在特征图中坐标$(x,y)$处的激活输出�
 #### Internal Convariate Shift
 &emsp;&emsp;在统计机器学习中，一个经典假设就是源空间和目标空间的数据分布是一致的，如果不一致，则引入了新的研究分支，如Transform Learning、Domain Adaptation。而covariate shift就是数据分布不一致的一个子问题，表示源空间和目标空间的条件概率是一致的，但是其边缘概率不同，即对所有的$x \in \mathcal{X},P_s(Y|X=x)=P_t(Y|X=x)$，但是$P_s(X) \neq P_t(X)$。对于神经网络的各层输出，由于它们经过了层内操作作用，其分布显然与各层对应的输入分布不同，而且差异会随着网络深度增大而增大，可是它们对应的样本标记（label）仍然是不变的，这便符合了covariate shift的定义。由于是对层间信号的分析，也即是“internal”的来由。
 
-作者：魏秀参
-链接：https://www.zhihu.com/question/38102762/answer/85238569
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
 #### Why need BN
 &emsp;&emsp;在神经网络中，最基本的参数优化方法就是随机梯度下降(SGD)，通过最小化代价函数来求得一组模型参数
 $$\theta = \underset{\theta}{\mathrm{arg min}} \dfrac{1}{N} \sum_{i=1}^N{\mathcal L\left(x_i, \theta\right)}$$
