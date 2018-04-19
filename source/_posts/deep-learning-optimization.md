@@ -1,7 +1,7 @@
 ---
 title: Deep Learning -- Optimization
 date: 2017-09-15
-categories: Algorithm
+categories: Deep Learning
 tags: DL
 ---
 &emsp;&emsp;在机器学习中，模型优化通常会定义一个代价函数(Loss Function)，然后通过最小化代价函数，求得一组参数，例如Logistic Regression、SVM以及神经网络等都属于这类问题，而这类模型往往使用迭代法求解，其中梯度下降法(Gradient Descent)应用最为广泛。

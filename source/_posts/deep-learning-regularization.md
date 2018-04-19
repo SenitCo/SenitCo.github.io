@@ -1,7 +1,7 @@
 ---
 title: Deep Learning -- Regularization
 date: 2017-09-10
-categories: Algorithm
+categories: Deep Learning
 tags: DL
 ---
 &emsp;&emsp;在训练神经网络时，为了缓解网络规模较大、训练数据较少而可能导致的过拟合(Overfitting)问题，通常会采取正则化(Regularization)方法，以提高模型的泛化能力。
@@ -13,7 +13,7 @@ tags: DL
 <img src="https://i.loli.net/2017/09/13/59b9296eb2674.png" alt="overfitting.png" title="Overfitting" />
 
 ### L2 Regularization
-&emsp;&emsp;L2正则也称为权重衰减(Weights Decay)，直接在代价函数(Loss Function)后面增加一个L2范数的正则化项，也就是对网络中所有权值求平方和然后开方。数学表达式如下：
+&emsp;&emsp;L2正则也称为权重衰减(Weights Decay)，直接在代价函数(Loss Function)后面增加一个L2范数的正则化项，也就是对网络中所有权值求平方和。数学表达式如下：
 $$C = C\_0 + \dfrac{\lambda}{2n} \Sigma\_w w^2$$
 式中，$C\_0$为原始代价函数，$n$为训练集大小，$\lambda$是两项的平衡系数。L2正则项通过惩罚(penalizes)权重的平方，倾向于让网络学习到更小的权值。添加正则项后的代价函数对网络参数的梯度为
 $$\dfrac{\partial C}{\partial w} = \dfrac{\partial C\_0}{\partial w} + \dfrac{\lambda}{n}w,&emsp;\dfrac{\partial C}{\partial b} = \dfrac{\partial C\_0}{\partial b}$$
@@ -27,7 +27,7 @@ $$b = b - \eta \dfrac{\partial C\_0}{\partial b}$$
 
 ### L1 Regularization
 &emsp;&emsp;L1正则是在原始的代价函数后增加一个L1范数的正则化项，即所有权重绝对值的和。数学表达式如下：
-$$C = C\_0 + \dfrac{\lambda}{n} \Sigma\_w w$$
+$$C = C\_0 + \dfrac{\lambda}{n} \Sigma\_w ||w||\_1$$
 梯度计算公式为
 $$\dfrac{\partial C}{\partial w} = \dfrac{\partial C\_0}{\partial w} + \dfrac{\lambda}{n}sgn(w)$$
 式中$sgn(w)$表示权重的符号，权重更新规则为

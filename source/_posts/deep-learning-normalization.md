@@ -1,7 +1,7 @@
 ---
 title: Deep Learning -- Normalization
 date: 2017-09-12
-categories: Algorithm
+categories: Deep Learning
 tags: DL
 ---
 &emsp;&emsp;Normalization可理解为归一化、标准化或者规范化，广泛应用于诸多领域。整体来讲，Normalization扮演着对数据分布重新调整的角色。在图像处理领域，不同形式的归一化可以改变图像的灰度、对比度信息；在机器学习和神经网络中，Normalization可用于对数据去相关，加速模型训练，提高模型的泛化能力。
@@ -68,6 +68,14 @@ $a\_{x,y}^i$是第$i$个卷积核在特征图中坐标$(x,y)$处的激活输出�
 ### Batch Normalization
 &emsp;&emsp;在训练神经网络模型时，由于网络参数在不断更新，每一层的输入分布也在不断变化，这迫使网络设置更小的学习率，导致更慢的训练速度，而且对参数初始化的要求也较高，这种现象称为Internal Convariate Shift。而Batch Normalization通过对每层的输入进行归一化，可以有效地缓解这个问题，网络可以使用较大的学习率，参数初值也无需刻意设置，并且可以起到正则化(Regularization)的作用，减弱了对Dropout的需求，保证了更快的训练速度和更精确的网络模型。
 
+#### Internal Convariate Shift
+&emsp;&emsp;在统计机器学习中，一个经典假设就是源空间和目标空间的数据分布是一致的，如果不一致，则引入了新的研究分支，如Transform Learning、Domain Adaptation。而covariate shift就是数据分布不一致的一个子问题，表示源空间和目标空间的条件概率是一致的，但是其边缘概率不同，即对所有的$x \in \mathcal{X},P_s(Y|X=x)=P_t(Y|X=x)$，但是$P_s(X) \neq P_t(X)$。对于神经网络的各层输出，由于它们经过了层内操作作用，其分布显然与各层对应的输入分布不同，而且差异会随着网络深度增大而增大，可是它们对应的样本标记（label）仍然是不变的，这便符合了covariate shift的定义。由于是对层间信号的分析，也即是“internal”的来由。
+
+作者：魏秀参
+链接：https://www.zhihu.com/question/38102762/answer/85238569
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
 #### Why need BN
 &emsp;&emsp;在神经网络中，最基本的参数优化方法就是随机梯度下降(SGD)，通过最小化代价函数来求得一组模型参数
 $$\theta = \underset{\theta}{\mathrm{arg min}} \dfrac{1}{N} \sum_{i=1}^N{\mathcal L\left(x_i, \theta\right)}$$
@@ -107,6 +115,9 @@ $$y=\dfrac{\gamma}{\sqrt{Var[x]+\varepsilon}}x+(\beta-\dfrac{\gamma E[x]}{\sqrt{
 <img src="https://i.loli.net/2017/09/16/59bce867e253a.jpg" alt="bn-inference.jpg" title="Training and Inference BN Network" />
 
 BN变换置于网络激活函数层的前面，对于普通前馈神经网络，BN是对一层的每个神经元进行归一化处理；而在卷积神经网络中，BN则是对一层的每个特征图进行处理，类似于权值共享，一个特征图只有一对可学习参数$\gamma、\beta$，如果某一层的输入张量为$[batch\\_size, height, width, channels]$，则BN变换是按照channels进行的，minibatch的大小相当于$batch\\_size \times height \times width$。
+
+
+有研究者认为，BN通过mini-batch来规范化某些层/所有层的输入，从而可以固定每层输入信号的均值与方差，实际上解决的并不是covariate shift的问题，因为均值方差一致的分布并不是同样的分布，ICS只是一种包装纸，BN实际解决的是梯度弥散的问题，在反向传播中，小于1的梯度值通过连乘操作会趋于0，而BN通过将每一层的输入规范为均值、方差一致，使得梯度传播较为稳定，在一定程度上避免了梯度消失的问题。
 
 #### Advantage
 总体来说，Batch Normalization主要有如下优点：

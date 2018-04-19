@@ -1,7 +1,7 @@
 ---
 title: Deep Learning -- Activation Function
 date: 2017-09-05
-categories: Algorithm
+categories: Deep Learning
 tags: DL
 ---
 &emsp;&emsp;神经网络的激活函数(activation function)通过引入非线性因素，使得网络可以逼近任何非线性函数，提高网络模型的表达能力，更好地解决复杂问题。

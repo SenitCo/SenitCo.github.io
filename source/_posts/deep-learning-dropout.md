@@ -1,7 +1,7 @@
 ---
 title: Deep Learning -- Dropout
 date: 2017-09-08
-categories: Algorithm
+categories: Deep Learning
 tags: DL
 ---
 &emsp;&emsp;训练神经网络模型时(Nerual Network)，如果网络规模较大，训练样本较少，为了防止模型过拟合，通常会采用Regularization(正则化，e.g. L2-norm、Dropout)。Dropout的基本思想是在模型训练时，让某些神经元以一定的概率不工作。
