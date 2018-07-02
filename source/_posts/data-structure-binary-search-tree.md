@@ -5,6 +5,9 @@ categories: Data Structure
 tags: [code, binary tree, binary search tree, dp, recursive]
 ---
 
+数据结构中二叉搜索树问题总结归纳。
+<!--more-->
+
 ### Unique Binary Search Trees
 [Description](https://leetcode.com/problems/unique-binary-search-trees/description/): Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
 ```cpp
