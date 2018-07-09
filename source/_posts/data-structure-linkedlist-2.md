@@ -2,7 +2,7 @@
 title: 链表问题集锦（二）
 date: 2018-02-02
 categories: Data Structure
-tags: code
+tags: [code, linked list]
 ---
 
 数据结构中经典链表问题总结归纳，接上一篇[链表问题集锦（一）](https://senitco.github.io/2018/02/01/data-structure-linkedlist/)

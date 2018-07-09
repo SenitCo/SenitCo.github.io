@@ -2,7 +2,7 @@
 title: 链表问题集锦（一）
 date: 2018-02-01
 categories: Data Structure
-tags: code
+tags: [code, linked list]
 ---
 
 将数据结构中一些经典的链表问题做一个总结归纳。
