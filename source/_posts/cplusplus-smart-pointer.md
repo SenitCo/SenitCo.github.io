@@ -76,7 +76,7 @@ int main()
         auto_ptr<string> (new string("How"));
     }
 
-    auto_ptr<int> s;
+    auto_ptr<string> s;
     s = str[2];	//str[2]所指对象的所有权转让给了s
     if(str[2].get() == NULL)    //此处判断条件为真
         cout << "The pointer is null!" << endl;
@@ -121,7 +121,7 @@ ps3 = unique_ptr<string>(new string("Hello World"));    //先调用有参构造�
 ```cpp
 unique_ptr<string> ps1 = unique<string>(new string("Hello World!"));    //等价于unique_ptr<string> ps1(new string("Hello world!"))，直接调用有参构造函数
 uinque_ptr<string> ps2 = std::move(ps1);
-if(ps == NULL) //此处判断条件为真，与auto_ptr必须通过get()成员函数返回指针略有不同，ps可直接和指针进行比较（应该是重载了operator==），也可通过get()函数返回指针
+if(ps1 == NULL) //此处判断条件为真，与auto_ptr必须通过get()成员函数返回指针略有不同，ps1可直接和指针进行比较（应该是重载了operator==），也可通过get()函数返回指针
     cout << "The pointer is null!" << endl;
 ```
 
