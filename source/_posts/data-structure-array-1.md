@@ -1,5 +1,5 @@
 ---
-title: 数组(Array)问题集锦
+title: 数组(Array)问题集锦（一）
 date: 2018-03-22
 categories: Data Structure
 tags: [code, array]
@@ -115,3 +115,8 @@ public:
 };
 
 ```
+
+
+
+
+
