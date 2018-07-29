@@ -2,7 +2,7 @@
 title: 链表排序
 date: 2018-03-24
 categories: Data Structure
-tags: [code, linkedlist, sort, two pointers]
+tags: [code, linked list, sort, two pointers]
 ---
 链表排序问题总结归纳。
 <!--more-->
