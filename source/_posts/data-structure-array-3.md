@@ -1,5 +1,5 @@
 ---
-title: 数组(Array)问题集锦（三）
+title: 数组(Array)和动态规划
 date: 2018-03-26
 categories: Data Structure
 tags: [code, array, dp, stack]

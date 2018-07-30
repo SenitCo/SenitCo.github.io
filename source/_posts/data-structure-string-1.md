@@ -183,3 +183,33 @@ public:
 };
 
 ```
+
+### Longest Palindromic Subsequence
+[Description](https://leetcode.com/problems/longest-palindromic-subsequence/description/): Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
+Example 1: Input: "bbbab". Output: 4. One possible longest palindromic subsequence is "bbbb".
+Example 2: Input: "cbbd". Output: 2. One possible longest palindromic subsequence is "bb".
+```cpp
+/***
+dp[i][j]: 区间[i, j]的最长回文子序列
+s[i] == s[j]: dp[i][j] = dp[i+1][j-1] + 2 
+otherwise, dp[i][j] = max(dp[i+1][j], dp[i][j-1])
+Initialization: dp[i][i] = 1
+*/
+int longestPalindromeSubseq(string s) 
+{
+    int length = s.length();
+    vector<vector<int>> dp(length, vector<int>(length, 0));
+    for(int i = length - 1; i >= 0; i--)
+    {
+        dp[i][i] = 1;
+        for(int j = i + 1; j < length; j++)
+        {
+            if(s[i] == s[j])
+                dp[i][j] = dp[i+1][j-1] + 2;
+            else
+                dp[i][j] = max(dp[i][j-1], dp[i+1][j]);
+        }
+    }
+    return dp[0][length-1];
+}
+```
