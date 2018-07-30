@@ -213,3 +213,79 @@ int longestPalindromeSubseq(string s)
     return dp[0][length-1];
 }
 ```
+
+### Edit Distance
+[Description](https://leetcode.com/problems/edit-distance/description/): Given two words word1 and word2, find the minimum number of steps required to convert word1 to word2. 
+(each operation is counted as 1 step.)
+You have the following 3 operations permitted on a word:
+a) Insert a character
+b) Delete a character
+c) Replace a character
+
+```cpp
+/**
+DP算法：令dp[i][j]表示将word1[0...i-1]转换为word2[0...j-1]所需的最小转换次数
+1. i = 0, dp[0][j] = j; j = 0, dp[i][0] = i
+2. word1[i - 1] = word2[j - 1]: dp[i][j] = dp[i - 1][j - 1]
+3. word1[i - 1] != word2[j - 1]，则考虑以下三种情况：
+(1) word1[i - 1]替换为word2[j - 1]: dp[i][j] = dp[i - 1][j - 1] + 1
+(2) 删除word1[i - 1], word1[0...i - 2] = word2[0...j - 1]: dp[i][j] = dp[i - 1][j] + 1
+(3) 插入Word2[j - 1], word1[0...i - 1] + word2[j - 1] = word2[0...j - 1]: dp[i][j] = dp[i][j - 1] + 1
+*/
+int minDistance(string word1, string word2) 
+{
+    int m = word1.size(), n = word2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+    for(int i = 1; i < m + 1; i++)
+        dp[i][0] = i;
+    for(int j = 1; j < n + 1; j++)
+        dp[0][j] = j;
+    for(int i = 1; i < m + 1; i++)
+    {
+        for(int j = 1; j < n + 1; j++)
+        {
+            if(word1[i - 1] == word2[j - 1])
+                dp[i][j] = dp[i - 1][j - 1];
+            else
+                dp[i][j] = min(dp[i - 1][j - 1] + 1, min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
+        }
+    }
+    return dp[m][n];
+}
+```
+
+### Simplify Path
+[Description](https://leetcode.com/problems/simplify-path/description/): Given an absolute path for a file (Unix-style), simplify it.
+For example, path = "/home/", => "/home", path = "/a/./b/../../c/", => "/c"
+
+Corner Cases:
+Did you consider the case where path = "/../"?
+In this case, you should return "/".
+Another corner case is the path might contain multiple slashes '/' together, such as "/home//foo/".
+In this case, you should ignore redundant slashes and return "/home/foo".
+
+```cpp
+class Solution {
+public:
+    string simplifyPath(string path) {
+        string result, temp;
+        vector<string> vs;
+        stringstream ss(path);
+        while(getline(ss, temp, '/'))   //getlines可以分割(split)字符串
+        {
+            if(temp == "" || temp == ".")
+                continue;
+            if(temp == "..")
+            {
+                if(!vs.empty())
+                    vs.pop_back();
+            }
+            else
+                vs.push_back(temp);
+        }
+        for(auto s : vs)
+            result += '/' + s;
+        return result.empty() ? "/" : result;
+    }
+};
+```
