@@ -135,6 +135,213 @@ vector<int> plusOne(vector<int>& digits)
 }
 ```
 
+### Spiral Matrix
+[Description](https://leetcode.com/problems/spiral-matrix/description/): Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+For example, Given the following matrix:
+[
+ [ 1, 2, 3 ],
+ [ 4, 5, 6 ],
+ [ 7, 8, 9 ]
+]
+You should return [1,2,3,6,9,8,7,4,5].
+```cpp
+/**
+向右遍历，向下遍历，向左遍历，向上遍历，循环往复，每次遍历结束，修改边界条件；在向左、向上遍历的时候
+需要重新判断一次边界条件，因为在前两次遍历过程中，边界条件已被修改
+*/
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> result;
+        if(matrix.empty())
+            return result;
+        int rowBegin = 0, rowEnd = matrix.size() - 1, colBegin = 0, colEnd = matrix[0].size() - 1;
+        while(rowBegin <= rowEnd && colBegin <= colEnd)
+        {
+            for(int j = colBegin; j <= colEnd; j++)
+                result.push_back(matrix[rowBegin][j]);
+            rowBegin++;
+            for(int i = rowBegin; i <= rowEnd; i++)
+                result.push_back(matrix[i][colEnd]);
+            colEnd--;
+            if(rowBegin <= rowEnd)      //重新判断条件
+            {
+                for(int j = colEnd; j >= colBegin; j--)
+                    result.push_back(matrix[rowEnd][j]);
+            }
+            rowEnd--;
+            if(colBegin <= colEnd)
+            {
+                for(int i = rowEnd; i >= rowBegin; i--)
+                    result.push_back(matrix[i][colBegin]);
+            }
+            colBegin++;
+        }
+        return result;
+    }
+};
+
+/**
+When traversing the matrix in the spiral order, at any time we follow one out of the following four directions: 
+RIGHT DOWN LEFT UP. Suppose we are working on a 5 x 3 matrix as such:
+
+0 1 2 3 4 5
+6 7 8 9 10
+11 12 13 14 15
+
+Imagine a cursor starts off at (0, -1), i.e. the position at ‘0’, then we can achieve the spiral order by doing
+the following:
+
+Go right 5 times
+Go down 2 times
+Go left 4 times
+Go up 1 times.
+Go right 3 times
+Go down 0 times -> quit
+
+Notice that the directions we choose always follow the order ‘right->down->left->up’, and for horizontal movements, 
+the number of shifts follows:{5, 4, 3}, and vertical movements follows {2, 1, 0}. Thus, we can make use of a direction 
+matrix that records the offset for all directions, then an array of two elements that stores the number of shifts for 
+horizontal and vertical movements, respectively. This way, we really just need one for loop instead of four.
+
+Another good thing about this implementation is that: If later we decided to do spiral traversal on a different direction 
+(e.g. Counterclockwise), then we only need to change the Direction matrix; the main loop does not need to be touched.
+
+通过定义四组方向参数，以及每次遍历时迭代的次数，将四次遍历统一起来（无需写四组循环）
+
+*/
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if(matrix.size() == 0)  return {};
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> results(m * n, 0);
+        vector<vector<int>> dirs({{0, 1}, {1, 0}, {0, -1}, {-1, 0}});
+        vector<int> step({n, m - 1});
+        int ir = 0, ic = -1, index = 0, num = m * n;
+        for(int i = 0; i < num; )
+        {
+            for(int j = 0; j < step[index % 2]; j++)
+            {
+                ir += dirs[index % 4][0];
+                ic += dirs[index % 4][1];
+                results[i] = matrix[ir][ic];
+                i++;
+            }
+            step[index % 2]--;
+            index = (index + 1) % 4;
+        }
+        return results;
+    }
+};
+```
+
+### Spiral Matrix II
+[Description](https://leetcode.com/problems/spiral-matrix-ii/description/): Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
+For example, Given n = 3, You should return the following matrix:
+[
+ [ 1, 2, 3 ],
+ [ 8, 9, 4 ],
+ [ 7, 6, 5 ]
+]
+```cpp
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> result(n, vector<int>(n, 0));
+        vector<vector<int>> dirs({{0, 1}, {1, 0}, {0, -1}, {-1, 0}});   //表示遍历方向
+        int num = n * n + 1;
+        vector<int> step({n, n - 1});   //横纵方向遍历的步长（依次递减）
+        int ir = 0, ic = -1, idx = 0;
+        for(int i = 1; i < num;)
+        {
+            for(int j = 0; j < step[idx % 2]; j++)
+            {
+                ir += dirs[idx][0];
+                ic += dirs[idx][1];
+                result[ir][ic] = i;
+                i++;
+            }
+            step[idx % 2]--;
+            idx = (idx + 1) % 4;
+        }
+        return result;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> matrix(n, vector<int>(n));
+        
+        int rowStart = 0, rowEnd = n - 1, colStart = 0, colEnd = n - 1, num = 1;
+        
+        //通过横纵边界作为循环条件
+        while (rowStart <= rowEnd && colStart <= colEnd) {  
+            for (int j = colStart; j <= colEnd; j++) {
+                matrix[rowStart][j] = num++; 
+            }
+            rowStart++;
+            
+            for (int i = rowStart; i <= rowEnd; i++) {
+                matrix[i][colEnd] = num++; 
+            }
+            colEnd--;
+            
+            if (rowStart <= rowEnd) {
+                for (int j = colEnd; j >= colStart; j--) {
+                        matrix[rowEnd][j] = num++; 
+                }
+                rowEnd--;
+            }
+            
+            if (colStart <= colEnd) {
+                for (int i = rowEnd; i >= rowStart; i--) {
+                        matrix[i][colStart] = num++; 
+                }
+                colStart ++;
+            }
+        }
+        
+        return matrix;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> matrix(n, vector<int>(n));
+        
+        int rowStart = 0, rowEnd = n - 1, colStart = 0, colEnd = n - 1, num = 1;
+        //元素总数作为循环条件
+        while (num < n * n + 1) {
+            for (int j = colStart; j <= colEnd; j++) {
+                matrix[rowStart][j] = num++; 
+            }
+            rowStart++;
+            
+            for (int i = rowStart; i <= rowEnd; i++) {
+                matrix[i][colEnd] = num++; 
+            }
+            colEnd--;
+            
+            for (int j = colEnd; j >= colStart; j--) {
+                    matrix[rowEnd][j] = num++; 
+            }
+            rowEnd--;
+
+            for (int i = rowEnd; i >= rowStart; i--) {
+                    matrix[i][colStart] = num++; 
+            }
+            colStart++;
+        }
+        
+        return matrix;
+    }
+};
+
+```
 
 
 
