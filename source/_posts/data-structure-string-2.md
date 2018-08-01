@@ -336,3 +336,35 @@ public:
     }
 };
 ```
+
+### Group Anagrams
+[Description](https://leetcode.com/problems/group-anagrams/description/): Given an array of strings, group anagrams together.
+For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"], 
+Return:
+[
+  ["ate", "eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+Note: All inputs will be in lower-case.
+```cpp
+/**
+将每个字符串进行排序，并将排序后的字符串作为hash键值，对原始字符串进行索引分类
+*/
+vector<vector<string>> groupAnagrams(vector<string>& strs) 
+{
+    vector<vector<string>> results;
+    unordered_map<string, vector<string>> map;
+    for(string str : strs)
+    {
+        string word = str;
+        sort(word.begin(), word.end());
+        map[word].push_back(str);
+    }
+    for(auto iter = map.begin(); iter != map.end(); iter++)
+    {
+        results.push_back(iter->second);
+    }
+    return results;
+}
+```
