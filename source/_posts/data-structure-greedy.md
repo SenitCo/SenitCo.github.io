@@ -35,3 +35,92 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost)
         return start;
 }
 ```
+
+### Jump Game
+[Description](https://leetcode.com/problems/jump-game/description/): Given an array of non-negative integers, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Determine if you are able to reach the last index.
+
+For example:
+A = [2,3,1,1,4], return true.
+A = [3,2,1,0,4], return false.
+
+```cpp
+/**
+1. 能跳到位置i的条件：i<=maxIndex。
+2. 一旦跳到i，则maxIndex = max(maxIndex, i+nums[i])。
+3. 能跳到最后一个位置n-1的条件是：maxIndex >= n-1
+*/
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxIndex = 0, size = nums.size();
+        for(int i = 0; i < size; i++)
+        {
+            if(i > maxIndex || maxIndex >= size - 1)
+                break;
+            maxIndex = max(maxIndex, nums[i] + i);
+        }
+        return maxIndex >= size - 1; 
+    }
+};
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int i = 0, n = nums.size();
+        for (int reach = 0; i < n && i <= reach; ++i)
+            reach = max(i + nums[i], reach);
+        return i == n;
+    }
+};
+```
+
+### Jump Game II
+[Description](https://leetcode.com/problems/jump-game-ii/description/): Given an array of non-negative integers, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Your goal is to reach the last index in the minimum number of jumps.
+For example: Given array A = [2,3,1,1,4]
+The minimum number of jumps to reach the last index is 2. (Jump 1 step from index 0 to 1, then 3 steps to the last index.)
+Note: You can assume that you can always reach the last index.
+
+```cpp
+/**
+currentMax表示当前能够到达的最大长度，nextMax表示下一步可以到达的最大长度，在currentMax范围内遍历，
+确定下一步的最长范围nextMax，超过currentMax则跳数递增，并让 currentMax = nextMax，继续下一轮遍历，
+时间复杂度为O(N)
+*/
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        if(nums.size() < 2)
+            return 0;
+        int currentMax = 0, nextMax = 0, i = 0, step = 0;
+        while(currentMax >= i)
+        {
+            step++;
+            for(; i <= currentMax; i++)
+            {
+                nextMax = max(nextMax, i + nums[i]);
+                if(nextMax >= nums.size() - 1)
+                    return step;
+            }
+            currentMax = nextMax;
+        }
+    }
+};
+
+
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int cnt = 0, currentMax = 0, nextMax = 0;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(i > currentMax)
+            {
+                currentMax = nextMax;
+                cnt++;
+            }
+            nextMax = max(nextMax, nums[i] + i);
+        }
+        return cnt;
+    }
+};
+```
