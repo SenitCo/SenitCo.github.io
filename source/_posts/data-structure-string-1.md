@@ -7,6 +7,131 @@ tags: [code, string]
 数据结构与算法中字符串(String)问题总结归纳。
 <!--more-->
 
+### Implement strStr()
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+Example 1: Input: haystack = "hello", needle = "ll", Output: 2
+Example 2: Input: haystack = "aaaaa", needle = "bba", Output: -1
+```cpp
+/*****调用STL函数******/
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        return haystack.find(needle);
+    }
+};
+
+/*****朴素匹配算法*****/
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int len1 = haystack.length(), len2 = needle.length();
+        for(int i = 0; i < len1 - len2 + 1; i++)
+        {
+            int j = 0;
+            for(; j < len2; j++)
+            {
+                if(haystack[i + j] != needle[j])
+                    break;
+            }
+            if(j == len2)
+                return i;
+        }
+        return -1;
+    }
+};
+
+/***************KMP算法*******************/
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int len1 = haystack.length(), len2 = needle.length();
+        if(len2 == 0)
+            return 0;
+        vector<int> next = getNext(needle);
+        int i = 0, j = 0;
+        while(i < len1 && j < len2)
+        {
+            if(j == -1 || haystack[i] == needle[j])
+            {
+                i++;
+                j++;
+            }
+            else
+                j = next[j];
+        }
+        if(j == len2)
+            return i - j;
+        return -1;
+    }
+private:
+    vector<int> getNext(string& needle)
+    {
+        int len = needle.length();
+        vector<int> next(len + 1);  //注意：next数组长度要大于子串长度
+        next[0] = -1;
+        for(int i = 0, j = -1; i < len;)
+        {
+            if(j == -1 || needle[i] == needle[j])
+            {
+                i++;    //i=len-1时，此处的自增可能导致下面next[i]溢出，因此next数组长度要大于子串长度
+                j++;
+                next[i] = j;
+            }
+            else 
+                j = next[j];
+        }
+        return next;
+    }
+};
+
+/***************KMP算法（改进版本）*******************/
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int len1 = haystack.length(), len2 = needle.length();
+        if(len2 == 0)
+            return 0;
+        vector<int> next = getNext(needle);
+        int i = 0, j = 0;
+        while(i < len1 && j < len2)
+        {
+            if(j == -1 || haystack[i] == needle[j])
+            {
+                i++;
+                j++;
+            }
+            else
+                j = next[j];
+        }
+        if(j == len2)
+            return i - j;
+        return -1;
+    }
+private:
+    vector<int> getNext(string& needle)
+    {
+        int len = needle.length();
+        vector<int> next(len + 1);
+        next[0] = -1;
+        for(int i = 0, j = -1; i < len;)
+        {
+            if(j == -1 || needle[i] == needle[j])
+            {
+                i++;
+                j++;
+                if(needle[i] != needle[j])
+                    next[i] = j;
+                else
+                    next[i] = next[j];
+            }
+            else 
+                j = next[j];
+        }
+        return next;
+    }
+};
+```
+
 ### Multiply Strings
 Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
 Note:
@@ -223,6 +348,76 @@ public:
     }
 };
 ```
+
+### Longest Valid Parentheses
+[Description](https://leetcode.com/problems/longest-valid-parentheses/description/): Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring. For "(()", the longest valid parentheses substring is "()", which has length = 2. Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
+```cpp
+/**
+遍历字符串中的元素，如果是'('，则将索引 i 压入栈中；如果是')'，则判断栈是否为空，若不为空切栈顶元素为'('，
+pop栈顶元素，否则将索引压入栈中。然后计算栈中相邻元素(字符串索引)之间的距离，取最大值即为最大匹配长度。
+*/
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int len = s.length(), maxLen = 0;
+        stack<int> st;
+        for(int i = 0; i < len; i++)
+        {
+            if(s[i] == '(')
+                st.push(i);
+            else
+            {
+                if(!st.empty())  
+                {
+                    if(s[st.top()] == '(')
+                        st.pop();
+                    else
+                        st.push(i);
+                }
+                else
+                    st.push(i);
+            }
+        }
+        if(st.empty())
+            return len;
+        
+        int i = len, j = 0;
+        while(!st.empty())
+        {
+            j = st.top();
+            st.pop();
+            maxLen = max(maxLen, i - j - 1);
+            i = j;
+        }
+        maxLen = max(maxLen, i);
+        return maxLen;
+    }
+};
+
+/**
+简化版本，遍历字符串元素的同时，计算长度，并记录最大值
+*/
+int longestValidParentheses(string s) 
+{
+    int len = s.length(), maxLen = 0;
+    stack<int> st;
+    st.push(-1);
+    int topVal = 0;
+    for(int i = 0; i < len; i++)
+    {
+        topVal = st.top();
+        if(topVal != -1 && s[i] == ')' && s[topVal] == '(')
+        {
+            st.pop();
+            maxLen = max(maxLen, i - st.top());
+        }
+        else
+            st.push(i);
+    }
+    return maxLen;
+}
+```
+
 
 ### Count and Say
 The count-and-say sequence is the sequence of integers with the first five terms as following:
