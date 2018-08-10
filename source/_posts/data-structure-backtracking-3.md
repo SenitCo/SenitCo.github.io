@@ -7,6 +7,65 @@ tags: [code, recursive, backtracking, dp]
 数据结构与算法中回溯(Backtracking)问题总结归纳。
 <!--more-->
 
+### Letter Combinations of a Phone Number
+Given a digit string, return all possible letter combinations that the number could represent. A mapping of digit to letters (just like on the telephone buttons) is given below.
+Input:Digit string "23", Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+```cpp
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> results;
+        string combination;
+        if(digits.empty())
+            return results;
+        vector<string> table = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        search(digits, table, results, combination, 0);
+        return results;
+    }
+    
+    void search(const string& digits, const vector<string>& table, vector<string>& results, string& combination, int i)
+    {
+        if(i == digits.length())
+        {
+            results.push_back(combination);
+            return;
+        }
+        int index = digits[i] - '2';
+        for(int j = 0; j < table[index].length(); j++)
+        {
+            combination.push_back(table[index][j]);
+            search(digits, table, results, combination, i + 1);
+            combination.pop_back();
+        }
+    }
+};
+
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        string map[10] = { "0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+        vector<string> letters;
+        if(digits.empty())
+            return letters;
+        letters.push_back("");
+        for(int i = 0; i < digits.length(); i++)
+        {
+            vector<string> temp;
+            string chars = map[digits[i] - '0'];
+            for(int j = 0; j < chars.length(); j++)
+            {
+                for(int k = 0; k < letters.size(); k++)
+                {
+                    temp.push_back(letters[k] + chars[j]);
+                }
+            }
+            letters = temp;
+        }
+        return letters;
+    }
+};
+```
+
 ### Generate Parentheses
 [Description](https://leetcode.com/problems/generate-parentheses/description/): Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 > For example, given n = 3, a solution set is:
