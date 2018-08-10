@@ -200,6 +200,23 @@ ListNode* reverseKGroup(ListNode* head, int k)
 ### 将单链表的结点两两交换
 题目描述：给定一个单链表，将相邻两个结点两两交换。例如链表：1->2->3->4, 交换后的序列为2->1->4->3。[LeetCode](https://leetcode.com/problems/swap-nodes-in-pairs/description/)
 ```cpp
+ListNode* swapPairs(ListNode* head) 
+{
+    ListNode* start = new ListNode(0);
+    start->next = head;
+    ListNode *pre = start, *cur, *nex;
+    while(pre->next && pre->next->next)
+    {
+        cur = pre->next;
+        nex = cur->next;
+        cur->next = nex->next;
+        nex->next = pre->next;
+        pre->next = nex;
+        pre = cur;
+    }
+    return start->next;
+}
+
 //遍历元素，两两交换
 ListNode* swapPairs(ListNode* head) 
 {

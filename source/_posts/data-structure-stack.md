@@ -1,11 +1,144 @@
 ---
-title: 数组(Array)和栈(Stack)
+title: 栈(Stack)相关问题集锦
 date: 2018-04-10
 categories: Data Structure
-tags: [code, array, stack]
+tags: [code, stack]
 ---
-数据结构与算法中数组（Array）和栈问题总结归纳。
+数据结构与算法中栈相关问题总结归纳。
 <!--more-->
+
+### Valid Parentheses
+[Description](https://leetcode.com/problems/valid-parentheses/description/): Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+```cpp
+bool isValid(string s) 
+{
+    unordered_map<char, char> mp({{']', '['}, {')', '('}, {'}', '{'}});
+    stack<char> st;
+    for(int i = 0; i < s.length(); i++)
+    {
+        if(mp.find(s[i]) == mp.end())
+            st.push(s[i]);
+        else if(!st.empty() && mp[s[i]] == st.top())
+            st.pop();
+        else
+            return false;
+    }
+    return st.empty() ? true : false;
+}
+
+bool isValid(string s) 
+{
+    typedef pair<char, char> p2Char;
+    unordered_map<char, char> parenthese{ p2Char('(', ')'), p2Char('{', '}'), p2Char('[', ']') };
+    int len = s.length();
+    stack<char> ss;
+    for (int i = 0; i < len; i++)
+    {
+        if (parenthese.find(s[i]) != parenthese.end())
+        {
+            ss.push(s[i]);
+        }
+        else 
+        {
+            if(ss.empty() || parenthese[ss.top()] != s[i])
+                return false;
+            else
+                ss.pop();
+        }
+    }
+    return ss.empty();
+}
+
+/*压入栈中的为右边括号*/
+bool isValid(string s) 
+{
+    stack<char> ss;
+    for(int i = 0; i < s.length(); i++)
+    {
+        switch(s[i])
+        {
+            case '(': ss.push(')'); break;
+            case '{': ss.push('}'); break;
+            case '[': ss.push(']'); break;
+            default:
+                if(ss.empty() || ss.top() != s[i])
+                    return false;
+                else
+                    ss.pop();
+        }
+    }
+    return ss.empty();
+}
+```
+
+### Longest Valid Parentheses
+[Description](https://leetcode.com/problems/longest-valid-parentheses/description/): Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring. For "(()", the longest valid parentheses substring is "()", which has length = 2. Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
+```cpp
+/**
+遍历字符串中的元素，如果是'('，则将索引 i 压入栈中；如果是')'，则判断栈是否为空，若不为空切栈顶元素为'('，
+pop栈顶元素，否则将索引压入栈中。然后计算栈中相邻元素(字符串索引)之间的距离，取最大值即为最大匹配长度。
+*/
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int len = s.length(), maxLen = 0;
+        stack<int> st;
+        for(int i = 0; i < len; i++)
+        {
+            if(s[i] == '(')
+                st.push(i);
+            else
+            {
+                if(!st.empty())  
+                {
+                    if(s[st.top()] == '(')
+                        st.pop();
+                    else
+                        st.push(i);
+                }
+                else
+                    st.push(i);
+            }
+        }
+        if(st.empty())
+            return len;
+        
+        int i = len, j = 0;
+        while(!st.empty())
+        {
+            j = st.top();
+            st.pop();
+            maxLen = max(maxLen, i - j - 1);
+            i = j;
+        }
+        maxLen = max(maxLen, i);
+        return maxLen;
+    }
+};
+
+/**
+简化版本，遍历字符串元素的同时，计算长度，并记录最大值
+*/
+int longestValidParentheses(string s) 
+{
+    int len = s.length(), maxLen = 0;
+    stack<int> st;
+    st.push(-1);
+    int topVal = 0;
+    for(int i = 0; i < len; i++)
+    {
+        topVal = st.top();
+        if(topVal != -1 && s[i] == ')' && s[topVal] == '(')
+        {
+            st.pop();
+            maxLen = max(maxLen, i - st.top());
+        }
+        else
+            st.push(i);
+    }
+    return maxLen;
+}
+```
 
 ### Largest Rectangle in Histogram
 [Description](https://leetcode.com/problems/largest-rectangle-in-histogram/description/): Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram. Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3]. The largest rectangle is shown in the shaded area, which has area = 10 unit. For example, Given heights = [2,1,5,6,2,3], return 10.
