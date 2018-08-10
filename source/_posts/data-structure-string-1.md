@@ -7,8 +7,35 @@ tags: [code, string]
 数据结构与算法中字符串问题总结归纳。
 <!--more-->
 
+### Longest Common Prefix
+[Description](https://leetcode.com/problems/longest-common-prefix/description/): Write a function to find the longest common prefix string amongst an array of strings.
+```cpp
+string longestCommonPrefix(vector<string>& strs) 
+{
+    if(strs.empty())
+        return "";
+    int len = INT_MAX;
+    for(int i = 0; i < strs.size(); i++)
+    {
+        if(len > strs[i].length())
+            len = strs[i].length();
+    }
+    for(int i = 0; i < len; i++)
+    {
+        char value = strs[0][i];
+        for(int j = 1; j < strs.size(); j++)
+        {
+            if(strs[j][i] != value)
+                return strs[0].substr(0, i);
+        }
+            
+    }
+    return strs[0].substr(0, len);
+}
+```
+
 ### Implement strStr()
-Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+[Description](https://leetcode.com/problems/implement-strstr/description/): Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 Example 1: Input: haystack = "hello", needle = "ll", Output: 2
 Example 2: Input: haystack = "aaaaa", needle = "bba", Output: -1
 ```cpp
@@ -133,7 +160,7 @@ private:
 ```
 
 ### Multiply Strings
-Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
+[Description](https://leetcode.com/problems/multiply-strings/description/): Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
 Note:
 The length of both num1 and num2 is < 110.
 Both num1 and num2 contains only digits 0-9.
