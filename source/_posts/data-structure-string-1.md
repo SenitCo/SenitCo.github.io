@@ -159,6 +159,59 @@ private:
 };
 ```
 
+### Add Binary
+[Description](https://leetcode.com/problems/add-binary/description/): Given two binary strings, return their sum (also a binary string). For example, a = "11", b = "1", Return "100".
+```cpp
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int step = 0, sum = 0;
+        int i = a.length() - 1, j = b.length() - 1;
+        string c;
+        for(; i >= 0 && j >= 0; i--, j--)
+        {
+            sum = (a[i] - '0') + (b[j] - '0') + step;
+            c.push_back(sum % 2 + '0');
+            step = sum / 2;              
+        }
+        for(; i >= 0; i--)
+        {
+            sum = (a[i] - '0') + step;
+            c.push_back(sum % 2 + '0');
+            step = sum / 2;
+        }
+        for(; j >= 0; j--)
+        {
+            sum = (b[j] - '0') + step;
+            c.push_back(sum % 2 + '0');
+            step = sum / 2;
+        }
+        if(step > 0)
+            c.push_back('1');
+        reverse(c.begin(), c.end());
+        return c;
+            
+    }
+};
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string s;   
+        int c = 0, i = a.size() - 1, j = b.size() - 1;
+        while(i >= 0 || j >= 0 || c == 1)
+        {
+            c += i >= 0 ? a[i--] - '0' : 0;
+            c += j >= 0 ? b[j--] - '0' : 0;
+            s.push_back(c % 2 + '0');
+            c /= 2;
+        }
+        reverse(s.begin(), s.end());
+        return s;          
+    }
+};
+```
+
 ### Multiply Strings
 [Description](https://leetcode.com/problems/multiply-strings/description/): Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
 Note:
@@ -200,6 +253,51 @@ public:
         return result;
     }
 };
+```
+
+### Add Two Numbers
+[Description](https://leetcode.com/problems/add-two-numbers/description/): You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself
+```cpp
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+{
+    ListNode *pL1 = l1, *pL2 = l2;
+    ListNode *result = new ListNode(0), *pResult = result;
+    int value = 0;
+    while(pL1 || pL2)
+    {
+        value /= 10;
+        if(pL1)
+        {
+            value += pL1->val;
+            pL1 = pL1->next;
+        }
+        if(pL2)
+        {
+            value += pL2->val;
+            pL2 = pL2->next;
+        }   
+       
+        pResult->next = new ListNode(value % 10);
+        pResult = pResult->next;
+    }
+    if(value / 10 == 1 )
+        pResult->next = new ListNode(1);
+    return result->next;
+}
+
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
+    ListNode preHead(0), *p = &preHead;
+    int extra = 0;
+    while (l1 || l2 || extra) {
+        int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + extra;
+        extra = sum / 10;
+        p->next = new ListNode(sum % 10);
+        p = p->next;
+        l1 = l1 ? l1->next : l1;
+        l2 = l2 ? l2->next : l2;
+    }
+    return preHead.next;
+}
 ```
 
 ### Simplify Path
@@ -319,59 +417,6 @@ public:
         for(; s[i] == ' '; i++) {}  // skip the trailing whitespaces
 
         return i == s.length();  // must reach the ending 0 of the string
-    }
-};
-```
-
-### Add Binary
-[Description](https://leetcode.com/problems/add-binary/description/): Given two binary strings, return their sum (also a binary string). For example, a = "11", b = "1", Return "100".
-```cpp
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        int step = 0, sum = 0;
-        int i = a.length() - 1, j = b.length() - 1;
-        string c;
-        for(; i >= 0 && j >= 0; i--, j--)
-        {
-            sum = (a[i] - '0') + (b[j] - '0') + step;
-            c.push_back(sum % 2 + '0');
-            step = sum / 2;              
-        }
-        for(; i >= 0; i--)
-        {
-            sum = (a[i] - '0') + step;
-            c.push_back(sum % 2 + '0');
-            step = sum / 2;
-        }
-        for(; j >= 0; j--)
-        {
-            sum = (b[j] - '0') + step;
-            c.push_back(sum % 2 + '0');
-            step = sum / 2;
-        }
-        if(step > 0)
-            c.push_back('1');
-        reverse(c.begin(), c.end());
-        return c;
-            
-    }
-};
-
-class Solution {
-public:
-    string addBinary(string a, string b) {
-        string s;   
-        int c = 0, i = a.size() - 1, j = b.size() - 1;
-        while(i >= 0 || j >= 0 || c == 1)
-        {
-            c += i >= 0 ? a[i--] - '0' : 0;
-            c += j >= 0 ? b[j--] - '0' : 0;
-            s.push_back(c % 2 + '0');
-            c /= 2;
-        }
-        reverse(s.begin(), s.end());
-        return s;          
     }
 };
 ```
@@ -513,3 +558,171 @@ private:
     }
 };
 ```
+
+### Integer to Roman
+[Description](https://leetcode.com/problems/integer-to-roman/description/): Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.
+```cpp
+/*
+I = 1;
+V = 5;
+X = 10;
+L = 50;
+C = 100;
+D = 500;
+M = 1000;
+其中每两个阶段之间有一个减法的表示，比如900=CM， C写在M前面表示M-C。
+*/
+string intToRoman(int num) 
+{
+    string result;    
+    string symbol[] = { "M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I" };    
+    int value[] = {1000,900,500,400, 100, 90,  50, 40,  10, 9,   5,  4,   1};   
+    for(int i = 0; num != 0; ++i)  
+    {  
+        while(num >= value[i])  
+        {  
+            num -= value[i];  
+            result += symbol[i];  
+        }  
+    }  
+    return result;  
+}  
+```
+
+### Roman to Integer
+[Description](https://leetcode.com/problems/roman-to-integer/description/): Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.
+```cpp
+int romanToInt(string s) 
+{
+    int ret = toNumber(s[0]);  
+    for (int i = 1; i < s.length(); i++) 
+    {  
+        if (toNumber(s[i - 1]) < toNumber(s[i])) 
+        {  
+            ret += toNumber(s[i]) - 2 * toNumber(s[i - 1]);  
+        }
+        else 
+        {  
+            ret += toNumber(s[i]);  
+        }  
+    }  
+    return ret;  
+}
+
+int toNumber(char ch) 
+{  
+    switch (ch) 
+    {  
+        case 'I': return 1;  
+        case 'V': return 5;  
+        case 'X': return 10;  
+        case 'L': return 50;  
+        case 'C': return 100;  
+        case 'D': return 500;  
+        case 'M': return 1000;  
+    }  
+    return 0;  
+}  
+```
+
+### String to Integer (atoi)
+[Description](https://leetcode.com/problems/string-to-integer-atoi/description/): Implement atoi to convert a string to an integer.
+```cpp
+/*处理四种情况：开头连续的空格；正负符号；不合理的输入；溢出
+不合理的输入"+-123"、"- 123"、"b123"等均输出0，"123a"这种情况输出前面的合理数字123
+*/
+class Solution {
+public:
+    int myAtoi(string str) {
+        double result = 0;
+        int i = 0, flag = 0;
+
+        while(str[i] == ' ')
+            i++;
+        if(str[i] == '-')
+        {
+            flag = 1;
+            i++;
+        }
+        else if(str[i] == '+')
+        {
+            i++;
+        }
+       
+        for(; i < str.size(); i++)
+        {
+            if(str[i] > '9' || str[i] < '0')
+                break;
+            result = result * 10 + str[i]   - '0';
+        }
+        if(flag)
+            result = -result;
+        if(result > INT_MAX)
+            result = INT_MAX;
+        if(result < INT_MIN)
+            result = INT_MIN;
+        return (int)result;
+    }
+};
+
+int myAtoi(string str) 
+{
+    int sign = 1, base = 0, i = 0;
+    while (str[i] == ' ') { i++; }
+    if (str[i] == '-' || str[i] == '+') 
+    {
+        sign = 1 - 2 * (str[i++] == '-'); 
+    }
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        if (base >  INT_MAX / 10 || (base == INT_MAX / 10 && str[i] - '0' > 7)) 
+        {
+            if (sign == 1) 
+                return INT_MAX;
+            else 
+                return INT_MIN;
+        }
+        base  = 10 * base + (str[i++] - '0');
+    }
+    return base * sign;
+}
+```
+
+### ZigZag Conversion
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility).
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+```cpp
+/**
+将字符串按之字形排列，然后逐行读取字符以“之”字形出现的周期为 (T=2*n-2)，n为总行数，对于每一行，先读取往下走的字符，然后读取斜向上走的字符，
+且两个字符之间的距离为 (T-2*i)，i为行数。
+*/
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows <= 1)
+            return s;
+        string result;
+        if(s.empty())
+            return result;
+        int period = numRows + numRows - 2;
+        int length = s.length();
+        
+        for(int i = 0; i < numRows; i++ )
+        {
+            for(int j = i; j < length; j += period)
+            {                    
+                result.append(1, s[j]);
+                if(i != 0 && i != numRows - 1 && j + period - 2 * i < length)
+                {
+                    result.append(1, s[j + period - 2 * i]);
+                }
+            }
+        }
+        return result;
+    }
+};
+```
+

@@ -7,6 +7,87 @@ tags: [code, array]
 数据结构与算法中数组（Array）问题总结归纳。
 <!--more-->
 
+### Palindrome Number
+[Description](https://leetcode.com/problems/palindrome-number/description/): Determine whether an integer is a palindrome. Do this without extra space. Solve it without converting the integer to a string.
+```cpp
+bool isPalindrome(int x) 
+{
+    if(x < 0)
+        return false;
+    int y = x, z = 0;
+    while(y > 0)
+    {
+        z = z * 10 + y % 10;
+        y = y / 10;
+    }
+    return x == z;
+}
+
+//compare half of the digits in x, so don't need to deal with overflow.
+bool isPalindrome(int x) 
+{
+    if (x < 0 || (x != 0 && x % 10 == 0)) 
+        return false;
+    int rev = 0;
+    while (x > rev)
+    {
+        rev = rev * 10 + x % 10;
+        x = x / 10;
+    }
+    return (x == rev || x == rev / 10);
+}
+```
+
+### Reverse Integer
+[Description](https://leetcode.com/problems/reverse-integer/description/): Given a 32-bit signed integer, reverse digits of an integer. Assume we are dealing with an environment which could only hold integers within the 32-bit signed integer range. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+```cpp
+/* 迭代除10取余，然后累乘(x10)累加，不用刻意注意正负数，符号在每一步的计算结果中有体现出来
+末尾连续为0的情况也无需额外考虑
+*/
+int reverse(int x) 
+{
+    double y = 0;
+    while(x != 0)
+    {
+        y = y * 10 + x % 10;
+        x = x / 10;
+    }
+    if(y > INT_MAX || y < INT_MIN)
+        return 0;
+    return y;
+}
+
+/**无需额外判断是否溢出**/
+int reverse(int x)
+{
+    int result = 0;
+    while (x != 0)
+    {
+        int tail = x % 10;
+        int newResult = result * 10 + tail;
+        //if (newResult / 10 != result)
+        if ((newResult - tail) / 10 != result)  //如溢出，则计算结果不相等
+            return 0;
+        result = newResult;
+        x = x / 10;
+    }
+    return result;
+}
+
+/**将溢出判读条件放在循环内，可以提前终止**/
+int reverse(int x) 
+{
+    double rev= 0;
+    while( x != 0){
+        rev= rev*10 + x % 10;
+        x= x/10;
+        if( rev >INT_MAX || rev < INT_MIN)  
+            return 0;
+    }
+    return (int)rev;
+}
+```
+
 ### First Missing Positive
 Given an unsorted integer array, find the first missing positive integer. For example, Given [1,2,0] return 3, and [3,4,-1,1] return 2. Your algorithm should run in O(n) time and uses constant space.
 ```cpp
