@@ -205,6 +205,56 @@ vector<int> postorderTraversal(TreeNode* root)
     reverse(result.begin(), result.end());
     return result;
 }
+
+vector<int> postorderTraversal(TreeNode* root) 
+{
+    vector<int> result;
+    if(!root)   return result;
+    stack<TreeNode*> toVisit;
+    TreeNode* last = NULL;
+    while(root || !toVisit.empty())
+    {
+        if(root)
+        {
+            toVisit.push(root);
+            root = root->left;
+        }
+        else
+        {
+            TreeNode *top = toVisit.top();
+            if(top->right && last != top->right)
+                root = top->right;
+            else
+            {
+                toVisit.pop();
+                result.push_back(top->val);
+                last = top;
+            }
+        }      
+    }
+    return result;
+}
+
+//遍历的时候将元素插入最前面
+vector<int> postorderTraversal(TreeNode* root) 
+{
+    vector<int> result;
+    if(!root)   return result;
+    stack<TreeNode*> toVisit;
+    while(root || !toVisit.empty())
+    {
+        while(root)
+        {
+            toVisit.push(root);
+            result.insert(result.begin(), root->val);
+            root = root->right;
+        }
+        root = toVisit.top();
+        toVisit.pop();
+        root = root->left;
+    }
+    return result;
+}
 ```
 
 ### 还原二叉搜索树

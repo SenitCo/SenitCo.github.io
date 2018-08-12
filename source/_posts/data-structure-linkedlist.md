@@ -59,7 +59,7 @@ ListNode* findNthFromEnd(ListNode* head, int n)
 //删除倒数第n个结点
 ListNode* removeNthFromEnd(ListNode* head, int n) 
 {
-    if(n < 0)	return NULL;
+    if(n < 0)	return head;
     ListNode* start = new ListNode(0);	//加一个起始（首）结点可有效解决只有一个元素的情况
     ListNode *front = start, *back = start;
     back->next = head;
@@ -67,7 +67,7 @@ ListNode* removeNthFromEnd(ListNode* head, int n)
     {
         front = front->next;
     }
-    if(i < n + 1)   return NULL;
+    if(i < n + 1)   return head;
     while(front)
     {
         front = front->next;
@@ -75,7 +75,7 @@ ListNode* removeNthFromEnd(ListNode* head, int n)
     }
     front = back->next;
     back->next = back->next->next;
-    free(front);
+    delete front;
     return start->next;
 }
 ```
@@ -220,7 +220,7 @@ ListNode* findIntersectNode(ListNode* head1, ListNode* head2)
 ```
 
 ### 如果两链表有环，判断是否相交
-分析：如果两个链表有环且相交，则两个链表共有一个环，即环上的任意一个结点都存在与两个链表上，因此只需要判断一个链表的环起始点是否在另外一个链表（的环）上。
+分析：如果两个链表有环且相交，则两个链表共有一个环，即环上的任意一个结点都存在于两个链表上，因此只需要判断一个链表的环中的结点是否在另外一个链表的环上。
 ```cpp
 ListNode* hasCycle(ListNode *head) 
 {
