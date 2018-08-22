@@ -689,12 +689,16 @@ int myAtoi(string str)
 ```
 
 ### ZigZag Conversion
+[Description](https://leetcode.com/problems/zigzag-conversion/description/)
+```cpp
+/**
 The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility).
 P   A   H   N
 A P L S I I G
 Y   I   R
 And then read line by line: "PAHNAPLSIIGYIR"
-```cpp
+*/
+
 /**
 将字符串按之字形排列，然后逐行读取字符以“之”字形出现的周期为 (T=2*n-2)，n为总行数，对于每一行，先读取往下走的字符，然后读取斜向上走的字符，
 且两个字符之间的距离为 (T-2*i)，i为行数。
