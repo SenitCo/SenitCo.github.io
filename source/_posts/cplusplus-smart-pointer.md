@@ -201,6 +201,33 @@ int main(int argc, char** argv)
 }
 ```
 
+### 智能指针管理动态数组
+C++11标准库提供了一个可以管理new分配的数组的unique_ptr版本，使用方式如下：
+```cpp
+unique_ptr<Object[]> spArray(new Object[2]);
+```
+类型说明符中的方括号<Object[]>指出spArray指向一个Object数组，当spArray销毁它管理的指针时，会自动使用delete[]。由于spArray指向一个数组，所以不能直接使用”.”和”->”成员运算符。这时，可以使用下标运算符[]来访问数组中的元素:spArray[i]  返回spArray在数组中位置i处的对象，其中spArray指向一个数组。
+注意：不能使用智能指针管理静态数组，下面这种用法是错误的
+```cpp
+int num[3] = {1, 2, 3};
+unique_ptr<int[]> sp(num);
+```
+
+与unique_ptr不同，shared_ptr不支持直接管理动态数组，也不支持[]运算符。如果希望使用shared_ptr来管理动态数组，可以通过指定delete []作为删除器(不指定的话默认使用delete作为删除器)：
+```cpp
+//下面两种方法均可
+shared_ptr<Object>sp(newObject[2], [](int *p){delete[] p;});
+shared_ptr<int> p(new int[10],std::default_delete<int[]>());
+```
+由于不支持下标运算符[]，因此，为了访问元素，必须用get获取一个内置指针，然后通过它来访问数组元素，如下所示：
+```cpp
+for(size_ti = 0; i < 2; ++i)
+{
+    *(sp.get() + i) = i;
+}
+```
+
+
 ### 如何选择智能指针
 - 如果程序要使用多个指向同一个对象的指针，应该选择shared_ptr。例如STL容器中包含指针，很多STL算法都支持复制和赋值操作，这些操作可用于shared_ptr，而不能用于unique_ptr（编译器warning警告）和auto_ptr（行为不确定）。
 - 如果程序不需要多个指向同一个对象的指针，则可使用unique_ptr，可省去显式调用delete销毁对象的过程；而且unique_ptr可通过传引用的方式作为函数的参数，传值则不允许。

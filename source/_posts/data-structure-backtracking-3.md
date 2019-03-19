@@ -7,6 +7,65 @@ tags: [code, recursive, backtracking, dp]
 数据结构与算法中回溯(Backtracking)问题总结归纳。
 <!--more-->
 
+### Letter Combinations of a Phone Number
+Given a digit string, return all possible letter combinations that the number could represent. A mapping of digit to letters (just like on the telephone buttons) is given below.
+Input:Digit string "23", Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+```cpp
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> results;
+        string combination;
+        if(digits.empty())
+            return results;
+        vector<string> table = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        search(digits, table, results, combination, 0);
+        return results;
+    }
+    
+    void search(const string& digits, const vector<string>& table, vector<string>& results, string& combination, int i)
+    {
+        if(i == digits.length())
+        {
+            results.push_back(combination);
+            return;
+        }
+        int index = digits[i] - '2';
+        for(int j = 0; j < table[index].length(); j++)
+        {
+            combination.push_back(table[index][j]);
+            search(digits, table, results, combination, i + 1);
+            combination.pop_back();
+        }
+    }
+};
+
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        string map[10] = { "0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+        vector<string> letters;
+        if(digits.empty())
+            return letters;
+        letters.push_back("");
+        for(int i = 0; i < digits.length(); i++)
+        {
+            vector<string> temp;
+            string chars = map[digits[i] - '0'];
+            for(int j = 0; j < chars.length(); j++)
+            {
+                for(int k = 0; k < letters.size(); k++)
+                {
+                    temp.push_back(letters[k] + chars[j]);
+                }
+            }
+            letters = temp;
+        }
+        return letters;
+    }
+};
+```
+
 ### Generate Parentheses
 [Description](https://leetcode.com/problems/generate-parentheses/description/): Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 > For example, given n = 3, a solution set is:
@@ -202,19 +261,19 @@ public:
 ```
 
 ### Regular Expression Matching
-[Description](https://leetcode.com/problems/regular-expression-matching/description/): Implement regular expression matching with support for '.' and '*'.
+[Description](https://leetcode.com/problems/regular-expression-matching/description/): Implement regular expression matching with support for '.' and '\*'.
 '.' Matches any single character.
-'*' Matches zero or more of the preceding element.
+'\*' Matches zero or more of the preceding element.
 The matching should cover the entire input string (not partial).
 The function prototype should be: bool isMatch(const char *s, const char *p)
 > Some examples:
 isMatch("aa","a") → false
 isMatch("aa","aa") → true
 isMatch("aaa","aa") → false
-isMatch("aa", "a*") → true
-isMatch("aa", ".*") → true
-isMatch("ab", ".*") → true
-isMatch("aab", "c*a*b") → true
+isMatch("aa", "a\*") → true
+isMatch("aa", ".\*") → true
+isMatch("ab", ".\*") → true
+isMatch("aab", "c\*a\*b") → true
 
 ```cpp
 /*递归解法一
@@ -286,7 +345,7 @@ dp[i][j] = dp[i][j-2]
 dp[i][j] = dp[i][j-1]
 
 3. 匹配多个元素，此时p[0: j-1] = { p[0: j-2], p[j-2], ... , p[j-2] }
-dp[i][j] = dp[i-1][j] && (p[j-2]=='.' || s[i-2]==p[j-2])
+dp[i][j] = dp[i-1][j] && (p[j-2]=='.' || s[i-1]==p[j-2])
 由于p[j-1]为'*'，而且匹配数目不确定，因此递推式中j值不能减小，而是通过递减i，使得最后匹配的数目为 0 或 1 来进行处理。
 
 @reference:
@@ -330,19 +389,19 @@ public:
 ```
 
 ### Wildcard Matching
-[Description](https://leetcode.com/problems/wildcard-matching/description/): Implement wildcard pattern matching with support for '?' and '*'.
+[Description](https://leetcode.com/problems/wildcard-matching/description/): Implement wildcard pattern matching with support for '?' and '\*'.
 > '?' Matches any single character. 
-'*' Matches any sequence of characters (including the empty sequence).
+'\*' Matches any sequence of characters (including the empty sequence).
 The matching should cover the entire input string (not partial). 
-The function prototype should be: bool isMatch(const char *s, const char *p)
+The function prototype should be: bool isMatch(const char \*s, const char \*p)
 Some examples:
 isMatch("aa","a") → false
 isMatch("aa","aa") → true
 isMatch("aaa","aa") → false
-isMatch("aa", "*") → true
-isMatch("aa", "a*") → true
-isMatch("ab", "?*") → true
-isMatch("aab", "c*a*b") → false
+isMatch("aa", "\*") → true
+isMatch("aa", "a\*") → true
+isMatch("ab", "?\*") → true
+isMatch("aab", "c\*a\*b") → false
 
 ```cpp
 /**

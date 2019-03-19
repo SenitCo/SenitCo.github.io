@@ -130,6 +130,29 @@ int maxProfit(vector<int>& prices)
 }
 
 /**
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/discuss/39608/A-clean-DP-solution-which-generalizes-to-k-transactions
+f[k, i] = max(f[k, i-1], prices[i] - prices[j] + f[k-1, j]) { j in range of [0, i-1] }
+*/
+int maxProfit(vector<int>& prices) 
+{
+    if(prices.size() <= 1)
+        return 0;
+    int K = 2, n = prices.size(), maxProf = 0;
+    vector<vector<int>> dp(K + 1, vector<int>(n, 0));
+    for(int k = 1; k < K + 1; k++)
+    {
+        int tempMax = dp[k - 1][0] - prices[0];
+        for(int i = 1; i < n; i++)
+        {
+            dp[k][i] = max(dp[k][i - 1], tempMax + prices[i]);
+            tempMax = max(tempMax, dp[k - 1][i] - prices[i]);
+            maxProf = max(maxProf, dp[k][i]);
+        }
+    }
+    return maxProf;
+}
+
+/**
 用一维数组来代替二维数组，可以极大地减少空间，由于覆盖的顺序关系，遍历j需要从2到1，
 这样可以取到正确的g[j-1]值，而非已经被覆盖过的值
 */

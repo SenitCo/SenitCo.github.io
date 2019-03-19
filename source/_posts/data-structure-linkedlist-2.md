@@ -10,8 +10,11 @@ tags: [code, linked list]
 
 ### 单链表逆转
 题目描述：给定一个单链表，将其逆转。[LeetCode](https://leetcode.com/problems/reverse-linked-list/description/)
-分析：迭代法求解，借助三个指针start、head、next，start指向逆转后（已重排）的第一个结点，head指向未重排的第一个结点，next指向head的下一个结点，每次将未重排的第一个结点插入到已重排序列的首部。也可利用递归法实现。
 ```cpp
+/**
+迭代法求解，借助三个指针start、head、next，start指向逆转后（已重排）的第一个结点，head指向未重排的第一个结点，
+next指向head的下一个结点，每次将未重排的第一个结点插入到已重排序列的首部。也可利用递归法实现。
+*/
 ListNode* reverseList(ListNode* head) 
 {
     ListNode *start = NULL, next;
@@ -25,21 +28,25 @@ ListNode* reverseList(ListNode* head)
     return start;
 }
 
-//增加一个头结点的迭代版本
+/**
+增加一个头结点的迭代版本，start为头指针，start->next指向已重排的第一个结点，last指向已重排的最后一个结点
+（原始链表的第一个结点），curr指向未重排的第一个结点（即将插入到重排序列中），last->next指向curr的下一个
+结点即curr->next。
+*/
 ListNode* reverseList(ListNode* head) 
 {
     if(!head)
         return NULL;
     ListNode* start = new ListNode(0);
     start->next = head;
-    ListNode *first = head;
-    ListNode *second = first->next;
-    while(second)
+    ListNode *last = head;
+    ListNode *curr = head->next;
+    while(curr)
     {
-        first->next = second->next;
-        second->next = start->next;
-        start->next = second;
-        second = first->next;
+        last->next = curr->next;
+        curr->next = start->next;
+        start->next = curr;
+        curr = last->next;
     }
     return start->next;
 }
@@ -74,24 +81,28 @@ Node* reverseByRecursion(Node *head)
 
 ### 将单链表中的某一段逆转
 问题描述：将单链表中第m到第n个结点之间的序列逆转。[LeetCode](https://leetcode.com/problems/reverse-linked-list-ii/description/)
-分析：思路和逆转整个链表一样，借助三个指针，pre指向链表中的第 m-1 个元素，begin指向第一个未逆转的元素，then指向begin的下一个元素，即即将插入到pre后面的元素，then = begin->next，依次将begin后面的元素插入到pre后面，并保证所有元素能连接成串。
 ```cpp
+/**
+思路和逆转整个链表一样，借助三个指针，prev指向链表中的第 m-1 个元素，prev->next指向重排后的第一个结点，
+last指向已重排区间的最后一个元素（原始未重排区间的第一个元素），curr指向未重排序列的的第一个元素（即将插入
+到重排序列中），last->next指向curr的下一个结点即curr->next，保证所有元素能连接成串。
+*/
 ListNode* reverseBetween(ListNode* head, int m, int n) 
 {
     ListNode* start = new ListNode(0);  
     start->next = head;
-    ListNode *pre = start;
+    ListNode *prev = start;
     for(int i = 0; i < m - 1; i++)
-        pre = pre->next;
-    ListNode* begin = pre->next;
-    ListNode* then = begin->next;
+        prev = prev->next;
+    ListNode* last = prev->next;
+    ListNode* curr = last->next;
    
-    for(int i = 0; i < n - m; i++)
+    for(int i = 0; i < n - m && curr; i++)
     {
-        begin->next = then->next;
-        then->next = pre->next;
-        pre->next = then;
-        then = begin->next;
+        last->next = curr->next;
+        curr->next = prev->next;
+        prev->next = curr;
+        curr = last->next;
     }
     return start->next;
 }
@@ -200,6 +211,23 @@ ListNode* reverseKGroup(ListNode* head, int k)
 ### 将单链表的结点两两交换
 题目描述：给定一个单链表，将相邻两个结点两两交换。例如链表：1->2->3->4, 交换后的序列为2->1->4->3。[LeetCode](https://leetcode.com/problems/swap-nodes-in-pairs/description/)
 ```cpp
+ListNode* swapPairs(ListNode* head) 
+{
+    ListNode* start = new ListNode(0);
+    start->next = head;
+    ListNode *pre = start, *cur, *nex;
+    while(pre->next && pre->next->next)
+    {
+        cur = pre->next;
+        nex = cur->next;
+        cur->next = nex->next;
+        nex->next = pre->next;
+        pre->next = nex;
+        pre = cur;
+    }
+    return start->next;
+}
+
 //遍历元素，两两交换
 ListNode* swapPairs(ListNode* head) 
 {
@@ -415,7 +443,43 @@ ListNode* mergeKLists(vector<ListNode*>& lists)
     return start->next;
 }
 
-//法三：递归求解，将有序列表两两合并
+//借助最小堆实现
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode* start = new ListNode(0);
+        ListNode* pNode = start;
+        vector<ListNode*> minHeap;
+        for(auto iter : lists)
+        {
+            if(iter)
+                minHeap.push_back(iter);
+        }
+        make_heap(minHeap.begin(), minHeap.end(), cmp());
+        while(!minHeap.empty())
+        {
+            pNode->next = minHeap.front();
+            pNode = pNode->next;
+            pop_heap(minHeap.begin(), minHeap.end(), cmp());
+            minHeap.pop_back();
+            
+            if(pNode->next)
+                minHeap.push_back(pNode->next);
+            push_heap(minHeap.begin(), minHeap.end(), cmp());
+        }
+        return start->next;
+    }
+    
+    struct cmp
+    {
+        bool operator()(ListNode* l1, ListNode* l2)
+        {
+            return l1->val > l2->val;
+        }
+    };
+};
+
+//将有序列表两两合并
 ListNode *mergeKLists(vector<ListNode *> &lists) 
 {
     if(lists.empty()){
