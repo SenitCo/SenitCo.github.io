@@ -1,0 +1,698 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code,two pointers,string,hash table," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法中字符串(String)问题总结归纳。">
+<meta name="keywords" content="code,two pointers,string,hash table">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串(String)问题、哈希表、双指针">
+<meta property="og:url" content="https://senitco.github.io/2018/04/02/data-structure-string-2/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="数据结构与算法中字符串(String)问题总结归纳。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-03T04:22:11.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串(String)问题、哈希表、双指针">
+<meta name="twitter:description" content="数据结构与算法中字符串(String)问题总结归纳。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 字符串(String)问题、哈希表、双指针 | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                字符串(String)问题、哈希表、双指针
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-02T00:00:00+08:00" content="2018-04-02">
+              2018-04-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/02/data-structure-string-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/02/data-structure-string-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构与算法中字符串(String)问题总结归纳。<br><a id="more"></a></p>
+<h3 id="Substring-with-Concatenation-of-All-Words"><a href="#Substring-with-Concatenation-of-All-Words" class="headerlink" title="Substring with Concatenation of All Words"></a>Substring with Concatenation of All Words</h3><p><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/" target="_blank" rel="external">Description</a>: You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.<br>For example, given: s: “barfoothefoobarman”, words: [“foo”, “bar”]. You should return the indices: [0,9]. (order does not matter).<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">Using an unordered_map&lt;string, int&gt; counts to record the expected times of each word and another </span></div><div class="line"><span class="comment">unordered_map&lt;string, int&gt; seen to record the times we have seen. Then checking for every possible </span></div><div class="line"><span class="comment">position of i. Once we meet an unexpected word or the times of some word is larger than its expected </span></div><div class="line"><span class="comment">times, we stop the check. If we finish the check successfully, push i to the result indexes.</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;counts;</div><div class="line">        <span class="keyword">for</span>(<span class="built_in">string</span> word : words)</div><div class="line">        &#123;</div><div class="line">            counts[word]++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> length = s.length(), num = words.size(), len = words[<span class="number">0</span>].length();</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length - num * len + <span class="number">1</span>; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">            <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; seen;</div><div class="line">            <span class="keyword">for</span>(; j &lt; num; j++)</div><div class="line">            &#123;</div><div class="line">                <span class="built_in">string</span> word = s.substr(i + j * len, len);</div><div class="line">                <span class="keyword">if</span>(counts.find(word) != counts.end())</div><div class="line">                &#123;</div><div class="line">                    seen[word]++;</div><div class="line">                    <span class="keyword">if</span>(seen[word] &gt; counts[word])</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(j == num)</div><div class="line">                result.push_back(i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Minimum-Window-Substring"><a href="#Minimum-Window-Substring" class="headerlink" title="Minimum Window Substring"></a>Minimum Window Substring</h3><p><a href="https://leetcode.com/problems/minimum-window-substring/description/" target="_blank" rel="external">Description</a>: Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).<br>For example, S = “ADOBECODEBANC”, T = “ABC”, Minimum window is “BANC”.</p>
+<p>Note:<br>If there is no such window in S that covers all characters in T, return the empty string “”.<br>If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">1.用两个“指针”begin、end指向s中字符代表一个窗口</span></div><div class="line"><span class="comment">2.移动end指针搜索有效窗口(窗口中包含t中所有字符)</span></div><div class="line"><span class="comment">3.移动begin指针缩小有效窗口范围</span></div><div class="line"><span class="comment">为了让[begin, end)窗口成为一个有效窗口，需要一个映射表map(char, count)，存储t中每个字符出现的次数（t中字符可重复），</span></div><div class="line"><span class="comment">并定义一个counter统计t中的字符数，如果s中出现t中字符，即map[s[end]]&gt;0，则counter--，直至counter为0，说明已获取一个</span></div><div class="line"><span class="comment">有效窗口，因此移动begin指针缩小窗口范围。一个比较关键的步骤就是end指针每次步进前，都会执行map[s[end]]--操作，这样</span></div><div class="line"><span class="comment">如果t中已不存在对应字符，就会使得该字符的统计数为负。在得到一个有效的窗口（counter=0）时，判断现有窗口和之前窗口的</span></div><div class="line"><span class="comment">大小，取窗口较小值，并记录起始位置head=begin，如果遇到map[s[begin]] == 0，说明遇到了t中一个字符且该字符为有效窗口的</span></div><div class="line"><span class="comment">左边界，begin指针再往前走，窗口中就不包含t中所有字符，因此counter计数值自增。和end指针一样，begin指针每次步进前都要</span></div><div class="line"><span class="comment">执行map[s[begin]]++操作，对于s="bba",t="ba"，t中字符'b'只出现一次，而s中出现两次，end指针的map[s[end]]--操作使得</span></div><div class="line"><span class="comment">map['b']&lt;0，因此begin指针在步进时需要逐步恢复每个字符的统计值。</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</div><div class="line">        <span class="comment">//vector&lt;int&gt; map(128, 0);</span></div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.size(); i++)</div><div class="line">            <span class="built_in">map</span>[t[i]]++;</div><div class="line">        <span class="keyword">int</span> head = <span class="number">0</span>, begin = <span class="number">0</span>, end = <span class="number">0</span>, len = INT_MAX, count = t.size();</div><div class="line">        <span class="keyword">while</span>(end &lt; s.size())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(<span class="built_in">map</span>[s[end]] &gt; <span class="number">0</span>)</div><div class="line">                count--;</div><div class="line">            <span class="built_in">map</span>[s[end]]--;</div><div class="line">            end++;</div><div class="line">            <span class="keyword">while</span>(count == <span class="number">0</span>)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(end - begin &lt; len)</div><div class="line">                &#123;</div><div class="line">                    head = begin;</div><div class="line">                    len = end - begin;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(<span class="built_in">map</span>[s[begin]] == <span class="number">0</span>)</div><div class="line">                    count++;</div><div class="line">                <span class="built_in">map</span>[s[begin]]++;</div><div class="line">                begin++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> len == INT_MAX ? <span class="string">""</span> : s.substr(head, len);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// See https://leetcode.com/problems/minimum-window-substring/discuss/26808</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">可读性较差的简化版本</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">128</span>,<span class="number">0</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: t) <span class="built_in">map</span>[c]++;</div><div class="line">    <span class="keyword">int</span> counter=t.size(), begin=<span class="number">0</span>, end=<span class="number">0</span>, d=INT_MAX, head=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(end&lt;s.size())&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>[s[end++]]--&gt;<span class="number">0</span>) counter--; <span class="comment">//in t</span></div><div class="line">        <span class="keyword">while</span>(counter==<span class="number">0</span>)&#123; <span class="comment">//valid</span></div><div class="line">            <span class="keyword">if</span>(end-begin&lt;d)  d=end-(head=begin);</div><div class="line">            <span class="keyword">if</span>(<span class="built_in">map</span>[s[begin++]]++==<span class="number">0</span>) counter++;  <span class="comment">//make it invalid</span></div><div class="line">        &#125;  </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> d==INT_MAX? <span class="string">""</span>:s.substr(head, d);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/***************子串搜索的模板*******************/</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">For most substring problem, we are given a string and need to find a substring of it which satisfy some restrictions. </span></div><div class="line"><span class="comment">A general way is to use a hashmap assisted with two pointers. The template is given below.</span></div><div class="line"><span class="comment">**/</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">findSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">128</span>,<span class="number">0</span>);</div><div class="line">    <span class="keyword">int</span> counter; <span class="comment">// check whether the substring is valid</span></div><div class="line">    <span class="keyword">int</span> begin=<span class="number">0</span>, end=<span class="number">0</span>; <span class="comment">//two pointers, one point to tail and one  head</span></div><div class="line">    <span class="keyword">int</span> d; <span class="comment">//the length of substring</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span>() &#123; <span class="comment">/* initialize the hash map here */</span> &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span>(end&lt;s.size())&#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>[s[end++]]-- ?)&#123;  <span class="comment">/* modify counter here */</span> &#125;</div><div class="line"></div><div class="line">        <span class="keyword">while</span>(<span class="comment">/* counter condition */</span>)&#123; </div><div class="line">             </div><div class="line">             <span class="comment">/* update d here if finding minimum*/</span></div><div class="line"></div><div class="line">            <span class="comment">//increase begin to make it invalid/valid again</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(<span class="built_in">map</span>[s[begin++]]++ ?)&#123; <span class="comment">/*modify counter here*/</span> &#125;</div><div class="line">        &#125;  </div><div class="line"></div><div class="line">        <span class="comment">/* update d here if finding maximum*/</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> d;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">One thing needs to be mentioned is that when asked to find maximum substring, we should update maximum after the inner </span></div><div class="line"><span class="comment">while loop to guarantee that the substring is valid. On the other hand, when asked to find minimum substring, we should </span></div><div class="line"><span class="comment">update minimum inside the inner while loop.</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">The code of solving Longest Substring with At Most Two Distinct Characters is below:</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstringTwoDistinct</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">128</span>, <span class="number">0</span>);</div><div class="line">    <span class="keyword">int</span> counter=<span class="number">0</span>, begin=<span class="number">0</span>, end=<span class="number">0</span>, d=<span class="number">0</span>; </div><div class="line">    <span class="keyword">while</span>(end&lt;s.size())&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>[s[end++]]++==<span class="number">0</span>) counter++;</div><div class="line">        <span class="keyword">while</span>(counter&gt;<span class="number">2</span>) <span class="keyword">if</span>(<span class="built_in">map</span>[s[begin++]]--==<span class="number">1</span>) counter--;</div><div class="line">        d=max(d, end-begin);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> d;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">The code of solving Longest Substring Without Repeating Characters is below:</span></div><div class="line"><span class="comment">*/</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>(<span class="number">128</span>,<span class="number">0</span>);</div><div class="line">    <span class="keyword">int</span> counter=<span class="number">0</span>, begin=<span class="number">0</span>, end=<span class="number">0</span>, d=<span class="number">0</span>; </div><div class="line">    <span class="keyword">while</span>(end&lt;s.size())&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>[s[end++]]++&gt;<span class="number">0</span>) counter++; </div><div class="line">        <span class="keyword">while</span>(counter&gt;<span class="number">0</span>) <span class="keyword">if</span>(<span class="built_in">map</span>[s[begin++]]--&gt;<span class="number">1</span>) counter--;</div><div class="line">        d=max(d, end-begin); <span class="comment">//while valid, update d</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> d;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Longest-Substring-Without-Repeating-Characters"><a href="#Longest-Substring-Without-Repeating-Characters" class="headerlink" title="Longest Substring Without Repeating Characters"></a>Longest Substring Without Repeating Characters</h3><p><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="external">Description</a>: Given a string, find the length of the longest substring without repeating characters.<br>Examples:<br>Given “abcabcbb”, the answer is “abc”, which the length is 3.<br>Given “bbbbb”, the answer is “b”, with the length of 1.<br>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring,<br>“pwke” is a subsequence and not a substring.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</div><div class="line">    <span class="keyword">int</span> begin = <span class="number">0</span>, end = <span class="number">0</span>, len = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(end &lt; s.length())</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">map</span>[s[end]]++;</div><div class="line">        <span class="keyword">while</span>(<span class="built_in">map</span>[s[end]] &gt; <span class="number">1</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">map</span>[s[begin]]--;</div><div class="line">            begin++;</div><div class="line">        &#125;</div><div class="line">        end++;</div><div class="line">        <span class="keyword">if</span>(end - begin &gt; len)</div><div class="line">            len = end - begin;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dict(<span class="number">256</span>, <span class="number">-1</span>);</div><div class="line">    <span class="keyword">int</span> maxLen = <span class="number">0</span>, start = <span class="number">-1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != s.length(); i++) </div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (dict[s[i]] &gt; start)</div><div class="line">            start = dict[s[i]];</div><div class="line">        dict[s[i]] = i;</div><div class="line">        maxLen = max(maxLen, i - start);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxLen;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Longest-Palindromic-Substring"><a href="#Longest-Palindromic-Substring" class="headerlink" title="Longest Palindromic Substring"></a>Longest Palindromic Substring</h3><p><a href="https://leetcode.com/problems/longest-palindromic-substring/description/" target="_blank" rel="external">Description</a>: Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.<br>Example 1: Input: “babad”, Output: “bab”, Note: “aba” is also a valid answer.<br>Example 2: Input: “cbbd”, Output: “bb”</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*reference</span></div><div class="line"><span class="comment">依次遍历字符串中的元素，并以该元素为中心点向两边搜索，判断两边元素是否对称，并延伸至最大长度，</span></div><div class="line"><span class="comment">而且在中心点处考虑了重复元素（连续出现）的情况</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (s.empty()) </div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    <span class="keyword">if</span> (s.size() == <span class="number">1</span>) </div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    <span class="keyword">int</span> min_start = <span class="number">0</span>, max_len = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size();) </div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (s.size() - i &lt;= max_len / <span class="number">2</span>)    </div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">int</span> j = i, k = i;</div><div class="line">        <span class="keyword">while</span> (k &lt; s.size()<span class="number">-1</span> &amp;&amp; s[k+<span class="number">1</span>] == s[k])    <span class="comment">// Skip duplicate characters.</span></div><div class="line">            ++k; </div><div class="line">        i = k + <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (k &lt; s.size()<span class="number">-1</span> &amp;&amp; j &gt; <span class="number">0</span> &amp;&amp; s[k + <span class="number">1</span>] == s[j - <span class="number">1</span>])     <span class="comment">// Expand.</span></div><div class="line">        &#123; </div><div class="line">            ++k; </div><div class="line">            --j; </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> new_len = k - j + <span class="number">1</span>;</div><div class="line">        <span class="keyword">if</span> (new_len &gt; max_len)</div><div class="line">        &#123; </div><div class="line">            min_start = j; </div><div class="line">            max_len = new_len; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> s.substr(min_start, max_len);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*依次遍历字符串中每个字符，以该字符为起点，截取剩余长度子串，判断是否为回文序列，若不是，则子串长度递减，</span></div><div class="line"><span class="comment">直至不大于当前最长的回文序列；在外层循环中，若剩余长度不大于当前最长回文串的长度，则直接退出，时间复杂度O(N^2)</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(s.length() &lt;= <span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> s;</div><div class="line">    <span class="keyword">int</span> lenS = s.length(), start = <span class="number">0</span>, maxLen = <span class="number">1</span>, len = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenS; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(len = lenS - i; len &gt; maxLen; len--)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> mid = i + len / <span class="number">2</span>;</div><div class="line">            <span class="keyword">int</span> j = i, k = i + len - <span class="number">1</span>;</div><div class="line">            <span class="keyword">for</span>(; j &lt; mid &amp;&amp; s[j] == s[k]; j++, k--);</div><div class="line">            <span class="keyword">if</span>(j == mid &amp;&amp; len &gt; maxLen)</div><div class="line">            &#123;</div><div class="line">                start = i;</div><div class="line">                maxLen = len;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(len &lt; maxLen)</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> s.substr(start, maxLen);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Palindromic-Substrings"><a href="#Palindromic-Substrings" class="headerlink" title="Palindromic Substrings"></a>Palindromic Substrings</h3><p><a href="https://leetcode.com/problems/palindromic-substrings/description/" target="_blank" rel="external">Description</a>: Given a string, your task is to count how many palindromic substrings in this string. The substrings with different start indexes or end indexes are counted as different substrings even they consist of same characters.<br>Example 1: Input: “abc”, Output: 3. Explanation: Three palindromic strings: “a”, “b”, “c”.<br>Example 2: Input: “aaa”, Output: 6. Explanation: Six palindromic strings: “a”, “a”, “a”, “aa”, “aa”, “aaa”.<br>Note: The input string length won’t exceed 1000.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countSubstrings</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)</div><div class="line">        &#123;</div><div class="line">            countPalindrome(s, i, i, count);</div><div class="line">            countPalindrome(s, i, i + <span class="number">1</span>, count);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">countPalindrome</span><span class="params">(<span class="built_in">string</span>&amp; s, <span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="keyword">int</span>&amp; count)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">while</span>(left &gt;= <span class="number">0</span> &amp;&amp; right &lt; s.length() &amp;&amp; s[left] == s[right])</div><div class="line">        &#123;</div><div class="line">            count++;</div><div class="line">            left--;</div><div class="line">            right++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="Group-Anagrams"><a href="#Group-Anagrams" class="headerlink" title="Group Anagrams"></a>Group Anagrams</h3><p><a href="https://leetcode.com/problems/group-anagrams/description/" target="_blank" rel="external">Description</a>: Given an array of strings, group anagrams together.<br>For example, given: [“eat”, “tea”, “tan”, “ate”, “nat”, “bat”],<br>Return:<br>[<br>  [“ate”, “eat”,”tea”],<br>  [“nat”,”tan”],<br>  [“bat”]<br>]<br>Note: All inputs will be in lower-case.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">将每个字符串进行排序，并将排序后的字符串作为hash键值，对原始字符串进行索引分类</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; groupAnagrams(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs) </div><div class="line">&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; results;</div><div class="line">    <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="built_in">map</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="built_in">string</span> str : strs)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">string</span> word = str;</div><div class="line">        sort(word.begin(), word.end());</div><div class="line">        <span class="built_in">map</span>[word].push_back(str);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> iter = <span class="built_in">map</span>.begin(); iter != <span class="built_in">map</span>.end(); iter++)</div><div class="line">    &#123;</div><div class="line">        results.push_back(iter-&gt;second);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> results;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+            <a href="/tags/two-pointers/" rel="tag">#two pointers</a>
+          
+            <a href="/tags/string/" rel="tag">#string</a>
+          
+            <a href="/tags/hash-table/" rel="tag">#hash table</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/29/data-structure-array-two-pointers/" rel="next" title="数组(Array)和双指针">
+                <i class="fa fa-chevron-left"></i> 数组(Array)和双指针
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/08/data-structure-string-3/" rel="prev" title="字符串(String)问题集锦">
+                字符串(String)问题集锦 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Substring-with-Concatenation-of-All-Words"><span class="nav-number">1.</span> <span class="nav-text">Substring with Concatenation of All Words</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimum-Window-Substring"><span class="nav-number">2.</span> <span class="nav-text">Minimum Window Substring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Longest-Substring-Without-Repeating-Characters"><span class="nav-number">3.</span> <span class="nav-text">Longest Substring Without Repeating Characters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Longest-Palindromic-Substring"><span class="nav-number">4.</span> <span class="nav-text">Longest Palindromic Substring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Palindromic-Substrings"><span class="nav-number">5.</span> <span class="nav-text">Palindromic Substrings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-Anagrams"><span class="nav-number">6.</span> <span class="nav-text">Group Anagrams</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/04/02/data-structure-string-2/';
+      var disqus_title = '字符串(String)问题、哈希表、双指针';
+      var disqus_url = 'https://senitco.github.io/2018/04/02/data-structure-string-2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

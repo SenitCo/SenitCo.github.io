@@ -1,0 +1,709 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="code,recursive,backtracking,dp," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Senit_Co" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构与算法中回溯(Backtracking)问题总结归纳。">
+<meta name="keywords" content="code,recursive,backtracking,dp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回溯(Backtracking)问题集锦（三）">
+<meta property="og:url" content="https://senitco.github.io/2018/03/11/data-structure-backtracking-3/index.html">
+<meta property="og:site_name" content="Senit_Co">
+<meta property="og:description" content="数据结构与算法中回溯(Backtracking)问题总结归纳。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-03T04:22:11.882Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="回溯(Backtracking)问题集锦（三）">
+<meta name="twitter:description" content="数据结构与算法中回溯(Backtracking)问题总结归纳。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6392863219974669000,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 回溯(Backtracking)问题集锦（三） | Senit_Co </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Senit_Co</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                回溯(Backtracking)问题集锦（三）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-11T00:00:00+08:00" content="2018-03-11">
+              2018-03-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Data-Structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/03/11/data-structure-backtracking-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/11/data-structure-backtracking-3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据结构与算法中回溯(Backtracking)问题总结归纳。<br><a id="more"></a></p>
+<h3 id="Generate-Parentheses"><a href="#Generate-Parentheses" class="headerlink" title="Generate Parentheses"></a>Generate Parentheses</h3><p><a href="https://leetcode.com/problems/generate-parentheses/description/" target="_blank" rel="external">Description</a>: Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
+<blockquote>
+<p>For example, given n = 3, a solution set is:<br>[<br>  “((()))”,<br>  “(()())”,<br>  “(())()”,<br>  “()(())”,<br>  “()()()”<br>]</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">递归解法：left,right分别表示已插入字符串中左右括号的数量</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution1</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</div><div class="line">        backtrack(result, <span class="string">""</span>, <span class="number">0</span>, <span class="number">0</span>, n);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; vec, <span class="built_in">string</span> str, <span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="keyword">int</span> n)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(str.length() == n * <span class="number">2</span>)</div><div class="line">        &#123;</div><div class="line">            vec.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(left &lt; n)</div><div class="line">            backtrack(vec, str + <span class="string">'('</span>, left + <span class="number">1</span>, right, n);</div><div class="line">        <span class="keyword">if</span>(right &lt; left)</div><div class="line">            backtrack(vec, str + <span class="string">')'</span>, left, right + <span class="number">1</span>, n);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment">递归解法：n,m分别表示可以插入字符串中的左右括号的剩余数量</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</div><div class="line">        addPar(result, <span class="string">""</span>, n, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addPar</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; vec, <span class="built_in">string</span> str, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> &amp;&amp; m == <span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            vec.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(m &gt; <span class="number">0</span>)   </div><div class="line">            addPar(vec, str + <span class="string">')'</span>, n, m - <span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(n &gt; <span class="number">0</span>)</div><div class="line">            addPar(vec, str + <span class="string">'('</span>, n - <span class="number">1</span>, m + <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="Sudoku-Solver"><a href="#Sudoku-Solver" class="headerlink" title="Sudoku Solver"></a>Sudoku Solver</h3><p><a href="https://leetcode.com/problems/sudoku-solver/description/" target="_blank" rel="external">Description</a>: Write a program to solve a Sudoku puzzle by filling the empty cells. Empty cells are indicated by the character ‘.’. You may assume that there will be only one unique solution.</p>
+<blockquote>
+<p>A sudoku solution must satisfy all of the following rules:<br>Each of the digits 1-9 must occur exactly once in each row.<br>Each of the digits 1-9 must occur exactly once in each column.<br>Each of the the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">对于每个需要填数字的格子带入1到9，每代入一个数字都判定其是否合法，如果合法就继续下一次递归，结束时把数字设回'.'，</span></div><div class="line"><span class="comment">判断新加入的数字是否合法时，只需要判定当前数字是否合法，不需要判定这个数组是否为数独数组，因为之前加进的数字都是</span></div><div class="line"><span class="comment">合法的，这样可以使程序更加高效一些</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(board.empty() || board.size() != <span class="number">9</span> || board[<span class="number">0</span>].size() != <span class="number">9</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        search(board, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(i == <span class="number">9</span>)  <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        <span class="keyword">if</span>(j &gt;= <span class="number">9</span>)  <span class="keyword">return</span> search(board, i + <span class="number">1</span>, <span class="number">0</span>);</div><div class="line">        <span class="keyword">if</span>(board[i][j] == <span class="string">'.'</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">9</span>; k++)</div><div class="line">            &#123;</div><div class="line">                board[i][j] = (<span class="keyword">char</span>)(k + <span class="string">'1'</span>);</div><div class="line">                <span class="keyword">if</span>(isValid(board, i, j))        <span class="comment">//如果新加数字合法，则继续递归      </span></div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">if</span>(search(board, i, j + <span class="number">1</span>)) </div><div class="line">                        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">                board[i][j] = <span class="string">'.'</span>;  <span class="comment">//新加数字不合法或回溯至此时，将数字设为空</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> search(board, i, j + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//判断新加的数字是否合法，只需判断该数字所在行、列以及块，不需遍历整个数盘</span></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>     </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; <span class="number">9</span>; row++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(i != row &amp;&amp; board[i][j] == board[row][j])</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; <span class="number">9</span>; col++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(j != col &amp;&amp; board[i][j] == board[i][col])</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = i / <span class="number">3</span> * <span class="number">3</span>; row &lt; i / <span class="number">3</span> * <span class="number">3</span> + <span class="number">3</span>; row++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col = j / <span class="number">3</span> * <span class="number">3</span>; col &lt; j / <span class="number">3</span> * <span class="number">3</span> + <span class="number">3</span>; col++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>((row != i || col != j) &amp;&amp; board[i][j] == board[row][col])</div><div class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">solveSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">if</span>(board.empty() || board.size() != <span class="number">9</span> || board[<span class="number">0</span>].size() != <span class="number">9</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        search(board);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; &gt; &amp;board)</span> </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; <span class="number">9</span>; ++row) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; <span class="number">9</span>; ++col) </div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> (board[row][col] == <span class="string">'.'</span>) </div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">9</span>; ++i)</div><div class="line">                    &#123;</div><div class="line">                        board[row][col] = <span class="string">'0'</span> + i;</div><div class="line"></div><div class="line">                        <span class="keyword">if</span> (isValid(board, row, col)) </div><div class="line">                            <span class="keyword">if</span> (search(board)) </div><div class="line">                                <span class="keyword">return</span> <span class="literal">true</span>;                    </div><div class="line">                        board[row][col] = <span class="string">'.'</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>     </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = <span class="number">0</span>; row &lt; <span class="number">9</span>; row++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(i != row &amp;&amp; board[i][j] == board[row][j])</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; <span class="number">9</span>; col++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(j != col &amp;&amp; board[i][j] == board[i][col])</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> row = i / <span class="number">3</span> * <span class="number">3</span>; row &lt; i / <span class="number">3</span> * <span class="number">3</span> + <span class="number">3</span>; row++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> col = j / <span class="number">3</span> * <span class="number">3</span>; col &lt; j / <span class="number">3</span> * <span class="number">3</span> + <span class="number">3</span>; col++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>((row != i || col != j) &amp;&amp; board[i][j] == board[row][col])</div><div class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="Regular-Expression-Matching"><a href="#Regular-Expression-Matching" class="headerlink" title="Regular Expression Matching"></a>Regular Expression Matching</h3><p><a href="https://leetcode.com/problems/regular-expression-matching/description/" target="_blank" rel="external">Description</a>: Implement regular expression matching with support for ‘.’ and ‘<em>‘.<br>‘.’ Matches any single character.<br>‘</em>‘ Matches zero or more of the preceding element.<br>The matching should cover the entire input string (not partial).<br>The function prototype should be: bool isMatch(const char <em>s, const char </em>p)</p>
+<blockquote>
+<p>Some examples:<br>isMatch(“aa”,”a”) → false<br>isMatch(“aa”,”aa”) → true<br>isMatch(“aaa”,”aa”) → false<br>isMatch(“aa”, “a<em>“) → true<br>isMatch(“aa”, “.</em>“) → true<br>isMatch(“ab”, “.<em>“) → true<br>isMatch(“aab”, “c</em>a*b”) → true</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*递归解法一</span></div><div class="line"><span class="comment">- 若p为空，若s也为空，返回true，反之返回false</span></div><div class="line"><span class="comment">- 若p的长度为1，若s长度也为1，且相同或是p为'.'则返回true，反之返回false</span></div><div class="line"><span class="comment">- 若p的第二个字符不为*，若此时s为空返回false，否则判断首字符是否匹配，且从各自的第二个字符开始调用递归函数匹配</span></div><div class="line"><span class="comment">- 若p的第二个字符为*，若s不为空且字符匹配，调用递归函数匹配s和去掉前两个字符的p，若匹配返回true，否则s去掉首字母</span></div><div class="line"><span class="comment">- 返回调用递归函数匹配s和去掉前两个字符的p的结果</span></div><div class="line"><span class="comment">@reference:</span></div><div class="line"><span class="comment">http://www.cnblogs.com/grandyang/p/4461713.html</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution1</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (p.empty()) <span class="keyword">return</span> s.empty();</div><div class="line">        <span class="keyword">if</span> (p.size() == <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">return</span> (s.size() == <span class="number">1</span> &amp;&amp; (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (p[<span class="number">1</span>] != <span class="string">'*'</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (s.empty()) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            <span class="keyword">return</span> (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>) &amp;&amp; isMatch(s.substr(<span class="number">1</span>), p.substr(<span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span> (!s.empty() &amp;&amp; (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>)) &#123;</div><div class="line">            <span class="keyword">if</span> (isMatch(s, p.substr(<span class="number">2</span>))) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">            s = s.substr(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> isMatch(s, p.substr(<span class="number">2</span>));</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/*递归解法二</span></div><div class="line"><span class="comment">- 先判断p是否为空，若为空则根据s的为空的情况返回结果。</span></div><div class="line"><span class="comment">- 当p的第二个字符为*号时，由于*号前面的字符的个数可以任意，可以为0，</span></div><div class="line"><span class="comment">    - 那么先用递归来调用为0的情况，就是直接把这两个字符去掉再比较</span></div><div class="line"><span class="comment">    - 或者当s不为空，且第一个字符和p的第一个字符相同时，再对去掉首字符的s和p调用递归，注意p不能去掉首字符，</span></div><div class="line"><span class="comment">        因为*号前面的字符可以有无限个；</span></div><div class="line"><span class="comment">- 如果第二个字符不为*号，那么就比较第一个字符，然后对后面的字符串调用递归</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (p.empty()) </div><div class="line">            <span class="keyword">return</span> s.empty();</div><div class="line">        <span class="keyword">if</span> (p.size() &gt; <span class="number">1</span> &amp;&amp; p[<span class="number">1</span>] == <span class="string">'*'</span>) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> isMatch(s, p.substr(<span class="number">2</span>)) || (!s.empty() &amp;&amp; (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>) &amp;&amp; isMatch(s.substr(<span class="number">1</span>), p));</div><div class="line">        &#125; </div><div class="line">        <span class="keyword">else</span> </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> !s.empty() &amp;&amp; (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>) &amp;&amp; isMatch(s.substr(<span class="number">1</span>), p.substr(<span class="number">1</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/*动态规划法</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">dp[i][j]表示s[0:i-1]是否能和p[0:j-1]匹配。</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">递推公式：由于只有p中会含有regular expression，所以以p[j-1]来进行分类。</span></div><div class="line"><span class="comment">p[j-1] != '.' &amp;&amp; p[j-1] != '*'：dp[i][j] = dp[i-1][j-1] &amp;&amp; (s[i-1] == p[j-1])</span></div><div class="line"><span class="comment">p[j-1] == '.'：dp[i][j] = dp[i-1][j-1]</span></div><div class="line"><span class="comment">p[j-1] == '*':</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">而关键的难点在于 p[j-1] = '*'。由于星号可以匹配0、1、乃至多个p[j-2]。</span></div><div class="line"><span class="comment">1. 匹配0个元素，即消去p[j-2]，此时p[0: j-1] = p[0: j-3]</span></div><div class="line"><span class="comment">dp[i][j] = dp[i][j-2]</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">2. 匹配1个元素，此时p[0: j-1] = p[0: j-2]</span></div><div class="line"><span class="comment">dp[i][j] = dp[i][j-1]</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">3. 匹配多个元素，此时p[0: j-1] = &#123; p[0: j-2], p[j-2], ... , p[j-2] &#125;</span></div><div class="line"><span class="comment">dp[i][j] = dp[i-1][j] &amp;&amp; (p[j-2]=='.' || s[i-2]==p[j-2])</span></div><div class="line"><span class="comment">由于p[j-1]为'*'，而且匹配数目不确定，因此递推式中j值不能减小，而是通过递减i，使得最后匹配的数目为 0 或 1 来进行处理。</span></div><div class="line"><span class="comment"></span></div><div class="line"><span class="comment">@reference:</span></div><div class="line"><span class="comment">http://bangbingsyb.blogspot.com/2014/11/leetcode-regular-expression-matching.html</span></div><div class="line"><span class="comment">http://xiaohuiliucuriosity.blogspot.com/2014/12/regular-expression-matching.html</span></div><div class="line"><span class="comment">https://discuss.leetcode.com/topic/6183/my-concise-recursive-and-dp-solutions-with-full-explanation-in-c</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution3</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> m = s.size(), n = p.size();</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; dp(m + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n + <span class="number">1</span>,<span class="literal">false</span>));</div><div class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) </div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(p[j - <span class="number">1</span>] != <span class="string">'.'</span> &amp;&amp; p[j - <span class="number">1</span>] != <span class="string">'*'</span>) </div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; s[i - <span class="number">1</span>] == p[j - <span class="number">1</span>] &amp;&amp; dp[i - <span class="number">1</span>][j - <span class="number">1</span>])</div><div class="line">                        dp[i][j] = <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(p[j - <span class="number">1</span>] == <span class="string">'.'</span>) </div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; dp[i - <span class="number">1</span>][j - <span class="number">1</span>])</div><div class="line">                        dp[i][j] = <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(j &gt; <span class="number">1</span>)</div><div class="line">                &#123;  <span class="comment">//'*' cannot be the 1st element</span></div><div class="line">                    <span class="keyword">if</span>(dp[i][j - <span class="number">1</span>] || dp[i][j - <span class="number">2</span>])  <span class="comment">// match 0 or 1 preceding element</span></div><div class="line">                        dp[i][j] = <span class="literal">true</span>;</div><div class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; (p[j - <span class="number">2</span>] == s[i - <span class="number">1</span>] || p[j - <span class="number">2</span>] == <span class="string">'.'</span>) &amp;&amp; dp[i - <span class="number">1</span>][j]) <span class="comment">// match multiple preceding elements</span></div><div class="line">                        dp[i][j] = <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dp[m][n];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="Wildcard-Matching"><a href="#Wildcard-Matching" class="headerlink" title="Wildcard Matching"></a>Wildcard Matching</h3><p><a href="https://leetcode.com/problems/wildcard-matching/description/" target="_blank" rel="external">Description</a>: Implement wildcard pattern matching with support for ‘?’ and ‘*’.</p>
+<blockquote>
+<p>‘?’ Matches any single character.<br>‘<em>‘ Matches any sequence of characters (including the empty sequence).<br>The matching should cover the entire input string (not partial).<br>The function prototype should be: bool isMatch(const char </em>s, const char <em>p)<br>Some examples:<br>isMatch(“aa”,”a”) → false<br>isMatch(“aa”,”aa”) → true<br>isMatch(“aaa”,”aa”) → false<br>isMatch(“aa”, “</em>“) → true<br>isMatch(“aa”, “a<em>“) → true<br>isMatch(“ab”, “?</em>“) → true<br>isMatch(“aab”, “c<em>a</em>b”) → false</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">（1）若两字符串中的字符匹配则索引均前进；</span></div><div class="line"><span class="comment">（2）若模式串中出现'*'，则记录'*'号位置 starIdx=pIdx，以及原串的当前位置 match=sIdx；</span></div><div class="line"><span class="comment">（3）若当前字符不匹配，且模式串当前字符不为'*'，而上一个字符为'*'，则模式串中待比较字符为'*'号下一个，</span></div><div class="line"><span class="comment">    原串字符索引则相对match位置继续前进；</span></div><div class="line"><span class="comment">（4）若以上条件均不满足，则两字符串不匹配，返回false；</span></div><div class="line"><span class="comment">（5）原串字符遍历结束后，判断模式串是否结束或者剩余字符是否均为'*'</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sIdx = <span class="number">0</span>, pIdx = <span class="number">0</span>, starIdx = <span class="number">-1</span>, match = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(sIdx &lt; s.length())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(pIdx &lt; p.length() &amp;&amp; (s[sIdx] == p[pIdx] || p[pIdx] == <span class="string">'?'</span>))     <span class="comment">// (1)  </span></div><div class="line">            &#123;</div><div class="line">                sIdx++;</div><div class="line">                pIdx++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pIdx &lt; p.length() &amp;&amp; p[pIdx] == <span class="string">'*'</span>)    <span class="comment">// (2)</span></div><div class="line">            &#123;</div><div class="line">                starIdx = pIdx;</div><div class="line">                pIdx++;</div><div class="line">                match = sIdx;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(starIdx != <span class="number">-1</span>)      <span class="comment">// (3)</span></div><div class="line">            &#123;</div><div class="line">                pIdx = starIdx + <span class="number">1</span>;</div><div class="line">                match++;</div><div class="line">                sIdx = match;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>                        <span class="comment">// (4)</span></div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(pIdx &lt; p.length() &amp;&amp; p[pIdx] == <span class="string">'*'</span>)      <span class="comment">// (5)</span></div><div class="line">            pIdx++;</div><div class="line">        <span class="keyword">return</span> pIdx == p.length();</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">DP方法：如果s[0:i)匹配p[0:j)，DP[i][j]=true，否则DP[i][j]=false</span></div><div class="line"><span class="comment">(1) DP[i][j] = DP[i - 1][j - 1] &amp;&amp; (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';</span></div><div class="line"><span class="comment">(2) DP[i][j] = DP[i][j - 1] || DP[i - 1][j], if p[j - 1] == '*'.</span></div><div class="line"><span class="comment">*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> lenS = s.length(), lenP = p.length();</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; match(lenS + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(lenP + <span class="number">1</span>, <span class="literal">false</span>));</div><div class="line">        match[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lenP &amp;&amp; p[j] == <span class="string">'*'</span>; j++)    <span class="comment">//模式串中起始字符为连续的'*'</span></div><div class="line">        &#123;</div><div class="line">            match[<span class="number">0</span>][j + <span class="number">1</span>] = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lenS; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lenP; j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(s[i] == p[j] || p[j] == <span class="string">'?'</span>)             <span class="comment">// (1)</span></div><div class="line">                    match[i + <span class="number">1</span>][j + <span class="number">1</span>] = match[i][j];</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(p[j] == <span class="string">'*'</span>)                        <span class="comment">// (2)</span></div><div class="line">                    match[i + <span class="number">1</span>][j + <span class="number">1</span>] = match[i][j + <span class="number">1</span>] || match[i + <span class="number">1</span>][j];</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    match[i + <span class="number">1</span>][j + <span class="number">1</span>] = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> match[lenS][lenP];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/code/" rel="tag">#code</a>
+          
+            <a href="/tags/recursive/" rel="tag">#recursive</a>
+          
+            <a href="/tags/backtracking/" rel="tag">#backtracking</a>
+          
+            <a href="/tags/dp/" rel="tag">#dp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/10/data-structure-binary-tree-3/" rel="next" title="二叉树问题集锦（三）">
+                <i class="fa fa-chevron-left"></i> 二叉树问题集锦（三）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/12/data-structure-binary-search-1/" rel="prev" title="二分查找（一）">
+                二分查找（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my.jpg"
+               alt="Senit_Co" />
+          <p class="site-author-name" itemprop="name">Senit_Co</p>
+          <p class="site-description motion-element" itemprop="description">Senit_Co's Blogs</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/senitco" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/hustershen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/hustershen/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-Parentheses"><span class="nav-number">1.</span> <span class="nav-text">Generate Parentheses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sudoku-Solver"><span class="nav-number">2.</span> <span class="nav-text">Sudoku Solver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regular-Expression-Matching"><span class="nav-number">3.</span> <span class="nav-text">Regular Expression Matching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wildcard-Matching"><span class="nav-number">4.</span> <span class="nav-text">Wildcard Matching</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Senit_Co</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'SenitCo';
+      var disqus_identifier = '2018/03/11/data-structure-backtracking-3/';
+      var disqus_title = '回溯(Backtracking)问题集锦（三）';
+      var disqus_url = 'https://senitco.github.io/2018/03/11/data-structure-backtracking-3/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

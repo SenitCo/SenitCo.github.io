@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/09/16/59bce0018d695.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/09/16/59bce41fc966a.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/09/16/59bce867e253a.jpg">
-<meta property="og:updated_time" content="2017-09-18T04:15:45.000Z">
+<meta property="og:updated_time" content="2018-08-03T04:22:11.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning -- Normalization">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;Normalization可理解为归一化、标准化或者规范化，广泛应用于诸多领域。整体来讲，Normalization扮演着对数据分布重新调整的角色。在图像处理领域，不同形式的归一化可以改变图像的灰度、对比度信息；在机器学习和神经网络中，Normalization可用于对数据去相关，加速模型训练，提高模型的泛化能力。">
@@ -279,8 +279,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
                   </a>
                 </span>
 
@@ -352,6 +352,7 @@
 <p><img src="https://i.loli.net/2017/09/14/59ba46a4b1b6c.jpg" alt="local_response_normalization_process.jpg" title="LRN流程图"></p>
 <p>为了使LRN输入输出的特征图数量一致，需要对特征图进行扩充(padding)，两端分别增加$n/2$个特征图，可直接拷贝相邻特征图。后续有研究表明，LRN在实际模型中发挥的作用不大，因而使用逐渐变少。</p>
 <h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>&emsp;&emsp;在训练神经网络模型时，由于网络参数在不断更新，每一层的输入分布也在不断变化，这迫使网络设置更小的学习率，导致更慢的训练速度，而且对参数初始化的要求也较高，这种现象称为Internal Convariate Shift。而Batch Normalization通过对每层的输入进行归一化，可以有效地缓解这个问题，网络可以使用较大的学习率，参数初值也无需刻意设置，并且可以起到正则化(Regularization)的作用，减弱了对Dropout的需求，保证了更快的训练速度和更精确的网络模型。</p>
+<h4 id="Internal-Convariate-Shift"><a href="#Internal-Convariate-Shift" class="headerlink" title="Internal Convariate Shift"></a>Internal Convariate Shift</h4><p>&emsp;&emsp;在统计机器学习中，一个经典假设就是源空间和目标空间的数据分布是一致的，如果不一致，则引入了新的研究分支，如Transform Learning、Domain Adaptation。而covariate shift就是数据分布不一致的一个子问题，表示源空间和目标空间的条件概率是一致的，但是其边缘概率不同，即对所有的$x \in \mathcal{X},P_s(Y|X=x)=P_t(Y|X=x)$，但是$P_s(X) \neq P_t(X)$。对于神经网络的各层输出，由于它们经过了层内操作作用，其分布显然与各层对应的输入分布不同，而且差异会随着网络深度增大而增大，可是它们对应的样本标记（label）仍然是不变的，这便符合了covariate shift的定义。由于是对层间信号的分析，也即是“internal”的来由。</p>
 <h4 id="Why-need-BN"><a href="#Why-need-BN" class="headerlink" title="Why need BN"></a>Why need BN</h4><p>&emsp;&emsp;在神经网络中，最基本的参数优化方法就是随机梯度下降(SGD)，通过最小化代价函数来求得一组模型参数<br>$$\theta = \underset{\theta}{\mathrm{arg min}} \dfrac{1}{N} \sum_{i=1}^N{\mathcal L\left(x_i, \theta\right)}$$<br>在实际训练过程中，通常采用minibatch的方法，即每次迭代训练一批数据，梯度计算如下：<br>$$\dfrac{1}{m}\sum \dfrac{\partial{\mathcal L \left(x_i, \theta\right)}}{\partial \theta}$$<br>minibatch可以近似整个训练集的梯度，并且可以并行地计算m个样本，比单独计算每个样本要快。但SGD仍然存在一些固有缺陷：</p>
 <ul>
 <li>学习率比较难设置，为了尽量避免梯度弥散(Gradiant Vanish)，只能设置较小的学习率，导致训练缓慢</li>
@@ -369,6 +370,7 @@
 <p>整个训练和测试流程如下：</p>
 <p><img src="https://i.loli.net/2017/09/16/59bce867e253a.jpg" alt="bn-inference.jpg" title="Training and Inference BN Network"></p>
 <p>BN变换置于网络激活函数层的前面，对于普通前馈神经网络，BN是对一层的每个神经元进行归一化处理；而在卷积神经网络中，BN则是对一层的每个特征图进行处理，类似于权值共享，一个特征图只有一对可学习参数$\gamma、\beta$，如果某一层的输入张量为$[batch\_size, height, width, channels]$，则BN变换是按照channels进行的，minibatch的大小相当于$batch\_size \times height \times width$。</p>
+<p>有研究者认为，BN通过mini-batch来规范化某些层/所有层的输入，从而可以固定每层输入信号的均值与方差，实际上解决的并不是covariate shift的问题，因为均值方差一致的分布并不是同样的分布，ICS只是一种包装纸，BN实际解决的是梯度弥散的问题，在反向传播中，小于1的梯度值通过连乘操作会趋于0，而BN通过将每一层的输入规范为均值、方差一致，使得梯度传播较为稳定，在一定程度上避免了梯度消失的问题。</p>
 <h4 id="Advantage"><a href="#Advantage" class="headerlink" title="Advantage"></a>Advantage</h4><p>总体来说，Batch Normalization主要有如下优点：</p>
 <ul>
 <li>保证网络各层输入的均值和方差稳定（数据分布不一定一致？），减弱Internal Convariate Shift的影响</li>
@@ -430,8 +432,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/15/deep-learning-optimization/" rel="prev" title="Deep Learning -- Optimization">
-                Deep Learning -- Optimization <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/10/cplusplus-smart-pointer/" rel="prev" title="C++智能指针">
+                C++智能指针 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -507,7 +509,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -515,7 +517,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -524,7 +526,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -589,7 +591,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Normalization-min-max"><span class="nav-number">1.</span> <span class="nav-text">Normalization(min-max)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Standardization"><span class="nav-number">2.</span> <span class="nav-text">Standardization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZCA-Whitening"><span class="nav-number">3.</span> <span class="nav-text">ZCA Whitening</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Global-Contrast-Normalization-GCN"><span class="nav-number">4.</span> <span class="nav-text">Global Contrast Normalization(GCN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Contrast-Normalization-LCN"><span class="nav-number">5.</span> <span class="nav-text">Local Contrast Normalization(LCN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Response-Normalization-LRN"><span class="nav-number">6.</span> <span class="nav-text">Local Response Normalization(LRN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">7.</span> <span class="nav-text">Batch Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Why-need-BN"><span class="nav-number">7.1.</span> <span class="nav-text">Why need BN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#What-is-BN"><span class="nav-number">7.2.</span> <span class="nav-text">What is BN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Advantage"><span class="nav-number">7.3.</span> <span class="nav-text">Advantage</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">8.</span> <span class="nav-text">reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Normalization-min-max"><span class="nav-number">1.</span> <span class="nav-text">Normalization(min-max)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Standardization"><span class="nav-number">2.</span> <span class="nav-text">Standardization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZCA-Whitening"><span class="nav-number">3.</span> <span class="nav-text">ZCA Whitening</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Global-Contrast-Normalization-GCN"><span class="nav-number">4.</span> <span class="nav-text">Global Contrast Normalization(GCN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Contrast-Normalization-LCN"><span class="nav-number">5.</span> <span class="nav-text">Local Contrast Normalization(LCN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Response-Normalization-LRN"><span class="nav-number">6.</span> <span class="nav-text">Local Response Normalization(LRN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">7.</span> <span class="nav-text">Batch Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Internal-Convariate-Shift"><span class="nav-number">7.1.</span> <span class="nav-text">Internal Convariate Shift</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Why-need-BN"><span class="nav-number">7.2.</span> <span class="nav-text">Why need BN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#What-is-BN"><span class="nav-number">7.3.</span> <span class="nav-text">What is BN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Advantage"><span class="nav-number">7.4.</span> <span class="nav-text">Advantage</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reference"><span class="nav-number">8.</span> <span class="nav-text">reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -608,7 +610,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
